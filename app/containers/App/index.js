@@ -9,8 +9,10 @@ import injectReducer from 'utils/injectReducer';
 import {DAEMON} from 'utils/constants';
 import {createStructuredSelector} from 'reselect';
 
-import {ConnectedSwitch} from 'utils/router';
-import PrivateRoute from 'components/PrivateRoute';
+import {ConnectedSwitch, RouteWithLayout, PrivateRoute} from 'utils/router';
+// console.log('RouteWithLayout', RouteWithLayout);
+// import PrivateRoute from 'components/PrivateRoute';
+import {GuestLayout, UserLayout} from 'containers/Layouts';
 import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
@@ -40,8 +42,13 @@ export class App extends React.PureComponent {
         </Helmet>
         <Navheader />
         <ConnectedSwitch>
-          <Route exact path="/" component={HomePage} />
-          <PrivateRoute path="/features" authed={!!profile.id} component={FeaturePage} />
+          <RouteWithLayout path="/" layout={GuestLayout} component={HomePage} exact />
+          <PrivateRoute
+            path="/features"
+            layout={UserLayout}
+            component={FeaturePage}
+            authed={!!profile.id}
+          />
           <Route path="" component={NotFoundPage} />
         </ConnectedSwitch>
         <Footer />
