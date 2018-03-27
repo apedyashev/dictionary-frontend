@@ -3,10 +3,10 @@ import {normalize} from 'normalizr';
 // import {camelizeKeys} from 'humps';
 // TODO
 // import config from 'config';
+import {errorHandler} from './errorHandler';
 const config = {
   apiBaseUrl: 'http://localhost:3001',
 };
-import {errorHandler} from './errorHandler';
 
 const http = {
   buildUrl: (endpoint) =>
@@ -66,8 +66,8 @@ const http = {
           ...headers,
         })
         .end((err, res) => {
-          const camelizedJson = camelizeKeys(res.body);
-          const response = Object.assign({}, normalize(camelizedJson, schema));
+          // const camelizedJson = camelizeKeys(res.body);
+          const response = Object.assign({}, normalize(res.body, schema));
 
           return err
             ? errorHandler(http.store.dispatch)(err).catch(reject)

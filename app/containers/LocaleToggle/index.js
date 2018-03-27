@@ -4,9 +4,8 @@ import {connect} from 'react-redux';
 import {createSelector} from 'reselect';
 
 import LanguageSelector from 'components/ui/LanguageSelector';
-import Toggle from 'components/Toggle';
-import messages from './messages';
-import {appLocales} from '../../i18n';
+// import messages from './messages';
+// import {appLocales} from '../../i18n';
 import {changeLocale} from '../LanguageProvider/actions';
 import {makeSelectLocale} from '../LanguageProvider/selectors';
 
