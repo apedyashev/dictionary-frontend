@@ -3,17 +3,18 @@
  */
 
 import React from 'react';
-import { shallow, render } from 'enzyme';
-import { IntlProvider } from 'react-intl';
+import {shallow, render} from 'enzyme';
+import {IntlProvider} from 'react-intl';
 
 import ListItem from 'components/ListItem';
-import { RepoListItem } from '../index';
+import {RepoListItem} from '../index';
 
-const renderComponent = (props = {}) => render(
-  <IntlProvider locale="en">
-    <RepoListItem {...props} />
-  </IntlProvider>
-);
+const renderComponent = (props = {}) =>
+  render(
+    <IntlProvider locale="en">
+      <RepoListItem {...props} />
+    </IntlProvider>
+  );
 
 describe('<RepoListItem />', () => {
   let item;
@@ -32,9 +33,7 @@ describe('<RepoListItem />', () => {
   });
 
   it('should render a ListItem', () => {
-    const renderedComponent = shallow(
-      <RepoListItem item={item} />
-    );
+    const renderedComponent = shallow(<RepoListItem item={item} />);
     expect(renderedComponent.find(ListItem).length).toBe(1);
   });
 
@@ -55,17 +54,17 @@ describe('<RepoListItem />', () => {
   });
 
   it('should render the repo name', () => {
-    const renderedComponent = renderComponent({ item });
+    const renderedComponent = renderComponent({item});
     expect(renderedComponent.text()).toContain(item.name);
   });
 
   it('should render the issue count', () => {
-    const renderedComponent = renderComponent({ item });
+    const renderedComponent = renderComponent({item});
     expect(renderedComponent.text()).toContain(item.open_issues_count);
   });
 
   it('should render the IssueIcon', () => {
-    const renderedComponent = renderComponent({ item });
+    const renderedComponent = renderComponent({item});
     expect(renderedComponent.find('svg').length).toBe(1);
   });
 });

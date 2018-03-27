@@ -5,7 +5,7 @@ import styles from './index.css';
 console.log('styles', styles);
 
 //https://github.com/gilbarbara/react-redux-saga-boilerplate/blob/master/app/scripts/components/Loader.jsx
-const Loader = ({ pulse }) => {
+const Loader = ({pulse}) => {
   let html;
 
   if (pulse) {
@@ -14,8 +14,7 @@ const Loader = ({ pulse }) => {
         <div />
       </div>
     );
-  }
-  else {
+  } else {
     html = (
       <div className={cn(styles.loader, styles['loader--rotate'])}>
         <svg className={styles['loader--rotate__svg']}>
@@ -44,7 +43,6 @@ Loader.defaultProps = {
 };
 
 export default Loader;
-
 
 // import React from 'react';
 //

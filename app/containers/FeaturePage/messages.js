@@ -3,7 +3,7 @@
  *
  * This contains all the text for the FeaturePage component.
  */
-import { defineMessages } from 'react-intl';
+import {defineMessages} from 'react-intl';
 
 export default defineMessages({
   header: {
@@ -90,6 +90,7 @@ export default defineMessages({
   },
   intlMessage: {
     id: 'boilerplate.containers.FeaturePage.internationalization.message',
-    defaultMessage: 'Scalable apps need to support multiple languages, easily add and support multiple languages with `react-intl`.',
+    defaultMessage:
+      'Scalable apps need to support multiple languages, easily add and support multiple languages with `react-intl`.',
   },
 });

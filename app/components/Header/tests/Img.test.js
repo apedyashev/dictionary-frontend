@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, render } from 'enzyme';
+import {mount, render} from 'enzyme';
 
 import Img from '../Img';
 
@@ -20,7 +20,9 @@ describe('<Img />', () => {
   });
 
   it('should not adopt an invalid attribute', () => {
-    const renderedComponent = mount(<Img src={'http://example.com/test.jpg'} attribute={'test'} alt={'test'} />);
+    const renderedComponent = mount(
+      <Img src={'http://example.com/test.jpg'} attribute={'test'} alt={'test'} />
+    );
     expect(renderedComponent.find('img').prop('attribute')).toBeUndefined();
   });
 });

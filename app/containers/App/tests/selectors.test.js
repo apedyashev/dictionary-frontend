@@ -1,4 +1,4 @@
-import { fromJS } from 'immutable';
+import {fromJS} from 'immutable';
 
 import {
   selectGlobal,
@@ -77,7 +77,7 @@ describe('makeSelectLocation', () => {
   const locationStateSelector = makeSelectLocation();
   it('should select the location', () => {
     const route = fromJS({
-      location: { pathname: '/foo' },
+      location: {pathname: '/foo'},
     });
     const mockedState = fromJS({
       route,

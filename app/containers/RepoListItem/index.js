@@ -6,18 +6,19 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { FormattedNumber } from 'react-intl';
+import {connect} from 'react-redux';
+import {createStructuredSelector} from 'reselect';
+import {FormattedNumber} from 'react-intl';
 
-import { makeSelectCurrentUser } from 'containers/App/selectors';
+import {makeSelectCurrentUser} from 'containers/App/selectors';
 import ListItem from 'components/ListItem';
 import IssueIcon from './IssueIcon';
 import IssueLink from './IssueLink';
 import RepoLink from './RepoLink';
 import Wrapper from './Wrapper';
 
-export class RepoListItem extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class RepoListItem extends React.PureComponent {
+  // eslint-disable-line react/prefer-stateless-function
   render() {
     const item = this.props.item;
     let nameprefix = '';
@@ -42,9 +43,7 @@ export class RepoListItem extends React.PureComponent { // eslint-disable-line r
     );
 
     // Render the content into a list item
-    return (
-      <ListItem key={`repo-list-item-${item.full_name}`} item={content} />
-    );
+    return <ListItem key={`repo-list-item-${item.full_name}`} item={content} />;
   }
 }
 
@@ -53,6 +52,8 @@ RepoListItem.propTypes = {
   currentUser: PropTypes.string,
 };
 
-export default connect(createStructuredSelector({
-  currentUser: makeSelectCurrentUser(),
-}))(RepoListItem);
+export default connect(
+  createStructuredSelector({
+    currentUser: makeSelectCurrentUser(),
+  })
+)(RepoListItem);

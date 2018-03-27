@@ -1,36 +1,36 @@
-import PropTypes from 'prop-types'
-import React from 'react'
-import { Icon, Image, Menu, Sidebar } from 'semantic-ui-react'
+import PropTypes from 'prop-types';
+import React from 'react';
+import {Icon, Image, Menu, Sidebar} from 'semantic-ui-react';
 
 // import logo from 'resources/logo.png'
-import * as styles from './NavbarMobile.css'
+import * as styles from './NavbarMobile.css';
 
-const NavbarMobile = ({ children, leftItems, onPusherClick, onToggle, rightItems, visible }) => (
+const NavbarMobile = ({children, leftItems, onPusherClick, onToggle, rightItems, visible}) => (
   <Sidebar.Pushable>
     <Sidebar
       as={Menu}
-      animation='overlay'
-      icon='labeled'
+      animation="overlay"
+      icon="labeled"
       inverted
       items={[...leftItems, ...rightItems]}
       vertical
       visible={visible}
     />
     <Sidebar.Pusher dimmed={visible} onClick={onPusherClick} className={styles.pusher}>
-      <Menu fixed='top' inverted>
+      <Menu fixed="top" inverted>
         <Menu.Item>
-          <Image size='mini' src={''} />
+          <Image size="mini" src={''} />
         </Menu.Item>
-        <Menu.Menu position='right'>
+        <Menu.Menu position="right">
           <Menu.Item onClick={onToggle}>
-            <Icon name='sidebar' />
+            <Icon name="sidebar" />
           </Menu.Item>
         </Menu.Menu>
       </Menu>
       {children}
     </Sidebar.Pusher>
   </Sidebar.Pushable>
-)
+);
 
 NavbarMobile.propTypes = {
   children: PropTypes.node,
@@ -39,6 +39,6 @@ NavbarMobile.propTypes = {
   onToggle: PropTypes.func.isRequired,
   rightItems: PropTypes.arrayOf(PropTypes.object),
   visible: PropTypes.bool.isRequired,
-}
+};
 
-export default NavbarMobile
+export default NavbarMobile;

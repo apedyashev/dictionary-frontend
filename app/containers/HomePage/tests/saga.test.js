@@ -2,12 +2,12 @@
  * Tests for HomePage sagas
  */
 
-import { put, takeLatest } from 'redux-saga/effects';
+import {put, takeLatest} from 'redux-saga/effects';
 
-import { LOAD_REPOS } from 'containers/App/constants';
-import { reposLoaded, repoLoadingError } from 'containers/App/actions';
+import {LOAD_REPOS} from 'containers/App/constants';
+import {reposLoaded, repoLoadingError} from 'containers/App/actions';
 
-import githubData, { getRepos } from '../saga';
+import githubData, {getRepos} from '../saga';
 
 const username = 'mxstbr';
 
@@ -28,11 +28,14 @@ describe('getRepos Saga', () => {
   });
 
   it('should dispatch the reposLoaded action if it requests the data successfully', () => {
-    const response = [{
-      name: 'First repo',
-    }, {
-      name: 'Second repo',
-    }];
+    const response = [
+      {
+        name: 'First repo',
+      },
+      {
+        name: 'Second repo',
+      },
+    ];
     const putDescriptor = getReposGenerator.next(response).value;
     expect(putDescriptor).toEqual(put(reposLoaded(response, username)));
   });

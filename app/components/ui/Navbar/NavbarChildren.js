@@ -1,13 +1,15 @@
-import PropTypes from 'prop-types'
-import React from 'react'
-import { Container } from 'semantic-ui-react'
+import PropTypes from 'prop-types';
+import React from 'react';
+import {Container} from 'semantic-ui-react';
 
-import * as styles from './NavbarChildren.css'
+import * as styles from './NavbarChildren.css';
 
-const NavbarChildren = ({ children }) => <Container className={styles.container}>{children}</Container>
+const NavbarChildren = ({children}) => (
+  <Container className={styles.container}>{children}</Container>
+);
 
 NavbarChildren.propTypes = {
   children: PropTypes.node,
-}
+};
 
-export default NavbarChildren
+export default NavbarChildren;

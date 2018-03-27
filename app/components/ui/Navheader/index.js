@@ -2,8 +2,8 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
-import { Button } from 'semantic-ui-react'
-import { Responsive } from 'semantic-ui-react'
+import {Button} from 'semantic-ui-react';
+import {Responsive} from 'semantic-ui-react';
 // other
 import styles from './index.css';
 

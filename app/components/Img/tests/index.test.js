@@ -1,13 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import {shallow} from 'enzyme';
 
 import Img from '../index';
 
 const src = 'test.png';
 const alt = 'test';
-const renderComponent = (props = {}) => shallow(
-  <Img src={src} alt={alt} {...props} />
-);
+const renderComponent = (props = {}) => shallow(<Img src={src} alt={alt} {...props} />);
 
 describe('<Img />', () => {
   it('should render an <img> tag', () => {
@@ -32,13 +30,13 @@ describe('<Img />', () => {
 
   it('should adopt a className attribute', () => {
     const className = 'test';
-    const renderedComponent = renderComponent({ className });
+    const renderedComponent = renderComponent({className});
     expect(renderedComponent.hasClass(className)).toBe(true);
   });
 
   it('should not adopt a srcset attribute', () => {
     const srcset = 'test-HD.png 2x';
-    const renderedComponent = renderComponent({ srcset });
+    const renderedComponent = renderComponent({srcset});
     expect(renderedComponent.prop('srcset')).toBeUndefined();
   });
 });

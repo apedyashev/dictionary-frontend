@@ -1,14 +1,14 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { browserHistory } from 'react-router-dom';
-import { shallow, mount } from 'enzyme';
+import {Provider} from 'react-redux';
+import {browserHistory} from 'react-router-dom';
+import {shallow, mount} from 'enzyme';
 
-import LocaleToggle, { mapDispatchToProps } from '../index';
-import { changeLocale } from '../../LanguageProvider/actions';
+import LocaleToggle, {mapDispatchToProps} from '../index';
+import {changeLocale} from '../../LanguageProvider/actions';
 import LanguageProvider from '../../LanguageProvider';
 
 import configureStore from '../../../configureStore';
-import { translationMessages } from '../../../i18n';
+import {translationMessages} from '../../../i18n';
 
 describe('<LocaleToggle />', () => {
   let store;
@@ -51,7 +51,7 @@ describe('<LocaleToggle />', () => {
         const dispatch = jest.fn();
         const result = mapDispatchToProps(dispatch);
         const locale = 'de';
-        const evt = { target: { value: locale } };
+        const evt = {target: {value: locale}};
         result.onLocaleToggle(evt);
         expect(dispatch).toHaveBeenCalledWith(changeLocale(locale));
       });

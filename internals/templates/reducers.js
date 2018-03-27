@@ -2,9 +2,9 @@
  * Combine all reducers in this file and export the combined reducers.
  */
 
-import { combineReducers } from 'redux-immutable';
-import { fromJS } from 'immutable';
-import { LOCATION_CHANGE } from 'react-router-redux';
+import {combineReducers} from 'redux-immutable';
+import {fromJS} from 'immutable';
+import {LOCATION_CHANGE} from 'react-router-redux';
 
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 
