@@ -7,16 +7,22 @@
 import {addLocaleData} from 'react-intl';
 import enLocaleData from 'react-intl/locale-data/en';
 import deLocaleData from 'react-intl/locale-data/de';
+import ruLocaleData from 'react-intl/locale-data/ru';
+import rsLocaleData from 'react-intl/locale-data/sr';
 
 import {DEFAULT_LOCALE} from '../app/containers/App/constants';
 
 import enTranslationMessages from './translations/en.json';
 import deTranslationMessages from './translations/de.json';
+import ruTranslationMessages from './translations/ru.json';
+import rsTranslationMessages from './translations/sr.json';
 
 addLocaleData(enLocaleData);
 addLocaleData(deLocaleData);
+addLocaleData(ruLocaleData);
+addLocaleData(rsLocaleData);
 
-export const appLocales = ['en', 'de'];
+export const appLocales = ['en', 'de', 'ru', 'sr'];
 
 export const formatTranslationMessages = (locale, messages) => {
   const defaultFormattedMessages =
@@ -33,4 +39,6 @@ export const formatTranslationMessages = (locale, messages) => {
 export const translationMessages = {
   en: formatTranslationMessages('en', enTranslationMessages),
   de: formatTranslationMessages('de', deTranslationMessages),
+  ru: formatTranslationMessages('ru', ruTranslationMessages),
+  sr: formatTranslationMessages('sr', rsTranslationMessages),
 };
