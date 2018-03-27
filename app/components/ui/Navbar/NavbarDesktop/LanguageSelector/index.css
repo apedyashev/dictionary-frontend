@@ -1,0 +1,21 @@
+
+.dropdownWrappingBtn {
+  padding: 0 !important;
+  width: 115px;
+}
+.dropdown {
+  /* padding: 0 !important; */
+  /* margin: 0 7px 0 0px !important; */
+  > div {
+    /* margin: 10px !important; */
+  }
+  > i {
+    right: 10px !important;
+    margin: 0 !important;
+    float: right !important;
+    position: absolute !important;
+  }
+  :global .menu {
+    margin-top: 0 !important;
+  }
+}
