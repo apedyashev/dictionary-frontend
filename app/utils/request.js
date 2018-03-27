@@ -39,8 +39,18 @@ function checkStatus(response) {
  *
  * @return {object}           The response data
  */
-export default function request(url, options) {
-  return fetch(url, options)
-    .then(checkStatus)
-    .then(parseJSON);
-}
+// export default function request(url, options) {
+//   return fetch(url, options)
+//     .then(checkStatus)
+//     .then(parseJSON);
+// }
+// TODO: config
+const baseUrl = 'http://localhost:3001';
+export default {
+  get({url, ...options}) {
+    console.log('[GET]', `${baseUrl}${url}`);
+    return fetch(`${baseUrl}${url}`, options)
+      .then(checkStatus)
+      .then(parseJSON);
+  },
+};

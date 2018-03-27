@@ -15,6 +15,7 @@ import {Provider} from 'react-redux';
 import {ConnectedRouter} from 'react-router-redux';
 import FontFaceObserver from 'fontfaceobserver';
 import createHistory from 'history/createBrowserHistory';
+import http from 'utils/http';
 import 'sanitize.css/sanitize.css';
 import 'semantic-ui-css/semantic.min.css';
 
@@ -69,6 +70,8 @@ const initialState = {};
 const history = createHistory();
 const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
+
+http.setStore(store);
 
 const render = (messages) => {
   ReactDOM.render(

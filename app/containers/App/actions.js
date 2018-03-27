@@ -1,21 +1,21 @@
-/*
- * App Actions
- *
- * Actions change things in your application
- * Since this boilerplate uses a uni-directional data flow, specifically redux,
- * we have these actions which are the only way your application interacts with
- * your application state. This guarantees that your state is up to date and nobody
- * messes it up weirdly somewhere.
- *
- * To add a new Action:
- * 1) Import your constant
- * 2) Add a function like this:
- *    export function yourAction(var) {
- *        return { type: YOUR_ACTION_CONSTANT, var: var }
- *    }
- */
+import {schema} from 'normalizr';
+import {action, createRequestTypes} from 'utils/actions';
 
-import {LOAD_REPOS, LOAD_REPOS_SUCCESS, LOAD_REPOS_ERROR} from './constants';
+import {LOAD_PROFILE, LOAD_REPOS, LOAD_REPOS_SUCCESS, LOAD_REPOS_ERROR} from './constants';
+
+export const profileActionTypes = {
+  GET: createRequestTypes('PROFILE/GET'),
+};
+
+export const userSchema = new schema.Entity('users', {
+  // friends: friendsSchemaArray,
+});
+
+export const loadProfileActions = {
+  request: () => action(profileActionTypes.GET.REQUEST, {schema: {user: userSchema}}),
+  success: (response) => action(profileActionTypes.GET.SUCCESS, response),
+  failure: (error) => action(profileActionTypes.GET.FAILURE, {error}),
+};
 
 /**
  * Load the repositories, this action starts the request saga

@@ -11,6 +11,7 @@ import {FormattedMessage} from 'react-intl';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {createStructuredSelector} from 'reselect';
+import {Link} from 'react-router-dom';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
@@ -64,6 +65,7 @@ export class HomePage extends React.PureComponent {
             </p>
           </CenteredSection>
           <Section>
+            <Link to="/features">features</Link>
             <H2>
               <FormattedMessage {...messages.trymeHeader} />
             </H2>

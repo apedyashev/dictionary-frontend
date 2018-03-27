@@ -198,6 +198,7 @@
     "ip": "1.1.5",
     "lodash": "4.17.4",
     "minimist": "1.2.0",
+    "normalizr": "^3.2.4",
     "postcss": "^6.0.21",
     "postcss-cssnext": "^3.1.0",
     "postcss-flexbugs-fixes": "^3.3.0",
@@ -219,9 +220,9 @@
     "reselect": "3.0.1",
     "sanitize.css": "4.1.0",
     "semantic-ui-css": "^2.3.1",
-    "semantic-ui-less": "^2.3.1",
     "semantic-ui-react": "^0.79.0",
     "styled-components": "2.0.0",
+    "superagent": "^3.8.2",
     "warning": "3.0.0",
     "whatwg-fetch": "2.0.3"
   },
