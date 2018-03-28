@@ -23,7 +23,7 @@ import {Paper} from 'components/ui';
 // import ReposList from 'components/ReposList';
 // import AtPrefix from './AtPrefix';
 // import CenteredSection from './CenteredSection';
-import Form from './Form';
+import Form from './components/Form';
 // import Input from './Input';
 // import Section from './Section';
 // import messages from './messages';
@@ -56,10 +56,10 @@ export class HomePage extends React.PureComponent {
     return (
       <div className={styles.container}>
         <Grid>
-          <Grid.Column floated="left" width={10}>
+          <Grid.Column floated="left" width={11}>
             text left
           </Grid.Column>
-          <Grid.Column floated="right" width={6}>
+          <Grid.Column floated="right" width={5}>
             <Paper>
               <Form />
             </Paper>

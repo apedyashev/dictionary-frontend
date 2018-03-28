@@ -2,31 +2,54 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 import cn from 'classnames';
+import _uniqueId from 'lodash/uniqueId';
 // other
-import styles from '../material-design.css';
+import '../material-design.css';
 
-export default function Input({floatingLabel, hintText, value, error, onChange}) {
+export default function Input({
+  id,
+  name,
+  type,
+  floatingLabel,
+  hintText,
+  value,
+  error,
+  onChange,
+  onBlur,
+}) {
+  const inputId = id || `input-${_uniqueId()}`;
   return (
     <div className={cn('form-element form-input', {'has-error': !!error})}>
       <input
-        className="form-element-field"
+        id={inputId}
+        className={cn('form-element-field', {'form-element-has-value': !!value})}
         placeholder={hintText}
+        type={type}
+        name={name}
         value={value}
-        required
         onChange={onChange}
+        onBlur={onBlur}
       />
       <div className="form-element-bar" />
-      <label className="form-element-label">{floatingLabel}</label>
+      <label className="form-element-label" htmlFor={inputId}>
+        {floatingLabel}
+      </label>
       <small className="form-element-hint">{error}</small>
     </div>
   );
 }
 Input.propTypes = {
+  id: PropTypes.any,
+  type: PropTypes.string,
+  name: PropTypes.string,
   floatingLabel: PropTypes.string,
   hintText: PropTypes.string,
   error: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onBlur: PropTypes.func,
+  onChange: PropTypes.func,
 };
 Input.defaultProps = {
   hintText: ' ',
+  type: 'text',
 };

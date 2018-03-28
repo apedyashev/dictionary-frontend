@@ -321,15 +321,13 @@ $error-color: #d9534f;
     color: $active-color;
   }
 
-  .form-element-field.-hasvalue,
-  .form-element-field:valid,
+  .form-element-field.form-element-has-value,
   .form-element-field:focus {
     color: #333;
     opacity: 1;
   }
 
-  .form-element-field.-hasvalue ~ .form-element-label,
-  .form-element-field:valid ~ .form-element-label,
+  .form-element-field.form-element-has-value ~ .form-element-label,
   .form-element-field:focus ~ .form-element-label {
     transform: translateY(-100%) translateY(-0.5em) translateY(-2px) scale(0.9);
     cursor: pointer;
