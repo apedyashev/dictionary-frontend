@@ -9,16 +9,18 @@ import injectReducer from 'utils/injectReducer';
 import {DAEMON} from 'utils/constants';
 import {createStructuredSelector} from 'reselect';
 
-import {ConnectedSwitch, RouteWithLayout, PrivateRoute} from 'utils/router';
+import {ConnectedSwitch, RouteWithLayout, PrivateRoute, GuestRoute} from 'utils/router';
 // console.log('RouteWithLayout', RouteWithLayout);
 // import PrivateRoute from 'components/PrivateRoute';
-import {GuestLayout, UserLayout} from 'containers/Layouts';
+import {GuestLayout, DashboardLayout} from 'containers/Layouts';
+import {DictionariesPage} from 'containers/Dashboard';
+import LoginPage from 'containers/LoginPage';
 import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 // import Header from 'components/Header';
 // import Navheader from 'components/ui/Navheader';
-import Navheader from 'components/ui/Navbar';
+
 import Footer from 'components/Footer';
 
 import {loadProfileActions, setToken} from './actions';
@@ -40,13 +42,26 @@ export class App extends React.PureComponent {
         <Helmet titleTemplate="%s - React.js Boilerplate" defaultTitle="React.js Boilerplate">
           <meta name="description" content="A React.js Boilerplate application" />
         </Helmet>
-        <Navheader />
+
         <ConnectedSwitch>
-          <RouteWithLayout path="/" layout={GuestLayout} component={HomePage} exact />
+          <GuestRoute
+            path="/"
+            layout={GuestLayout}
+            component={HomePage}
+            exact
+            authed={!!profile.id}
+          />
+          <GuestRoute
+            path="/login"
+            layout={GuestLayout}
+            component={LoginPage}
+            exact
+            authed={!!profile.id}
+          />
           <PrivateRoute
-            path="/features"
-            layout={UserLayout}
-            component={FeaturePage}
+            path="/dashboard"
+            layout={DashboardLayout}
+            component={DictionariesPage}
             authed={!!profile.id}
           />
           <Route path="" component={NotFoundPage} />
