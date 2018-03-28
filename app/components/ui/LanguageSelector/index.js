@@ -2,7 +2,7 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
-import {Container, Image, Menu, Button, Dropdown, Flag} from 'semantic-ui-react';
+import {Button, Dropdown} from 'semantic-ui-react';
 // other
 import styles from './index.css';
 
@@ -22,7 +22,18 @@ export default function NavLanguageSelector({value, languages, onChange}) {
     </Button>
   );
 }
-NavLanguageSelector.propTypes = {};
+NavLanguageSelector.propTypes = {
+  value: PropTypes.string.isRequired,
+  languages: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.number,
+      text: PropTypes.string,
+      value: PropTypes.string,
+      flag: PropTypes.string,
+    })
+  ),
+  onChange: PropTypes.func.isRequired,
+};
 NavLanguageSelector.defaultProps = {
   value: 'en',
   languages: [

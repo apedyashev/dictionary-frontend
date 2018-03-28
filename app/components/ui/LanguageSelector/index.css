@@ -1,6 +1,10 @@
 .dropdownWrappingBtn {
   padding: 0 !important;
-  width: 115px;
+  width: 116px;
+  &:hover {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
 }
 .dropdown {
   > i {
@@ -10,6 +14,8 @@
     position: absolute !important;
   }
   :global .menu {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
     margin-top: 0 !important;
   }
 }

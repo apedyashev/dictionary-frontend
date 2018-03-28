@@ -1,14 +1,12 @@
 // libs
 import React from 'react';
 import {PropTypes} from 'prop-types';
-// components
+// other
+import styles from './index.css';
 
 export default function GuestLayout({children}) {
-  return (
-    <div>
-      Guest
-      {children}
-    </div>
-  );
+  return <div className={styles.root}>{children}</div>;
 }
-GuestLayout.propTypes = {};
+GuestLayout.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+};

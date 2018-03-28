@@ -2,15 +2,11 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
+import styles from './index.css';
 
-export default function UserLayout({children}) {
-  return (
-    <div>
-      User
-      {children}
-    </div>
-  );
+export default function Paper({children}) {
+  return <div className={styles.root}>{children}</div>;
 }
-UserLayout.propTypes = {
+Paper.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
 };
