@@ -3,6 +3,14 @@ import {action, createRequestTypes} from 'utils/actions';
 
 import {LOAD_PROFILE, LOAD_REPOS, LOAD_REPOS_SUCCESS, LOAD_REPOS_ERROR} from './constants';
 
+export const SET_TOKEN = '@APP/SET_TOKEN';
+export function setToken(token) {
+  return {
+    type: SET_TOKEN,
+    token,
+  };
+}
+
 export const profileActionTypes = {
   GET: createRequestTypes('PROFILE/GET'),
 };
@@ -15,6 +23,22 @@ export const loadProfileActions = {
   request: () => action(profileActionTypes.GET.REQUEST, {schema: {user: userSchema}}),
   success: (response) => action(profileActionTypes.GET.SUCCESS, response),
   failure: (error) => action(profileActionTypes.GET.FAILURE, {error}),
+};
+
+export const entityActionTypes = {
+  POST: createRequestTypes('ENTITY/CREATE'),
+};
+export const createEntityActions = {
+  request: (payload, entity, meta) =>
+    action(entityActionTypes.POST.REQUEST, {payload, entity, meta}),
+  success: (response, entity) => action(entityActionTypes.POST.SUCCESS, {...response, entity}),
+  failure: (error, entity) => action(entityActionTypes.POST.FAILURE, {error, entity}),
+};
+
+export const newUserEntity = {
+  key: 'user',
+  url: 'auth/register',
+  schema: {user: userSchema},
 };
 
 /**

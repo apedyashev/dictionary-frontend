@@ -42,7 +42,7 @@ const http = {
         })
         .end((err, res) => {
           // const camelizedJson = camelizeKeys(res.body);
-          const response = Object.assign({}, normalize(res.body, schema));
+          const response = Object.assign({}, normalize(res.body || {}, schema));
 
           return err
             ? errorHandler(http.store.dispatch)(err).catch(reject)
@@ -51,15 +51,20 @@ const http = {
     });
   },
 
-  post: ({url, data, schema, headers = {}}) => {
-    if (!schema) {
-      console.warn(`Shema is not defined for ${url}`);
+  post: ({url, payload, schema, headers = {}}) => {
+    if (process.env.NODE_ENV !== 'production') {
+      if (!schema) {
+        console.warn(`schema is not defined for ${url}`);
+      }
+      if (!http.store) {
+        console.warn('http.store isn`t set');
+      }
     }
 
     return new Promise((resolve, reject) => {
       return superagent
         .post(http.buildUrl(url))
-        .send(data)
+        .send(payload)
         .set({
           Accept: 'application/json',
           Authorization: http.getAuthHeader(),
@@ -67,7 +72,7 @@ const http = {
         })
         .end((err, res) => {
           // const camelizedJson = camelizeKeys(res.body);
-          const response = Object.assign({}, normalize(res.body, schema));
+          const response = Object.assign({}, normalize(res.body || {}, schema));
 
           return err
             ? errorHandler(http.store.dispatch)(err).catch(reject)

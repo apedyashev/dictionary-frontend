@@ -21,7 +21,7 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Navheader from 'components/ui/Navbar';
 import Footer from 'components/Footer';
 
-import {loadProfileActions} from './actions';
+import {loadProfileActions, setToken} from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import {makeSelectProfileLoading, makeSelectProfileData} from './selectors';
@@ -59,8 +59,14 @@ export class App extends React.PureComponent {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    // onChangeUsername: (evt) => dispatch(changeUsername(evt.target.value)),
     onLoadProfile: () => {
+      let token;
+      try {
+        token = localStorage.getItem('authToken') || '';
+      } catch (err) {
+        token = '';
+      }
+      dispatch(setToken(token));
       dispatch(loadProfileActions.request());
     },
   };
@@ -76,7 +82,6 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
 const withReducer = injectReducer({key: 'app', reducer});
 const withSaga = injectSaga({key: 'app', saga, mode: DAEMON});
 

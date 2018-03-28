@@ -2,7 +2,7 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
-import {Input} from 'components/ui';
+import Input from 'components/ui/form/Input';
 
 export default function ReduxFormInputField({
   input,

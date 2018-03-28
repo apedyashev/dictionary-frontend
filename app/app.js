@@ -16,6 +16,7 @@ import {ConnectedRouter} from 'react-router-redux';
 import FontFaceObserver from 'fontfaceobserver';
 import createHistory from 'history/createBrowserHistory';
 import http from 'utils/http';
+// import {setToken} from 'containers/App/actions';
 import 'sanitize.css/sanitize.css';
 import 'semantic-ui-css/semantic.min.css';
 
@@ -70,6 +71,15 @@ const initialState = {};
 const history = createHistory();
 const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
+
+// const getToken = () => {
+//   try {
+//     return localStorage.getItem('authToken') || '';
+//   } catch (err) {
+//     return '';
+//   }
+// };
+// store.dispatch(setToken(getToken()));
 
 http.setStore(store);
 
