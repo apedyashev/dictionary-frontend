@@ -31,6 +31,8 @@ const makeSelectIsLoginRoute = () =>
 
 const makeSelectProfileLoading = () =>
   createSelector(selectGlobal, (globalState) => globalState.getIn(['profile', 'loading']));
+const makeSelectProfileLoaded = () =>
+  createSelector(selectGlobal, (globalState) => globalState.getIn(['profile', 'loaded']));
 const makeSelectProfileData = () =>
   createSelector(selectGlobal, (globalState) => globalState.getIn(['profile', 'data']));
 
@@ -43,5 +45,6 @@ export {
   makeSelectLocation,
   makeSelectIsLoginRoute,
   makeSelectProfileLoading,
+  makeSelectProfileLoaded,
   makeSelectProfileData,
 };

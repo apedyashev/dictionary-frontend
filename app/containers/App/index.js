@@ -18,6 +18,7 @@ import FacebookCallbackPage from 'containers/FacebookCallbackPage/Loadable';
 import LoginPage from 'containers/LoginPage';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import {PageLoader} from 'components/ui';
 // import Header from 'components/Header';
 // import Navheader from 'components/ui/Navheader';
 
@@ -26,7 +27,11 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import {loadProfileActions, setToken} from './actions';
 import reducer from './reducer';
 import saga from './saga';
-import {makeSelectProfileLoading, makeSelectProfileData} from './selectors';
+import {
+  makeSelectProfileLoading,
+  makeSelectProfileLoaded,
+  makeSelectProfileData,
+} from './selectors';
 
 export class App extends React.PureComponent {
   componentDidMount() {
@@ -35,37 +40,41 @@ export class App extends React.PureComponent {
 
   // important: https://github.com/ReactTraining/react-router/issues/5072#issuecomment-310184271
   render() {
-    const {isProfileLoading, profile} = this.props;
+    const {isProfileLoaded, profile} = this.props;
     return (
       <div>
         <Helmet titleTemplate="%s - React.js Boilerplate" defaultTitle="React.js Boilerplate">
           <meta name="description" content="A React.js Boilerplate application" />
         </Helmet>
 
-        <ConnectedSwitch>
-          <GuestRoute
-            path="/"
-            layout={GuestLayout}
-            component={HomePage}
-            exact
-            authed={!!profile.id}
-          />
-          <GuestRoute
-            path="/login"
-            layout={GuestLayout}
-            component={HomePage}
-            exact
-            authed={!!profile.id}
-          />
-          <PrivateRoute
-            path="/dashboard"
-            layout={DashboardLayout}
-            component={DictionariesPage}
-            authed={!!profile.id}
-          />
-          <Route path="/facebook/callback" component={FacebookCallbackPage} />
-          <Route path="" component={NotFoundPage} />
-        </ConnectedSwitch>
+        {isProfileLoaded ? (
+          <ConnectedSwitch>
+            <GuestRoute
+              path="/"
+              layout={GuestLayout}
+              component={HomePage}
+              exact
+              authed={!!profile.id}
+            />
+            <GuestRoute
+              path="/login"
+              layout={GuestLayout}
+              component={HomePage}
+              exact
+              authed={!!profile.id}
+            />
+            <PrivateRoute
+              path="/dashboard"
+              layout={DashboardLayout}
+              component={DictionariesPage}
+              authed={!!profile.id}
+            />
+            <Route path="/facebook/callback" component={FacebookCallbackPage} />
+            <Route path="" component={NotFoundPage} />
+          </ConnectedSwitch>
+        ) : (
+          <PageLoader />
+        )}
       </div>
     );
   }
@@ -87,7 +96,7 @@ export function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  isProfileLoading: makeSelectProfileLoading(),
+  isProfileLoaded: makeSelectProfileLoaded(),
   profile: makeSelectProfileData(),
   // repos: makeSelectRepos(),
   // username: makeSelectUsername(),

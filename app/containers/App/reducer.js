@@ -19,8 +19,8 @@ import {profileActionTypes, entityActionTypes, SET_TOKEN} from './actions';
 const initialState = fromJS({
   profile: {
     loading: false,
+    loaded: false,
     authHeader: '',
-    // 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhYmEzZDg2OTVlYmI1MDAyNmJmNzI2OCIsImlhdCI6MTUyMjE1NDg4Nn0.PcSyTCxNua8KR0JzfC3vNXaoMA94iPX-GWXKccfhxQ0',
     data: {},
   },
   entities: {},
@@ -45,6 +45,7 @@ function appReducer(state = initialState, action) {
       const userId = action.response.result.user;
       return state
         .setIn(['profile', 'loading'], false)
+        .setIn(['profile', 'loaded'], true)
         .setIn(['profile', 'data'], action.response.entities.users[userId]);
     }
 
@@ -62,7 +63,7 @@ function appReducer(state = initialState, action) {
     }
 
     case profileActionTypes.GET.FAILURE:
-      return state.setIn(['profile', 'loading'], false);
+      return state.setIn(['profile', 'loading'], false).setIn(['profile', 'loaded'], true);
 
     case LOAD_REPOS:
       return (
