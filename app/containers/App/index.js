@@ -10,8 +10,6 @@ import {DAEMON} from 'utils/constants';
 import {createStructuredSelector} from 'reselect';
 
 import {ConnectedSwitch, RouteWithLayout, PrivateRoute, GuestRoute} from 'utils/router';
-// console.log('RouteWithLayout', RouteWithLayout);
-// import PrivateRoute from 'components/PrivateRoute';
 import {GuestLayout, DashboardLayout} from 'containers/Layouts';
 import {DictionariesPage} from 'containers/Dashboard';
 import FacebookCallbackPage from 'containers/FacebookCallbackPage/Loadable';
@@ -19,10 +17,6 @@ import LoginPage from 'containers/LoginPage';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import {PageLoader} from 'components/ui';
-// import Header from 'components/Header';
-// import Navheader from 'components/ui/Navheader';
-
-// import Footer from 'components/Footer';
 
 import {loadProfileActions, setToken} from './actions';
 import reducer from './reducer';
@@ -83,12 +77,7 @@ export class App extends React.PureComponent {
 export function mapDispatchToProps(dispatch) {
   return {
     onLoadProfile: () => {
-      let token;
-      try {
-        token = localStorage.getItem('authToken') || '';
-      } catch (err) {
-        token = '';
-      }
+      const token = localStorage.getItem('authToken') || '';
       dispatch(setToken(token));
       dispatch(loadProfileActions.request());
     },
@@ -98,10 +87,6 @@ export function mapDispatchToProps(dispatch) {
 const mapStateToProps = createStructuredSelector({
   isProfileLoaded: makeSelectProfileLoaded(),
   profile: makeSelectProfileData(),
-  // repos: makeSelectRepos(),
-  // username: makeSelectUsername(),
-  // loading: makeSelectLoading(),
-  // error: makeSelectError(),
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
