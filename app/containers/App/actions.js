@@ -41,6 +41,16 @@ export const newUserEntity = {
   schema: {user: userSchema},
 };
 
+export const loginUserEntity = {
+  key: 'user',
+  url: 'auth/login',
+  schema: {user: userSchema},
+};
+
+export function loginUser(values, {resolve, reject}) {
+  return createEntityActions.request(values, loginUserEntity, {resolve, reject});
+}
+
 /**
  * Load the repositories, this action starts the request saga
  *

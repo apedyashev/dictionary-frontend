@@ -4,7 +4,7 @@ import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
 // actions
-import {createEntityActions, newUserEntity} from 'containers/App/actions';
+import {loginUser} from 'containers/App/actions';
 // components
 import {Link} from 'react-router-dom';
 import {Form, Field, SubmissionError, reduxForm} from 'redux-form/immutable';
@@ -25,7 +25,7 @@ class SignupForm extends React.Component {
 
   submitForm = (values) => {
     return new Promise((resolve, reject) => {
-      this.props.registerUser(values, {resolve, reject});
+      this.props.loginUser(values, {resolve, reject});
     }).catch(({validationErrors}) => {
       if (validationErrors) {
         throw new SubmissionError(validationErrors);
@@ -95,8 +95,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    registerUser: (values, {resolve, reject}) => {
-      dispatch(createEntityActions.request(values, newUserEntity, {resolve, reject}));
+    loginUser: (values, {resolve, reject}) => {
+      dispatch(loginUser(values, {resolve, reject}));
     },
   };
 };
