@@ -26,11 +26,15 @@ import {makeSelectRepos, makeSelectLoading, makeSelectError} from 'containers/Ap
 // import {makeSelectUsername} from './selectors';
 // import reducer from './reducer';
 // import saga from './saga';
+import Prompt from 'components/ui/Prompt';
 
 export class DictionariesPage extends React.PureComponent {
-  // eslint-disable-line react/prefer-stateless-function
   render() {
-    return <div>Dictionary</div>;
+    return (
+      <div>
+        <Prompt title="dictionaries" subtitle="coming soon" />
+      </div>
+    );
   }
 }
 

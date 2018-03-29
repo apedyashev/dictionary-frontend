@@ -14,6 +14,7 @@ import {ConnectedSwitch, RouteWithLayout, PrivateRoute, GuestRoute} from 'utils/
 // import PrivateRoute from 'components/PrivateRoute';
 import {GuestLayout, DashboardLayout} from 'containers/Layouts';
 import {DictionariesPage} from 'containers/Dashboard';
+import FacebookCallbackPage from 'containers/FacebookCallbackPage/Loadable';
 import LoginPage from 'containers/LoginPage';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
@@ -35,7 +36,6 @@ export class App extends React.PureComponent {
   // important: https://github.com/ReactTraining/react-router/issues/5072#issuecomment-310184271
   render() {
     const {isProfileLoading, profile} = this.props;
-    console.log('isProfileLoading', profile.id);
     return (
       <div>
         <Helmet titleTemplate="%s - React.js Boilerplate" defaultTitle="React.js Boilerplate">
@@ -63,6 +63,7 @@ export class App extends React.PureComponent {
             component={DictionariesPage}
             authed={!!profile.id}
           />
+          <Route path="/facebook/callback" component={FacebookCallbackPage} />
           <Route path="" component={NotFoundPage} />
         </ConnectedSwitch>
       </div>

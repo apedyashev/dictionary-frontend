@@ -46,9 +46,17 @@ export const loginUserEntity = {
   url: 'auth/login',
   schema: {user: userSchema},
 };
-
 export function loginUser(values, {resolve, reject}) {
   return createEntityActions.request(values, loginUserEntity, {resolve, reject});
+}
+
+export const loginFbUserEntity = {
+  key: 'user',
+  url: 'auth/facebook/callback',
+  schema: {user: userSchema},
+};
+export function loginFbUser(code, {resolve, reject}) {
+  return createEntityActions.request({}, loginFbUserEntity, {query: {code}, resolve, reject});
 }
 
 /**

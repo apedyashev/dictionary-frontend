@@ -1,0 +1,8 @@
+@primary-2-color: #ccc;
+.root {
+  color: @primary-2-color;
+  span {
+    font-size: 80%;
+    color: lighten(@primary-2-color, 10%);
+  }
+}

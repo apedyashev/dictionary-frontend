@@ -51,7 +51,7 @@ const http = {
     });
   },
 
-  post: ({url, payload, schema, headers = {}}) => {
+  post: ({url, payload, query, schema, headers = {}}) => {
     if (process.env.NODE_ENV !== 'production') {
       if (!schema) {
         console.warn(`schema is not defined for ${url}`);
@@ -62,8 +62,10 @@ const http = {
     }
 
     return new Promise((resolve, reject) => {
+      console.log('query', query);
       return superagent
         .post(http.buildUrl(url))
+        .query(query)
         .send(payload)
         .set({
           Accept: 'application/json',

@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import cn from 'classnames';
 import styles from './index.css';
-console.log('styles', styles);
 
 // https://github.com/gilbarbara/react-redux-saga-boilerplate/blob/master/app/scripts/components/Loader.jsx
 const Loader = ({message, size}) => {
