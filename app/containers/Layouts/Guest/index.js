@@ -2,14 +2,14 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
-import Navheader from 'components/ui/Navbar';
+import Navbar from './components/Navbar';
 // other
 import styles from './index.css';
 
 export default function GuestLayout({children}) {
   return (
     <div className={styles.root}>
-      <Navheader />
+      <Navbar />
       <div>{children}</div>
     </div>
   );

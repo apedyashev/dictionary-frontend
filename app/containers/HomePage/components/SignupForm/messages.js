@@ -46,12 +46,4 @@ export default defineMessages({
     id: 'containers.RegForm.passwordConfirmHint',
     defaultMessage: 'Please enter password again',
   },
-  signupBtnLabel: {
-    id: 'containers.RegForm.signupBtnLabel',
-    defaultMessage: 'Sign up',
-  },
-  signinBtnLabel: {
-    id: 'containers.RegForm.signinBtnLabel',
-    defaultMessage: 'Sign in',
-  },
 });

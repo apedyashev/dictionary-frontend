@@ -53,7 +53,7 @@ export class App extends React.PureComponent {
           <GuestRoute
             path="/login"
             layout={GuestLayout}
-            component={LoginPage}
+            component={HomePage}
             exact
             authed={!!profile.id}
           />

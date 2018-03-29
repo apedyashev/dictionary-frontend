@@ -9,12 +9,16 @@ import {createStructuredSelector} from 'reselect';
 //
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import {makeSelectRepos, makeSelectLoading, makeSelectError} from 'containers/App/selectors';
+import {
+  makeSelectRepos,
+  makeSelectLoading,
+  makeSelectError,
+  makeSelectIsLoginRoute,
+} from 'containers/App/selectors';
 // components
 import {Link} from 'react-router-dom';
 import {Grid} from 'semantic-ui-react';
-import {Paper} from 'components/ui';
-import Form from './components/Form';
+import AuthForms from './components/AuthForms';
 import {loadRepos} from '../App/actions';
 import {changeUsername} from './actions';
 import {makeSelectUsername} from './selectors';
@@ -24,7 +28,7 @@ import styles from './index.css';
 
 export class HomePage extends React.PureComponent {
   render() {
-    const {loading, error, repos} = this.props;
+    const {loading, error, repos, showLoginForm} = this.props;
     const reposListProps = {
       loading,
       error,
@@ -42,9 +46,7 @@ export class HomePage extends React.PureComponent {
             text left
           </Grid.Column>
           <Grid.Column floated="right" width={5}>
-            <Paper>
-              <Form />
-            </Paper>
+            <AuthForms showLoginForm={showLoginForm} />
           </Grid.Column>
         </Grid>
       </div>
@@ -72,6 +74,8 @@ export function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = createStructuredSelector({
+  showLoginForm: makeSelectIsLoginRoute(),
+
   repos: makeSelectRepos(),
   username: makeSelectUsername(),
   loading: makeSelectLoading(),

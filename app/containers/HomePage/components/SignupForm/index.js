@@ -9,10 +9,10 @@ import {createEntityActions, newUserEntity} from 'containers/App/actions';
 import {Link} from 'react-router-dom';
 import {Form, Field, SubmissionError, reduxForm} from 'redux-form/immutable';
 import {ReduxFormFields} from 'components/ui';
-import {Button, Icon} from 'semantic-ui-react';
+import {Button} from 'semantic-ui-react';
 // other
+import commonAuthMessages from '../AuthForms/messages';
 import messages from './messages';
-import styles from './index.css';
 
 class SignupForm extends React.Component {
   static propTypes = {
@@ -74,17 +74,8 @@ class SignupForm extends React.Component {
         />
 
         <Button type="submit" fluid loading={submitting} disabled={submitting}>
-          <FormattedMessage {...messages.signupBtnLabel} />
+          <FormattedMessage {...commonAuthMessages.signupBtnLabel} />
         </Button>
-        <Button.Group fluid className={styles.buttonGroup}>
-          <Button color="facebook" as="a" href="http://localhost:3001/auth/facebook">
-            <Icon name="facebook" /> Facebook
-          </Button>
-          <Button.Or />
-          <Button as={Link} to="/login" positive>
-            <FormattedMessage {...messages.signinBtnLabel} />
-          </Button>
-        </Button.Group>
       </Form>
     );
   }
