@@ -1,36 +1,17 @@
-$loader-size: 2rem;
+$loader-size: 40px;
 $loader-speed: 1s;
 $width: 10rem;
 
 $grid-gutter-width: 3rem;
 $app-color: #00b4d5;
 
+.label {
+  padding-top: 5px;
+  display: block;
+  color: #bcbec0;
+}
 .loader {
-  &--rotate {
-    height: $width;
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: $width;
-
-    &__svg {
-      animation: rotate 2s linear infinite;
-      height: $width;
-      position: relative;
-      width: $width;
-    }
-
-    &__circle {
-      animation: dash 1.5s ease-in-out infinite;
-      stroke: #333;
-      stroke-dasharray: 1, 200;
-      stroke-dashoffset: 0;
-      stroke-linecap: round;
-      stroke-miterlimit: 10;
-    }
-  }
-
+  margin: 0 auto;
   &--pulse {
     height: $loader-size;
     margin: ($grid-gutter-width / 2) auto;

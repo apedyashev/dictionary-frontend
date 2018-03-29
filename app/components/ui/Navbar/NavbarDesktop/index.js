@@ -2,6 +2,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {Container, Image, Menu, Button, Dropdown} from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
 // import LanguageSelector from 'components/ui/LanguageSelector';
 import LanguageSelector from 'containers/LocaleToggle';
 
@@ -10,7 +11,9 @@ const NavbarDesktop = ({language, onLanguageChange}) => (
     <Container>
       <Menu.Menu position="right">
         <Menu.Item>
-          <Button primary>Sign in</Button>
+          <Button as={Link} to="/login" primary>
+            Sign in
+          </Button>
         </Menu.Item>
         <Menu.Item>
           <LanguageSelector />

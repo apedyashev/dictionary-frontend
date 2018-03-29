@@ -6,6 +6,7 @@ import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
 // actions
 import {createEntityActions, newUserEntity} from 'containers/App/actions';
 // components
+import {Link} from 'react-router-dom';
 import {Form, Field, SubmissionError, reduxForm} from 'redux-form/immutable';
 import {ReduxFormFields} from 'components/ui';
 import {Button, Icon} from 'semantic-ui-react';
@@ -76,11 +77,11 @@ class SignupForm extends React.Component {
           <FormattedMessage {...messages.signupBtnLabel} />
         </Button>
         <Button.Group fluid className={styles.buttonGroup}>
-          <Button color="facebook">
+          <Button color="facebook" as="a" href="http://localhost:3001/auth/facebook">
             <Icon name="facebook" /> Facebook
           </Button>
           <Button.Or />
-          <Button positive>
+          <Button as={Link} to="/login" positive>
             <FormattedMessage {...messages.signinBtnLabel} />
           </Button>
         </Button.Group>

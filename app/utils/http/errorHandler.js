@@ -1,5 +1,6 @@
+// import {push} from 'react-router-redux';
 import {HTTP_STATUS_NOT_AUTHORIZED, HTTP_STATUS_UNPROCESSABLE_ENTITY} from './httpStatusCodes';
-import {push} from 'react-router-redux';
+
 // import _ from 'lodash';
 // import {actions as userActions} from 'modules/user';
 // import {actions as notificationActions} from 'modules/notifications';
@@ -9,7 +10,7 @@ export function errorHandler(dispatch) {
     console.error('errorHandler', err.status, err);
     if (err.status === HTTP_STATUS_NOT_AUTHORIZED) {
       // dispatch(userActions.reset());
-      dispatch(push('/signin'));
+      // dispatch(push('/login'));
     } else {
       // dispatch(notificationActions.showError(err));
     }

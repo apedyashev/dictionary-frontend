@@ -2,16 +2,15 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
-import {Button} from 'semantic-ui-react';
-import {Responsive} from 'semantic-ui-react';
+import Loader from '../Loader';
 // other
 import styles from './index.css';
 
-export default function Navheader() {
+export default function PageLoader() {
   return (
     <div className={styles.root}>
-      <Button>Click Here</Button>
+      <Loader message="Please wait" />
     </div>
   );
 }
-Navheader.propTypes = {};
+PageLoader.propTypes = {};
