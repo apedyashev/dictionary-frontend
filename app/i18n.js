@@ -12,17 +12,17 @@ import rsLocaleData from 'react-intl/locale-data/sr';
 
 import {DEFAULT_LOCALE} from '../app/containers/App/constants';
 
-import enTranslationMessages from './translations/en.json';
-import deTranslationMessages from './translations/de.json';
-import ruTranslationMessages from './translations/ru.json';
-import rsTranslationMessages from './translations/sr.json';
+import enTranslationMessages from './translations/en-US.json';
+import deTranslationMessages from './translations/de-CH.json';
+import ruTranslationMessages from './translations/ru-RU.json';
+import rsTranslationMessages from './translations/sr-SP.json';
 
 addLocaleData(enLocaleData);
 addLocaleData(deLocaleData);
 addLocaleData(ruLocaleData);
 addLocaleData(rsLocaleData);
 
-export const appLocales = ['en', 'de', 'ru', 'sr'];
+export const appLocales = ['en-US', 'de-CH', 'ru-RU', 'sr-SP'];
 
 export const formatTranslationMessages = (locale, messages) => {
   const defaultFormattedMessages =
@@ -37,8 +37,8 @@ export const formatTranslationMessages = (locale, messages) => {
 };
 
 export const translationMessages = {
-  en: formatTranslationMessages('en', enTranslationMessages),
-  de: formatTranslationMessages('de', deTranslationMessages),
-  ru: formatTranslationMessages('ru', ruTranslationMessages),
-  sr: formatTranslationMessages('sr', rsTranslationMessages),
+  'en-US': formatTranslationMessages('en-US', enTranslationMessages),
+  'de-CH': formatTranslationMessages('de-CH', deTranslationMessages),
+  'ru-RU': formatTranslationMessages('ru-RU', ruTranslationMessages),
+  'sr-SP': formatTranslationMessages('sr-SP', rsTranslationMessages),
 };

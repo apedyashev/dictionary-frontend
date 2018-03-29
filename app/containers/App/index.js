@@ -21,7 +21,7 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 // import Header from 'components/Header';
 // import Navheader from 'components/ui/Navheader';
 
-import Footer from 'components/Footer';
+// import Footer from 'components/Footer';
 
 import {loadProfileActions, setToken} from './actions';
 import reducer from './reducer';
@@ -66,7 +66,6 @@ export class App extends React.PureComponent {
           />
           <Route path="" component={NotFoundPage} />
         </ConnectedSwitch>
-        <Footer />
       </div>
     );
   }

@@ -37,9 +37,9 @@ NavLanguageSelector.propTypes = {
 NavLanguageSelector.defaultProps = {
   value: 'en',
   languages: [
-    {key: 1, text: 'English', value: 'en', flag: 'us'},
-    {key: 2, text: 'Deutsch', value: 'de', flag: 'ch'},
-    {key: 3, text: 'Српски', value: 'sr', flag: 'rs'},
-    {key: 4, text: 'Русский', value: 'ru', flag: 'ru'},
+    {key: 1, text: 'English', value: 'en-US', flag: 'us'},
+    {key: 2, text: 'Deutsch', value: 'de-CH', flag: 'ch'},
+    {key: 3, text: 'Српски', value: 'sr-SP', flag: 'rs'},
+    {key: 4, text: 'Русский', value: 'ru-RU', flag: 'ru'},
   ],
 };

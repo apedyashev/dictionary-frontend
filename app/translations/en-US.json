@@ -1,0 +1,14 @@
+{
+  "containers.RegForm.emailHint": "Please enter your email",
+  "containers.RegForm.emailLabel": "E-mail",
+  "containers.RegForm.firstNameHint": "Please enter your first name",
+  "containers.RegForm.firstNameLabel": "First Name",
+  "containers.RegForm.lastNameHint": "Please enter your last name",
+  "containers.RegForm.lastNameLabel": "Last Name",
+  "containers.RegForm.passwordConfirmHint": "Please enter password again",
+  "containers.RegForm.passwordConfirmLabel": "Confirm password",
+  "containers.RegForm.passwordHint": "Please enter password",
+  "containers.RegForm.passwordLabel": "Password",
+  "containers.RegForm.signinBtnLabel": "Sign in",
+  "containers.RegForm.signupBtnLabel": "Sign up"
+}

@@ -2,6 +2,7 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
+import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
 // actions
 import {createEntityActions, newUserEntity} from 'containers/App/actions';
 // components
@@ -9,6 +10,7 @@ import {Form, Field, reduxForm} from 'redux-form/immutable';
 import {ReduxFormFields} from 'components/ui';
 import {Button, Icon} from 'semantic-ui-react';
 // other
+import messages from './messages';
 import styles from './index.css';
 
 class SignupForm extends React.Component {
@@ -16,6 +18,8 @@ class SignupForm extends React.Component {
     // injected by redux form
     submitting: PropTypes.bool.isRequired,
     handleSubmit: PropTypes.func.isRequired,
+    // react-intl
+    intl: intlShape.isRequired,
   };
 
   submitForm = (values) => {
@@ -25,55 +29,56 @@ class SignupForm extends React.Component {
   };
 
   render() {
-    const {handleSubmit, submitting} = this.props;
+    const {handleSubmit, submitting, intl: {formatMessage}} = this.props;
     return (
       <Form onSubmit={handleSubmit(this.submitForm)}>
         <Field
           name="firstName"
           type="text"
           component={ReduxFormFields.Input}
-          label="first name"
-          hintText="please enter your first name"
+          label={formatMessage(messages.firstNameLabel)}
+          hintText={formatMessage(messages.firstNameHint)}
         />
-
         <Field
           name="lastName"
           type="text"
           component={ReduxFormFields.Input}
-          label="last name"
-          hintText="please enter your last name"
+          label={formatMessage(messages.lastNameLabel)}
+          hintText={formatMessage(messages.lastNameHint)}
         />
         <Field
           name="email"
           type="text"
           component={ReduxFormFields.Input}
-          label="email"
-          hintText="please enter your email address"
+          label={formatMessage(messages.emailLabel)}
+          hintText={formatMessage(messages.emailHint)}
         />
         <Field
           name="password"
           type="password"
           component={ReduxFormFields.Input}
-          label="password"
-          hintText="please enter your email address"
+          label={formatMessage(messages.passwordLabel)}
+          hintText={formatMessage(messages.passwordHint)}
         />
         <Field
           name="passwordConfirmation"
           type="password"
           component={ReduxFormFields.Input}
-          label="confirm password"
-          hintText="enter your password again"
+          label={formatMessage(messages.passwordConfirmLabel)}
+          hintText={formatMessage(messages.passwordConfirmHint)}
         />
 
         <Button type="submit" fluid loading={submitting} disabled={submitting}>
-          Sign up
+          <FormattedMessage {...messages.signupBtnLabel} />
         </Button>
         <Button.Group fluid className={styles.buttonGroup}>
           <Button color="facebook">
             <Icon name="facebook" /> Facebook
           </Button>
           <Button.Or />
-          <Button positive>Sign in</Button>
+          <Button positive>
+            <FormattedMessage {...messages.signinBtnLabel} />
+          </Button>
         </Button.Group>
       </Form>
     );
@@ -121,7 +126,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-SignupForm = connect(mapStateToProps, mapDispatchToProps)(SignupForm);
+SignupForm = connect(mapStateToProps, mapDispatchToProps)(injectIntl(SignupForm));
 
 export default reduxForm({
   form: 'signupForm',
