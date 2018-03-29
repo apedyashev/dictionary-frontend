@@ -6,7 +6,7 @@ import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
 // actions
 import {createEntityActions, newUserEntity} from 'containers/App/actions';
 // components
-import {Form, Field, reduxForm} from 'redux-form/immutable';
+import {Form, Field, SubmissionError, reduxForm} from 'redux-form/immutable';
 import {ReduxFormFields} from 'components/ui';
 import {Button, Icon} from 'semantic-ui-react';
 // other
@@ -25,6 +25,10 @@ class SignupForm extends React.Component {
   submitForm = (values) => {
     return new Promise((resolve, reject) => {
       this.props.registerUser(values, {resolve, reject});
+    }).catch(({validationErrors}) => {
+      if (validationErrors) {
+        throw new SubmissionError(validationErrors);
+      }
     });
   };
 

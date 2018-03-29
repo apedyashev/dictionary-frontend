@@ -29,7 +29,7 @@ export function* createEntity({payload, entity, meta}) {
     yield put(createEntityActions.success(entityResponse, entity));
   } catch (err) {
     console.log('err', err);
-    meta.reject();
+    meta.reject(err);
     yield put(createEntityActions.failure(err, entity));
   }
 }
