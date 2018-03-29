@@ -16,7 +16,6 @@ import {GuestLayout, DashboardLayout} from 'containers/Layouts';
 import {DictionariesPage} from 'containers/Dashboard';
 import LoginPage from 'containers/LoginPage';
 import HomePage from 'containers/HomePage/Loadable';
-import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 // import Header from 'components/Header';
 // import Navheader from 'components/ui/Navheader';
