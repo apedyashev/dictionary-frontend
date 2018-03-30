@@ -57,7 +57,7 @@ export function* getEntity({query, entity, meta}) {
 export function* handleEntityCreated({entity, response}) {
   if (entity.key === 'user') {
     localStorage.setItem('authToken', response.result.token);
-    yield put(push('/dashboard'));
+    yield put(push('/dictionaries'));
   }
 }
 

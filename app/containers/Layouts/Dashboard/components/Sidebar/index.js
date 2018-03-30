@@ -8,12 +8,12 @@ const items = [
   {
     title: 'home',
     iconName: 'home',
-    linkTo: '/dashboard',
+    linkTo: '/dictionaries',
   },
   {
     title: 'calendar',
     iconName: 'calendar',
-    linkTo: '/dashboard/calendar',
+    linkTo: '/calendar',
   },
 ];
 export default function DashboardSidebar() {

@@ -9,7 +9,7 @@ export default function GuestRoute({layout: Layout, component: Component, authed
       render={(props) => {
         if (authed) {
           /* eslint-disable react/prop-types */
-          return <Redirect to={{pathname: '/dashboard', state: {from: props.location}}} />;
+          return <Redirect to={{pathname: '/dictionaries', state: {from: props.location}}} />;
           /* eslint-enable react/prop-types */
         }
         if (Layout) {

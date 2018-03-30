@@ -16,16 +16,7 @@ import {Link} from 'react-router-dom';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import {makeSelectRepos, makeSelectLoading, makeSelectError} from 'containers/App/selectors';
-
-// import {Grid} from 'semantic-ui-react';
-// import {Paper} from 'components/ui';
-// import Form from './components/Form';
-// import messages from './messages';
-// import {loadRepos} from '../App/actions';
-// import {changeUsername} from './actions';
-// import {makeSelectUsername} from './selectors';
-// import reducer from './reducer';
-// import saga from './saga';
+import {makeSelectDictionarySlug} from './components/DictionariesList/selectors';
 
 import {Sidebar, Segment, Button, Menu, Image, Icon, Header} from 'semantic-ui-react';
 import Prompt from 'components/ui/Prompt';
@@ -33,18 +24,34 @@ import {Topbar, DictionariesList} from './components';
 
 export class WordsPage extends React.PureComponent {
   static propTypes = {};
-  state = {showDictionaries: true};
+  state = {showDictionaries: !this.props.match.params.slug};
 
-  componentDidMount() {}
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const {slug} = nextProps.match.params;
+    if (slug !== prevState.prevSlug) {
+      return {
+        showDictionaries: !slug,
+        prevSlug: slug,
+      };
+    }
+
+    // Return null to indicate no change to state.
+    return null;
+  }
 
   handleShowDictsToggle = () => {
     this.setState({showDictionaries: !this.state.showDictionaries});
   };
+
   render() {
+    const {slug} = this.props.match.params;
     const {showDictionaries} = this.state;
     return (
       <div>
-        <Topbar onShowDictsToggle={this.handleShowDictsToggle} />
+        <Topbar
+          showDictionaries={showDictionaries}
+          onShowDictsToggle={this.handleShowDictsToggle}
+        />
         <Sidebar.Pushable>
           <Sidebar as={Menu} animation="push" width="wide" visible={showDictionaries} vertical>
             <DictionariesList />
@@ -60,22 +67,27 @@ export class WordsPage extends React.PureComponent {
   }
 }
 
-export function mapDispatchToProps(dispatch) {
-  return {
-    loadWords: () => {
-      const token = localStorage.getItem('authToken') || '';
-      dispatch(setToken(token));
-      dispatch(loadProfileActions.request());
-    },
-  };
-}
-
-const mapStateToProps = createStructuredSelector({});
+// export function mapDispatchToProps(dispatch) {
+//   return {
+//     loadWords: () => {
+//       const token = localStorage.getItem('authToken') || '';
+//       dispatch(setToken(token));
+//       dispatch(loadProfileActions.request());
+//     },
+//   };
+// }
+// const mapStateToProps = createStructuredSelector({
+// dictionarySlug: makeSelectDictionarySlug(),
+// });
 //
 // const withConnect = connect(mapStateToProps, mapDispatchToProps);
 //
 // const withReducer = injectReducer({key: 'dictionaries', reducer});
 // const withSaga = injectSaga({key: 'dictionaries', saga});
 //
-// export default compose(withReducer, withSaga, withConnect)(DashboardPage);
+// export default compose(
+//   // withReducer,
+//   // withSaga,
+//   withConnect
+// )(WordsPage);
 export default WordsPage;

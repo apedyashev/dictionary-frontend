@@ -59,7 +59,14 @@ export class App extends React.PureComponent {
                 authed={!!profile.id}
               />
               <PrivateRoute
-                path="/dashboard"
+                exact
+                path="/dictionaries"
+                layout={DashboardLayout}
+                component={WordsPage}
+                authed={!!profile.id}
+              />
+              <PrivateRoute
+                path="/dictionaries/:slug"
                 layout={DashboardLayout}
                 component={WordsPage}
                 authed={!!profile.id}

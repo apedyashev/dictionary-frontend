@@ -5,3 +5,12 @@ export const makeSelectDictionaries = () =>
   createSelector(makeSelectEntities(), (entities) => {
     return entities.getIn(['dictionaries', 'items']);
   });
+export const makeSelectDictionariesLoading = () =>
+  createSelector(makeSelectEntities(), (entities) => {
+    return entities.getIn(['dictionaries', 'loading']);
+  });
+export const makeSelectDictionarySlug = () =>
+  createSelector((state, ownProps) => {
+    console.log('ownProps', ownProps.params);
+    return ownProps.params.slug;
+  }, (slug) => slug);

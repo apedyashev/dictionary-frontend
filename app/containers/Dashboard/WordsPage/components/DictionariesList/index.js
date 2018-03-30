@@ -2,12 +2,13 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
-import {createSelector} from 'reselect';
+import {createStructuredSelector} from 'reselect';
 // selectrors
-import {makeSelectDictionaries} from './selectors';
+import {makeSelectDictionaries, makeSelectDictionariesLoading} from './selectors';
 import {loadDictionaries} from './actions';
 // components
 import {Sidebar, Segment, Button, Menu, Image, Icon, Header} from 'semantic-ui-react';
+import {PageLoader} from 'components/ui';
 import DictionariesListItem from '../DictionariesListItem';
 
 class DictionariesList extends React.Component {
@@ -18,9 +19,11 @@ class DictionariesList extends React.Component {
   }
 
   render() {
-    const {dictionaries} = this.props;
-    if (!dictionaries) {
+    const {dictionaries, loading} = this.props;
+    if (!loading && !dictionaries) {
       return null;
+    } else if (loading) {
+      return <PageLoader />;
     }
     return (
       <div>
@@ -32,9 +35,10 @@ class DictionariesList extends React.Component {
   }
 }
 
-const mapStateToProps = createSelector(makeSelectDictionaries(), (dictionaries) => ({
-  dictionaries,
-}));
+const mapStateToProps = createStructuredSelector({
+  dictionaries: makeSelectDictionaries(),
+  loading: makeSelectDictionariesLoading(),
+});
 
 export function mapDispatchToProps(dispatch) {
   return {
