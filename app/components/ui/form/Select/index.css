@@ -1,0 +1,11 @@
+.root {
+  border: none !important;
+  padding: 0 !important;
+  min-height: auto !important;
+  [role='alert'] {
+    display: none !important;
+  }
+  :global .icon {
+    padding-top: 4px !important;
+  }
+}

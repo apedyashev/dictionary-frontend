@@ -20,7 +20,9 @@ import {makeSelectDictionarySlug} from './components/DictionariesList/selectors'
 
 import {Sidebar, Segment, Button, Menu, Image, Icon, Header} from 'semantic-ui-react';
 import Prompt from 'components/ui/Prompt';
-import {Topbar, DictionariesList} from './components';
+import {Topbar, Dictionaries} from './components';
+// other
+import styles from './index.css';
 
 export class WordsPage extends React.PureComponent {
   static propTypes = {};
@@ -52,9 +54,9 @@ export class WordsPage extends React.PureComponent {
           showDictionaries={showDictionaries}
           onShowDictsToggle={this.handleShowDictsToggle}
         />
-        <Sidebar.Pushable>
+        <Sidebar.Pushable className={styles.content}>
           <Sidebar as={Menu} animation="push" width="wide" visible={showDictionaries} vertical>
-            <DictionariesList />
+            <Dictionaries />
           </Sidebar>
           <Sidebar.Pusher>
             <Segment basic>

@@ -14,8 +14,10 @@ export default function Input({
   hintText,
   value,
   error,
+  autoComplete,
   onChange,
   onBlur,
+  onFocus,
 }) {
   const inputId = id || `input-${_uniqueId()}`;
   return (
@@ -27,8 +29,10 @@ export default function Input({
         type={type}
         name={name}
         value={value}
+        autoComplete={autoComplete}
         onChange={onChange}
         onBlur={onBlur}
+        onFocus={onFocus}
       />
       <div className="form-element-bar" />
       <label className="form-element-label" htmlFor={inputId}>

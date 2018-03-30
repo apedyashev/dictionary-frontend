@@ -67,7 +67,9 @@ function appReducer(state = initialState, action) {
 
     case entityActionTypes.GET.REQUEST: {
       const entityKey = action.entity && action.entity.key;
-      return state.setIn(['entities', entityKey, 'loading'], true);
+      return state
+        .setIn(['entities', entityKey, 'loading'], true)
+        .setIn(['entities', entityKey, 'loaded'], false);
     }
 
     case entityActionTypes.GET.SUCCESS: {
@@ -77,13 +79,17 @@ function appReducer(state = initialState, action) {
       _.each(action.response.entities, (data, key) => {
         newState = state.mergeDeepIn(['entities', key, 'items'], data);
       });
-      return newState.setIn(['entities', entityKey, 'loading'], false);
+      return newState
+        .setIn(['entities', entityKey, 'loading'], false)
+        .setIn(['entities', entityKey, 'loaded'], true);
       // .mergeDeepIn(['entities', entityKey, 'items'], action.response.entities);
     }
 
     case entityActionTypes.GET.FAILURE: {
       const entityKey = action.entity && action.entity.key;
-      return state.setIn(['entities', entityKey, 'loading'], false);
+      return state
+        .setIn(['entities', entityKey, 'loading'], false)
+        .setIn(['entities', entityKey, 'loaded'], true);
     }
 
     case LOAD_REPOS:

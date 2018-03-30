@@ -11,9 +11,9 @@ const items = [
     linkTo: '/dictionaries',
   },
   {
-    title: 'calendar',
+    title: 'schedule',
     iconName: 'calendar',
-    linkTo: '/calendar',
+    linkTo: '/schedule',
   },
 ];
 export default function DashboardSidebar() {

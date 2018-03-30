@@ -6,5 +6,6 @@ export {default as Sidebar} from './Sidebar';
 
 // form
 export {default as Input} from './form/Input';
+export {default as Select} from './form/Select';
 // redux form fields
 export {ReduxFormFields};
