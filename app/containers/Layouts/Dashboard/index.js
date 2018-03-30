@@ -2,7 +2,7 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
-import {Sidebar} from './components';
+import {Sidebar, Topbar} from './components';
 // other
 import styles from './index.css';
 
@@ -12,7 +12,10 @@ export default function DashboardLayout({children}) {
       <div>
         <Sidebar />
       </div>
-      <div className={styles.content}>{children}</div>
+      <div className={styles.contentWrapper}>
+        <Topbar />
+        <div className={styles.content}>{children}</div>
+      </div>
     </div>
   );
 }

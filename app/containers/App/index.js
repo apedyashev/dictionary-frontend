@@ -11,7 +11,7 @@ import {createStructuredSelector} from 'reselect';
 
 import {ConnectedSwitch, RouteWithLayout, PrivateRoute, GuestRoute} from 'utils/router';
 import {GuestLayout, DashboardLayout} from 'containers/Layouts';
-import {DictionariesPage} from 'containers/Dashboard';
+import {WordsPage} from 'containers/Dashboard';
 import FacebookCallbackPage from 'containers/FacebookCallbackPage/Loadable';
 import LoginPage from 'containers/LoginPage';
 import HomePage from 'containers/HomePage/Loadable';
@@ -60,7 +60,7 @@ export class App extends React.PureComponent {
             <PrivateRoute
               path="/dashboard"
               layout={DashboardLayout}
-              component={DictionariesPage}
+              component={WordsPage}
               authed={!!profile.id}
             />
             <Route path="/facebook/callback" component={FacebookCallbackPage} />

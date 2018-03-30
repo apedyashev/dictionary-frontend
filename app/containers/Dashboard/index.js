@@ -1,1 +1,1 @@
-export {default as DictionariesPage} from './DictionariesPage';
+export {default as WordsPage} from './WordsPage';

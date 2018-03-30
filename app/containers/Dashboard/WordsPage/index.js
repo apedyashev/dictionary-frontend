@@ -29,6 +29,8 @@ import {makeSelectRepos, makeSelectLoading, makeSelectError} from 'containers/Ap
 import Prompt from 'components/ui/Prompt';
 
 export class DictionariesPage extends React.PureComponent {
+  componentDidMount() {}
+
   render() {
     return (
       <div>
@@ -40,11 +42,17 @@ export class DictionariesPage extends React.PureComponent {
 
 DictionariesPage.propTypes = {};
 
-// export function mapDispatchToProps(dispatch) {
-//   return {};
-// }
-//
-// const mapStateToProps = createStructuredSelector({});
+export function mapDispatchToProps(dispatch) {
+  return {
+    loadWords: () => {
+      const token = localStorage.getItem('authToken') || '';
+      dispatch(setToken(token));
+      dispatch(loadProfileActions.request());
+    },
+  };
+}
+
+const mapStateToProps = createStructuredSelector({});
 //
 // const withConnect = connect(mapStateToProps, mapDispatchToProps);
 //

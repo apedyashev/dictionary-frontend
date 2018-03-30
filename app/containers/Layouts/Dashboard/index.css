@@ -1,6 +1,9 @@
 .root {
   /* padding-top: 55px; */
 }
+.contentWrapper {
+  padding-left: 150px;
+}
 .content {
-  padding-left: 155px;
+  padding-left: 5px;
 }
