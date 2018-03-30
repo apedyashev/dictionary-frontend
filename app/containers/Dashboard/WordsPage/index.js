@@ -29,6 +29,7 @@ import {makeSelectRepos, makeSelectLoading, makeSelectError} from 'containers/Ap
 import Prompt from 'components/ui/Prompt';
 
 export class DictionariesPage extends React.PureComponent {
+  static propTypes = {};
   componentDidMount() {}
 
   render() {
@@ -39,8 +40,6 @@ export class DictionariesPage extends React.PureComponent {
     );
   }
 }
-
-DictionariesPage.propTypes = {};
 
 export function mapDispatchToProps(dispatch) {
   return {

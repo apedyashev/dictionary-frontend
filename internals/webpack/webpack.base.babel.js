@@ -11,8 +11,8 @@ const webpack = require('webpack');
 // see https://github.com/webpack/loader-utils/issues/56 parseQuery() will be replaced with getOptions()
 // in the next major version of loader-utils.'
 process.noDeprecation = true;
-
 module.exports = (options) => ({
+  mode: process.env.NODE_ENV || 'development',
   entry: options.entry,
   output: Object.assign(
     {
@@ -92,9 +92,18 @@ module.exports = (options) => ({
           {
             loader: 'image-webpack-loader',
             options: {
-              progressive: true,
-              optimizationLevel: 7,
-              interlaced: false,
+              // progressive: true,
+              // optimizationLevel: 7,
+              // interlaced: false,
+              mozjpeg: {
+                progressive: true,
+              },
+              gifsicle: {
+                interlaced: false,
+              },
+              optipng: {
+                optimizationLevel: 7,
+              },
               pngquant: {
                 quality: '65-90',
                 speed: 4,
@@ -107,10 +116,10 @@ module.exports = (options) => ({
         test: /\.html$/,
         use: 'html-loader',
       },
-      {
-        test: /\.json$/,
-        use: 'json-loader',
-      },
+      // {
+      //   test: /\.json$/,
+      //   use: 'json-loader',
+      // },
       {
         test: /\.(mp4|webm)$/,
         use: {
