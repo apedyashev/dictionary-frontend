@@ -36,6 +36,9 @@ const makeSelectProfileLoaded = () =>
 const makeSelectProfileData = () =>
   createSelector(selectGlobal, (globalState) => globalState.getIn(['profile', 'data']));
 
+const makeSelectEntities = () =>
+  createSelector(selectGlobal, (globalState) => globalState.get('entities'));
+
 export {
   selectGlobal,
   makeSelectCurrentUser,
@@ -47,4 +50,5 @@ export {
   makeSelectProfileLoading,
   makeSelectProfileLoaded,
   makeSelectProfileData,
+  makeSelectEntities,
 };

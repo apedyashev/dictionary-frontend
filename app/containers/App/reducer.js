@@ -65,6 +65,27 @@ function appReducer(state = initialState, action) {
     case profileActionTypes.GET.FAILURE:
       return state.setIn(['profile', 'loading'], false).setIn(['profile', 'loaded'], true);
 
+    case entityActionTypes.GET.REQUEST: {
+      const entityKey = action.entity && action.entity.key;
+      return state.setIn(['entities', entityKey, 'loading'], true);
+    }
+
+    case entityActionTypes.GET.SUCCESS: {
+      // console.log('action.response.entities', action.response.entities);
+      const entityKey = action.entity && action.entity.key;
+      let newState = state;
+      _.each(action.response.entities, (data, key) => {
+        newState = state.mergeDeepIn(['entities', key, 'items'], data);
+      });
+      return newState.setIn(['entities', entityKey, 'loading'], false);
+      // .mergeDeepIn(['entities', entityKey, 'items'], action.response.entities);
+    }
+
+    case entityActionTypes.GET.FAILURE: {
+      const entityKey = action.entity && action.entity.key;
+      return state.setIn(['entities', entityKey, 'loading'], false);
+    }
+
     case LOAD_REPOS:
       return (
         state

@@ -26,6 +26,7 @@ export const loadProfileActions = {
 };
 
 export const entityActionTypes = {
+  GET: createRequestTypes('ENTITY/GET'),
   POST: createRequestTypes('ENTITY/CREATE'),
 };
 export const createEntityActions = {
@@ -33,6 +34,11 @@ export const createEntityActions = {
     action(entityActionTypes.POST.REQUEST, {payload, entity, meta}),
   success: (response, entity) => action(entityActionTypes.POST.SUCCESS, {...response, entity}),
   failure: (error, entity) => action(entityActionTypes.POST.FAILURE, {error, entity}),
+};
+export const getEntityActions = {
+  request: (query, entity, meta) => action(entityActionTypes.GET.REQUEST, {entity, meta}),
+  success: (response, entity) => action(entityActionTypes.GET.SUCCESS, {...response, entity}),
+  failure: (error, entity) => action(entityActionTypes.GET.FAILURE, {error, entity}),
 };
 
 export const newUserEntity = {

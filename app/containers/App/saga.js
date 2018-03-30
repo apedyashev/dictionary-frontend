@@ -5,6 +5,7 @@ import {
   loadProfileActions,
   entityActionTypes,
   createEntityActions,
+  getEntityActions,
 } from 'containers/App/actions';
 import http from 'utils/http';
 
@@ -28,9 +29,28 @@ export function* createEntity({payload, entity, meta}) {
     meta.resolve();
     yield put(createEntityActions.success(entityResponse, entity));
   } catch (err) {
-    console.log('err', err);
+    console.log('createEntity error', err);
     meta.reject(err);
     yield put(createEntityActions.failure(err, entity));
+  }
+}
+
+export function* getEntity({query, entity, meta}) {
+  const {url, schema, key} = entity;
+
+  try {
+    const entityResponse = yield call(http.get, {url, query, schema});
+    if (meta && meta.resolve) {
+      meta.resolve();
+    }
+    yield put(getEntityActions.success(entityResponse, entity));
+  } catch (err) {
+    console.log('getEntity error', err);
+    if (meta && meta.reject) {
+      meta.reject(err);
+    }
+
+    yield put(getEntityActions.failure(err, entity));
   }
 }
 
@@ -46,6 +66,7 @@ export default function* rootSaga() {
   // if necessary, start multiple sagas at once with `all`
   yield [
     takeLatest(profileActionTypes.GET.REQUEST, loadProfile),
+    takeLatest(entityActionTypes.GET.REQUEST, getEntity),
     takeLatest(entityActionTypes.POST.REQUEST, createEntity),
     takeLatest(entityActionTypes.POST.SUCCESS, handleEntityCreated),
   ];
