@@ -42,30 +42,32 @@ export class App extends React.PureComponent {
         </Helmet>
 
         {isProfileLoaded ? (
-          <ConnectedSwitch>
-            <GuestRoute
-              path="/"
-              layout={GuestLayout}
-              component={HomePage}
-              exact
-              authed={!!profile.id}
-            />
-            <GuestRoute
-              path="/login"
-              layout={GuestLayout}
-              component={HomePage}
-              exact
-              authed={!!profile.id}
-            />
-            <PrivateRoute
-              path="/dashboard"
-              layout={DashboardLayout}
-              component={WordsPage}
-              authed={!!profile.id}
-            />
-            <Route path="/facebook/callback" component={FacebookCallbackPage} />
-            <Route path="" component={NotFoundPage} />
-          </ConnectedSwitch>
+          <React.StrictMode>
+            <ConnectedSwitch>
+              <GuestRoute
+                path="/"
+                layout={GuestLayout}
+                component={HomePage}
+                exact
+                authed={!!profile.id}
+              />
+              <GuestRoute
+                path="/login"
+                layout={GuestLayout}
+                component={HomePage}
+                exact
+                authed={!!profile.id}
+              />
+              <PrivateRoute
+                path="/dashboard"
+                layout={DashboardLayout}
+                component={WordsPage}
+                authed={!!profile.id}
+              />
+              <Route path="/facebook/callback" component={FacebookCallbackPage} />
+              <Route path="" component={NotFoundPage} />
+            </ConnectedSwitch>
+          </React.StrictMode>
         ) : (
           <PageLoader />
         )}

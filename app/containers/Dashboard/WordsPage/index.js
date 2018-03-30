@@ -26,16 +26,35 @@ import {makeSelectRepos, makeSelectLoading, makeSelectError} from 'containers/Ap
 // import {makeSelectUsername} from './selectors';
 // import reducer from './reducer';
 // import saga from './saga';
-import Prompt from 'components/ui/Prompt';
 
-export class DictionariesPage extends React.PureComponent {
+import {Sidebar, Segment, Button, Menu, Image, Icon, Header} from 'semantic-ui-react';
+import Prompt from 'components/ui/Prompt';
+import {Topbar, DictionariesList} from './components';
+
+export class WordsPage extends React.PureComponent {
   static propTypes = {};
+  state = {showDictionaries: true};
+
   componentDidMount() {}
 
+  handleShowDictsToggle = () => {
+    this.setState({showDictionaries: !this.state.showDictionaries});
+  };
   render() {
+    const {showDictionaries} = this.state;
     return (
       <div>
-        <Prompt title="dictionaries" subtitle="coming soon" />
+        <Topbar onShowDictsToggle={this.handleShowDictsToggle} />
+        <Sidebar.Pushable>
+          <Sidebar as={Menu} animation="push" width="wide" visible={showDictionaries} vertical>
+            <DictionariesList />
+          </Sidebar>
+          <Sidebar.Pusher>
+            <Segment basic>
+              <Prompt title="dictionaries" subtitle="coming soon" />
+            </Segment>
+          </Sidebar.Pusher>
+        </Sidebar.Pushable>
       </div>
     );
   }
@@ -59,4 +78,4 @@ const mapStateToProps = createStructuredSelector({});
 // const withSaga = injectSaga({key: 'dictionaries', saga});
 //
 // export default compose(withReducer, withSaga, withConnect)(DashboardPage);
-export default DictionariesPage;
+export default WordsPage;
