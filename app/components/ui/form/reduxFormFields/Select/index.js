@@ -11,6 +11,7 @@ export default function ReduxFormInputField({
   options,
   meta: {touched, error},
 }) {
+  console.log('touched, error', touched, error);
   return (
     <Select
       {...input}

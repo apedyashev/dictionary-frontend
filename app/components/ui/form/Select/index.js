@@ -26,7 +26,7 @@ class Select extends React.Component {
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
   };
-  state = {searchQuery: '', inputVal: '', inputHint: null};
+  state = {searchQuery: '', inputVal: '', inputHint: this.props.hintText};
 
   handleSearchChange = (e) => {
     console.log(e.target.value);
@@ -35,6 +35,8 @@ class Select extends React.Component {
 
   handleValueSelected = (event, {value}) => {
     this.props.onChange(value);
+    // selecting an item means loosing focus
+    this.props.onBlur(value);
 
     const selectedOption = _find(this.props.options, {value}) || {};
     this.setState({inputVal: selectedOption.text, inputHint: selectedOption.text});
@@ -47,7 +49,18 @@ class Select extends React.Component {
   handleInputChange = () => {};
 
   render() {
-    const {id, name, floatingLabel, hintText, options, value, error, onBlur} = this.props;
+    const {
+      id,
+      name,
+      floatingLabel,
+      hintText,
+      options,
+      value,
+      error,
+      loading,
+      noResultsMessage,
+      onBlur,
+    } = this.props;
     const {inputVal, inputHint} = this.state;
     return (
       <Dropdown
@@ -66,11 +79,12 @@ class Select extends React.Component {
         }
         searchQuery={this.state.searchQuery}
         className={styles.root}
+        loading={loading}
+        noResultsMessage={noResultsMessage}
         fluid
         search
         selection
         options={options}
-        onBlur={onBlur}
         value={value}
         onChange={this.handleValueSelected}
       />

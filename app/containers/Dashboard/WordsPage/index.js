@@ -16,7 +16,6 @@ import {Link} from 'react-router-dom';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import {makeSelectRepos, makeSelectLoading, makeSelectError} from 'containers/App/selectors';
-import {makeSelectDictionarySlug} from './components/DictionariesList/selectors';
 
 import {Sidebar, Segment, Button, Menu, Image, Icon, Header} from 'semantic-ui-react';
 import Prompt from 'components/ui/Prompt';

@@ -2,18 +2,21 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
+import {createStructuredSelector} from 'reselect';
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
 // actions
-import {loginUser} from 'containers/App/actions';
+import {loadTranslateDirections} from '../DictionariesList/actions';
+import {makeSelectTranslationDirections} from '../DictionariesList/selectors';
 // components
 import {Link} from 'react-router-dom';
 import {Form, Field, SubmissionError, reduxForm} from 'redux-form/immutable';
-import {Select, ReduxFormFields} from 'components/ui';
+import {Checkbox, HelpIcon, ReduxFormFields} from 'components/ui';
 import {Button} from 'semantic-ui-react';
 // other
 import messages from './messages';
+import styles from './index.css';
 
-class SignupForm extends React.Component {
+class DictionaryForm extends React.Component {
   static propTypes = {
     // injected by redux form
     submitting: PropTypes.bool.isRequired,
@@ -21,6 +24,11 @@ class SignupForm extends React.Component {
     // react-intl
     intl: intlShape.isRequired,
   };
+  state = {isLangSupported: true};
+
+  componentDidMount() {
+    this.props.loadTranslateDirections();
+  }
 
   submitForm = (values) => {
     return new Promise((resolve, reject) => {
@@ -32,30 +40,54 @@ class SignupForm extends React.Component {
     });
   };
 
+  handleLangSpportedToggle = (event, {checked}) => {
+    this.setState({isLangSupported: !checked});
+  };
+
   render() {
-    const {handleSubmit, submitting, intl: {formatMessage}} = this.props;
-    const countryOptions = [
-      {key: 'af', value: 'af', flag: 'af', text: 'Afghanistan'},
-      {key: 'ru', value: 'ru', flag: 'ru', text: 'Русский'},
-      {key: 'en', value: 'en', flag: 'us', text: 'English'},
-      {key: 'de', value: 'de', flag: 'de', text: 'Deutsch'},
-    ];
+    const {
+      handleSubmit,
+      submitting,
+      intl: {formatMessage},
+      translationDirectionOptions,
+    } = this.props;
+    const {isLangSupported} = this.state;
+
     return (
       <Form onSubmit={handleSubmit(this.submitForm)}>
-        <Field
-          name="title"
-          type="text"
-          component={ReduxFormFields.Input}
-          label={formatMessage(messages.titleLabel)}
-          hintText={formatMessage(messages.titleHint)}
-        />
-        <Field
-          name="translateFrom"
-          options={countryOptions}
-          component={ReduxFormFields.Select}
-          label={formatMessage(messages.translateFromLabel)}
-          hintText={formatMessage(messages.translateFromHint)}
-        />
+        {isLangSupported ? (
+          <Field
+            name="translateDirection"
+            options={translationDirectionOptions.toArray()}
+            component={ReduxFormFields.Select}
+            label={formatMessage(messages.translateDirectionLabel)}
+            hintText={formatMessage(messages.translateDirectionHint)}
+          />
+        ) : (
+          <Field
+            name="title"
+            type="text"
+            component={ReduxFormFields.Input}
+            label={formatMessage(messages.titleLabel)}
+            hintText={formatMessage(messages.titleHint)}
+          />
+        )}
+
+        <div className={styles.checkboxWrapper}>
+          <Checkbox
+            label="I cannot find my language in the list"
+            defaultChecked={!isLangSupported}
+            onChange={this.handleLangSpportedToggle}
+          />
+          <HelpIcon
+            text={
+              isLangSupported
+                ? formatMessage(messages.helptextTranslationPossible)
+                : formatMessage(messages.helptextTranslationIsntPossible)
+            }
+          />
+        </div>
+
         <Button type="submit" fluid loading={submitting} disabled={submitting}>
           <FormattedMessage {...messages.saveBtnLabel} />
         </Button>
@@ -66,39 +98,44 @@ class SignupForm extends React.Component {
 
 const validate = (values) => {
   const errors = {};
-
+  console.log('values', values);
   if (!values.title) {
-    errors.title = 'Required';
+    errors.title = 'required';
   }
-
-  if (!values.password) {
-    errors.password = 'required';
-  } else if (values.password.length < 8) {
-    errors.password = 'Must be 8 characters at least';
-  }
-
-  if (!errors.password && values.password !== values.passwordConfirmation) {
-    errors.passwordConfirmation = 'enter the same password';
+  if (!values.translateDirection) {
+    errors.translateDirection = 'required';
   }
 
   return errors;
 };
 
-const mapStateToProps = (state) => ({
-  // ...
+// const mapStateToProps = (state) => ({
+//   translateDirections: [
+//     {key: 'af', value: 'af', flag: 'af', text: 'Afghanistan'},
+//     {key: 'ru', value: 'ru', flag: 'ru', text: 'Русский'},
+//     {key: 'en', value: 'en', flag: 'us', text: 'English'},
+//     {key: 'de', value: 'de', flag: 'de', text: 'Deutsch'},
+//   ],
+//   // state.app.entities.translateDirections.items,
+// });
+const mapStateToProps = createStructuredSelector({
+  translationDirectionOptions: makeSelectTranslationDirections(),
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    loadTranslateDirections: () => {
+      dispatch(loadTranslateDirections());
+    },
     loginUser: (values, {resolve, reject}) => {
-      dispatch(loginUser(values, {resolve, reject}));
+      // dispatch(loginUser(values, {resolve, reject}));
     },
   };
 };
 
-SignupForm = connect(mapStateToProps, mapDispatchToProps)(injectIntl(SignupForm));
+DictionaryForm = connect(mapStateToProps, mapDispatchToProps)(injectIntl(DictionaryForm));
 
 export default reduxForm({
-  form: 'signupForm',
+  form: 'dictionaryForm',
   validate,
-})(SignupForm);
+})(DictionaryForm);

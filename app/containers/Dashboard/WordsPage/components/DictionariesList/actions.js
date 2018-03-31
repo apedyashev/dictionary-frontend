@@ -14,3 +14,18 @@ export const dictionariesEntity = {
 export function loadDictionaries(query, {resolve, reject} = {}) {
   return getEntityActions.request(query, dictionariesEntity, {resolve, reject});
 }
+
+export const translateDirectionSchema = new schema.Entity(
+  'translateDirections',
+  {},
+  {idAttribute: 'codes'}
+);
+export const translateDirectionArraySchema = new schema.Array(translateDirectionSchema);
+export const translateDirections = {
+  key: 'translateDirections',
+  url: 'translate/directions',
+  schema: {items: translateDirectionArraySchema},
+};
+export function loadTranslateDirections() {
+  return getEntityActions.request({}, translateDirections);
+}

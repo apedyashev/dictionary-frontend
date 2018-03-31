@@ -12,18 +12,28 @@ export default defineMessages({
   },
   titleHint: {
     id: 'containers.NewDictForm.emailHint',
-    defaultMessage: 'Please enter dictionary title',
+    defaultMessage: 'Please enter the dictionary title',
   },
-  translateFromLabel: {
-    id: 'containers.NewDictForm.translateFromLabel',
-    defaultMessage: 'Translate  from',
+  translateDirectionLabel: {
+    id: 'containers.NewDictForm.translateDirectionLabel',
+    defaultMessage: 'Translate direction',
   },
-  translateFromHint: {
-    id: 'containers.NewDictForm.translateFromHint',
-    defaultMessage: 'Language to translate from',
+  translateDirectionHint: {
+    id: 'containers.NewDictForm.translateDirectionHint',
+    defaultMessage: 'Please select languages',
   },
   saveBtnLabel: {
     id: 'containers.NewDictForm.saveBtnLabel',
     defaultMessage: 'Save',
+  },
+  helptextTranslationPossible: {
+    id: 'containers.NewDictForm.helptextTranslationPossible',
+    defaultMessage:
+      "If your language is available in the list, then we'll be translating your words for you",
+  },
+  helptextTranslationIsntPossible: {
+    id: 'containers.NewDictForm.helptextTranslationIsntPossible',
+    defaultMessage:
+      "No worries! You still can add and learn words but you'll have to translate them on your own",
   },
 });
