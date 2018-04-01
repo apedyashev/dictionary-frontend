@@ -2,6 +2,7 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
+import {compose} from 'redux';
 import {createStructuredSelector} from 'reselect';
 // selectors
 import {makeSelectDictionaries, makeSelectDictionariesLoaded} from '../DictionariesList/selectors';
@@ -9,6 +10,7 @@ import {makeSelectDictionaries, makeSelectDictionariesLoaded} from '../Dictionar
 import {Menu} from 'semantic-ui-react';
 import DictionariesList from '../DictionariesList';
 import NewDictionaryForm from '../NewDictionaryForm';
+import withErrorBoundary from 'utils/withErrorBoundary';
 
 class Dictionaries extends React.Component {
   static propTypes = {};
@@ -71,4 +73,5 @@ export function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dictionaries);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+export default compose(withConnect, withErrorBoundary)(Dictionaries);

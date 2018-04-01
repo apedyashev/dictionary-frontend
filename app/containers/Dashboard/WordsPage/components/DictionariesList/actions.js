@@ -1,5 +1,5 @@
 import {schema} from 'normalizr';
-import {getEntityActions} from 'containers/App/actions';
+import {getEntityActions, createEntityActions} from 'containers/App/actions';
 
 export const dictionarySchema = new schema.Entity('dictionaries', {
   // wordSets: friendsSchemaArray,
@@ -28,4 +28,13 @@ export const translateDirections = {
 };
 export function loadTranslateDirections() {
   return getEntityActions.request({}, translateDirections);
+}
+
+export const createDictionaryEntity = {
+  key: 'dictionaries',
+  url: 'dictionaries',
+  schema: {item: dictionarySchema},
+};
+export function createDictionary(values, {resolve, reject}) {
+  return createEntityActions.request(values, createDictionaryEntity, {resolve, reject});
 }

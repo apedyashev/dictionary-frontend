@@ -4,7 +4,7 @@ import {PropTypes} from 'prop-types';
 // components
 import Select from 'components/ui/form/Select';
 
-export default function ReduxFormInputField({
+export default function ReduxFormSelectField({
   input,
   label,
   hintText,
@@ -22,7 +22,7 @@ export default function ReduxFormInputField({
     />
   );
 }
-ReduxFormInputField.propTypes = {
+ReduxFormSelectField.propTypes = {
   input: PropTypes.object.isRequired,
   label: PropTypes.string,
   hintText: PropTypes.string,

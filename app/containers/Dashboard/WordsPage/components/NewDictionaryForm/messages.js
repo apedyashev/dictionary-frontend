@@ -26,11 +26,16 @@ export default defineMessages({
     id: 'containers.NewDictForm.saveBtnLabel',
     defaultMessage: 'Save',
   },
+  translationPossibleCheckboxLabel: {
+    id: 'containers.NewDictForm.translationPossibleCheckboxLabel',
+    defaultMessage: 'I cannot find my language in the list',
+  },
   helptextTranslationPossible: {
     id: 'containers.NewDictForm.helptextTranslationPossible',
     defaultMessage:
       "If your language is available in the list, then we'll be translating your words for you",
   },
+
   helptextTranslationIsntPossible: {
     id: 'containers.NewDictForm.helptextTranslationIsntPossible',
     defaultMessage:

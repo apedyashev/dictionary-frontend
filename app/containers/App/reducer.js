@@ -57,7 +57,11 @@ function appReducer(state = initialState, action) {
           .setIn(['profile', 'data'], action.response.entities.users[userId])
           .setIn(['profile', 'authHeader'], `Bearer ${action.response.result.token}`);
       } else if (entityKey) {
-        return state.setIn(['entities', entityKey], action.response.entities[entityKey]);
+        return state.mergeDeepIn(
+          ['entities', entityKey, 'items'],
+          action.response.entities[entityKey]
+        );
+        // return state.setIn(['entities', entityKey, 'items'], action.response.entities[entityKey]);
       }
       return state;
     }

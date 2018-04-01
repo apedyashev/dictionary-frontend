@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
 // actions
-import {loadTranslateDirections} from '../DictionariesList/actions';
+import {loadTranslateDirections, createDictionary} from '../DictionariesList/actions';
 import {makeSelectTranslationDirections} from '../DictionariesList/selectors';
 // components
 import {Link} from 'react-router-dom';
@@ -24,15 +24,22 @@ class DictionaryForm extends React.Component {
     // react-intl
     intl: intlShape.isRequired,
   };
-  state = {isLangSupported: true};
+  state = {isLangAbsent: false};
 
   componentDidMount() {
     this.props.loadTranslateDirections();
   }
 
   submitForm = (values) => {
+    let dictionaryData = {...values};
+    if (this.state.isLangAbsent) {
+      dictionaryData = {title: values.title};
+    } else if (!this.state.isLangAbsent && values.translateDirection) {
+      const {translationDirectionOptions} = this.props;
+      dictionaryData.title = translationDirectionOptions.get(values.translateDirection).text;
+    }
     return new Promise((resolve, reject) => {
-      this.props.loginUser(values, {resolve, reject});
+      this.props.createDictionary(dictionaryData, {resolve, reject});
     }).catch(({validationErrors}) => {
       if (validationErrors) {
         throw new SubmissionError(validationErrors);
@@ -40,8 +47,8 @@ class DictionaryForm extends React.Component {
     });
   };
 
-  handleLangSpportedToggle = (event, {checked}) => {
-    this.setState({isLangSupported: !checked});
+  handleLangAbsentToggle = (event, {checked}) => {
+    this.setState({isLangAbsent: checked});
   };
 
   render() {
@@ -50,20 +57,12 @@ class DictionaryForm extends React.Component {
       submitting,
       intl: {formatMessage},
       translationDirectionOptions,
+      values,
     } = this.props;
-    const {isLangSupported} = this.state;
-
+    const {isLangAbsent} = this.state;
     return (
       <Form onSubmit={handleSubmit(this.submitForm)}>
-        {isLangSupported ? (
-          <Field
-            name="translateDirection"
-            options={translationDirectionOptions.toArray()}
-            component={ReduxFormFields.Select}
-            label={formatMessage(messages.translateDirectionLabel)}
-            hintText={formatMessage(messages.translateDirectionHint)}
-          />
-        ) : (
+        {isLangAbsent ? (
           <Field
             name="title"
             type="text"
@@ -71,19 +70,31 @@ class DictionaryForm extends React.Component {
             label={formatMessage(messages.titleLabel)}
             hintText={formatMessage(messages.titleHint)}
           />
+        ) : (
+          <Field
+            name="translateDirection"
+            options={translationDirectionOptions.toArray()}
+            component={ReduxFormFields.Select}
+            label={formatMessage(messages.translateDirectionLabel)}
+            hintText={formatMessage(messages.translateDirectionHint)}
+          />
         )}
 
         <div className={styles.checkboxWrapper}>
-          <Checkbox
-            label="I cannot find my language in the list"
-            defaultChecked={!isLangSupported}
-            onChange={this.handleLangSpportedToggle}
+          <Field
+            name="isLangAbsent"
+            component={ReduxFormFields.Checkbox}
+            label={formatMessage(messages.translationPossibleCheckboxLabel)}
+            props={{
+              onChange: this.handleLangAbsentToggle,
+            }}
           />
+
           <HelpIcon
             text={
-              isLangSupported
-                ? formatMessage(messages.helptextTranslationPossible)
-                : formatMessage(messages.helptextTranslationIsntPossible)
+              isLangAbsent
+                ? formatMessage(messages.helptextTranslationIsntPossible)
+                : formatMessage(messages.helptextTranslationPossible)
             }
           />
         </div>
@@ -99,25 +110,17 @@ class DictionaryForm extends React.Component {
 const validate = (values) => {
   const errors = {};
   console.log('values', values);
-  if (!values.title) {
-    errors.title = 'required';
-  }
-  if (!values.translateDirection) {
+  if (values.isLangAbsent) {
+    if (!values.title) {
+      errors.title = 'required';
+    }
+  } else if (!values.translateDirection) {
     errors.translateDirection = 'required';
   }
-
+  console.log('errors', errors);
   return errors;
 };
 
-// const mapStateToProps = (state) => ({
-//   translateDirections: [
-//     {key: 'af', value: 'af', flag: 'af', text: 'Afghanistan'},
-//     {key: 'ru', value: 'ru', flag: 'ru', text: 'Русский'},
-//     {key: 'en', value: 'en', flag: 'us', text: 'English'},
-//     {key: 'de', value: 'de', flag: 'de', text: 'Deutsch'},
-//   ],
-//   // state.app.entities.translateDirections.items,
-// });
 const mapStateToProps = createStructuredSelector({
   translationDirectionOptions: makeSelectTranslationDirections(),
 });
@@ -127,8 +130,8 @@ const mapDispatchToProps = (dispatch) => {
     loadTranslateDirections: () => {
       dispatch(loadTranslateDirections());
     },
-    loginUser: (values, {resolve, reject}) => {
-      // dispatch(loginUser(values, {resolve, reject}));
+    createDictionary: (values, {resolve, reject}) => {
+      dispatch(createDictionary(values, {resolve, reject}));
     },
   };
 };

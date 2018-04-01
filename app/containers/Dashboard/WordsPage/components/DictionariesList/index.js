@@ -25,6 +25,7 @@ class DictionariesList extends React.Component {
     } else if (loading) {
       return <PageLoader />;
     }
+    console.log('dictionaries', dictionaries);
     return (
       <div>
         {dictionaries.toArray().map((item, id) => {
