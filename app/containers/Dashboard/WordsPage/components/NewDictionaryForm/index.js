@@ -48,7 +48,20 @@ class DictionaryForm extends React.Component {
       })
       .catch(({validationErrors}) => {
         if (validationErrors) {
-          throw new SubmissionError(validationErrors);
+          // invalid slug means that user already has this dictionary.
+          if (validationErrors.slug && this.state.isLangAbsent) {
+            throw new SubmissionError({
+              ...validationErrors,
+              title: validationErrors.slug,
+            });
+          } else if (validationErrors.slug && !this.state.isLangAbsent) {
+            throw new SubmissionError({
+              ...validationErrors,
+              translateDirection: validationErrors.slug,
+            });
+          } else {
+            throw new SubmissionError(validationErrors);
+          }
         }
       });
   };
