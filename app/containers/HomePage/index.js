@@ -23,12 +23,14 @@ import {loadRepos} from '../App/actions';
 import {changeUsername} from './actions';
 import {makeSelectUsername} from './selectors';
 import reducer from './reducer';
-import saga from './saga';
+// import saga from './saga';
 import styles from './index.css';
 
 export class HomePage extends React.PureComponent {
   render() {
-    const {loading, error, repos, showLoginForm} = this.props;
+    const {
+loading, error, repos, showLoginForm,
+} = this.props;
     const reposListProps = {
       loading,
       error,
@@ -84,6 +86,10 @@ const mapStateToProps = createStructuredSelector({
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 const withReducer = injectReducer({key: 'home', reducer});
-const withSaga = injectSaga({key: 'home', saga});
+// const withSaga = injectSaga({key: 'home', saga});
 
-export default compose(withReducer, withSaga, withConnect)(HomePage);
+export default compose(
+  withReducer,
+  // withSaga,
+  withConnect
+)(HomePage);

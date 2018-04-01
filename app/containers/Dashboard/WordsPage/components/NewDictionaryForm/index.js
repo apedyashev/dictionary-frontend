@@ -109,7 +109,6 @@ class DictionaryForm extends React.Component {
 
 const validate = (values) => {
   const errors = {};
-  console.log('values', values);
   if (values.isLangAbsent) {
     if (!values.title) {
       errors.title = 'required';
@@ -117,7 +116,6 @@ const validate = (values) => {
   } else if (!values.translateDirection) {
     errors.translateDirection = 'required';
   }
-  console.log('errors', errors);
   return errors;
 };
 

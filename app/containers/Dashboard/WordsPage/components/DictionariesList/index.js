@@ -8,24 +8,37 @@ import {makeSelectDictionaries, makeSelectDictionariesLoading} from './selectors
 import {loadDictionaries} from './actions';
 // components
 import {Sidebar, Segment, Button, Menu, Image, Icon, Header} from 'semantic-ui-react';
-import {PageLoader} from 'components/ui';
+import {ListLoader, EmptyListPrompt} from 'components/ui';
 import DictionariesListItem from '../DictionariesListItem';
 
 class DictionariesList extends React.Component {
-  static propTypes = {};
+  static propTypes = {
+    onNewDictionaryClick: PropTypes.func.isRequired,
+  };
 
   componentDidMount() {
     this.props.loadDictionaries();
   }
 
   render() {
-    const {dictionaries, loading} = this.props;
+    const {
+dictionaries, loading, loaded, onNewDictionaryClick,
+} = this.props;
     if (!loading && !dictionaries) {
-      return null;
+      return (
+        <EmptyListPrompt
+          title="You don't have any dictionaries"
+          subtitle={
+            <Button basic onClick={onNewDictionaryClick}>
+              Create
+            </Button>
+          }
+        />
+      );
     } else if (loading) {
-      return <PageLoader />;
+      return <ListLoader />;
     }
-    console.log('dictionaries', dictionaries);
+
     return (
       <div>
         {dictionaries.toArray().map((item, id) => {

@@ -18,7 +18,7 @@ import injectSaga from 'utils/injectSaga';
 import {makeSelectRepos, makeSelectLoading, makeSelectError} from 'containers/App/selectors';
 
 import {Sidebar, Segment, Button, Menu, Image, Icon, Header} from 'semantic-ui-react';
-import Prompt from 'components/ui/Prompt';
+import {Prompt} from 'components/ui';
 import {Topbar, Dictionaries} from './components';
 // other
 import styles from './index.css';

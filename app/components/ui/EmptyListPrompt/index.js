@@ -6,16 +6,16 @@ import cn from 'classnames';
 import H2 from '../typography/H2';
 import styles from './index.css';
 
-export default function Prompt({title, subtitle}) {
+export default function EmptyListPrompt({title, subtitle}) {
   return (
     <div className={styles.root}>
-      <H2 className={cn(styles.item, styles.title)}>{title}</H2>
+      <div className={cn(styles.item, styles.title)}>{title}</div>
       <div className={cn(styles.item, styles.subtitle)}>{subtitle}</div>
     </div>
   );
 }
 
-Prompt.propTypes = {
+EmptyListPrompt.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
 };

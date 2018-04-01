@@ -15,7 +15,7 @@ import withErrorBoundary from 'utils/withErrorBoundary';
 class Dictionaries extends React.Component {
   static propTypes = {};
   state = {
-    activeTab: 'add', // this.props.loaded && !this.props.dictionaries ? 'add' : 'list',
+    activeTab: this.props.loaded && !this.props.dictionaries ? 'add' : 'list',
     loaded: false,
   };
 
@@ -31,6 +31,7 @@ class Dictionaries extends React.Component {
   }
 
   handleTabClick = (e, {name}) => this.setState({activeTab: name});
+  handleNewDictionaryClick = () => this.setState({activeTab: 'add'});
 
   render() {
     const {activeTab} = this.state;
@@ -54,7 +55,9 @@ class Dictionaries extends React.Component {
             />
           </Menu.Menu>
         </Menu>
-        {activeTab === 'list' && <DictionariesList />}
+        {activeTab === 'list' && (
+          <DictionariesList onNewDictionaryClick={this.handleNewDictionaryClick} />
+        )}
         {activeTab === 'add' && <NewDictionaryForm />}
       </div>
     );
