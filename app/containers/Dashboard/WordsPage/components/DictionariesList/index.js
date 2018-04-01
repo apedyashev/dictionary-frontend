@@ -13,7 +13,7 @@ import DictionariesListItem from '../DictionariesListItem';
 
 class DictionariesList extends React.Component {
   static propTypes = {
-    onNewDictionaryClick: PropTypes.func.isRequired,
+    onCreateClick: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -21,15 +21,13 @@ class DictionariesList extends React.Component {
   }
 
   render() {
-    const {
-dictionaries, loading, loaded, onNewDictionaryClick,
-} = this.props;
+    const {dictionaries, loading, loaded} = this.props;
     if (!loading && !dictionaries) {
       return (
         <EmptyListPrompt
           title="You don't have any dictionaries"
           subtitle={
-            <Button basic onClick={onNewDictionaryClick}>
+            <Button basic onClick={this.props.onCreateClick}>
               Create
             </Button>
           }

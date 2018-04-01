@@ -32,6 +32,7 @@ class Dictionaries extends React.Component {
 
   handleTabClick = (e, {name}) => this.setState({activeTab: name});
   handleNewDictionaryClick = () => this.setState({activeTab: 'add'});
+  handleDictionaryCreated = () => this.setState({activeTab: 'list'});
 
   render() {
     const {activeTab} = this.state;
@@ -55,10 +56,8 @@ class Dictionaries extends React.Component {
             />
           </Menu.Menu>
         </Menu>
-        {activeTab === 'list' && (
-          <DictionariesList onNewDictionaryClick={this.handleNewDictionaryClick} />
-        )}
-        {activeTab === 'add' && <NewDictionaryForm />}
+        {activeTab === 'list' && <DictionariesList onCreateClick={this.handleNewDictionaryClick} />}
+        {activeTab === 'add' && <NewDictionaryForm onCreated={this.handleDictionaryCreated} />}
       </div>
     );
   }

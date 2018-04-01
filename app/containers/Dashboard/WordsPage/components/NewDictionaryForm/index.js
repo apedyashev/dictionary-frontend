@@ -18,6 +18,8 @@ import styles from './index.css';
 
 class DictionaryForm extends React.Component {
   static propTypes = {
+    // own props
+    onCreated: PropTypes.func.isRequired,
     // injected by redux form
     submitting: PropTypes.bool.isRequired,
     handleSubmit: PropTypes.func.isRequired,
@@ -40,11 +42,15 @@ class DictionaryForm extends React.Component {
     }
     return new Promise((resolve, reject) => {
       this.props.createDictionary(dictionaryData, {resolve, reject});
-    }).catch(({validationErrors}) => {
-      if (validationErrors) {
-        throw new SubmissionError(validationErrors);
-      }
-    });
+    })
+      .then(() => {
+        this.props.onCreated();
+      })
+      .catch(({validationErrors}) => {
+        if (validationErrors) {
+          throw new SubmissionError(validationErrors);
+        }
+      });
   };
 
   handleLangAbsentToggle = (event, {checked}) => {
