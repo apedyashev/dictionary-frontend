@@ -20,7 +20,7 @@ export default defineMessages({
   },
   translateDirectionHint: {
     id: 'containers.NewDictForm.translateDirectionHint',
-    defaultMessage: 'Please select languages',
+    defaultMessage: 'Start typing to search',
   },
   saveBtnLabel: {
     id: 'containers.NewDictForm.saveBtnLabel',

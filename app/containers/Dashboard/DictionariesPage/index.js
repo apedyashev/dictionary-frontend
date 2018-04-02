@@ -23,15 +23,19 @@ import {Topbar, Dictionaries} from './components';
 // other
 import styles from './index.css';
 
-export class WordsPage extends React.PureComponent {
+export class DictionariesPage extends React.PureComponent {
   static propTypes = {};
-  state = {showDictionaries: !this.props.match.params.slug};
+  state = {
+    isDictionarySelected: !!this.props.match.params.slug,
+    showDictionariesList: !this.props.match.params.slug,
+  };
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const {slug} = nextProps.match.params;
     if (slug !== prevState.prevSlug) {
       return {
-        showDictionaries: !slug,
+        showDictionariesList: !slug,
+        isDictionarySelected: !!slug,
         prevSlug: slug,
       };
     }
@@ -41,25 +45,25 @@ export class WordsPage extends React.PureComponent {
   }
 
   handleShowDictsToggle = () => {
-    this.setState({showDictionaries: !this.state.showDictionaries});
+    this.setState({showDictionariesList: !this.state.showDictionariesList});
   };
 
   render() {
     const {slug} = this.props.match.params;
-    const {showDictionaries} = this.state;
+    const {showDictionariesList, isDictionarySelected} = this.state;
     return (
       <div>
         <Topbar
-          showDictionaries={showDictionaries}
+          showDictionaries={showDictionariesList}
           onShowDictsToggle={this.handleShowDictsToggle}
         />
         <Sidebar.Pushable className={styles.content}>
-          <Sidebar as={Menu} animation="push" width="wide" visible={showDictionaries} vertical>
+          <Sidebar as={Menu} animation="push" width="wide" visible={showDictionariesList} vertical>
             <Dictionaries />
           </Sidebar>
           <Sidebar.Pusher>
             <Segment basic>
-              <Prompt title="dictionaries" subtitle="coming soon" />
+              {isDictionarySelected ? 'words' : <Prompt title="please select a dictionary" />}
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
@@ -90,5 +94,5 @@ export class WordsPage extends React.PureComponent {
 //   // withReducer,
 //   // withSaga,
 //   withConnect
-// )(WordsPage);
-export default WordsPage;
+// )(DictionariesPage);
+export default DictionariesPage;
