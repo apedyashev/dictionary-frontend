@@ -19,7 +19,7 @@ import {makeSelectRepos, makeSelectLoading, makeSelectError} from 'containers/Ap
 
 import {Sidebar, Segment, Button, Menu, Image, Icon, Header} from 'semantic-ui-react';
 import {Prompt} from 'components/ui';
-import {Topbar, Dictionaries} from './components';
+import {Topbar, Dictionaries, WordsList} from './components';
 // other
 import styles from './index.css';
 
@@ -63,7 +63,11 @@ export class DictionariesPage extends React.PureComponent {
           </Sidebar>
           <Sidebar.Pusher>
             <Segment basic>
-              {isDictionarySelected ? 'words' : <Prompt title="please select a dictionary" />}
+              {isDictionarySelected ? (
+                <WordsList dictionarySlug={slug} />
+              ) : (
+                <Prompt title="please select a dictionary" />
+              )}
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>

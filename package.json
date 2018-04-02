@@ -132,7 +132,8 @@
       "redux-saga/yield-effects": 2,
       "require-yield": 0,
       "array-bracket-spacing": "off",
-      "object-curly-spacing": "off"
+      "object-curly-spacing": "off",
+      "react/sort-comp": "off"
     },
     "settings": {
       "import/resolver": {
@@ -223,6 +224,7 @@
     "react-redux": "5.0.7",
     "react-router-dom": "4.2.2",
     "react-router-redux": "5.0.0-alpha.6",
+    "react-virtualized": "^9.18.5",
     "redux": "3.7.2",
     "redux-form": "^7.3.0",
     "redux-immutable": "4.0.0",

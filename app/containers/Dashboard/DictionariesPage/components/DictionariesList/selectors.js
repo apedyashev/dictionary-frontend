@@ -29,3 +29,14 @@ export const makeSelectTranslationDirections = () =>
       };
     });
   });
+
+export const makeSelectDictionarIdBySlug = () =>
+  createSelector(
+    [(state, ownProps) => ownProps.dictionarySlug, makeSelectEntities()],
+    (slug, entities) => {
+      const dictionary = entities
+        .getIn(['dictionaries', 'items'])
+        .find((item) => item.get('slug') === slug);
+      return dictionary ? dictionary.get('id') : null;
+    }
+  );

@@ -1,8 +1,10 @@
 import {schema} from 'normalizr';
 import {getEntityActions, createEntityActions} from 'containers/App/actions';
 
+export const wordSetSchema = new schema.Entity('wordSets');
+export const wodrSetsArraySchema = new schema.Array(wordSetSchema);
 export const dictionarySchema = new schema.Entity('dictionaries', {
-  // wordSets: friendsSchemaArray,
+  wordSets: wodrSetsArraySchema,
 });
 export const dictionariesArraySchema = new schema.Array(dictionarySchema);
 

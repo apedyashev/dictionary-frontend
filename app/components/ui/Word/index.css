@@ -1,0 +1,25 @@
+$text-width: 180px;
+$height: 30px;
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 0;
+  flex-wrap: wrap;
+  width: 100%;
+  height: $height;
+  line-height: $height;
+  border-bottom: 1px solid #ccc;
+}
+
+.text {
+  flex-grow: 1;
+  -webkit-flex-grow: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: $text-width;
+}
+
+.checkbox {
+  width: 50px;
+}

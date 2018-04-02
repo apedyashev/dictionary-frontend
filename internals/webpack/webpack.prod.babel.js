@@ -14,14 +14,25 @@ module.exports = require('./webpack.base.babel')({
     chunkFilename: '[name].[chunkhash].chunk.js',
   },
 
-  plugins: [
-    new webpack.optimize.ModuleConcatenationPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
+  optimization: {
+    // https://gist.github.com/sokra/1522d586b8e5c0f5072d7565c2bee693
+    splitChunks: {
       name: 'vendor',
       children: true,
       minChunks: 2,
       async: true,
-    }),
+    },
+  },
+
+  plugins: [
+    new webpack.optimize.ModuleConcatenationPlugin(),
+    // https://gist.github.com/sokra/1522d586b8e5c0f5072d7565c2bee693
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'vendor',
+    //   children: true,
+    //   minChunks: 2,
+    //   async: true,
+    // }),
 
     // Minify and optimize the index.html
     new HtmlWebpackPlugin({

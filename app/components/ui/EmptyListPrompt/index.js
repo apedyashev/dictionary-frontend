@@ -16,6 +16,6 @@ export default function EmptyListPrompt({title, subtitle}) {
 }
 
 EmptyListPrompt.propTypes = {
-  title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string.isRequired,
+  title: PropTypes.any.isRequired,
+  subtitle: PropTypes.any,
 };

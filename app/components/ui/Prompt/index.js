@@ -17,5 +17,5 @@ export default function Prompt({title, subtitle}) {
 
 Prompt.propTypes = {
   title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string.isRequired,
+  subtitle: PropTypes.string,
 };

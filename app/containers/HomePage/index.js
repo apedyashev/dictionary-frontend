@@ -28,9 +28,7 @@ import styles from './index.css';
 
 export class HomePage extends React.PureComponent {
   render() {
-    const {
-loading, error, repos, showLoginForm,
-} = this.props;
+    const {loading, error, repos, showLoginForm} = this.props;
     const reposListProps = {
       loading,
       error,

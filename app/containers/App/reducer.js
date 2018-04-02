@@ -1,20 +1,29 @@
-/*
- * AppReducer
- *
- * The reducer takes care of our data. Using actions, we can change our
- * application state.
- * To add a new action, add it to the switch statement in the reducer function
- *
- * Example:
- * case YOUR_ACTION_CONSTANT:
- *   return state.set('yourStateVariable', true);
- */
-
+import _each from 'lodash/each';
 import {fromJS} from 'immutable';
 
 import {LOAD_REPOS_SUCCESS, LOAD_REPOS, LOAD_REPOS_ERROR} from './constants';
 import {profileActionTypes, entityActionTypes, SET_TOKEN} from './actions';
 
+function getEntityIds(action) {
+  let ids = [];
+  if (action.response && action.response.result) {
+    const {result} = action.response;
+    if (result.items) {
+      ids = result.items;
+    } else if (result.item) {
+      ids = [result.item];
+    }
+  }
+  return ids;
+}
+
+const defaultEntityState = fromJS({
+  loading: false,
+  loaded: false,
+  items: {},
+  displayOrder: [],
+  pagination: {},
+});
 // The initial state of the App
 const initialState = fromJS({
   profile: {
@@ -23,7 +32,11 @@ const initialState = fromJS({
     authHeader: '',
     data: {},
   },
-  entities: {},
+  entities: {
+    dictionaries: defaultEntityState,
+    words: defaultEntityState,
+    wordSets: defaultEntityState,
+  },
 
   error: false,
   currentUser: false,
@@ -57,11 +70,10 @@ function appReducer(state = initialState, action) {
           .setIn(['profile', 'data'], action.response.entities.users[userId])
           .setIn(['profile', 'authHeader'], `Bearer ${action.response.result.token}`);
       } else if (entityKey) {
-        return state.mergeDeepIn(
-          ['entities', entityKey, 'items'],
-          action.response.entities[entityKey]
-        );
-        // return state.setIn(['entities', entityKey, 'items'], action.response.entities[entityKey]);
+        const ids = getEntityIds(action);
+        return state
+          .mergeDeepIn(['entities', entityKey, 'items'], action.response.entities[entityKey])
+          .mergeIn(['entities', entityKey, 'displayOrder'], ids);
       }
       return state;
     }
@@ -77,16 +89,23 @@ function appReducer(state = initialState, action) {
     }
 
     case entityActionTypes.GET.SUCCESS: {
-      // console.log('action.response.entities', action.response.entities);
       const entityKey = action.entity && action.entity.key;
+      const ids = getEntityIds(action);
+
       let newState = state;
-      _.each(action.response.entities, (data, key) => {
+      _each(action.response.entities, (data, key) => {
         newState = state.mergeDeepIn(['entities', key, 'items'], data);
       });
+      if (action.response.result.pagination) {
+        newState = newState.mergeIn(
+          ['entities', entityKey, 'pagination'],
+          action.response.result.pagination
+        );
+      }
       return newState
         .setIn(['entities', entityKey, 'loading'], false)
-        .setIn(['entities', entityKey, 'loaded'], true);
-      // .mergeDeepIn(['entities', entityKey, 'items'], action.response.entities);
+        .setIn(['entities', entityKey, 'loaded'], true)
+        .mergeIn(['entities', entityKey, 'displayOrder'], ids);
     }
 
     case entityActionTypes.GET.FAILURE: {
