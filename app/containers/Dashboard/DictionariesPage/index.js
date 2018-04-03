@@ -29,6 +29,8 @@ export class DictionariesPage extends React.PureComponent {
       return {
         showDictionariesList: !slug,
         isDictionarySelected: !!slug,
+        // reset selected wordsset when dictionary is changed
+        selectedWordSetId: 0,
         prevSlug: slug,
       };
     }

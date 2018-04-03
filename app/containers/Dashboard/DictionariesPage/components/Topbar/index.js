@@ -8,13 +8,6 @@ import WordSetSelector from '../WordSetSelector';
 // other
 import styles from './index.css';
 
-const options = [
-  {key: 0, text: 'All words', value: 0},
-  {key: 1, text: 'Choice 1', value: 1},
-  {key: 2, text: 'Choice 2', value: 2},
-  {key: 3, text: 'Choice 3', value: 3},
-];
-
 export default function DashboardTopbar({
   selectedDictionaryId,
   showDictionaries,
