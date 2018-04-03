@@ -77,6 +77,7 @@ class WordsList extends React.Component {
             noRowsRenderer={this.noRowsRenderer}
             getRowHeight={this.getRowHeight}
             loadNextPage={this.loadNextPage}
+            resetProps={{dictionaryId, wordSetId}}
           />
         )}
       </div>
@@ -85,8 +86,10 @@ class WordsList extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
+  // dictionaryId: makeSelectDictionarIdBySlug(),
   words: makeSelectWords(),
   hasNextPage: makeSelectWordsHasNextPage(),
+  // loading: makeSelectDictionariesLoading(),
 });
 
 export function mapDispatchToProps(dispatch) {

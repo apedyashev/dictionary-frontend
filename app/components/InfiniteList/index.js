@@ -67,7 +67,7 @@ class InfiniteList extends React.PureComponent {
   };
 
   render() {
-    const {items, hasNextPage} = this.props;
+    const {items, hasNextPage, resetProps} = this.props;
     const rowCount = hasNextPage ? items.size + 1 : items.size;
 
     return (
@@ -93,6 +93,9 @@ class InfiniteList extends React.PureComponent {
                     rowHeight={this.getRowHeight}
                     rowRenderer={this.rowRenderer}
                     noRowsRenderer={this.noRowsRenderer}
+                    // those resetProps are used only to re-render List
+                    // more info: https://github.com/bvaughn/react-virtualized#pass-thru-props
+                    resetProps={resetProps}
                   />
                 )}
               </AutoSizer>
