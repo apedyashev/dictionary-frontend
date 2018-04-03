@@ -38,6 +38,20 @@ const makeSelectProfileData = () =>
 
 const makeSelectEntities = () =>
   createSelector(selectGlobal, (globalState) => globalState.get('entities'));
+//
+// export const makeSelectEntityProps = (path, useDisplayOrder = true) => {
+//   if (path[path.length - 1] === 'items' && useDisplayOrder) {
+//     return createSelector(selectGlobal, (globalState) => {
+//       const displayOrderPath = [...path];
+//       displayOrderPath[path.length - 1] = 'displayOrder';
+//       return globalState.getIn(displayOrderPath).map((id) => {
+//         return globalState.getIn([...path, id]);
+//       });
+//     });
+//   }
+//   console.log('path', path);
+//   return createSelector(selectGlobal, (globalState) => globalState.getIn(path));
+// };
 
 export {
   selectGlobal,

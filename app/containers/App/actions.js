@@ -4,6 +4,7 @@ import {action, createRequestTypes} from 'utils/actions';
 import {LOAD_PROFILE, LOAD_REPOS, LOAD_REPOS_SUCCESS, LOAD_REPOS_ERROR} from './constants';
 
 export const SET_TOKEN = '@APP/SET_TOKEN';
+export const RESET_ENTITY = '@APP/RESET_ENTITY';
 export function setToken(token) {
   return {
     type: SET_TOKEN,
@@ -25,6 +26,12 @@ export const loadProfileActions = {
   failure: (error) => action(profileActionTypes.GET.FAILURE, {error}),
 };
 
+export function resetEntity(entityName) {
+  return {
+    type: RESET_ENTITY,
+    entityName,
+  };
+}
 export const entityActionTypes = {
   GET: createRequestTypes('ENTITY/GET'),
   POST: createRequestTypes('ENTITY/CREATE'),

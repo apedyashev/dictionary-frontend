@@ -32,11 +32,23 @@ export const makeSelectTranslationDirections = () =>
 
 export const makeSelectDictionarIdBySlug = () =>
   createSelector(
-    [(state, ownProps) => ownProps.dictionarySlug, makeSelectEntities()],
+    [(state, ownProps) => ownProps.match.params.slug, makeSelectEntities()],
     (slug, entities) => {
       const dictionary = entities
         .getIn(['dictionaries', 'items'])
         .find((item) => item.get('slug') === slug);
       return dictionary ? dictionary.get('id') : null;
+    }
+  );
+
+export const makeSelectDictionaryWordSets = () =>
+  createSelector(
+    [(state, ownProps) => ownProps.dictionaryId, makeSelectEntities()],
+    (dictionaryId, entities) => {
+      const dictionary = entities.getIn(['dictionaries', 'items', dictionaryId]);
+      const wordSetIds = dictionary ? dictionary.get('wordSets') : fromJS([]);
+      return wordSetIds.map((wordSetId) => {
+        return entities.getIn(['wordSets', 'items', wordSetId]);
+      });
     }
   );

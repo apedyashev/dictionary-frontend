@@ -5,4 +5,8 @@
   z-index: 1000;
   width: 100% !important;
   margin-bottom: 0 !important;
+
+  .stipPadding {
+    padding: 0 !important;
+  }
 }

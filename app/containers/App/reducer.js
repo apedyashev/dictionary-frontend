@@ -2,7 +2,7 @@ import _each from 'lodash/each';
 import {fromJS} from 'immutable';
 
 import {LOAD_REPOS_SUCCESS, LOAD_REPOS, LOAD_REPOS_ERROR} from './constants';
-import {profileActionTypes, entityActionTypes, SET_TOKEN} from './actions';
+import {profileActionTypes, entityActionTypes, SET_TOKEN, RESET_ENTITY} from './actions';
 
 function getEntityIds(action) {
   let ids = [];
@@ -36,6 +36,7 @@ const initialState = fromJS({
     dictionaries: defaultEntityState,
     words: defaultEntityState,
     wordSets: defaultEntityState,
+    translateDirections: defaultEntityState,
   },
 
   error: false,
@@ -60,6 +61,10 @@ function appReducer(state = initialState, action) {
         .setIn(['profile', 'loading'], false)
         .setIn(['profile', 'loaded'], true)
         .setIn(['profile', 'data'], action.response.entities.users[userId]);
+    }
+
+    case RESET_ENTITY: {
+      return state.setIn(['entities', action.entityName], defaultEntityState);
     }
 
     case entityActionTypes.POST.SUCCESS: {
@@ -94,7 +99,7 @@ function appReducer(state = initialState, action) {
 
       let newState = state;
       _each(action.response.entities, (data, key) => {
-        newState = state.mergeDeepIn(['entities', key, 'items'], data);
+        newState = newState.mergeDeepIn(['entities', key, 'items'], data);
       });
       if (action.response.result.pagination) {
         newState = newState.mergeIn(

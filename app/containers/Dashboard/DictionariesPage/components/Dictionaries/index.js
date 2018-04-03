@@ -10,7 +10,7 @@ import {makeSelectDictionaries, makeSelectDictionariesLoaded} from '../Dictionar
 import {Menu} from 'semantic-ui-react';
 import DictionariesList from '../DictionariesList';
 import NewDictionaryForm from '../NewDictionaryForm';
-import withErrorBoundary from 'utils/withErrorBoundary';
+import withErrorBoundary from 'utils/hocs/withErrorBoundary';
 
 class Dictionaries extends React.Component {
   static propTypes = {};

@@ -4,28 +4,58 @@ import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 // actions
-import {loadWords} from './actions';
+import {loadWords, resetWords} from './actions';
 // selectors
 import {makeSelectDictionarIdBySlug} from '../DictionariesList/selectors';
 import {makeSelectWords, makeSelectWordsHasNextPage} from './selectors';
 // components
 import InfiniteList from 'components/InfiniteList';
-import {Word} from 'components/ui';
+import {Word, EmptyListPrompt} from 'components/ui';
 
 class WordsList extends React.Component {
   static propTypes = {};
-  state = {};
+  state = {
+    shouldListBeReset: false,
+  };
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (
+      nextProps.dictionaryId !== prevState.prevDictionaryId ||
+      nextProps.wordSetId !== prevState.prevWordSetId
+    ) {
+      return {
+        shouldListBeReset: true,
+        prevDictionaryId: nextProps.dictionaryId,
+        prevWordSetId: nextProps.wordSetId,
+      };
+    }
+    return null;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.shouldListBeReset) {
+      this.setState({shouldListBeReset: false});
+      console.log('reset display order');
+      this.props.resetWords();
+    }
+  }
 
   loadNextPage = ({page, perPage}) => {
-    const {dictionaryId} = this.props;
-    this.props.loadWords({dictionaryId}, {page, perPage});
+    const {dictionaryId, wordSetId} = this.props;
+    if (wordSetId) {
+      this.props.loadWords({dictionaryId, wordSetId}, {page, perPage});
+    } else {
+      this.props.loadWords({dictionaryId}, {page, perPage});
+    }
   };
 
-  getRowHeight = () => {
+  getRowHeight = ({index, rowData}) => {
+    // must be changed along with line-height value in app/components/ui/Word/index.css
     return 30;
   };
+
   noRowsRenderer = () => {
-    return <div>No rows</div>;
+    return <EmptyListPrompt title="You don't have any tracks" />;
   };
 
   rowRenderer = ({item, index, key, style}) => {
@@ -33,12 +63,13 @@ class WordsList extends React.Component {
   };
 
   render() {
-    const {dictionarySlug, dictionaryId, words, hasNextPage} = this.props;
+    const {dictionaryId, wordSetId, words, hasNextPage} = this.props;
     return (
       <div>
-        WordsList: {dictionarySlug}, {dictionaryId}
+        WordsList: {dictionaryId}, WS ID: {wordSetId}
         {dictionaryId && (
           <InfiniteList
+            key={[dictionaryId, wordSetId].join('-')}
             hasNextPage={hasNextPage}
             perPage={30}
             items={words}
@@ -54,15 +85,15 @@ class WordsList extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  dictionaryId: makeSelectDictionarIdBySlug(),
   words: makeSelectWords(),
   hasNextPage: makeSelectWordsHasNextPage(),
-  // loading: makeSelectDictionariesLoading(),
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
-    loadWords: ({dictionaryId}, query) => dispatch(loadWords({dictionaryId}, query)),
+    resetWords: () => dispatch(resetWords()),
+    loadWords: ({dictionaryId, wordSetId}, query) =>
+      dispatch(loadWords({dictionaryId, wordSetId}, query)),
   };
 }
 

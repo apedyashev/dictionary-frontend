@@ -1,9 +1,3 @@
-/*
- * HomePage
- *
- * This is the first thing users see of our App, at the '/' route
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Helmet} from 'react-helmet';
@@ -13,9 +7,7 @@ import {compose} from 'redux';
 import {createStructuredSelector} from 'reselect';
 import {Link} from 'react-router-dom';
 
-import injectReducer from 'utils/injectReducer';
-import injectSaga from 'utils/injectSaga';
-import {makeSelectRepos, makeSelectLoading, makeSelectError} from 'containers/App/selectors';
+import {makeSelectDictionarIdBySlug} from './components/DictionariesList/selectors';
 
 import {Sidebar, Segment, Button, Menu, Image, Icon, Header} from 'semantic-ui-react';
 import {Prompt} from 'components/ui';
@@ -28,6 +20,7 @@ export class DictionariesPage extends React.PureComponent {
   state = {
     isDictionarySelected: !!this.props.match.params.slug,
     showDictionariesList: !this.props.match.params.slug,
+    selectedWordSetId: 0,
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -48,14 +41,21 @@ export class DictionariesPage extends React.PureComponent {
     this.setState({showDictionariesList: !this.state.showDictionariesList});
   };
 
+  handleWordSetChange = (selectedWordSetId) => {
+    this.setState({selectedWordSetId});
+  };
+
   render() {
-    const {slug} = this.props.match.params;
-    const {showDictionariesList, isDictionarySelected} = this.state;
+    const {dictionaryId} = this.props;
+    const {showDictionariesList, isDictionarySelected, selectedWordSetId} = this.state;
     return (
       <div>
         <Topbar
+          selectedDictionaryId={dictionaryId}
           showDictionaries={showDictionariesList}
+          selectedWordSetId={selectedWordSetId}
           onShowDictsToggle={this.handleShowDictsToggle}
+          onWordSetChange={this.handleWordSetChange}
         />
         <Sidebar.Pushable className={styles.content}>
           <Sidebar as={Menu} animation="push" width="wide" visible={showDictionariesList} vertical>
@@ -64,7 +64,7 @@ export class DictionariesPage extends React.PureComponent {
           <Sidebar.Pusher>
             <Segment basic>
               {isDictionarySelected ? (
-                <WordsList dictionarySlug={slug} />
+                <WordsList dictionaryId={dictionaryId} wordSetId={selectedWordSetId} />
               ) : (
                 <Prompt title="please select a dictionary" />
               )}
@@ -76,27 +76,8 @@ export class DictionariesPage extends React.PureComponent {
   }
 }
 
-// export function mapDispatchToProps(dispatch) {
-//   return {
-//     loadWords: () => {
-//       const token = localStorage.getItem('authToken') || '';
-//       dispatch(setToken(token));
-//       dispatch(loadProfileActions.request());
-//     },
-//   };
-// }
-// const mapStateToProps = createStructuredSelector({
-// dictionarySlug: makeSelectDictionarySlug(),
-// });
-//
-// const withConnect = connect(mapStateToProps, mapDispatchToProps);
-//
-// const withReducer = injectReducer({key: 'dictionaries', reducer});
-// const withSaga = injectSaga({key: 'dictionaries', saga});
-//
-// export default compose(
-//   // withReducer,
-//   // withSaga,
-//   withConnect
-// )(DictionariesPage);
-export default DictionariesPage;
+const mapStateToProps = createStructuredSelector({
+  dictionaryId: makeSelectDictionarIdBySlug(),
+});
+
+export default connect(mapStateToProps, null)(DictionariesPage);

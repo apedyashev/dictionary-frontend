@@ -25,7 +25,12 @@ export function* createEntity({payload, entity, meta}) {
   const {url, schema, key} = entity;
 
   try {
-    const entityResponse = yield call(http.post, {url, query: meta.query, schema, payload});
+    const entityResponse = yield call(http.post, {
+      url,
+      query: meta.query,
+      schema,
+      payload,
+    });
     meta.resolve();
     yield put(createEntityActions.success(entityResponse, entity));
   } catch (err) {

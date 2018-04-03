@@ -8,6 +8,7 @@ export {default as HelpIcon} from './HelpIcon';
 export {default as EmptyListPrompt} from './EmptyListPrompt';
 export {default as Prompt} from './Prompt';
 export {default as Word} from './Word';
+export {default as Dropdown} from './Dropdown';
 
 // form
 export {default as Input} from './form/Input';
