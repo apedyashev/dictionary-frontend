@@ -29,6 +29,13 @@ class WordsList extends React.Component {
         prevWordSetId: nextProps.wordSetId,
       };
     }
+
+    if (nextProps.searchString !== prevState.prevSearchString) {
+      return {
+        shouldListBeReset: true,
+        prevSearchString: nextProps.searchString,
+      };
+    }
     return null;
   }
 
@@ -41,11 +48,11 @@ class WordsList extends React.Component {
   }
 
   loadNextPage = ({page, perPage}) => {
-    const {dictionaryId, wordSetId} = this.props;
+    const {dictionaryId, wordSetId, searchString: search} = this.props;
     if (wordSetId) {
-      this.props.loadWords({dictionaryId, wordSetId}, {page, perPage});
+      this.props.loadWords({dictionaryId, wordSetId}, {page, perPage, search});
     } else {
-      this.props.loadWords({dictionaryId}, {page, perPage});
+      this.props.loadWords({dictionaryId}, {page, perPage, search});
     }
   };
 
@@ -63,13 +70,14 @@ class WordsList extends React.Component {
   };
 
   render() {
-    const {dictionaryId, wordSetId, words, hasNextPage} = this.props;
+    const {dictionaryId, wordSetId, searchString, words, hasNextPage} = this.props;
+
     return (
       <div>
         WordsList: {dictionaryId}, WS ID: {wordSetId}
         {dictionaryId && (
           <InfiniteList
-            key={[dictionaryId, wordSetId].join('-')}
+            key={[dictionaryId, wordSetId, searchString].join('-')}
             hasNextPage={hasNextPage}
             perPage={30}
             items={words}
@@ -77,7 +85,7 @@ class WordsList extends React.Component {
             noRowsRenderer={this.noRowsRenderer}
             getRowHeight={this.getRowHeight}
             loadNextPage={this.loadNextPage}
-            resetProps={{dictionaryId, wordSetId}}
+            resetProps={{dictionaryId, wordSetId, searchString}}
           />
         )}
       </div>

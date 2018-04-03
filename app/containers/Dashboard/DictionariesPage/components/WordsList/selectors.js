@@ -18,3 +18,13 @@ export const makeSelectWordsHasNextPage = () =>
     }
     return curPage < totalPages;
   });
+
+// TODO: move to another module/component
+export const makeSelectTranslations = () =>
+  createSelector(makeSelectEntities(), (entities) => {
+    return entities.getIn(['translations', 'items']);
+  });
+export const makeSelectTranslationsLoading = () =>
+  createSelector(makeSelectEntities(), (entities) => {
+    return entities.getIn(['translations', 'loading']);
+  });

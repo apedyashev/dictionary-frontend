@@ -43,7 +43,7 @@ export const createEntityActions = {
   failure: (error, entity) => action(entityActionTypes.POST.FAILURE, {error, entity}),
 };
 export const getEntityActions = {
-  request: (query, entity, meta) => action(entityActionTypes.GET.REQUEST, {entity, meta}),
+  request: (query, entity, meta) => action(entityActionTypes.GET.REQUEST, {entity, query, meta}),
   success: (response, entity) => action(entityActionTypes.GET.SUCCESS, {...response, entity}),
   failure: (error, entity) => action(entityActionTypes.GET.FAILURE, {error, entity}),
 };

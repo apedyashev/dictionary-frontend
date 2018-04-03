@@ -18,6 +18,18 @@ export function loadWords({dictionaryId, wordSetId}, query, {resolve, reject} = 
   });
 }
 
+export const translationsSchema = new schema.Entity('translations', {}, {idAttribute: 'index'});
+export const translationsArraySchema = new schema.Array(translationsSchema);
+export const translationsEntity = {
+  key: 'translations',
+  url: 'translate',
+  schema: {items: translationsArraySchema},
+};
+
+export function loadTranslations({text, direction, uiLang}, {resolve, reject} = {}) {
+  return getEntityActions.request({text, direction, uiLang}, translationsEntity, {resolve, reject});
+}
+
 export function resetWords() {
   return resetEntity(wordsByDictionaryEntity().key);
 }

@@ -9,4 +9,9 @@
   .stipPadding {
     padding: 0 !important;
   }
+
+  .stipTopBottomPadding {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
 }

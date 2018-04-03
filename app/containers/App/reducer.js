@@ -37,6 +37,7 @@ const initialState = fromJS({
     words: defaultEntityState,
     wordSets: defaultEntityState,
     translateDirections: defaultEntityState,
+    translations: defaultEntityState,
   },
 
   error: false,

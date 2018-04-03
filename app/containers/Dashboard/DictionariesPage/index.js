@@ -21,6 +21,7 @@ export class DictionariesPage extends React.PureComponent {
     isDictionarySelected: !!this.props.match.params.slug,
     showDictionariesList: !this.props.match.params.slug,
     selectedWordSetId: 0,
+    searchString: '',
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -47,9 +48,18 @@ export class DictionariesPage extends React.PureComponent {
     this.setState({selectedWordSetId});
   };
 
+  handleSearchChange = (event, {value}) => {
+    this.setState({searchString: value});
+  };
+
   render() {
     const {dictionaryId} = this.props;
-    const {showDictionariesList, isDictionarySelected, selectedWordSetId} = this.state;
+    const {
+      showDictionariesList,
+      isDictionarySelected,
+      selectedWordSetId,
+      searchString,
+    } = this.state;
     return (
       <div>
         <Topbar
@@ -58,6 +68,7 @@ export class DictionariesPage extends React.PureComponent {
           selectedWordSetId={selectedWordSetId}
           onShowDictsToggle={this.handleShowDictsToggle}
           onWordSetChange={this.handleWordSetChange}
+          onSearchChange={this.handleSearchChange}
         />
         <Sidebar.Pushable className={styles.content}>
           <Sidebar as={Menu} animation="push" width="wide" visible={showDictionariesList} vertical>
@@ -66,7 +77,11 @@ export class DictionariesPage extends React.PureComponent {
           <Sidebar.Pusher>
             <Segment basic>
               {isDictionarySelected ? (
-                <WordsList dictionaryId={dictionaryId} wordSetId={selectedWordSetId} />
+                <WordsList
+                  dictionaryId={dictionaryId}
+                  wordSetId={selectedWordSetId}
+                  searchString={searchString}
+                />
               ) : (
                 <Prompt title="please select a dictionary" />
               )}

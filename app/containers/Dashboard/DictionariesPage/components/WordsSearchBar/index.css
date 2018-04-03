@@ -1,0 +1,14 @@
+.pos {
+  font-style: italic;
+  font-size: 10px;
+  color: #797373;
+}
+.meaning {
+  font-weight: bold;
+  font-size: 14px;
+}
+.example {
+  font-size: 12px;
+  b {
+  }
+}
