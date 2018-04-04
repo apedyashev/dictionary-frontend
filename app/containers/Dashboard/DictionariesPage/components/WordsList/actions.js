@@ -1,5 +1,5 @@
 import {schema} from 'normalizr';
-import {resetEntity, getEntityActions} from 'containers/App/actions';
+import {resetEntity, getEntityActions, createEntityActions} from 'containers/App/actions';
 
 export const wordsSchema = new schema.Entity('words');
 export const wordsArraySchema = new schema.Array(wordsSchema);
@@ -20,17 +20,29 @@ export function loadWords({dictionaryId, wordSetId}, query, {resolve, reject} = 
 
 export const translationsSchema = new schema.Entity('translations');
 export const translationsArraySchema = new schema.Array(translationsSchema);
-export const translationsEntity = {
+export const loadTranslationsEntity = {
   key: 'translations',
   url: 'translate',
   schema: {items: translationsArraySchema},
 };
 
 export function loadTranslations({text, direction, uiLang}, {resolve, reject} = {}) {
-  return getEntityActions.request({text, direction, uiLang}, translationsEntity, {
+  return getEntityActions.request({text, direction, uiLang}, loadTranslationsEntity, {
     resolve,
     reject,
     resetStore: true,
+  });
+}
+
+export const createWordEntity = {
+  key: 'words',
+  url: 'dictionaries/words',
+  schema: {item: wordsSchema},
+};
+export function createWord(values, {resolve, reject} = {}) {
+  return createEntityActions.request(values, createWordEntity, {
+    resolve,
+    reject,
   });
 }
 

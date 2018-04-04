@@ -31,11 +31,15 @@ export function* createEntity({payload, entity, meta}) {
       schema,
       payload,
     });
-    meta.resolve();
+    if (meta && meta.resolve) {
+      meta.resolve();
+    }
     yield put(createEntityActions.success(entityResponse, entity));
   } catch (err) {
     console.log('createEntity error', err);
-    meta.reject(err);
+    if (meta && meta.reject) {
+      meta.reject(err);
+    }
     yield put(createEntityActions.failure(err, entity));
   }
 }

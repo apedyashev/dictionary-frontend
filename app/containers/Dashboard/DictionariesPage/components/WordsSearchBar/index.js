@@ -5,19 +5,17 @@ import _debounce from 'lodash/debounce';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 // actions
-import {loadTranslations} from '../WordsList/actions';
+import {loadTranslations, createWord} from '../WordsList/actions';
 // selectors
 import {makeSelectTranslations, makeSelectTranslationsLoading} from '../WordsList/selectors';
 // components
 import {Input, Dropdown} from 'semantic-ui-react';
-// other
-import styles from './index.css';
+import DropdownItem from './DropdownItem';
 
 class WordsSearchBar extends React.PureComponent {
   static propTypes = {};
-  state = {showOptions: false};
+  state = {showOptions: false, inputValue: ''};
   wrapperRef = React.createRef();
-  inputValue = '';
 
   componentDidMount() {
     document.addEventListener('click', this.handleClickOutside);
@@ -39,18 +37,21 @@ class WordsSearchBar extends React.PureComponent {
 
   handleAddClick = () => {
     const {translateDirection, loadTranslations} = this.props;
-    if (translateDirection && this.inputValue) {
+    const {inputValue} = this.state;
+    if (translateDirection && inputValue) {
       new Promise((resolve, reject) => {
-        loadTranslations({text: this.inputValue, direction: translateDirection}, {resolve, reject});
+        loadTranslations({text: inputValue, direction: translateDirection}, {resolve, reject});
       }).then(() => {
         this.setState({showOptions: true});
       });
     }
   };
 
+  debouncedOnChange = _debounce(this.props.onChange, 200);
+
   handleInputChange = (event, {value}) => {
-    this.inputValue = value;
-    this.props.onChange(value);
+    this.setState({inputValue: value});
+    this.debouncedOnChange(value);
   };
 
   handleInputKeyPress = (event) => {
@@ -61,25 +62,48 @@ class WordsSearchBar extends React.PureComponent {
     }
   };
 
+  handleItemClick = (definitionId, translationId) => {
+    const {translations, dictionaryId} = this.props;
+    const selectedDefinition = translations.get(definitionId).toJS();
+    const translationOption = selectedDefinition.translations.find(({id}) => id === translationId);
+    const data = {
+      dictionary: dictionaryId,
+      word: this.state.inputValue,
+      // TODO:
+      // translations: [translationOption.id],
+      translations: [
+        {
+          text: translationOption.translation,
+          pos: selectedDefinition.pos,
+          meanings: translationOption.meanings,
+          synonyms: translationOption.synonyms,
+          examples: translationOption.examples,
+        },
+      ],
+    };
+    this.props.createWord(data);
+    // this will reset search query for the words list
+    this.props.onChange('');
+    this.setState({showOptions: false, inputValue: ''});
+  };
+
   buildDropdownOptions = () => {
     const {translations} = this.props;
     const options = [];
-    translations.toArray().forEach((posGroup) => {
-      const item = posGroup.toJS();
+    translations.toArray().forEach((definition) => {
+      const item = definition.toJS();
       item.translations.forEach((translation, i) => {
         options.push(
-          <Dropdown.Item key={`${item.index}-${i}`}>
-            <div className={styles.pos}>{translation.pos}</div>
-            <div className={styles.synonyms}>
-              {translation.text}{' '}
-              {translation.synonyms && <span>({translation.synonyms.join(', ')})</span>}
-            </div>
-            {translation.examples && (
-              <div className={styles.examples}>
-                <b>E.g:</b> {translation.examples.join(', ')}
-              </div>
-            )}
-          </Dropdown.Item>
+          <DropdownItem
+            key={translation.id}
+            definitionId={item.id}
+            translationId={translation.id}
+            pos={item.pos}
+            translation={translation.text}
+            synonyms={translation.synonyms}
+            examples={translation.examples}
+            onClick={this.handleItemClick}
+          />
         );
       });
     });
@@ -105,7 +129,8 @@ class WordsSearchBar extends React.PureComponent {
             <Input
               action={actionProps}
               placeholder={placeholder}
-              onChange={_debounce(this.handleInputChange, 200)}
+              value={this.state.inputValue}
+              onChange={this.handleInputChange}
               onKeyDown={this.handleInputKeyPress}
             />
           }
@@ -124,6 +149,7 @@ export function mapDispatchToProps(dispatch) {
   return {
     loadTranslations: ({text, direction, uiLang}, {resolve, reject}) =>
       dispatch(loadTranslations({text, direction, uiLang}, {resolve, reject})),
+    createWord: (values, {resolve, reject} = {}) => dispatch(createWord(values, {resolve, reject})),
   };
 }
 

@@ -35,6 +35,7 @@ export default function DashboardTopbar({
           <WordsSearchBar
             buttonLabel="Add"
             placeholder="Type to search"
+            dictionaryId={selectedDictionaryId}
             translateDirection={translateDirection}
             onChange={onSearchChange}
           />

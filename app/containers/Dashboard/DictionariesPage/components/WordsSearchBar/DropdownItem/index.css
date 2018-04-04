@@ -1,0 +1,14 @@
+.pos {
+  font-style: italic;
+  font-size: 10px;
+  color: #797373;
+}
+.synonyms {
+  font-weight: bold;
+  font-size: 14px;
+}
+.examples {
+  font-size: 12px;
+  b {
+  }
+}
