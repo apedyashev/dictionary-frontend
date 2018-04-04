@@ -9,8 +9,9 @@ import {loadTranslations, createWord} from '../WordsList/actions';
 // selectors
 import {makeSelectTranslations, makeSelectTranslationsLoading} from '../WordsList/selectors';
 // components
-import {Input, Dropdown} from 'semantic-ui-react';
+import {Input, Dropdown, Button} from 'semantic-ui-react';
 import DropdownItem from './DropdownItem';
+import AddOwnTranslation from './AddOwnTranslation';
 
 class WordsSearchBar extends React.PureComponent {
   static propTypes = {};
@@ -44,13 +45,20 @@ class WordsSearchBar extends React.PureComponent {
       }).then(() => {
         this.setState({showOptions: true});
       });
+    } else if (inputValue) {
+      this.setState({showOptions: true});
     }
   };
 
   debouncedOnChange = _debounce(this.props.onChange, 200);
 
   handleInputChange = (event, {value}) => {
-    this.setState({inputValue: value});
+    const newState = {inputValue: value};
+    // hide dropdown if input got cleared
+    if (!value) {
+      newState.showOptions = false;
+    }
+    this.setState(newState);
     this.debouncedOnChange(value);
   };
 
@@ -73,11 +81,30 @@ class WordsSearchBar extends React.PureComponent {
       // translations: [translationOption.id],
       translations: [
         {
-          text: translationOption.translation,
+          text: translationOption.text,
           pos: selectedDefinition.pos,
           meanings: translationOption.meanings,
           synonyms: translationOption.synonyms,
           examples: translationOption.examples,
+        },
+      ],
+    };
+    this.props.createWord(data);
+    // this will reset search query for the words list
+    this.props.onChange('');
+    this.setState({showOptions: false, inputValue: ''});
+  };
+
+  handleOwnTranslationAdd = (translationStr) => {
+    const {dictionaryId} = this.props;
+    const data = {
+      dictionary: dictionaryId,
+      word: this.state.inputValue,
+      // TODO:
+      // translations: [translationOption.id],
+      translations: [
+        {
+          text: translationStr,
         },
       ],
     };
@@ -122,7 +149,6 @@ class WordsSearchBar extends React.PureComponent {
     return (
       <div ref={this.wrapperRef}>
         <Dropdown
-          scrolling
           open={showOptions}
           icon={false}
           trigger={
@@ -134,8 +160,14 @@ class WordsSearchBar extends React.PureComponent {
               onKeyDown={this.handleInputKeyPress}
             />
           }
-          options={this.buildDropdownOptions()}
-        />
+        >
+          <Dropdown.Menu>
+            <Dropdown.Menu scrolling>{this.buildDropdownOptions()}</Dropdown.Menu>
+            <Dropdown.Header
+              content={<AddOwnTranslation onAddClick={this.handleOwnTranslationAdd} />}
+            />
+          </Dropdown.Menu>
+        </Dropdown>
       </div>
     );
   }
