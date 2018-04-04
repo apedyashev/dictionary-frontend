@@ -89,6 +89,11 @@ function appReducer(state = initialState, action) {
 
     case entityActionTypes.GET.REQUEST: {
       const entityKey = action.entity && action.entity.key;
+      if (action.meta.resetStore) {
+        return state
+          .setIn(['entities', entityKey], defaultEntityState)
+          .setIn(['entities', entityKey, 'loading'], true);
+      }
       return state
         .setIn(['entities', entityKey, 'loading'], true)
         .setIn(['entities', entityKey, 'loaded'], false);

@@ -7,7 +7,10 @@ import {compose} from 'redux';
 import {createStructuredSelector} from 'reselect';
 import {Link} from 'react-router-dom';
 
-import {makeSelectDictionarIdBySlug} from './components/DictionariesList/selectors';
+import {
+  makeSelectDictionarIdBySlug,
+  makeSelectTranslateDirection,
+} from './components/DictionariesList/selectors';
 
 import {Sidebar, Segment, Button, Menu, Image, Icon, Header} from 'semantic-ui-react';
 import {Prompt} from 'components/ui';
@@ -48,12 +51,13 @@ export class DictionariesPage extends React.PureComponent {
     this.setState({selectedWordSetId});
   };
 
-  handleSearchChange = (event, {value}) => {
-    this.setState({searchString: value});
+  handleSearchChange = (searchString) => {
+    this.setState({searchString});
   };
 
   render() {
-    const {dictionaryId} = this.props;
+    const {dictionaryId, translateDirection} = this.props;
+
     const {
       showDictionariesList,
       isDictionarySelected,
@@ -64,6 +68,7 @@ export class DictionariesPage extends React.PureComponent {
       <div>
         <Topbar
           selectedDictionaryId={dictionaryId}
+          translateDirection={translateDirection}
           showDictionaries={showDictionariesList}
           selectedWordSetId={selectedWordSetId}
           onShowDictsToggle={this.handleShowDictsToggle}
@@ -95,6 +100,7 @@ export class DictionariesPage extends React.PureComponent {
 
 const mapStateToProps = createStructuredSelector({
   dictionaryId: makeSelectDictionarIdBySlug(),
+  translateDirection: makeSelectTranslateDirection(),
 });
 
 export default connect(mapStateToProps, null)(DictionariesPage);

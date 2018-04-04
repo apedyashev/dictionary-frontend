@@ -17,6 +17,7 @@ class WordsSearchBar extends React.PureComponent {
   static propTypes = {};
   state = {showOptions: false};
   wrapperRef = React.createRef();
+  inputValue = '';
 
   componentDidMount() {
     document.addEventListener('click', this.handleClickOutside);
@@ -37,8 +38,27 @@ class WordsSearchBar extends React.PureComponent {
   };
 
   handleAddClick = () => {
-    this.props.loadTranslations({text: 'machen', direction: 'de-ru', uiLang: 'ru'});
-    this.setState({showOptions: true});
+    const {translateDirection, loadTranslations} = this.props;
+    if (translateDirection && this.inputValue) {
+      new Promise((resolve, reject) => {
+        loadTranslations({text: this.inputValue, direction: translateDirection}, {resolve, reject});
+      }).then(() => {
+        this.setState({showOptions: true});
+      });
+    }
+  };
+
+  handleInputChange = (event, {value}) => {
+    this.inputValue = value;
+    this.props.onChange(value);
+  };
+
+  handleInputKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      this.handleAddClick();
+    } else if (event.key === 'Escape') {
+      this.setState({showOptions: false});
+    }
   };
 
   buildDropdownOptions = () => {
@@ -46,17 +66,17 @@ class WordsSearchBar extends React.PureComponent {
     const options = [];
     translations.toArray().forEach((posGroup) => {
       const item = posGroup.toJS();
-      item.tr.forEach((translation, i) => {
+      item.translations.forEach((translation, i) => {
         options.push(
           <Dropdown.Item key={`${item.index}-${i}`}>
             <div className={styles.pos}>{translation.pos}</div>
-            <div className={styles.meaning}>
+            <div className={styles.synonyms}>
               {translation.text}{' '}
-              {translation.syn && <span>({_.map(translation.syn, 'text').join(', ')})</span>}
+              {translation.synonyms && <span>({translation.synonyms.join(', ')})</span>}
             </div>
-            {translation.ex && (
-              <div className={styles.example}>
-                <b>E.g:</b> {_.map(translation.ex, 'text').join(', ')}
+            {translation.examples && (
+              <div className={styles.examples}>
+                <b>E.g:</b> {translation.examples.join(', ')}
               </div>
             )}
           </Dropdown.Item>
@@ -65,8 +85,9 @@ class WordsSearchBar extends React.PureComponent {
     });
     return options;
   };
+
   render() {
-    const {isTranslationLoading, buttonLabel, placeholder, onChange} = this.props;
+    const {isTranslationLoading, buttonLabel, placeholder} = this.props;
     const {showOptions} = this.state;
     const actionProps = {
       content: buttonLabel,
@@ -84,7 +105,8 @@ class WordsSearchBar extends React.PureComponent {
             <Input
               action={actionProps}
               placeholder={placeholder}
-              onChange={_debounce(onChange, 200)}
+              onChange={_debounce(this.handleInputChange, 200)}
+              onKeyDown={this.handleInputKeyPress}
             />
           }
           options={this.buildDropdownOptions()}
@@ -100,8 +122,8 @@ const mapStateToProps = createStructuredSelector({
 });
 export function mapDispatchToProps(dispatch) {
   return {
-    loadTranslations: ({text, direction, uiLang}) =>
-      dispatch(loadTranslations({text, direction, uiLang})),
+    loadTranslations: ({text, direction, uiLang}, {resolve, reject}) =>
+      dispatch(loadTranslations({text, direction, uiLang}, {resolve, reject})),
   };
 }
 

@@ -11,6 +11,7 @@ import styles from './index.css';
 
 export default function DashboardTopbar({
   selectedDictionaryId,
+  translateDirection,
   showDictionaries,
   selectedWordSetId,
   onShowDictsToggle,
@@ -34,6 +35,7 @@ export default function DashboardTopbar({
           <WordsSearchBar
             buttonLabel="Add"
             placeholder="Type to search"
+            translateDirection={translateDirection}
             onChange={onSearchChange}
           />
         </Menu.Item>

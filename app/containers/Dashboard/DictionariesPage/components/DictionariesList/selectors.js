@@ -41,6 +41,17 @@ export const makeSelectDictionarIdBySlug = () =>
     }
   );
 
+export const makeSelectTranslateDirection = () =>
+  createSelector(
+    [(state, ownProps) => ownProps.match.params.slug, makeSelectEntities()],
+    (slug, entities) => {
+      const dictionary = entities
+        .getIn(['dictionaries', 'items'])
+        .find((item) => item.get('slug') === slug);
+      return dictionary ? dictionary.get('translateDirection') : null;
+    }
+  );
+
 export const makeSelectDictionaryWordSets = () =>
   createSelector(
     [(state, ownProps) => ownProps.dictionaryId, makeSelectEntities()],

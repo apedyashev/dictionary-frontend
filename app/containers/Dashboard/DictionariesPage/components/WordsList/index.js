@@ -62,7 +62,7 @@ class WordsList extends React.Component {
   };
 
   noRowsRenderer = () => {
-    return <EmptyListPrompt title="You don't have any tracks" />;
+    return <EmptyListPrompt title="You don't have any words" />;
   };
 
   rowRenderer = ({item, index, key, style}) => {
