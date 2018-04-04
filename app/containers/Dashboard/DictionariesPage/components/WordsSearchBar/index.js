@@ -9,9 +9,11 @@ import {loadTranslations, createWord} from '../WordsList/actions';
 // selectors
 import {makeSelectTranslations, makeSelectTranslationsLoading} from '../WordsList/selectors';
 // components
-import {Input, Dropdown, Button} from 'semantic-ui-react';
+import {Input, Dropdown, Button, Icon} from 'semantic-ui-react';
 import DropdownItem from './DropdownItem';
 import AddOwnTranslation from './AddOwnTranslation';
+// other
+import styles from './index.css';
 
 class WordsSearchBar extends React.PureComponent {
   static propTypes = {};
@@ -89,10 +91,7 @@ class WordsSearchBar extends React.PureComponent {
         },
       ],
     };
-    this.props.createWord(data);
-    // this will reset search query for the words list
-    this.props.onChange('');
-    this.setState({showOptions: false, inputValue: ''});
+    this.createWord(data);
   };
 
   handleOwnTranslationAdd = (translationStr) => {
@@ -108,6 +107,15 @@ class WordsSearchBar extends React.PureComponent {
         },
       ],
     };
+    this.createWord(data);
+  };
+
+  handleClearImputClick = () => {
+    this.props.onChange('');
+    this.setState({inputValue: ''});
+  };
+
+  createWord = (data) => {
     this.props.createWord(data);
     // this will reset search query for the words list
     this.props.onChange('');
@@ -139,9 +147,10 @@ class WordsSearchBar extends React.PureComponent {
 
   render() {
     const {isTranslationLoading, buttonLabel, placeholder} = this.props;
-    const {showOptions} = this.state;
+    const {showOptions, inputValue} = this.state;
     const actionProps = {
       content: buttonLabel,
+      disabled: !inputValue,
       loading: isTranslationLoading,
       onClick: this.handleAddClick,
     };
@@ -153,9 +162,12 @@ class WordsSearchBar extends React.PureComponent {
           icon={false}
           trigger={
             <Input
+              icon={<Icon name="close" link onClick={this.handleClearImputClick} />}
+              iconPosition="left"
+              className={styles.root}
               action={actionProps}
               placeholder={placeholder}
-              value={this.state.inputValue}
+              value={inputValue}
               onChange={this.handleInputChange}
               onKeyDown={this.handleInputKeyPress}
             />

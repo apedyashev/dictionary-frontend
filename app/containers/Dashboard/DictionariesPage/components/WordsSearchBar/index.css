@@ -1,14 +1,6 @@
-.pos {
-  font-style: italic;
-  font-size: 10px;
-  color: #797373;
+.root:global(.input.icon) > input {
+  padding-left: 12px !important;
 }
-.synonyms {
-  font-weight: bold;
-  font-size: 14px;
-}
-.examples {
-  font-size: 12px;
-  b {
-  }
+.root:global(.input.icon) > i {
+  left: 142px !important;
 }

@@ -14,6 +14,7 @@ class AddOwnTranslation extends React.PureComponent {
 
   handleAddClick = () => {
     this.props.onAddClick(this.state.inputValue);
+    this.setState({inputValue: ''});
   };
 
   handleInputKeyPress = (event) => {
