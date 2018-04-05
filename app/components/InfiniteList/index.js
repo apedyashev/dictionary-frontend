@@ -56,7 +56,8 @@ class InfiniteList extends React.PureComponent {
     const {items, rowRenderer} = this.props;
     const item = items.get(index);
     if (!this.isRowLoaded({index})) {
-      return <ListLoader style={{...style, position: 'fixed', width: '100%'}} key={key} />;
+      return <div style={style}>Loading....</div>;
+      // return <ListLoader style={{...style /* position: 'fixed', width: '100%' */}} key={key} />;
     }
     return rowRenderer({
       item,
@@ -80,9 +81,10 @@ class InfiniteList extends React.PureComponent {
             threshold={10}
           >
             {({onRowsRendered, registerChild}) => (
-              <AutoSizer>
+              <AutoSizer disableHeight>
                 {({width}) => (
                   <List
+                    autoHeight
                     ref={registerChild}
                     isScrolling={isScrolling}
                     scrollTop={scrollTop}

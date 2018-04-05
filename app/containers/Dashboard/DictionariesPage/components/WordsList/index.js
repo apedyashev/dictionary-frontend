@@ -74,12 +74,12 @@ class WordsList extends React.Component {
 
     return (
       <div>
-        WordsList: {dictionaryId}, WS ID: {wordSetId}
+        WordsList: {dictionaryId}, WS ID: {wordSetId} hasNextPage: {String(hasNextPage)}
         {dictionaryId && (
           <InfiniteList
             key={[dictionaryId, wordSetId, searchString].join('-')}
             hasNextPage={hasNextPage}
-            perPage={30}
+            perPage={50}
             items={words}
             rowRenderer={this.rowRenderer}
             noRowsRenderer={this.noRowsRenderer}
@@ -94,10 +94,8 @@ class WordsList extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  // dictionaryId: makeSelectDictionarIdBySlug(),
   words: makeSelectWords(),
   hasNextPage: makeSelectWordsHasNextPage(),
-  // loading: makeSelectDictionariesLoading(),
 });
 
 export function mapDispatchToProps(dispatch) {

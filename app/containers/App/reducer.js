@@ -77,9 +77,14 @@ function appReducer(state = initialState, action) {
           .setIn(['profile', 'authHeader'], `Bearer ${action.response.result.token}`);
       } else if (entityKey) {
         const ids = getEntityIds(action);
+        // TODO: not sure if it's a best way to concat/merge Lists
+        // (mergeIn replaces it instead of concat)
+        const displayOrder = newState
+          .getIn(['entities', entityKey, 'displayOrder'])
+          .concat(fromJS(ids));
         return state
           .mergeDeepIn(['entities', entityKey, 'items'], action.response.entities[entityKey])
-          .mergeIn(['entities', entityKey, 'displayOrder'], ids);
+          .setIn(['entities', entityKey, 'displayOrder'], displayOrder);
       }
       return state;
     }
@@ -113,10 +118,16 @@ function appReducer(state = initialState, action) {
           action.response.result.pagination
         );
       }
+
+      // TODO: not sure if it's a best way to concat/merge Lists
+      // (mergeIn replaces it instead of concat)
+      const displayOrder = newState
+        .getIn(['entities', entityKey, 'displayOrder'])
+        .concat(fromJS(ids));
       return newState
         .setIn(['entities', entityKey, 'loading'], false)
         .setIn(['entities', entityKey, 'loaded'], true)
-        .mergeIn(['entities', entityKey, 'displayOrder'], ids);
+        .setIn(['entities', entityKey, 'displayOrder'], displayOrder);
     }
 
     case entityActionTypes.GET.FAILURE: {
