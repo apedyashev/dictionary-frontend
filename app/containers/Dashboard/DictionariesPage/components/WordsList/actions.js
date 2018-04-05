@@ -1,5 +1,10 @@
 import {schema} from 'normalizr';
-import {resetEntity, getEntityActions, createEntityActions} from 'containers/App/actions';
+import {
+  resetEntity,
+  getEntityActions,
+  createEntityActions,
+  updateEntityActions,
+} from 'containers/App/actions';
 
 export const wordsSchema = new schema.Entity('words');
 export const wordsArraySchema = new schema.Array(wordsSchema);
@@ -41,6 +46,18 @@ export const createWordEntity = {
 };
 export function createWord(values, {resolve, reject} = {}) {
   return createEntityActions.request(values, createWordEntity, {
+    resolve,
+    reject,
+  });
+}
+
+export const updateWordEntity = (wordId) => ({
+  key: 'words',
+  url: `dictionaries/words/${wordId}`,
+  schema: {item: wordsSchema},
+});
+export function updateWord(wordId, values, {resolve, reject} = {}) {
+  return updateEntityActions.request(values, updateWordEntity(wordId), {
     resolve,
     reject,
   });

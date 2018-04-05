@@ -5,6 +5,7 @@ import {
   loadProfileActions,
   entityActionTypes,
   createEntityActions,
+  updateEntityActions,
   getEntityActions,
 } from 'containers/App/actions';
 import http from 'utils/http';
@@ -44,6 +45,29 @@ export function* createEntity({payload, entity, meta}) {
   }
 }
 
+export function* updateEntity({payload, entity, meta}) {
+  const {url, schema, key} = entity;
+
+  try {
+    const entityResponse = yield call(http.patch, {
+      url,
+      query: meta.query,
+      schema,
+      payload,
+    });
+    if (meta && meta.resolve) {
+      meta.resolve();
+    }
+    yield put(updateEntityActions.success(entityResponse, entity));
+  } catch (err) {
+    console.log('updateEntity error', err);
+    if (meta && meta.reject) {
+      meta.reject(err);
+    }
+    yield put(updateEntityActions.failure(err, entity));
+  }
+}
+
 export function* getEntity({query, entity, meta}) {
   const {url, schema, key} = entity;
 
@@ -78,5 +102,6 @@ export default function* rootSaga() {
     takeLatest(entityActionTypes.GET.REQUEST, getEntity),
     takeLatest(entityActionTypes.POST.REQUEST, createEntity),
     takeLatest(entityActionTypes.POST.SUCCESS, handleEntityCreated),
+    takeLatest(entityActionTypes.PATCH.REQUEST, updateEntity),
   ];
 }

@@ -35,6 +35,7 @@ export function resetEntity(entityName) {
 export const entityActionTypes = {
   GET: createRequestTypes('ENTITY/GET'),
   POST: createRequestTypes('ENTITY/CREATE'),
+  PATCH: createRequestTypes('ENTITY/UPDATE'),
 };
 export const createEntityActions = {
   request: (payload, entity, meta) =>
@@ -46,6 +47,12 @@ export const getEntityActions = {
   request: (query, entity, meta) => action(entityActionTypes.GET.REQUEST, {entity, query, meta}),
   success: (response, entity) => action(entityActionTypes.GET.SUCCESS, {...response, entity}),
   failure: (error, entity) => action(entityActionTypes.GET.FAILURE, {error, entity}),
+};
+export const updateEntityActions = {
+  request: (payload, entity, meta) =>
+    action(entityActionTypes.PATCH.REQUEST, {payload, entity, meta}),
+  success: (response, entity) => action(entityActionTypes.PATCH.SUCCESS, {...response, entity}),
+  failure: (error, entity) => action(entityActionTypes.PATCH.FAILURE, {error, entity}),
 };
 
 export const newUserEntity = {

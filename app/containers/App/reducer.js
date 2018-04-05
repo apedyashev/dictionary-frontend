@@ -79,7 +79,7 @@ function appReducer(state = initialState, action) {
         const ids = getEntityIds(action);
         // TODO: not sure if it's a best way to concat/merge Lists
         // (mergeIn replaces it instead of concat)
-        const displayOrder = newState
+        const displayOrder = state
           .getIn(['entities', entityKey, 'displayOrder'])
           .concat(fromJS(ids));
         return state
@@ -89,12 +89,20 @@ function appReducer(state = initialState, action) {
       return state;
     }
 
+    case entityActionTypes.PATCH.SUCCESS: {
+      const entityKey = action.entity && action.entity.key;
+      return state.mergeDeepIn(
+        ['entities', entityKey, 'items'],
+        action.response.entities[entityKey]
+      );
+    }
+
     case profileActionTypes.GET.FAILURE:
       return state.setIn(['profile', 'loading'], false).setIn(['profile', 'loaded'], true);
 
     case entityActionTypes.GET.REQUEST: {
       const entityKey = action.entity && action.entity.key;
-      if (action.meta.resetStore) {
+      if (action.meta && action.meta.resetStore) {
         return state
           .setIn(['entities', entityKey], defaultEntityState)
           .setIn(['entities', entityKey, 'loading'], true);

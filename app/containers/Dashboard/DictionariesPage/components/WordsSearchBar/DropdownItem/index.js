@@ -13,13 +13,14 @@ export default function SearchbarDropdownItem({
   translation,
   synonyms,
   examples,
+  active,
   onClick,
 }) {
-  const handleClick = () => {
+  const handleClick = (e, {value}) => {
     onClick(definitionId, translationId);
   };
   return (
-    <Dropdown.Item onClick={handleClick}>
+    <Dropdown.Item active={active} onClick={handleClick}>
       <div className={styles.pos}>{pos}</div>
       <div className={styles.synonyms}>
         {translation} {synonyms && <span>({synonyms.join(', ')})</span>}

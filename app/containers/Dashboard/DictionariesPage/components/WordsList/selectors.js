@@ -19,6 +19,15 @@ export const makeSelectWordsHasNextPage = () =>
     return curPage < totalPages;
   });
 
+export const makeSelectWordToBeEdited = () =>
+  createSelector(makeSelectEntities(), (entities) => {
+    const wordIds = entities.getIn(['words', 'displayOrder']).toJS();
+    if (wordIds && wordIds.length === 1) {
+      return entities.getIn(['words', 'items', wordIds[0]]);
+    }
+    return null;
+  });
+
 // TODO: move to another module/component
 export const makeSelectTranslations = () =>
   createSelector(makeSelectEntities(), (entities) => {

@@ -5,9 +5,13 @@ import _debounce from 'lodash/debounce';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 // actions
-import {loadTranslations, createWord} from '../WordsList/actions';
+import {loadTranslations, createWord, updateWord} from '../WordsList/actions';
 // selectors
-import {makeSelectTranslations, makeSelectTranslationsLoading} from '../WordsList/selectors';
+import {
+  makeSelectTranslations,
+  makeSelectTranslationsLoading,
+  makeSelectWordToBeEdited,
+} from '../WordsList/selectors';
 // components
 import {Input, Dropdown, Button, Icon} from 'semantic-ui-react';
 import DropdownItem from './DropdownItem';
@@ -27,6 +31,12 @@ class WordsSearchBar extends React.PureComponent {
   componentWillUnmount() {
     document.removeEventListener('click', this.handleClickOutside);
   }
+
+  resetDropdown = () => {
+    // this will reset search query for the words list
+    this.props.onChange('');
+    this.setState({showOptions: false, inputValue: ''});
+  };
 
   handleClickOutside = (event) => {
     if (
@@ -73,25 +83,49 @@ class WordsSearchBar extends React.PureComponent {
   };
 
   handleItemClick = (definitionId, translationId) => {
-    const {translations, dictionaryId} = this.props;
+    const {translations, dictionaryId, wordToBeEdited} = this.props;
     const selectedDefinition = translations.get(definitionId).toJS();
     const translationOption = selectedDefinition.translations.find(({id}) => id === translationId);
-    const data = {
-      dictionary: dictionaryId,
-      word: this.state.inputValue,
-      // TODO:
-      // translations: [translationOption.id],
-      translations: [
-        {
+    if (wordToBeEdited) {
+      // update
+      // TODO: definintions
+      const definintions = wordToBeEdited.get('translations').toJS();
+      const definintionIndex = _.findIndex(definintions, {translation: translationId});
+      if (definintionIndex >= 0) {
+        // remove existing
+        definintions.splice(definintionIndex, 1);
+      } else {
+        // add new one
+        definintions.push({
+          translation: translationId,
           text: translationOption.text,
           pos: selectedDefinition.pos,
           meanings: translationOption.meanings,
           synonyms: translationOption.synonyms,
           examples: translationOption.examples,
-        },
-      ],
-    };
-    this.createWord(data);
+        });
+      }
+      this.updateWord(wordToBeEdited.get('id'), {
+        // TODO:
+        translations: definintions,
+      });
+    } else {
+      const data = {
+        dictionary: dictionaryId,
+        word: this.state.inputValue,
+        translations: [
+          {
+            translation: translationId,
+            text: translationOption.text,
+            pos: selectedDefinition.pos,
+            meanings: translationOption.meanings,
+            synonyms: translationOption.synonyms,
+            examples: translationOption.examples,
+          },
+        ],
+      };
+      this.createWord(data);
+    }
   };
 
   handleOwnTranslationAdd = (translationStr) => {
@@ -110,27 +144,36 @@ class WordsSearchBar extends React.PureComponent {
     this.createWord(data);
   };
 
-  handleClearImputClick = () => {
-    this.props.onChange('');
-    this.setState({inputValue: ''});
+  createWord = (data) => {
+    new Promise((resolve, reject) => {
+      this.props.createWord(data, {resolve, reject});
+    }).then(() => {
+      this.resetDropdown();
+    });
   };
 
-  createWord = (data) => {
-    this.props.createWord(data);
-    // this will reset search query for the words list
-    this.props.onChange('');
-    this.setState({showOptions: false, inputValue: ''});
+  updateWord = (wordId, data) => {
+    new Promise((resolve, reject) => {
+      this.props.updateWord(wordId, data, {resolve, reject});
+    }).then(() => {
+      this.resetDropdown();
+    });
   };
 
   buildDropdownOptions = () => {
-    const {translations} = this.props;
+    const {translations, wordToBeEdited} = this.props;
     const options = [];
+
     translations.toArray().forEach((definition) => {
       const item = definition.toJS();
       item.translations.forEach((translation, i) => {
+        const selected =
+          wordToBeEdited &&
+          wordToBeEdited.get('translations').find((tr) => tr.get('translation') === translation.id);
         options.push(
           <DropdownItem
             key={translation.id}
+            active={!!selected}
             definitionId={item.id}
             translationId={translation.id}
             pos={item.pos}
@@ -162,7 +205,7 @@ class WordsSearchBar extends React.PureComponent {
           icon={false}
           trigger={
             <Input
-              icon={<Icon name="close" link onClick={this.handleClearImputClick} />}
+              icon={<Icon name="close" link onClick={this.resetDropdown} />}
               iconPosition="left"
               className={styles.root}
               action={actionProps}
@@ -188,12 +231,15 @@ class WordsSearchBar extends React.PureComponent {
 const mapStateToProps = createStructuredSelector({
   translations: makeSelectTranslations(),
   isTranslationLoading: makeSelectTranslationsLoading(),
+  wordToBeEdited: makeSelectWordToBeEdited(),
 });
 export function mapDispatchToProps(dispatch) {
   return {
     loadTranslations: ({text, direction, uiLang}, {resolve, reject}) =>
       dispatch(loadTranslations({text, direction, uiLang}, {resolve, reject})),
     createWord: (values, {resolve, reject} = {}) => dispatch(createWord(values, {resolve, reject})),
+    updateWord: (wordId, values, {resolve, reject} = {}) =>
+      dispatch(updateWord(wordId, values, {resolve, reject})),
   };
 }
 

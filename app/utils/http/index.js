@@ -83,6 +83,38 @@ const http = {
     });
   },
 
+  patch: ({url, payload, query, schema, headers = {}}) => {
+    if (process.env.NODE_ENV !== 'production') {
+      if (!schema) {
+        console.warn(`schema is not defined for ${url}`);
+      }
+      if (!http.store) {
+        console.warn('http.store isn`t set');
+      }
+    }
+
+    return new Promise((resolve, reject) => {
+      console.log('query', query);
+      return superagent
+        .patch(http.buildUrl(url))
+        .query(query)
+        .send(payload)
+        .set({
+          Accept: 'application/json',
+          Authorization: http.getAuthHeader(),
+          ...headers,
+        })
+        .end((err, res) => {
+          // const camelizedJson = camelizeKeys(res.body);
+          const response = Object.assign({}, normalize(res.body || {}, schema));
+
+          return err
+            ? errorHandler(http.store.dispatch)(err).catch(reject)
+            : resolve({statusCode: res.statusCode, response});
+        });
+    });
+  },
+
   // post: ({url, data, headers = {}}) =>
   //   new Promise((resolve, reject) =>
   //     superagent

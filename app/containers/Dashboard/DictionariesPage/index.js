@@ -76,7 +76,14 @@ export class DictionariesPage extends React.PureComponent {
           onSearchChange={this.handleSearchChange}
         />
         <Sidebar.Pushable className={styles.content}>
-          <Sidebar as={Menu} animation="push" width="wide" visible={showDictionariesList} vertical>
+          <Sidebar
+            className={styles.dictionariesSidebar}
+            as={Menu}
+            animation="push"
+            width="wide"
+            visible={showDictionariesList}
+            vertical
+          >
             <Dictionaries />
           </Sidebar>
           <Sidebar.Pusher>
