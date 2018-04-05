@@ -1,6 +1,6 @@
 .root {
   border-radius: 0 !important;
-  position: absolute !important;
+  position: fixed !important;
   top: 0;
   z-index: 1000;
   width: 100% !important;

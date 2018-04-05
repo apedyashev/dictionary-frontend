@@ -6,12 +6,12 @@ import {Sidebar} from 'components/ui';
 
 const items = [
   {
-    title: 'home',
-    iconName: 'home',
+    title: 'my dictionaries',
+    iconName: 'book',
     linkTo: '/dictionaries',
   },
   {
-    title: 'schedule',
+    title: 'my schedule',
     iconName: 'calendar',
     linkTo: '/schedule',
   },

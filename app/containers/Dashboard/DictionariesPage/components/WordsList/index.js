@@ -70,7 +70,7 @@ class WordsList extends React.Component {
   };
 
   render() {
-    const {dictionaryId, wordSetId, searchString, words, hasNextPage} = this.props;
+    const {dictionaryId, wordSetId, searchString, words, hasNextPage, scrollElement} = this.props;
 
     return (
       <div>
@@ -78,6 +78,7 @@ class WordsList extends React.Component {
         {dictionaryId && (
           <InfiniteList
             key={[dictionaryId, wordSetId, searchString].join('-')}
+            scrollElement={scrollElement}
             hasNextPage={hasNextPage}
             perPage={50}
             items={words}

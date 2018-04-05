@@ -26,6 +26,7 @@ export class DictionariesPage extends React.PureComponent {
     selectedWordSetId: 0,
     searchString: '',
   };
+  contentRootRef = React.createRef();
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const {slug} = nextProps.match.params;
@@ -57,13 +58,13 @@ export class DictionariesPage extends React.PureComponent {
 
   render() {
     const {dictionaryId, translateDirection} = this.props;
-
     const {
       showDictionariesList,
       isDictionarySelected,
       selectedWordSetId,
       searchString,
     } = this.state;
+    console.log('this.contentRootRef.current', this.contentRootRef);
     return (
       <div>
         <Topbar
@@ -75,31 +76,34 @@ export class DictionariesPage extends React.PureComponent {
           onWordSetChange={this.handleWordSetChange}
           onSearchChange={this.handleSearchChange}
         />
-        <Sidebar.Pushable className={styles.content}>
-          <Sidebar
-            className={styles.dictionariesSidebar}
-            as={Menu}
-            animation="push"
-            width="wide"
-            visible={showDictionariesList}
-            vertical
-          >
-            <Dictionaries />
-          </Sidebar>
-          <Sidebar.Pusher>
-            <Segment basic>
-              {isDictionarySelected ? (
-                <WordsList
-                  dictionaryId={dictionaryId}
-                  wordSetId={selectedWordSetId}
-                  searchString={searchString}
-                />
-              ) : (
-                <Prompt title="please select a dictionary" />
-              )}
-            </Segment>
-          </Sidebar.Pusher>
-        </Sidebar.Pushable>
+        <div style={{paddingTop: 42}}>
+          <Sidebar.Pushable className={styles.pushable}>
+            <Sidebar
+              className={styles.dictionariesSidebar}
+              as={Menu}
+              animation="push"
+              width="wide"
+              visible={showDictionariesList}
+              vertical
+            >
+              <Dictionaries />
+            </Sidebar>
+            <Sidebar.Pusher>
+              <div ref={this.contentRootRef}>
+                {isDictionarySelected ? (
+                  <WordsList
+                    scrollElement={this.contentRootRef.current}
+                    dictionaryId={dictionaryId}
+                    wordSetId={selectedWordSetId}
+                    searchString={searchString}
+                  />
+                ) : (
+                  <Prompt title="please select a dictionary" />
+                )}
+              </div>
+            </Sidebar.Pusher>
+          </Sidebar.Pushable>
+        </div>
       </div>
     );
   }
