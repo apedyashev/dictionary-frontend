@@ -1,6 +1,20 @@
 .pushable {
-  height: 100vh !important;
+  height: calc(100vh - 44px) !important;
+
+  :global .sidebar {
+    width: 0 !important;
+    transition: width 0.1s;
+  }
+  :global .sidebar.visible {
+    width: 350px !important;
+    transition: width 0.1s;
+  }
+
+  :global .pusher {
+    transform: translate3d(0, 0, 0) !important;
+  }
 }
 .dictionariesSidebar {
   position: sticky !important;
+  float: left;
 }

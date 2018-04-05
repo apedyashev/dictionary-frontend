@@ -88,7 +88,7 @@ export class DictionariesPage extends React.PureComponent {
             >
               <Dictionaries />
             </Sidebar>
-            <Sidebar.Pusher>
+            <Sidebar.Pusher className={styles.pusher}>
               <div ref={this.contentRootRef}>
                 {isDictionarySelected ? (
                   <WordsList
