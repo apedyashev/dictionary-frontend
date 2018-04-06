@@ -40,3 +40,17 @@ export const createDictionaryEntity = {
 export function createDictionary(values, {resolve, reject}) {
   return createEntityActions.request(values, createDictionaryEntity, {resolve, reject});
 }
+
+// TODO: move to wordsets
+export const createWordsetEntity = (dictionaryId) => ({
+  key: 'wordSets',
+  url: `dictionaries/${dictionaryId}/wordsets`,
+  schema: {item: wordSetSchema},
+});
+export function createWordset(dictionaryId, values, {resolve, reject} = {}) {
+  return createEntityActions.request(values, createWordsetEntity(dictionaryId), {
+    dictionaryId,
+    resolve,
+    reject,
+  });
+}

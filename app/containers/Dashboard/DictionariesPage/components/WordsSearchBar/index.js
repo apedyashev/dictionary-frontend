@@ -15,7 +15,7 @@ import {
 // components
 import {Input, Dropdown, Button, Icon} from 'semantic-ui-react';
 import DropdownItem from './DropdownItem';
-import AddOwnTranslation from './AddOwnTranslation';
+import AddOwnTranslation from '../AddOwnTranslation';
 // other
 import styles from './index.css';
 

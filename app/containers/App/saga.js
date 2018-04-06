@@ -1,5 +1,6 @@
 import {takeLatest, call, put, select} from 'redux-saga/effects';
 import {push} from 'react-router-redux';
+import _omit from 'lodash/omit';
 import {
   profileActionTypes,
   loadProfileActions,
@@ -33,9 +34,11 @@ export function* createEntity({payload, entity, meta}) {
       payload,
     });
     if (meta && meta.resolve) {
-      meta.resolve();
+      meta.resolve(entityResponse);
     }
-    yield put(createEntityActions.success(entityResponse, entity));
+    yield put(
+      createEntityActions.success(entityResponse, entity, _omit(meta, ['resolve', 'reject']))
+    );
   } catch (err) {
     console.log('createEntity error', err);
     if (meta && meta.reject) {

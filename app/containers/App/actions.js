@@ -40,7 +40,8 @@ export const entityActionTypes = {
 export const createEntityActions = {
   request: (payload, entity, meta) =>
     action(entityActionTypes.POST.REQUEST, {payload, entity, meta}),
-  success: (response, entity) => action(entityActionTypes.POST.SUCCESS, {...response, entity}),
+  success: (response, entity, meta) =>
+    action(entityActionTypes.POST.SUCCESS, {...response, entity, meta}),
   failure: (error, entity) => action(entityActionTypes.POST.FAILURE, {error, entity}),
 };
 export const getEntityActions = {

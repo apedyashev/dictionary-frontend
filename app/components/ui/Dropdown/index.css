@@ -1,9 +1,12 @@
 .dropdownWrappingBtn {
   padding: 0 !important;
-  width: 116px;
+  /* width: 116px; */
   &:hover {
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
+  }
+  div[role='alert'] {
+    padding-right: 10px !important;
   }
 }
 .dropdown {

@@ -77,6 +77,18 @@ function appReducer(state = initialState, action) {
           .setIn(['profile', 'authHeader'], `Bearer ${action.response.result.token}`);
       } else if (entityKey) {
         const ids = getEntityIds(action);
+        if (entityKey === 'wordSets') {
+          const {dictionaryId} = action.meta;
+          console.log('dictionaryId', dictionaryId);
+          const wordSetIds = state
+            .getIn(['entities', 'dictionaries', 'items', dictionaryId, 'wordSets'])
+            .concat(fromJS(ids));
+          state = state.setIn(
+            ['entities', 'dictionaries', 'items', dictionaryId, 'wordSets'],
+            wordSetIds
+          );
+        }
+
         // TODO: not sure if it's a best way to concat/merge Lists
         // (mergeIn replaces it instead of concat)
         const displayOrder = state

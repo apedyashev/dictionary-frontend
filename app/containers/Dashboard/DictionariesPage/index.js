@@ -4,6 +4,7 @@ import {Helmet} from 'react-helmet';
 import {FormattedMessage} from 'react-intl';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
+import _without from 'lodash/without';
 import {createStructuredSelector} from 'reselect';
 import {Link} from 'react-router-dom';
 
@@ -25,6 +26,7 @@ export class DictionariesPage extends React.PureComponent {
     showDictionariesList: !this.props.match.params.slug,
     selectedWordSetId: 0,
     searchString: '',
+    selectedWordIds: [],
   };
   contentRootRef = React.createRef();
 
@@ -56,6 +58,16 @@ export class DictionariesPage extends React.PureComponent {
     this.setState({searchString});
   };
 
+  handleWordCheck = (wordId, checked) => {
+    let selectedWordIds;
+    if (checked) {
+      selectedWordIds = [...this.state.selectedWordIds, wordId];
+    } else {
+      selectedWordIds = _without(this.state.selectedWordIds, wordId);
+    }
+    this.setState({selectedWordIds});
+  };
+
   render() {
     const {dictionaryId, translateDirection} = this.props;
     const {
@@ -63,8 +75,9 @@ export class DictionariesPage extends React.PureComponent {
       isDictionarySelected,
       selectedWordSetId,
       searchString,
+      selectedWordIds,
     } = this.state;
-    console.log('this.contentRootRef.current', this.contentRootRef);
+    console.log('selectedWordIds', selectedWordIds);
     return (
       <div>
         <Topbar
@@ -72,6 +85,7 @@ export class DictionariesPage extends React.PureComponent {
           translateDirection={translateDirection}
           showDictionaries={showDictionariesList}
           selectedWordSetId={selectedWordSetId}
+          selectedWordIds={selectedWordIds}
           onShowDictsToggle={this.handleShowDictsToggle}
           onWordSetChange={this.handleWordSetChange}
           onSearchChange={this.handleSearchChange}
@@ -96,6 +110,7 @@ export class DictionariesPage extends React.PureComponent {
                     dictionaryId={dictionaryId}
                     wordSetId={selectedWordSetId}
                     searchString={searchString}
+                    onWordCheck={this.handleWordCheck}
                   />
                 ) : (
                   <Prompt title="please select a dictionary" />

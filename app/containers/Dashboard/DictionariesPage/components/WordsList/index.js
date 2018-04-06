@@ -66,15 +66,14 @@ class WordsList extends React.Component {
   };
 
   rowRenderer = ({item, index, key, style}) => {
-    return <Word key={key} style={style} data={item.toJS()} />;
+    return <Word key={key} style={style} data={item.toJS()} onCheck={this.props.onWordCheck} />;
   };
 
   render() {
     const {dictionaryId, wordSetId, searchString, words, hasNextPage, scrollElement} = this.props;
 
     return (
-      <div>
-        WordsList: {dictionaryId}, WS ID: {wordSetId} hasNextPage: {String(hasNextPage)}
+      <div style={{padding: 10}}>
         {dictionaryId && (
           <InfiniteList
             key={[dictionaryId, wordSetId, searchString].join('-')}

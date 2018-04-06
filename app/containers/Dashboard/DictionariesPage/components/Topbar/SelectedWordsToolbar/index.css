@@ -1,0 +1,10 @@
+.withIconTrigger {
+  :global .dropdown.icon {
+    float: right;
+    top: 12px;
+  }
+  button.triggerButton {
+    padding-left: 5px !important;
+    padding-right: 16px !important;
+  }
+}
