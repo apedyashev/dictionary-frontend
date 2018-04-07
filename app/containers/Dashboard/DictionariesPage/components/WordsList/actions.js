@@ -4,6 +4,7 @@ import {
   getEntityActions,
   createEntityActions,
   updateEntityActions,
+  deleteEntityActions,
 } from 'containers/App/actions';
 
 export const wordsSchema = new schema.Entity('words');
@@ -74,6 +75,20 @@ export function addWordToWordSet({dictionaryId, wordSetId}, wordIds, {resolve, r
     reject,
   });
 }
+
+export const deleteWordsBatchEntity = {
+  key: 'words',
+  url: 'dictionaries/words/batch',
+  // schema: {items: idsArraySchema},
+};
+export function deleteWordsBatch(wordIds, {resolve, reject} = {}) {
+  return deleteEntityActions.request({wordIds}, deleteWordsBatchEntity, {
+    resolve,
+    reject,
+  });
+}
+
+deleteEntityActions;
 
 export function resetWords() {
   return resetEntity(wordsByDictionaryEntity().key);

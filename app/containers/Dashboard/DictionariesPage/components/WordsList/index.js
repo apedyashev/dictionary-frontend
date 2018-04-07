@@ -66,12 +66,21 @@ class WordsList extends React.Component {
   };
 
   rowRenderer = ({item, index, key, style}) => {
-    return <Word key={key} style={style} data={item.toJS()} onCheck={this.props.onWordCheck} />;
+    const {selectedWordIds} = this.props;
+    return (
+      <Word
+        key={key}
+        checked={selectedWordIds.includes(item.get('id'))}
+        style={style}
+        data={item.toJS()}
+        onCheck={this.props.onWordCheck}
+      />
+    );
   };
 
   render() {
     const {dictionaryId, wordSetId, searchString, words, hasNextPage, scrollElement} = this.props;
-
+    console.log('words', words);
     return (
       <div style={{padding: 10}}>
         {dictionaryId && (

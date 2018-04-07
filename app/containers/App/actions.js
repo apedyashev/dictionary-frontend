@@ -36,6 +36,7 @@ export const entityActionTypes = {
   GET: createRequestTypes('ENTITY/GET'),
   POST: createRequestTypes('ENTITY/CREATE'),
   PATCH: createRequestTypes('ENTITY/UPDATE'),
+  DELETE_BATCH: createRequestTypes('ENTITY/DELETE_BATCH'),
 };
 export const createEntityActions = {
   request: (payload, entity, meta) =>
@@ -54,6 +55,13 @@ export const updateEntityActions = {
     action(entityActionTypes.PATCH.REQUEST, {payload, entity, meta}),
   success: (response, entity) => action(entityActionTypes.PATCH.SUCCESS, {...response, entity}),
   failure: (error, entity) => action(entityActionTypes.PATCH.FAILURE, {error, entity}),
+};
+export const deleteEntityActions = {
+  request: (payload, entity, meta) =>
+    action(entityActionTypes.DELETE_BATCH.REQUEST, {payload, entity, meta}),
+  success: (response, entity) =>
+    action(entityActionTypes.DELETE_BATCH.SUCCESS, {...response, entity}),
+  failure: (error, entity) => action(entityActionTypes.DELETE_BATCH.FAILURE, {error, entity}),
 };
 
 export const newUserEntity = {

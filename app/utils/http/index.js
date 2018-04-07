@@ -115,6 +115,38 @@ const http = {
     });
   },
 
+  delete: ({url, payload, query, schema, headers = {}}) => {
+    if (process.env.NODE_ENV !== 'production') {
+      if (!schema) {
+        console.warn(`schema is not defined for ${url}`);
+      }
+      if (!http.store) {
+        console.warn('http.store isn`t set');
+      }
+    }
+
+    return new Promise((resolve, reject) => {
+      return superagent
+        .delete(http.buildUrl(url))
+        .query(query)
+        .send(payload)
+        .set({
+          Accept: 'application/json',
+          Authorization: http.getAuthHeader(),
+          ...headers,
+        })
+        .end((err, res) => {
+          // const camelizedJson = camelizeKeys(res.body);
+          const normalisedData = schema ? normalize(res.body || {}, schema) : res.body;
+          const response = Object.assign({}, normalisedData);
+
+          return err
+            ? errorHandler(http.store.dispatch)(err).catch(reject)
+            : resolve({statusCode: res.statusCode, response});
+        });
+    });
+  },
+
   // post: ({url, data, headers = {}}) =>
   //   new Promise((resolve, reject) =>
   //     superagent

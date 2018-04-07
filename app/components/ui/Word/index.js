@@ -6,12 +6,12 @@ import _map from 'lodash/map';
 import Checkbox from 'components/ui/form/Checkbox';
 import styles from './index.css';
 
-export default function WordItem({data, style, onCheck}) {
+export default function WordItem({data, checked, style, onCheck}) {
   const handleChange = (event, {checked}) => onCheck(data.id, checked);
   return (
     <div className={styles.row} style={style}>
       <div className={styles.checkbox}>
-        <Checkbox onChange={handleChange} />
+        <Checkbox checked={checked} onChange={handleChange} />
       </div>
       <div className={styles.text}>{data.word}</div>
       <div className={styles.text}>{_map(data.translations, 'text').join(', ')}</div>

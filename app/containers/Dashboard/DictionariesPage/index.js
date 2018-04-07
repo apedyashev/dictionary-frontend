@@ -8,7 +8,7 @@ import _without from 'lodash/without';
 import {createStructuredSelector} from 'reselect';
 import {Link} from 'react-router-dom';
 // actions
-import {addWordToWordSet} from './components/WordsList/actions';
+import {addWordToWordSet, deleteWordsBatch} from './components/WordsList/actions';
 // selectors
 import {
   makeSelectDictionarIdBySlug,
@@ -77,6 +77,16 @@ export class DictionariesPage extends React.PureComponent {
     this.setState({selectedWordIds});
   };
 
+  handleWordsDeleteClick = () => {
+    const {selectedWordIds} = this.state;
+    console.log('delete', selectedWordIds);
+    new Promise((resolve, reject) => {
+      this.props.deleteWordsBatch(selectedWordIds, {resolve, reject});
+    }).then(() => {
+      this.setState({selectedWordIds: []});
+    });
+  };
+
   render() {
     const {dictionaryId, translateDirection} = this.props;
     const {
@@ -98,6 +108,7 @@ export class DictionariesPage extends React.PureComponent {
           onShowDictsToggle={this.handleShowDictsToggle}
           onWordSetChange={this.handleWordSetChange}
           onSearchChange={this.handleSearchChange}
+          onWordsDeleteClick={this.handleWordsDeleteClick}
         />
         <div style={{paddingTop: 42}}>
           <Sidebar.Pushable className={styles.pushable}>
@@ -120,6 +131,7 @@ export class DictionariesPage extends React.PureComponent {
                     wordSetId={selectedWordSetId}
                     searchString={searchString}
                     onWordCheck={this.handleWordCheck}
+                    selectedWordIds={selectedWordIds}
                   />
                 ) : (
                   <Prompt title="please select a dictionary" />
@@ -140,7 +152,9 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     addWordToWordSet: ({dictionaryId, wordSetId}, wordIds, {resolve, reject} = {}) =>
-      dispatch(addWordToWordSet({dictionaryId, wordSetId}, wordIds, ({resolve, reject} = {}))),
+      dispatch(addWordToWordSet({dictionaryId, wordSetId}, wordIds, {resolve, reject})),
+    deleteWordsBatch: (wordIds, {resolve, reject} = {}) =>
+      dispatch(deleteWordsBatch(wordIds, {resolve, reject})),
   };
 }
 

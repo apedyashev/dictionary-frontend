@@ -19,6 +19,7 @@ export default function DashboardTopbar({
   onShowDictsToggle,
   onWordSetChange,
   onSearchChange,
+  onWordsDeleteClick,
 }) {
   return (
     <Menu className={styles.root}>
@@ -29,6 +30,7 @@ export default function DashboardTopbar({
             wordSetId={selectedWordSetId}
             selectedWordsCount={selectedWordIds.length}
             onWordSetChange={onWordSetChange}
+            onWordsDeleteClick={onWordsDeleteClick}
           />
         ) : (
           <React.Fragment>

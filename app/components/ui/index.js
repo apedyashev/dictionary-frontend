@@ -9,6 +9,7 @@ export {default as EmptyListPrompt} from './EmptyListPrompt';
 export {default as Prompt} from './Prompt';
 export {default as Word} from './Word';
 export {default as Dropdown} from './Dropdown';
+export {default as ConfirmableButton} from './ConfirmableButton';
 
 // form
 export {default as Input} from './form/Input';

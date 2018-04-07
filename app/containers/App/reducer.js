@@ -1,4 +1,5 @@
 import _each from 'lodash/each';
+import _without from 'lodash/without';
 import {fromJS} from 'immutable';
 
 import {LOAD_REPOS_SUCCESS, LOAD_REPOS, LOAD_REPOS_ERROR} from './constants';
@@ -157,23 +158,31 @@ function appReducer(state = initialState, action) {
         .setIn(['entities', entityKey, 'loaded'], true);
     }
 
-    case LOAD_REPOS:
-      return (
-        state
-          // .set('loading', true)
-          .set('error', false)
-          .setIn(['userData', 'repositories'], false)
-      );
-    case LOAD_REPOS_SUCCESS:
-      return (
-        state
-          .setIn(['userData', 'repositories'], action.repos)
-          // .set('loading', false)
-          .set('currentUser', action.username)
-      );
-    case LOAD_REPOS_ERROR:
-      return state.set('error', action.error);
-    // .set('loading', false);
+    case entityActionTypes.DELETE_BATCH.SUCCESS: {
+      const entityKey = action.entity && action.entity.key;
+      const oldDisplayOrder = state.getIn(['entities', entityKey, 'displayOrder']).toJS();
+      const {items} = action.response;
+      const displayOrder = fromJS(_without(oldDisplayOrder, ...items));
+      return state.setIn(['entities', entityKey, 'displayOrder'], displayOrder);
+    }
+
+    // case LOAD_REPOS:
+    //   return (
+    //     state
+    //       // .set('loading', true)
+    //       .set('error', false)
+    //       .setIn(['userData', 'repositories'], false)
+    //   );
+    // case LOAD_REPOS_SUCCESS:
+    //   return (
+    //     state
+    //       .setIn(['userData', 'repositories'], action.repos)
+    //       // .set('loading', false)
+    //       .set('currentUser', action.username)
+    //   );
+    // case LOAD_REPOS_ERROR:
+    //   return state.set('error', action.error);
+    // // .set('loading', false);
     default:
       return state;
   }

@@ -8,6 +8,7 @@ import {
   createEntityActions,
   updateEntityActions,
   getEntityActions,
+  deleteEntityActions,
 } from 'containers/App/actions';
 import http from 'utils/http';
 
@@ -71,6 +72,29 @@ export function* updateEntity({payload, entity, meta}) {
   }
 }
 
+export function* deleteEntityBatch({payload, entity, meta}) {
+  const {url, schema, key} = entity;
+
+  try {
+    const entityResponse = yield call(http.delete, {
+      url,
+      query: meta.query,
+      schema,
+      payload,
+    });
+    if (meta && meta.resolve) {
+      meta.resolve();
+    }
+    yield put(deleteEntityActions.success(entityResponse, entity));
+  } catch (err) {
+    console.log('updateEntity error', err);
+    if (meta && meta.reject) {
+      meta.reject(err);
+    }
+    yield put(deleteEntityActions.failure(err, entity));
+  }
+}
+
 export function* getEntity({query, entity, meta}) {
   const {url, schema, key} = entity;
 
@@ -106,5 +130,6 @@ export default function* rootSaga() {
     takeLatest(entityActionTypes.POST.REQUEST, createEntity),
     takeLatest(entityActionTypes.POST.SUCCESS, handleEntityCreated),
     takeLatest(entityActionTypes.PATCH.REQUEST, updateEntity),
+    takeLatest(entityActionTypes.DELETE_BATCH.REQUEST, deleteEntityBatch),
   ];
 }

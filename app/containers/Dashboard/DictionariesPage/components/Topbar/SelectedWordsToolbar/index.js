@@ -2,6 +2,7 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
+import {ConfirmableButton} from 'components/ui';
 import {Icon, Menu, Button, Popup} from 'semantic-ui-react';
 import WordSetSelector from '../../WordSetSelector/WithAddForm';
 // other
@@ -12,6 +13,7 @@ export default function SelectedWordsToolbar({
   wordSetId,
   selectedWordsCount,
   onWordSetChange,
+  onWordsDeleteClick,
 }) {
   return (
     <React.Fragment>
@@ -30,9 +32,21 @@ export default function SelectedWordsToolbar({
         <Popup position="bottom left" trigger={<Button icon="target" />} content="TBD" />
       </div>
       <div>
-        <Popup position="bottom left" trigger={<Button icon="trash" />} content="Delete words" />
+        <ConfirmableButton
+          icon="trash"
+          position="bottom left"
+          hoverContent="Delete words"
+          clickContent="Are you sure?"
+          onConfirm={onWordsDeleteClick}
+        />
       </div>
     </React.Fragment>
   );
 }
 SelectedWordsToolbar.propTypes = {};
+
+// <Popup
+//   position="bottom left"
+//   trigger={<Button icon="trash" onClick={onWordsDeleteClick} />}
+//   content="Delete words"
+// />
