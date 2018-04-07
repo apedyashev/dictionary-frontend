@@ -15,7 +15,7 @@ export default function WordItem({data, style, onCheck}) {
       </div>
       <div className={styles.text}>{data.word}</div>
       <div className={styles.text}>{_map(data.translations, 'text').join(', ')}</div>
-      <div className={styles.text}>{data.wordSet}</div>
+      <div className={styles.text}>{data.wordSet.title}</div>
     </div>
   );
 }

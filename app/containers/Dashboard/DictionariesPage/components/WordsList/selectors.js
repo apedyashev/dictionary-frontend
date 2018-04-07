@@ -4,8 +4,12 @@ import {makeSelectEntities} from 'containers/App/selectors';
 
 export const makeSelectWords = () =>
   createSelector(makeSelectEntities(), (entities) => {
+    const wordSets = entities.getIn(['wordSets', 'items']);
     return entities.getIn(['words', 'displayOrder']).map((id) => {
-      return entities.getIn(['words', 'items', id]);
+      const word = entities.getIn(['words', 'items', id]);
+      const wordSetId = word.get('wordSet');
+      const wordSet = wordSets.get(wordSetId) || fromJS({});
+      return word.set('wordSet', wordSet);
     });
   });
 export const makeSelectWordsHasNextPage = () =>

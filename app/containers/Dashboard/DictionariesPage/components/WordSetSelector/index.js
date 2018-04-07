@@ -20,7 +20,7 @@ function WordSetSelector({value, onChange, wordSets}) {
   // push 'all words' to the beginning
   options.unshift({key: 0, text: 'All words', value: 0});
 
-  return <Dropdown value={value} options={options} onChange={onChange} />;
+  return <Dropdown scrolling value={value} options={options} onChange={onChange} />;
 }
 WordSetSelector.propTypes = {
   value: PropTypes.any.isRequired,
