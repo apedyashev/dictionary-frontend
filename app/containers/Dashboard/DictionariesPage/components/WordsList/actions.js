@@ -63,6 +63,18 @@ export function updateWord(wordId, values, {resolve, reject} = {}) {
   });
 }
 
+export const addWordToWordSetEntity = ({dictionaryId, wordSetId}) => ({
+  key: 'words',
+  url: `dictionaries/${dictionaryId}/wordsets/${wordSetId}/words/bunch-add`,
+  schema: {items: wordsArraySchema},
+});
+export function addWordToWordSet({dictionaryId, wordSetId}, wordIds, {resolve, reject} = {}) {
+  return createEntityActions.request({wordIds}, addWordToWordSetEntity({dictionaryId, wordSetId}), {
+    resolve,
+    reject,
+  });
+}
+
 export function resetWords() {
   return resetEntity(wordsByDictionaryEntity().key);
 }

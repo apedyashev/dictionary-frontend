@@ -18,7 +18,9 @@ export default function Dropdown({
   children,
   onChange,
 }) {
-  const handleChange = (e, data) => onChange(data.value);
+  const handleChange = (e, {value}) => {
+    onChange(value);
+  };
   return (
     <div className={cn(styles.dropdownWrappingBtn, className)}>
       <DropdownSUI
@@ -49,4 +51,5 @@ Dropdown.propTypes = {
 Dropdown.defaultProps = {
   simple: true,
   item: true,
+  onChange: () => {},
 };

@@ -7,7 +7,9 @@ import {compose} from 'redux';
 import _without from 'lodash/without';
 import {createStructuredSelector} from 'reselect';
 import {Link} from 'react-router-dom';
-
+// actions
+import {addWordToWordSet} from './components/WordsList/actions';
+// selectors
 import {
   makeSelectDictionarIdBySlug,
   makeSelectTranslateDirection,
@@ -51,7 +53,14 @@ export class DictionariesPage extends React.PureComponent {
   };
 
   handleWordSetChange = (selectedWordSetId) => {
-    this.setState({selectedWordSetId});
+    const {selectedWordIds} = this.state;
+    const {dictionaryId} = this.props;
+    if (selectedWordIds.length) {
+      console.log('add to selecetd words', selectedWordSetId);
+      this.props.addWordToWordSet({dictionaryId, wordSetId: selectedWordSetId}, selectedWordIds);
+    } else {
+      this.setState({selectedWordSetId});
+    }
   };
 
   handleSearchChange = (searchString) => {
@@ -128,5 +137,11 @@ const mapStateToProps = createStructuredSelector({
   dictionaryId: makeSelectDictionarIdBySlug(),
   translateDirection: makeSelectTranslateDirection(),
 });
+function mapDispatchToProps(dispatch) {
+  return {
+    addWordToWordSet: ({dictionaryId, wordSetId}, wordIds, {resolve, reject} = {}) =>
+      dispatch(addWordToWordSet({dictionaryId, wordSetId}, wordIds, ({resolve, reject} = {}))),
+  };
+}
 
-export default connect(mapStateToProps, null)(DictionariesPage);
+export default connect(mapStateToProps, mapDispatchToProps)(DictionariesPage);

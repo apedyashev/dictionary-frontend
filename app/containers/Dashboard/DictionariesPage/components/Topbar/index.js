@@ -23,11 +23,11 @@ export default function DashboardTopbar({
   return (
     <Menu className={styles.root}>
       <Menu.Menu position="left">
-        {/* selectedWordIds && selectedWordIds.length */ true ? (
+        {selectedWordIds && selectedWordIds.length ? (
           <SelectedWordsToolbar
             dictionaryId={selectedDictionaryId}
             wordSetId={selectedWordSetId}
-            selectedWordIds={selectedWordIds}
+            onWordSetChange={onWordSetChange}
           />
         ) : (
           <React.Fragment>
