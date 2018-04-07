@@ -27,6 +27,7 @@ export default function DashboardTopbar({
           <SelectedWordsToolbar
             dictionaryId={selectedDictionaryId}
             wordSetId={selectedWordSetId}
+            selectedWordsCount={selectedWordIds.length}
             onWordSetChange={onWordSetChange}
           />
         ) : (
