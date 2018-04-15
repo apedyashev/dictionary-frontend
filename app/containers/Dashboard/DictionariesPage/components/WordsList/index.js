@@ -16,6 +16,8 @@ class WordsList extends React.Component {
   static propTypes = {};
   state = {
     shouldListBeReset: false,
+    // must be initialized, otherwise list will be reset immideately after mount
+    prevSearchString: '',
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -37,6 +39,9 @@ class WordsList extends React.Component {
       };
     }
     return null;
+  }
+  componentDidMount() {
+    this.props.resetWords();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -82,7 +87,7 @@ class WordsList extends React.Component {
     const {dictionaryId, wordSetId, searchString, words, hasNextPage, scrollElement} = this.props;
     console.log('words', words);
     return (
-      <div style={{padding: 10}}>
+      <div style={{minHeight: 1}}>
         {dictionaryId && (
           <InfiniteList
             key={[dictionaryId, wordSetId, searchString].join('-')}
