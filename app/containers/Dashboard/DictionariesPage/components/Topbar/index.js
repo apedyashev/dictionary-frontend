@@ -57,8 +57,9 @@ export default function DashboardTopbar({
         )}
       </Menu.Menu>
       <Menu.Menu position="right">
-        <Menu.Item>d</Menu.Item>
-        <Menu.Item>vc</Menu.Item>
+        <Menu.Item>
+          <Button content="Learn" />
+        </Menu.Item>
       </Menu.Menu>
     </Menu>
   );

@@ -110,7 +110,7 @@ export class DictionariesPage extends React.PureComponent {
           onSearchChange={this.handleSearchChange}
           onWordsDeleteClick={this.handleWordsDeleteClick}
         />
-        <div style={{paddingTop: 42}}>
+        <div>
           <Sidebar.Pushable className={styles.pushable}>
             <Sidebar
               className={styles.dictionariesSidebar}
