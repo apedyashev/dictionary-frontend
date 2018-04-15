@@ -41,6 +41,8 @@ export class DictionariesPage extends React.PureComponent {
         // reset selected wordsset when dictionary is changed
         selectedWordSetId: 0,
         prevSlug: slug,
+        // reset selected words list
+        selectedWordIds: [],
       };
     }
 
