@@ -19,7 +19,7 @@ const NavbarMobile = ({children, leftItems, onPusherClick, onToggle, rightItems,
     <Sidebar.Pusher dimmed={visible} onClick={onPusherClick} className={styles.pusher}>
       <Menu fixed="top" inverted>
         <Menu.Item>
-          <Image size="mini" src={''} />
+          <Image size="mini" src="" />
         </Menu.Item>
         <Menu.Menu position="right">
           <Menu.Item onClick={onToggle}>

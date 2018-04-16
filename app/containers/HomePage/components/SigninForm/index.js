@@ -6,7 +6,6 @@ import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
 // actions
 import {loginUser} from 'containers/App/actions';
 // components
-import {Link} from 'react-router-dom';
 import {Form, Field, SubmissionError, reduxForm} from 'redux-form/immutable';
 import {ReduxFormFields} from 'components/ui';
 import {Button} from 'semantic-ui-react';
@@ -19,6 +18,8 @@ class SignupForm extends React.Component {
     // injected by redux form
     submitting: PropTypes.bool.isRequired,
     handleSubmit: PropTypes.func.isRequired,
+    // mapDispatchToProps
+    loginUser: PropTypes.func.isRequired,
     // react-intl
     intl: intlShape.isRequired,
   };
@@ -89,10 +90,6 @@ const validate = (values) => {
   return errors;
 };
 
-const mapStateToProps = (state) => ({
-  // ...
-});
-
 const mapDispatchToProps = (dispatch) => {
   return {
     loginUser: (values, {resolve, reject}) => {
@@ -101,7 +98,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-SignupForm = connect(mapStateToProps, mapDispatchToProps)(injectIntl(SignupForm));
+SignupForm = connect(null, mapDispatchToProps)(injectIntl(SignupForm));
 
 export default reduxForm({
   form: 'signupForm',

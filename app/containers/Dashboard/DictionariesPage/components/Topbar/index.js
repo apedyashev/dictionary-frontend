@@ -20,7 +20,9 @@ export default function DashboardTopbar({
   onWordSetChange,
   onSearchChange,
   onWordsDeleteClick,
+  onLearnClick,
 }) {
+  const selectedWordsCount = (selectedWordIds && selectedWordIds.length) || 0;
   return (
     <Menu className={styles.root}>
       <Menu.Menu position="left">
@@ -28,7 +30,7 @@ export default function DashboardTopbar({
           <SelectedWordsToolbar
             dictionaryId={selectedDictionaryId}
             wordSetId={selectedWordSetId}
-            selectedWordsCount={selectedWordIds.length}
+            selectedWordsCount={selectedWordsCount}
             onWordSetChange={onWordSetChange}
             onWordsDeleteClick={onWordsDeleteClick}
           />
@@ -58,7 +60,10 @@ export default function DashboardTopbar({
       </Menu.Menu>
       <Menu.Menu position="right">
         <Menu.Item>
-          <Button content="Learn" />
+          <Button
+            content={selectedWordsCount ? `Learn selected (${selectedWordsCount})` : 'Learn'}
+            onClick={onLearnClick}
+          />
         </Menu.Item>
       </Menu.Menu>
     </Menu>

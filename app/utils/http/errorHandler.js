@@ -5,7 +5,7 @@ import {HTTP_STATUS_NOT_AUTHORIZED, HTTP_STATUS_UNPROCESSABLE_ENTITY} from './ht
 // import {actions as userActions} from 'modules/user';
 // import {actions as notificationActions} from 'modules/notifications';
 
-export function errorHandler(dispatch) {
+export function errorHandler(/* dispatch */) {
   return (err) => {
     console.error('errorHandler', err.status, err);
     if (err.status === HTTP_STATUS_NOT_AUTHORIZED) {

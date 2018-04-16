@@ -13,7 +13,6 @@ import {ConnectedSwitch, RouteWithLayout, PrivateRoute, GuestRoute} from 'utils/
 import {GuestLayout, DashboardLayout} from 'containers/Layouts';
 import {DictionariesPage} from 'containers/Dashboard';
 import FacebookCallbackPage from 'containers/FacebookCallbackPage/Loadable';
-import LoginPage from 'containers/LoginPage';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import {PageLoader} from 'components/ui';

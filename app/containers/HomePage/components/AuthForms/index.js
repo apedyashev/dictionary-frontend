@@ -35,4 +35,6 @@ export default function AuthForms({showLoginForm}) {
     </Paper>
   );
 }
-AuthForms.propTypes = {};
+AuthForms.propTypes = {
+  showLoginForm: PropTypes.bool,
+};

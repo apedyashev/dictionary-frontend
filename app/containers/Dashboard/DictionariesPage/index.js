@@ -22,7 +22,13 @@ import {Topbar, Dictionaries, WordsList} from './components';
 import styles from './index.css';
 
 export class DictionariesPage extends React.PureComponent {
-  static propTypes = {};
+  static propTypes = {
+    translateDirection: PropTypes.string,
+    dictionaryId: PropTypes.string,
+    deleteWordsBatch: PropTypes.func.isRequired,
+    addWordToWordSet: PropTypes.func.isRequired,
+    match: PropTypes.object.isRequired,
+  };
   state = {
     isDictionarySelected: !!this.props.match.params.slug,
     showDictionariesList: !this.props.match.params.slug,
@@ -89,6 +95,11 @@ export class DictionariesPage extends React.PureComponent {
     });
   };
 
+  handleLearnClick = () => {
+    const {selectedWordIds} = this.state;
+    console.log('send words to learning', selectedWordIds.length);
+  };
+
   render() {
     const {dictionaryId, translateDirection} = this.props;
     const {
@@ -111,6 +122,7 @@ export class DictionariesPage extends React.PureComponent {
           onWordSetChange={this.handleWordSetChange}
           onSearchChange={this.handleSearchChange}
           onWordsDeleteClick={this.handleWordsDeleteClick}
+          onLearnClick={this.handleLearnClick}
         />
         <div>
           <Sidebar.Pushable className={styles.pushable}>

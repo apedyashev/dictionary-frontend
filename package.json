@@ -1,7 +1,8 @@
 {
   "name": "react-boilerplate",
   "version": "3.5.0",
-  "description": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
+  "description":
+    "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
   "repository": {
     "type": "git",
     "url": "git://github.com/react-boilerplate/react-boilerplate.git"
@@ -21,7 +22,8 @@
     "preinstall": "npm run npmcheckversion",
     "postinstall": "npm run build:dll",
     "prebuild": "npm run build:clean",
-    "build": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js --color -p --progress --hide-modules --display-optimization-bailout",
+    "build":
+      "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js --color -p --progress --hide-modules --display-optimization-bailout",
     "build:clean": "rimraf ./build",
     "build:dll": "node ./internals/scripts/dependencies.js",
     "start": "cross-env NODE_ENV=development node server",
@@ -50,9 +52,7 @@
   },
   "pre-commit": "lint:staged",
   "babel": {
-    "plugins": [
-      "styled-components"
-    ],
+    "plugins": ["styled-components"],
     "presets": [
       [
         "env",
@@ -65,9 +65,7 @@
     ],
     "env": {
       "production": {
-        "only": [
-          "app"
-        ],
+        "only": ["app"],
         "plugins": [
           "transform-react-remove-prop-types",
           "transform-react-constant-elements",
@@ -75,10 +73,7 @@
         ]
       },
       "test": {
-        "plugins": [
-          "transform-es2015-modules-commonjs",
-          "dynamic-import-node"
-        ]
+        "plugins": ["transform-es2015-modules-commonjs", "dynamic-import-node"]
       }
     }
   },
@@ -91,11 +86,7 @@
       "jest": true,
       "es6": true
     },
-    "plugins": [
-      "redux-saga",
-      "react",
-      "jsx-a11y"
-    ],
+    "plugins": ["redux-saga", "react", "jsx-a11y"],
     "parserOptions": {
       "ecmaVersion": 6,
       "sourceType": "module",
@@ -104,16 +95,10 @@
       }
     },
     "rules": {
-      "arrow-parens": [
-        "error",
-        "always"
-      ],
+      "arrow-parens": ["error", "always"],
       "arrow-body-style": "off",
       "class-methods-use-this": 0,
-      "comma-dangle": [
-        2,
-        "always-multiline"
-      ],
+      "comma-dangle": [2, "always-multiline"],
       "import/imports-first": 0,
       "import/newline-after-import": 0,
       "import/no-dynamic-require": 0,
@@ -125,7 +110,8 @@
       "indent": "off",
       "jsx-a11y/aria-props": 2,
       "jsx-a11y/heading-has-content": 0,
-      "jsx-a11y/href-no-hash": 2,
+      "jsx-a11y/href-no-hash": "off",
+      "jsx-a11y/anchor-is-valid": ["warn", {"aspects": ["invalidHref"]}],
       "jsx-a11y/label-has-for": 2,
       "jsx-a11y/mouse-events-have-key-events": 2,
       "jsx-a11y/role-has-required-aria-props": 2,
@@ -137,10 +123,7 @@
       "no-use-before-define": 0,
       "prefer-template": 2,
       "react/forbid-prop-types": 0,
-      "react/jsx-first-prop-new-line": [
-        2,
-        "multiline"
-      ],
+      "react/jsx-first-prop-new-line": [2, "multiline"],
       "react/jsx-filename-extension": 0,
       "react/jsx-no-target-blank": 0,
       "react/require-default-props": 0,
@@ -151,7 +134,13 @@
       "require-yield": 0,
       "array-bracket-spacing": "off",
       "object-curly-spacing": "off",
-      "react/sort-comp": "off"
+      "react/sort-comp": "off",
+      "object-curly-newline": "off",
+      "function-paren-newline": "off",
+      "prefer-destructuring": "off",
+      "prefer-promise-reject-errors": "off",
+      "import/first": "warn",
+      "no-class-assign": "off"
     },
     "settings": {
       "import/resolver": {
@@ -176,11 +165,7 @@
       "enzyme-adapter-react-16",
       "postcss-cssnext"
     ],
-    "include": [
-      "core-js",
-      "lodash",
-      "eventsource-polyfill"
-    ]
+    "include": ["core-js", "lodash", "eventsource-polyfill"]
   },
   "jest": {
     "collectCoverageFrom": [
@@ -199,13 +184,11 @@
         "lines": 98
       }
     },
-    "moduleDirectories": [
-      "node_modules",
-      "app"
-    ],
+    "moduleDirectories": ["node_modules", "app"],
     "moduleNameMapper": {
       ".*\\.(css|less|styl|scss|sass)$": "<rootDir>/internals/mocks/cssModule.js",
-      ".*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/image.js"
+      ".*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+        "<rootDir>/internals/mocks/image.js"
     },
     "setupTestFrameworkScriptFile": "<rootDir>/internals/testing/test-bundler.js",
     "testRegex": "tests/.*\\.test\\.js$"
