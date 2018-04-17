@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Helmet} from 'react-helmet';
-import {FormattedMessage} from 'react-intl';
+// import {FormattedMessage} from 'react-intl';
 import {connect} from 'react-redux';
-import {compose} from 'redux';
 import _without from 'lodash/without';
 import {createStructuredSelector} from 'reselect';
-import {Link} from 'react-router-dom';
 // actions
 import {addWordToWordSet, deleteWordsBatch} from './components/WordsList/actions';
 // selectors
@@ -15,7 +13,7 @@ import {
   makeSelectTranslateDirection,
 } from './components/DictionariesList/selectors';
 
-import {Sidebar, Segment, Button, Menu, Image, Icon, Header} from 'semantic-ui-react';
+import {Sidebar, Menu} from 'semantic-ui-react';
 import {Prompt} from 'components/ui';
 import {Topbar, Dictionaries, WordsList} from './components';
 // other
@@ -112,6 +110,9 @@ export class DictionariesPage extends React.PureComponent {
     console.log('selectedWordIds', selectedWordIds);
     return (
       <div>
+        <Helmet>
+          <title>My Dictionaries</title>
+        </Helmet>
         <Topbar
           selectedDictionaryId={dictionaryId}
           translateDirection={translateDirection}

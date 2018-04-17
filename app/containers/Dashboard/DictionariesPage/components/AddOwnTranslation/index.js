@@ -2,11 +2,13 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
-import {Input, Button} from 'semantic-ui-react';
+import {Input} from 'semantic-ui-react';
 
 class AddOwnTranslation extends React.PureComponent {
-  static propTypes = {};
-  state = {inputValue: '', showInput: false};
+  static propTypes = {
+    onAddClick: PropTypes.func.isRequired,
+  };
+  state = {inputValue: ''};
 
   handleChange = (event, {value}) => {
     this.setState({inputValue: value});

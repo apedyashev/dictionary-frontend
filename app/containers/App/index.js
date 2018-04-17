@@ -1,15 +1,15 @@
 import React from 'react';
+import {PropTypes} from 'prop-types';
 import {Helmet} from 'react-helmet';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
-import styled from 'styled-components';
-import {Switch, Route} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {DAEMON} from 'utils/constants';
 import {createStructuredSelector} from 'reselect';
 
-import {ConnectedSwitch, RouteWithLayout, PrivateRoute, GuestRoute} from 'utils/router';
+import {ConnectedSwitch, PrivateRoute, GuestRoute} from 'utils/router';
 import {GuestLayout, DashboardLayout} from 'containers/Layouts';
 import {DictionariesPage} from 'containers/Dashboard';
 import FacebookCallbackPage from 'containers/FacebookCallbackPage/Loadable';
@@ -20,13 +20,14 @@ import {PageLoader} from 'components/ui';
 import {loadProfileActions, setToken} from './actions';
 import reducer from './reducer';
 import saga from './saga';
-import {
-  makeSelectProfileLoading,
-  makeSelectProfileLoaded,
-  makeSelectProfileData,
-} from './selectors';
+import {makeSelectProfileLoaded, makeSelectProfileData} from './selectors';
 
 export class App extends React.PureComponent {
+  static propTypes = {
+    profile: PropTypes.object,
+    isProfileLoaded: PropTypes.bool.isRequired,
+    onLoadProfile: PropTypes.func.isRequired,
+  };
   componentDidMount() {
     this.props.onLoadProfile();
   }

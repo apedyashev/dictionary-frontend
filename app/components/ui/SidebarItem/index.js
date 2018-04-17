@@ -3,7 +3,7 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
 import {NavLink} from 'react-router-dom';
-import {Sidebar, Menu, Icon} from 'semantic-ui-react';
+import {Menu, Icon} from 'semantic-ui-react';
 
 export default function SidebarItem({title, linkTo, iconName}) {
   return (
@@ -13,4 +13,8 @@ export default function SidebarItem({title, linkTo, iconName}) {
     </Menu.Item>
   );
 }
-SidebarItem.propTypes = {};
+SidebarItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  linkTo: PropTypes.string.isRequired,
+  iconName: PropTypes.string.isRequired,
+};

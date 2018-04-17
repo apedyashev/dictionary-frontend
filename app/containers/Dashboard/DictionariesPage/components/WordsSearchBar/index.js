@@ -1,7 +1,9 @@
 // libs
 import React from 'react';
 import {PropTypes} from 'prop-types';
+import Immutable from 'immutable';
 import _debounce from 'lodash/debounce';
+import _findIndex from 'lodash/findIndex';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 // actions
@@ -13,14 +15,27 @@ import {
   makeSelectWordToBeEdited,
 } from '../WordsList/selectors';
 // components
-import {Input, Dropdown, Button, Icon} from 'semantic-ui-react';
+import {Input, Dropdown, Icon} from 'semantic-ui-react';
 import DropdownItem from './DropdownItem';
 import AddOwnTranslation from '../AddOwnTranslation';
 // other
 import styles from './index.css';
 
 class WordsSearchBar extends React.PureComponent {
-  static propTypes = {};
+  static propTypes = {
+    placeholder: PropTypes.string,
+    buttonLabel: PropTypes.string.isRequired,
+    isTranslationLoading: PropTypes.bool,
+    wordToBeEdited: PropTypes.instanceOf(Immutable.Map),
+    translations: PropTypes.instanceOf(Immutable.List),
+    dictionaryId: PropTypes.string.isRequired,
+    translateDirection: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    //
+    updateWord: PropTypes.func.isRequired,
+    createWord: PropTypes.func.isRequired,
+    loadTranslations: PropTypes.func.isRequired,
+  };
   state = {showOptions: false, inputValue: ''};
   wrapperRef = React.createRef();
 
@@ -49,11 +64,14 @@ class WordsSearchBar extends React.PureComponent {
   };
 
   handleAddClick = () => {
-    const {translateDirection, loadTranslations} = this.props;
+    const {translateDirection} = this.props;
     const {inputValue} = this.state;
     if (translateDirection && inputValue) {
       new Promise((resolve, reject) => {
-        loadTranslations({text: inputValue, direction: translateDirection}, {resolve, reject});
+        this.props.loadTranslations(
+          {text: inputValue, direction: translateDirection},
+          {resolve, reject}
+        );
       }).then(() => {
         this.setState({showOptions: true});
       });
@@ -90,7 +108,7 @@ class WordsSearchBar extends React.PureComponent {
       // update
       // TODO: definintions
       const definintions = wordToBeEdited.get('translations').toJS();
-      const definintionIndex = _.findIndex(definintions, {translation: translationId});
+      const definintionIndex = _findIndex(definintions, {translation: translationId});
       if (definintionIndex >= 0) {
         // remove existing
         definintions.splice(definintionIndex, 1);
@@ -166,7 +184,7 @@ class WordsSearchBar extends React.PureComponent {
 
     translations.toArray().forEach((definition) => {
       const item = definition.toJS();
-      item.translations.forEach((translation, i) => {
+      item.translations.forEach((translation) => {
         const selected =
           wordToBeEdited &&
           wordToBeEdited.get('translations').find((tr) => tr.get('translation') === translation.id);

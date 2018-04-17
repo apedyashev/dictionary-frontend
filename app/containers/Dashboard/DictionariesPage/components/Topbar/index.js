@@ -2,7 +2,7 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
-import {Container, Icon, Menu, Button, Input} from 'semantic-ui-react';
+import {Icon, Menu, Button} from 'semantic-ui-react';
 // import {Input} from 'components/ui';
 import SelectedWordsToolbar from './SelectedWordsToolbar';
 import WordsSearchBar from '../WordsSearchBar';
@@ -69,4 +69,15 @@ export default function DashboardTopbar({
     </Menu>
   );
 }
-DashboardTopbar.propTypes = {};
+DashboardTopbar.propTypes = {
+  selectedDictionaryId: PropTypes.string,
+  translateDirection: PropTypes.string,
+  showDictionaries: PropTypes.bool,
+  selectedWordSetId: PropTypes.string,
+  selectedWordIds: PropTypes.array,
+  onShowDictsToggle: PropTypes.func.isRequired,
+  onWordSetChange: PropTypes.func.isRequired,
+  onSearchChange: PropTypes.func.isRequired,
+  onWordsDeleteClick: PropTypes.func.isRequired,
+  onLearnClick: PropTypes.func.isRequired,
+};

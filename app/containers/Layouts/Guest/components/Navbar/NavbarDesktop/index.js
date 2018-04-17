@@ -1,13 +1,10 @@
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Container, Image, Menu, Button, Dropdown} from 'semantic-ui-react';
-import {Link} from 'react-router-dom';
-import AuthButton from '../AuthButton';
-// import LanguageSelector from 'components/ui/LanguageSelector';
+import {Container, Menu} from 'semantic-ui-react';
 import LanguageSelector from 'containers/LocaleToggle';
+import AuthButton from '../AuthButton';
 
-const NavbarDesktop = ({showLogin, language, onLanguageChange}) => (
+const NavbarDesktop = ({showLogin}) => (
   <Menu fixed="top" pointing secondary>
     <Container>
       <Menu.Menu position="right">
@@ -23,8 +20,7 @@ const NavbarDesktop = ({showLogin, language, onLanguageChange}) => (
 );
 
 NavbarDesktop.propTypes = {
-  leftItems: PropTypes.arrayOf(PropTypes.object),
-  rightItems: PropTypes.arrayOf(PropTypes.object),
+  showLogin: PropTypes.bool,
 };
 
 export default NavbarDesktop;

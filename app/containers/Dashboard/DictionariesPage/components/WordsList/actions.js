@@ -88,8 +88,6 @@ export function deleteWordsBatch(wordIds, {resolve, reject} = {}) {
   });
 }
 
-deleteEntityActions;
-
 export function resetWords() {
   return resetEntity(wordsByDictionaryEntity().key);
 }

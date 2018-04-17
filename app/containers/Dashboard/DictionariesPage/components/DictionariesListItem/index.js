@@ -3,7 +3,7 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
 import {Link} from 'react-router-dom';
-import {Menu, Icon, Label, Popup} from 'semantic-ui-react';
+import {Menu, Label, Popup} from 'semantic-ui-react';
 
 export default function DictionariesListItem({item}) {
   return (
@@ -16,4 +16,6 @@ export default function DictionariesListItem({item}) {
     </Menu.Item>
   );
 }
-DictionariesListItem.propTypes = {};
+DictionariesListItem.propTypes = {
+  item: PropTypes.object.isRequired,
+};

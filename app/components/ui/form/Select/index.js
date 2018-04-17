@@ -21,6 +21,8 @@ class Select extends React.Component {
     ),
     floatingLabel: PropTypes.string,
     hintText: PropTypes.string,
+    noResultsMessage: PropTypes.string,
+    loading: PropTypes.bool,
     error: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onBlur: PropTypes.func,
@@ -49,18 +51,7 @@ class Select extends React.Component {
   handleInputChange = () => {};
 
   render() {
-    const {
-      id,
-      name,
-      floatingLabel,
-      hintText,
-      options,
-      value,
-      error,
-      loading,
-      noResultsMessage,
-      onBlur,
-    } = this.props;
+    const {id, name, floatingLabel, options, value, error, loading, noResultsMessage} = this.props;
     const {inputVal, inputHint} = this.state;
     return (
       <Dropdown

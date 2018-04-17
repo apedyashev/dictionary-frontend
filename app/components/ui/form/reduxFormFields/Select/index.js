@@ -23,6 +23,13 @@ export default function ReduxFormSelectField({
   );
 }
 ReduxFormSelectField.propTypes = {
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+    })
+  ),
   input: PropTypes.object.isRequired,
   label: PropTypes.string,
   hintText: PropTypes.string,

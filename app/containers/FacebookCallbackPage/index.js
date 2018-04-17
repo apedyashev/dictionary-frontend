@@ -13,7 +13,10 @@ import {Link} from 'react-router-dom';
 import Prompt from 'components/ui/Prompt';
 
 class FacebookCallbackPage extends React.Component {
-  static propTypes = {};
+  static propTypes = {
+    fbCode: PropTypes.string.isRequired,
+    loginFbUser: PropTypes.func.isRequired,
+  };
   state = {error: false};
 
   componentDidMount() {

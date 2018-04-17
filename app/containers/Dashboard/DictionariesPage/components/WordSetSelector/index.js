@@ -23,7 +23,7 @@ function WordSetSelector({value, onChange, wordSets}) {
   return <Dropdown scrolling value={value} options={options} onChange={onChange} />;
 }
 WordSetSelector.propTypes = {
-  value: PropTypes.any.isRequired,
+  value: PropTypes.any,
   onChange: PropTypes.func.isRequired,
   wordSets: PropTypes.instanceOf(Immutable.List).isRequired,
 };

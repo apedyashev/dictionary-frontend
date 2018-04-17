@@ -2,7 +2,6 @@ import _each from 'lodash/each';
 import _without from 'lodash/without';
 import {fromJS} from 'immutable';
 
-import {LOAD_REPOS_SUCCESS, LOAD_REPOS, LOAD_REPOS_ERROR} from './constants';
 import {profileActionTypes, entityActionTypes, SET_TOKEN, RESET_ENTITY} from './actions';
 
 function getEntityIds(action) {
@@ -84,6 +83,7 @@ function appReducer(state = initialState, action) {
           const wordSetIds = state
             .getIn(['entities', 'dictionaries', 'items', dictionaryId, 'wordSets'])
             .concat(fromJS(ids));
+          // eslint-disable-next-line no-param-reassign
           state = state.setIn(
             ['entities', 'dictionaries', 'items', dictionaryId, 'wordSets'],
             wordSetIds

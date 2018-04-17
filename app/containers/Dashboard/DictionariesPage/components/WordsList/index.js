@@ -1,22 +1,34 @@
 // libs
 import React from 'react';
 import {PropTypes} from 'prop-types';
+import Immutable from 'immutable';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 // actions
 import {loadWords, resetWords} from './actions';
 // selectors
-import {makeSelectDictionarIdBySlug} from '../DictionariesList/selectors';
 import {makeSelectWords, makeSelectWordsHasNextPage} from './selectors';
 // components
 import InfiniteList from 'components/InfiniteList';
 import {Word, EmptyListPrompt} from 'components/ui';
 
 class WordsList extends React.Component {
-  static propTypes = {};
+  static propTypes = {
+    scrollElement: PropTypes.node,
+    hasNextPage: PropTypes.bool.isRequired,
+    words: PropTypes.instanceOf(Immutable.List),
+    onWordCheck: PropTypes.func.isRequired,
+    selectedWordIds: PropTypes.array.isRequired,
+    searchString: PropTypes.string,
+    wordSetId: PropTypes.string,
+    dictionaryId: PropTypes.string.isRequired,
+    loadWords: PropTypes.func.isRequired,
+    resetWords: PropTypes.func.isRequired,
+  };
   state = {
     shouldListBeReset: false,
     // must be initialized, otherwise list will be reset immideately after mount
+    // eslint-disable-next-line
     prevSearchString: '',
   };
 
@@ -44,8 +56,9 @@ class WordsList extends React.Component {
     this.props.resetWords();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     if (this.state.shouldListBeReset) {
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({shouldListBeReset: false});
       console.log('reset display order');
       this.props.resetWords();
@@ -61,7 +74,7 @@ class WordsList extends React.Component {
     }
   };
 
-  getRowHeight = ({index, rowData}) => {
+  getRowHeight = (/* {index, rowData} */) => {
     // must be changed along with line-height value in app/components/ui/Word/index.css
     return 30;
   };
@@ -70,7 +83,7 @@ class WordsList extends React.Component {
     return <EmptyListPrompt title="You don't have any words" />;
   };
 
-  rowRenderer = ({item, index, key, style}) => {
+  rowRenderer = ({item, key, style}) => {
     const {selectedWordIds} = this.props;
     return (
       <Word

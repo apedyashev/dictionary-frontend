@@ -16,7 +16,7 @@ export default function SearchbarDropdownItem({
   active,
   onClick,
 }) {
-  const handleClick = (e, {value}) => {
+  const handleClick = () => {
     onClick(definitionId, translationId);
   };
   return (
@@ -33,4 +33,13 @@ export default function SearchbarDropdownItem({
     </Dropdown.Item>
   );
 }
-SearchbarDropdownItem.propTypes = {};
+SearchbarDropdownItem.propTypes = {
+  translationId: PropTypes.string.isRequired,
+  definitionId: PropTypes.string.isRequired,
+  pos: PropTypes.string,
+  translation: PropTypes.string.isRequired,
+  synonyms: PropTypes.array,
+  examples: PropTypes.array,
+  active: PropTypes.bool,
+  onClick: PropTypes.func.isRequired,
+};

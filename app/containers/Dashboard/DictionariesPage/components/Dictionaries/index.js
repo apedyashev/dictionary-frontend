@@ -13,10 +13,13 @@ import NewDictionaryForm from '../NewDictionaryForm';
 import withErrorBoundary from 'utils/hocs/withErrorBoundary';
 
 class Dictionaries extends React.Component {
-  static propTypes = {};
+  static propTypes = {
+    dictionaries: PropTypes.any,
+    loaded: PropTypes.bool,
+  };
   state = {
     activeTab: this.props.loaded && !this.props.dictionaries ? 'add' : 'list',
-    loaded: false,
+    // loaded: false,
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -42,14 +45,12 @@ class Dictionaries extends React.Component {
           <Menu.Menu position="right">
             <Menu.Item
               as="a"
-              name="List"
               name="list"
               active={activeTab === 'list'}
               onClick={this.handleTabClick}
             />
             <Menu.Item
               as="a"
-              name="Add"
               name="add"
               active={activeTab === 'add'}
               onClick={this.handleTabClick}
@@ -64,16 +65,10 @@ class Dictionaries extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
+  // TODO: must be ownProps?
   dictionaries: makeSelectDictionaries(),
   loaded: makeSelectDictionariesLoaded(),
 });
 
-export function mapDispatchToProps(dispatch) {
-  return {
-    loadDictionaries: () => dispatch(loadDictionaries()),
-    dispatch,
-  };
-}
-
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
+const withConnect = connect(mapStateToProps, null);
 export default compose(withConnect, withErrorBoundary)(Dictionaries);

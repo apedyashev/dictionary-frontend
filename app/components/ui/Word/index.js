@@ -7,7 +7,7 @@ import Checkbox from 'components/ui/form/Checkbox';
 import styles from './index.css';
 
 export default function WordItem({data, checked, style, onCheck}) {
-  const handleChange = (event, {checked}) => onCheck(data.id, checked);
+  const handleChange = (event, {checked: isChecked}) => onCheck(data.id, isChecked);
   return (
     <div className={styles.row} style={style}>
       <div className={styles.checkbox}>
@@ -19,4 +19,14 @@ export default function WordItem({data, checked, style, onCheck}) {
     </div>
   );
 }
-WordItem.propTypes = {};
+WordItem.propTypes = {
+  data: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    word: PropTypes.string.isRequired,
+    translations: PropTypes.array.isRequired,
+    wordSet: PropTypes.shape({title: PropTypes.string.isRequired}).isRequired,
+  }).isRequired,
+  checked: PropTypes.bool,
+  style: PropTypes.object,
+  onCheck: PropTypes.func.isRequired,
+};

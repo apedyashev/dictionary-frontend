@@ -12,4 +12,6 @@ export default function SidebarUI({items}) {
     </Sidebar>
   );
 }
-SidebarUI.propTypes = {};
+SidebarUI.propTypes = {
+  items: PropTypes.array.isRequired,
+};

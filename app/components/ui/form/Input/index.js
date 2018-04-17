@@ -50,8 +50,10 @@ Input.propTypes = {
   hintText: PropTypes.string,
   error: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  autoComplete: PropTypes.bool,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
+  onFocus: PropTypes.func,
 };
 Input.defaultProps = {
   hintText: ' ',

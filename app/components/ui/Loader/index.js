@@ -13,13 +13,14 @@ const Loader = ({message, size}) => {
       >
         <div />
       </div>
-      <span className={styles.label}>{message}</span>
+      {message && <span className={styles.label}>{message}</span>}
     </div>
   );
 };
 
 Loader.propTypes = {
-  size: PropTypes.number.isRequired,
+  size: PropTypes.number,
+  message: PropTypes.string,
 };
 
 Loader.defaultProps = {

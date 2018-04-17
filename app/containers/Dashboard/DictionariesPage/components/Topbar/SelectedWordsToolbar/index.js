@@ -3,7 +3,7 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
 import {ConfirmableButton} from 'components/ui';
-import {Icon, Menu, Button, Popup} from 'semantic-ui-react';
+import {Button, Popup} from 'semantic-ui-react';
 import WordSetSelector from '../../WordSetSelector/WithAddForm';
 // other
 import styles from './index.css';
@@ -43,10 +43,10 @@ export default function SelectedWordsToolbar({
     </React.Fragment>
   );
 }
-SelectedWordsToolbar.propTypes = {};
-
-// <Popup
-//   position="bottom left"
-//   trigger={<Button icon="trash" onClick={onWordsDeleteClick} />}
-//   content="Delete words"
-// />
+SelectedWordsToolbar.propTypes = {
+  dictionaryId: PropTypes.string.isRequired,
+  wordSetId: PropTypes.string.isRequired,
+  selectedWordsCount: PropTypes.number.isRequired,
+  onWordSetChange: PropTypes.func.isRequired,
+  onWordsDeleteClick: PropTypes.func.isRequired,
+};

@@ -15,6 +15,7 @@ export default function ListLoader({style, message}) {
 }
 ListLoader.propTypes = {
   message: PropTypes.string,
+  style: PropTypes.object,
 };
 ListLoader.defaultProps = {
   message: 'Please wait',

@@ -3,17 +3,23 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
+import Immutable from 'immutable';
 // selectrors
 import {makeSelectDictionaries, makeSelectDictionariesLoading} from './selectors';
 import {loadDictionaries} from './actions';
 // components
-import {Sidebar, Segment, Button, Menu, Image, Icon, Header} from 'semantic-ui-react';
+import {Button} from 'semantic-ui-react';
 import {ListLoader, EmptyListPrompt} from 'components/ui';
 import DictionariesListItem from '../DictionariesListItem';
 
 class DictionariesList extends React.Component {
   static propTypes = {
     onCreateClick: PropTypes.func.isRequired,
+    // mapDispatchToProps
+    loadDictionaries: PropTypes.func.isRequired,
+    // mapStateToProps
+    loading: PropTypes.bool.isRequired,
+    dictionaries: PropTypes.instanceOf(Immutable.Map).isRequired,
   };
 
   componentDidMount() {
@@ -21,7 +27,7 @@ class DictionariesList extends React.Component {
   }
 
   render() {
-    const {dictionaries, loading, loaded} = this.props;
+    const {dictionaries, loading} = this.props;
     if (!loading && !dictionaries) {
       return (
         <EmptyListPrompt
@@ -39,8 +45,8 @@ class DictionariesList extends React.Component {
 
     return (
       <div>
-        {dictionaries.toArray().map((item, id) => {
-          return <DictionariesListItem key={id} item={item.toObject()} />;
+        {dictionaries.toArray().map((item) => {
+          return <DictionariesListItem key={item.get('id')} item={item.toObject()} />;
         })}
       </div>
     );

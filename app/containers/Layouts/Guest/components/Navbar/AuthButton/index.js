@@ -23,14 +23,12 @@ function NavBarAuthButton({showLogin}) {
     </Button>
   );
 }
-NavBarAuthButton.propTypes = {};
+NavBarAuthButton.propTypes = {
+  showLogin: PropTypes.bool,
+};
 
 const mapStateToProps = createSelector(makeSelectIsLoginRoute(), (isLoginRoute) => ({
   showLogin: !isLoginRoute,
 }));
 
-export function mapDispatchToProps(dispatch) {
-  return {};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavBarAuthButton);
+export default connect(mapStateToProps, null)(NavBarAuthButton);

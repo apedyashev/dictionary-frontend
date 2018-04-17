@@ -31,4 +31,5 @@ ReduxFormCheckboxField.propTypes = {
   label: PropTypes.string,
   defaultChecked: PropTypes.bool,
   meta: PropTypes.shape({touched: PropTypes.bool, error: PropTypes.string}),
+  onChange: PropTypes.func,
 };

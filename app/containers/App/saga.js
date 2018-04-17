@@ -1,4 +1,4 @@
-import {takeLatest, call, put, select} from 'redux-saga/effects';
+import {takeLatest, call, put} from 'redux-saga/effects';
 import {push} from 'react-router-redux';
 import _omit from 'lodash/omit';
 import {
@@ -25,7 +25,7 @@ export function* loadProfile({schema}) {
 }
 
 export function* createEntity({payload, entity, meta}) {
-  const {url, schema, key} = entity;
+  const {url, schema} = entity;
 
   try {
     const entityResponse = yield call(http.post, {
@@ -50,7 +50,7 @@ export function* createEntity({payload, entity, meta}) {
 }
 
 export function* updateEntity({payload, entity, meta}) {
-  const {url, schema, key} = entity;
+  const {url, schema} = entity;
 
   try {
     const entityResponse = yield call(http.patch, {
@@ -73,7 +73,7 @@ export function* updateEntity({payload, entity, meta}) {
 }
 
 export function* deleteEntityBatch({payload, entity, meta}) {
-  const {url, schema, key} = entity;
+  const {url, schema} = entity;
 
   try {
     const entityResponse = yield call(http.delete, {
@@ -96,7 +96,7 @@ export function* deleteEntityBatch({payload, entity, meta}) {
 }
 
 export function* getEntity({query, entity, meta}) {
-  const {url, schema, key} = entity;
+  const {url, schema} = entity;
 
   try {
     const entityResponse = yield call(http.get, {url, query, schema});

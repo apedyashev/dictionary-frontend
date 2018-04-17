@@ -23,7 +23,7 @@ export default function NavLanguageSelector({value, languages, onChange}) {
   );
 }
 NavLanguageSelector.propTypes = {
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   languages: PropTypes.arrayOf(
     PropTypes.shape({
       key: PropTypes.number,
@@ -35,7 +35,7 @@ NavLanguageSelector.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 NavLanguageSelector.defaultProps = {
-  value: 'en',
+  value: 'en-US',
   languages: [
     {key: 1, text: 'English', value: 'en-US', flag: 'us'},
     {key: 2, text: 'Deutsch', value: 'de-CH', flag: 'ch'},

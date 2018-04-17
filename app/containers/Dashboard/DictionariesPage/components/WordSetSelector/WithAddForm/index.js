@@ -9,7 +9,7 @@ import {createWordset} from '../../DictionariesList/actions';
 // selectors
 import {makeSelectDictionaryWordSets} from '../../DictionariesList/selectors';
 // components
-import {Dropdown as DropdownSUI, Icon, Menu, Button, Popup} from 'semantic-ui-react';
+import {Dropdown as DropdownSUI, Button, Popup} from 'semantic-ui-react';
 import {Dropdown} from 'components/ui';
 import AddWordsetForm from '../../AddOwnTranslation';
 // other
@@ -17,10 +17,11 @@ import styles from './index.css';
 
 class WordSetSelectorWithAddForm extends React.PureComponent {
   static propTypes = {
-    value: PropTypes.any.isRequired,
-    allowAddNew: PropTypes.any,
+    value: PropTypes.any,
+    dictionaryId: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     wordSets: PropTypes.instanceOf(Immutable.List).isRequired,
+    createWordset: PropTypes.func.isRequired,
   };
   static defaultProps = {
     value: 0,
@@ -28,9 +29,9 @@ class WordSetSelectorWithAddForm extends React.PureComponent {
   state = {showDropdown: false};
 
   handleAddClick = (title) => {
-    const {dictionaryId, createWordset} = this.props;
+    const {dictionaryId} = this.props;
     new Promise((resolve, reject) => {
-      createWordset(dictionaryId, title, {resolve, reject});
+      this.props.createWordset(dictionaryId, title, {resolve, reject});
     }).then(({response: {result}}) => {
       this.handleWordsetSelect(result.item);
     });
@@ -46,7 +47,7 @@ class WordSetSelectorWithAddForm extends React.PureComponent {
   };
 
   render() {
-    const {dictionaryId, value, wordSets, trigger, className} = this.props;
+    const {value, wordSets} = this.props;
     const options = wordSets
       .map((wordSet) => ({
         key: wordSet.get('id'),

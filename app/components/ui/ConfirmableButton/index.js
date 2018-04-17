@@ -5,7 +5,13 @@ import {PropTypes} from 'prop-types';
 import {Button, Popup} from 'semantic-ui-react';
 
 class ConfirmableButton extends React.PureComponent {
-  static propTypes = {};
+  static propTypes = {
+    icon: PropTypes.string,
+    position: PropTypes.string,
+    hoverContent: PropTypes.any,
+    clickContent: PropTypes.any,
+    onConfirm: PropTypes.func.isRequired,
+  };
   state = {clicked: false, open: undefined};
 
   handleClick = () => {
@@ -24,7 +30,7 @@ class ConfirmableButton extends React.PureComponent {
 
   render() {
     const {icon, position, hoverContent, clickContent} = this.props;
-    const {clicked, open, on} = this.state;
+    const {clicked, open} = this.state;
     const confirmContent = (
       <div>
         {clickContent}

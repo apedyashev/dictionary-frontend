@@ -19,8 +19,8 @@ export default function Dropdown({
   children,
   onChange,
 }) {
-  const handleChange = (e, {value}) => {
-    onChange(value);
+  const handleChange = (e, {value: newValue}) => {
+    onChange(newValue);
   };
   return (
     <div className={cn(styles.dropdownWrappingBtn, className)}>
@@ -34,21 +34,29 @@ export default function Dropdown({
         simple={simple}
         item={item}
         onChange={handleChange}
-        children={children}
-      />
+      >
+        {children}
+      </DropdownSUI>
     </div>
   );
 }
 Dropdown.propTypes = {
-  text: PropTypes.string,
-  languages: PropTypes.arrayOf(
+  value: PropTypes.any,
+  open: PropTypes.bool,
+  scrolling: PropTypes.bool,
+  item: PropTypes.bool,
+  simple: PropTypes.bool,
+  className: PropTypes.string,
+  trigger: PropTypes.any,
+  options: PropTypes.arrayOf(
     PropTypes.shape({
       key: PropTypes.number,
       text: PropTypes.string,
       value: PropTypes.string,
     })
   ),
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
+  children: PropTypes.any,
 };
 Dropdown.defaultProps = {
   simple: true,

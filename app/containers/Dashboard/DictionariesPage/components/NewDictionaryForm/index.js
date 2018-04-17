@@ -4,13 +4,13 @@ import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
+import Immutable from 'immutable';
 // actions
 import {loadTranslateDirections, createDictionary} from '../DictionariesList/actions';
 import {makeSelectTranslationDirections} from '../DictionariesList/selectors';
 // components
-import {Link} from 'react-router-dom';
 import {Form, Field, SubmissionError, reduxForm} from 'redux-form/immutable';
-import {Checkbox, HelpIcon, ReduxFormFields} from 'components/ui';
+import {HelpIcon, ReduxFormFields} from 'components/ui';
 import {Button} from 'semantic-ui-react';
 // other
 import messages from './messages';
@@ -25,6 +25,11 @@ class DictionaryForm extends React.Component {
     handleSubmit: PropTypes.func.isRequired,
     // react-intl
     intl: intlShape.isRequired,
+    // mapStateToProps
+    translationDirectionOptions: PropTypes.instanceOf(Immutable.Map).isRequired,
+    // mapDispatchToProps
+    createDictionary: PropTypes.func.isRequired,
+    loadTranslateDirections: PropTypes.func.isRequired,
   };
   state = {isLangAbsent: false};
 
@@ -76,7 +81,6 @@ class DictionaryForm extends React.Component {
       submitting,
       intl: {formatMessage},
       translationDirectionOptions,
-      values,
     } = this.props;
     const {isLangAbsent} = this.state;
     return (
