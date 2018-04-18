@@ -4,9 +4,11 @@ import {Helmet} from 'react-helmet';
 // import {FormattedMessage} from 'react-intl';
 import {connect} from 'react-redux';
 import _without from 'lodash/without';
+import {push} from 'react-router-redux';
 import {createStructuredSelector} from 'reselect';
 // actions
 import {addWordToWordSet, deleteWordsBatch} from './components/WordsList/actions';
+import {sendWordsForLearning} from 'containers/Dashboard/LearnWordsPage/actions';
 // selectors
 import {
   makeSelectDictionarIdBySlug,
@@ -26,6 +28,8 @@ export class DictionariesPage extends React.PureComponent {
     deleteWordsBatch: PropTypes.func.isRequired,
     addWordToWordSet: PropTypes.func.isRequired,
     match: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    sendWordsForLearning: PropTypes.func.isRequired,
   };
   state = {
     isDictionarySelected: !!this.props.match.params.slug,
@@ -96,6 +100,8 @@ export class DictionariesPage extends React.PureComponent {
   handleLearnClick = () => {
     const {selectedWordIds} = this.state;
     console.log('send words to learning', selectedWordIds.length);
+    this.props.dispatch(push('/learn-words'));
+    this.props.sendWordsForLearning(selectedWordIds);
   };
 
   render() {
@@ -170,6 +176,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(addWordToWordSet({dictionaryId, wordSetId}, wordIds, {resolve, reject})),
     deleteWordsBatch: (wordIds, {resolve, reject} = {}) =>
       dispatch(deleteWordsBatch(wordIds, {resolve, reject})),
+    sendWordsForLearning: (wordIds) => dispatch(sendWordsForLearning(wordIds)),
+    dispatch,
   };
 }
 

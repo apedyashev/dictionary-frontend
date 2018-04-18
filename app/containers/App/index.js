@@ -11,7 +11,7 @@ import {createStructuredSelector} from 'reselect';
 
 import {ConnectedSwitch, PrivateRoute, GuestRoute} from 'utils/router';
 import {GuestLayout, DashboardLayout} from 'containers/Layouts';
-import {DictionariesPage} from 'containers/Dashboard';
+import {DictionariesPage, LearnWordsPage} from 'containers/Dashboard';
 import FacebookCallbackPage from 'containers/FacebookCallbackPage/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
@@ -19,6 +19,7 @@ import {PageLoader} from 'components/ui';
 
 import {loadProfileActions, setToken} from './actions';
 import reducer from './reducer';
+import learnWordsReducer from 'containers/Dashboard/LearnWordsPage/reducer';
 import saga from './saga';
 import {makeSelectProfileLoaded, makeSelectProfileData} from './selectors';
 
@@ -71,6 +72,13 @@ export class App extends React.PureComponent {
                 component={DictionariesPage}
                 authed={!!profile.id}
               />
+              <PrivateRoute
+                exact
+                path="/learn-words"
+                layout={DashboardLayout}
+                component={LearnWordsPage}
+                authed={!!profile.id}
+              />
               <Route path="/facebook/callback" component={FacebookCallbackPage} />
               <Route path="" component={NotFoundPage} />
             </ConnectedSwitch>
@@ -100,6 +108,7 @@ const mapStateToProps = createStructuredSelector({
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 const withReducer = injectReducer({key: 'app', reducer});
+const withLearnWordsReducer = injectReducer({key: 'learnWords', reducer: learnWordsReducer});
 const withSaga = injectSaga({key: 'app', saga, mode: DAEMON});
 
-export default compose(withReducer, withSaga, withConnect)(App);
+export default compose(withReducer, withLearnWordsReducer, withSaga, withConnect)(App);
