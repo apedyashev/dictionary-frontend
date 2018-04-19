@@ -15,12 +15,15 @@ import {createStructuredSelector} from 'reselect';
 // } from './components/DictionariesList/selectors';
 
 // import {Sidebar, Menu} from 'semantic-ui-react';
-import {Prompt} from 'components/ui';
+import {Paper, WhiteBoard} from 'components/ui';
+import {ChooseOptionCard} from './components';
 // import {Topbar, Dictionaries, WordsList} from './components';
 // other
 // import reducer from './reducer';
 import styles from './index.css';
 
+const options = [{text: 'opt1'}, {text: 'opt2'}];
+const word = {};
 export class LearnWordsPage extends React.PureComponent {
   static propTypes = {};
 
@@ -30,7 +33,9 @@ export class LearnWordsPage extends React.PureComponent {
         <Helmet>
           <title>Learn words</title>
         </Helmet>
-        <Prompt title="Learn words page" subtitle="Coming soon" />
+        <WhiteBoard>
+          <ChooseOptionCard word={word} options={options} />
+        </WhiteBoard>
       </div>
     );
   }

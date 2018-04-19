@@ -8,7 +8,6 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {DAEMON} from 'utils/constants';
 import {createStructuredSelector} from 'reselect';
-
 import {ConnectedSwitch, PrivateRoute, GuestRoute} from 'utils/router';
 import {GuestLayout, DashboardLayout} from 'containers/Layouts';
 import {
