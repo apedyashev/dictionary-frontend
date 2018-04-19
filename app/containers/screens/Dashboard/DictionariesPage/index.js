@@ -8,7 +8,7 @@ import {push} from 'react-router-redux';
 import {createStructuredSelector} from 'reselect';
 // actions
 import {addWordToWordSet, deleteWordsBatch} from './components/WordsList/actions';
-import {sendWordsForLearning} from 'containers/Dashboard/LearnWordsPage/actions';
+import {sendWordsForLearning} from 'containers/screens/Dashboard/LearnWordsPage/actions';
 // selectors
 import {
   makeSelectDictionarIdBySlug,

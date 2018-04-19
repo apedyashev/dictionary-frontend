@@ -11,15 +11,18 @@ import {createStructuredSelector} from 'reselect';
 
 import {ConnectedSwitch, PrivateRoute, GuestRoute} from 'utils/router';
 import {GuestLayout, DashboardLayout} from 'containers/Layouts';
-import {DictionariesPage, LearnWordsPage} from 'containers/Dashboard';
-import FacebookCallbackPage from 'containers/FacebookCallbackPage/Loadable';
-import HomePage from 'containers/HomePage/Loadable';
-import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import {
+  HomePage,
+  DictionariesPage,
+  LearnWordsPage,
+  FacebookCallbackPage,
+  NotFoundPage,
+} from 'containers/screens';
 import {PageLoader} from 'components/ui';
 
 import {loadProfileActions, setToken} from './actions';
 import reducer from './reducer';
-import learnWordsReducer from 'containers/Dashboard/LearnWordsPage/reducer';
+import learnWordsReducer from 'containers/screens/Dashboard/LearnWordsPage/reducer';
 import saga from './saga';
 import {makeSelectProfileLoaded, makeSelectProfileData} from './selectors';
 
