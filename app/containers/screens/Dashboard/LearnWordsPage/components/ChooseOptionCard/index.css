@@ -1,3 +1,13 @@
 .option {
   margin: 5px !important;
+  &.correct {
+    background-color: green !important;
+  }
+  &.wrong {
+    background-color: red !important;
+  }
+}
+
+.nextButton {
+  margin: 25px 5px 5px 5px !important;
 }

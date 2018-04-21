@@ -60,7 +60,7 @@ export function* updateEntity({payload, entity, meta}) {
       payload,
     });
     if (meta && meta.resolve) {
-      meta.resolve();
+      meta.resolve(entityResponse);
     }
     yield put(updateEntityActions.success(entityResponse, entity));
   } catch (err) {
@@ -83,7 +83,7 @@ export function* deleteEntityBatch({payload, entity, meta}) {
       payload,
     });
     if (meta && meta.resolve) {
-      meta.resolve();
+      meta.resolve(entityResponse);
     }
     yield put(deleteEntityActions.success(entityResponse, entity));
   } catch (err) {
@@ -101,7 +101,7 @@ export function* getEntity({query, entity, meta}) {
   try {
     const entityResponse = yield call(http.get, {url, query, schema});
     if (meta && meta.resolve) {
-      meta.resolve();
+      meta.resolve(entityResponse);
     }
     yield put(getEntityActions.success(entityResponse, entity));
   } catch (err) {

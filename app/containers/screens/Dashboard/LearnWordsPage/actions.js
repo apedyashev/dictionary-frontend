@@ -10,14 +10,22 @@ export function sendWordsForLearning(wordIds) {
   };
 }
 
-export const loadRandomWordsEntity = (dictionaryId, excludeWords) => ({
+export const loadRandomWordsEntity = (dictionaryId) => ({
   key: 'words',
   url: `dictionaries/${dictionaryId}/words/random`,
   schema: {items: wordsArraySchema},
 });
-export function loadRandomWords({dictionaryId, excludeWords}, {resolve, reject} = {}) {
-  return getEntityActions.request({excludeWords}, loadRandomWordsEntity(dictionaryId), {
-    resolve,
-    reject,
-  });
+export function loadRandomWords(
+  dictionaryId,
+  {excludeWords, onlyForLearning, ...query},
+  {resolve, reject} = {}
+) {
+  return getEntityActions.request(
+    {excludeWords, onlyForLearning, ...query},
+    loadRandomWordsEntity(dictionaryId),
+    {
+      resolve,
+      reject,
+    }
+  );
 }

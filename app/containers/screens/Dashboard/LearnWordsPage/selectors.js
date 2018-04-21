@@ -18,3 +18,14 @@ export const makeSelectRandomWords = () =>
 
     return fromJS(wrongOptions);
   });
+
+export const makeSelectLearnedWords = () =>
+  createSelector(
+    [
+      (state) => state.getIn(['learnWords', 'ids']),
+      (state) => state.getIn(['global', 'entities', 'words', 'items']),
+    ],
+    (learnedWordIds, allWords) => {
+      return fromJS(learnedWordIds.map((id) => allWords.get(id)));
+    }
+  );
