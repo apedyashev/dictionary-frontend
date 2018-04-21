@@ -10,6 +10,7 @@ import _random from 'lodash/random';
 import {makeSelectRandomWords} from 'containers/screens/Dashboard/LearnWordsPage/selectors';
 // components
 import {Button, Grid, Image} from 'semantic-ui-react';
+import {FormatWordDefinitions} from 'components';
 // other
 import withErrorBoundary from 'utils/hocs/withErrorBoundary';
 import {NUM_OF_OPTIONS_IN_CARD} from '../../constants';
@@ -26,6 +27,9 @@ class ChooseOptionCard extends React.PureComponent {
       })
     ).isRequired,
   };
+  static defaultProps = {
+    directTranslation: true,
+  };
   state = {
     selectedOptionIndex: -1,
   };
@@ -39,14 +43,17 @@ class ChooseOptionCard extends React.PureComponent {
 
   render() {
     const {selectedOptionIndex} = this.state;
-    const {word, randomWords} = this.props;
+    const {word, randomWords, directTranslation} = this.props;
     const options = randomWords.insert(this.correctAnswerIndex, word).toJS();
     return (
       <Grid columns={2}>
         <Grid.Row>
           <Grid.Column>
-            {word.get('word')}
-            <Image src="https://react.semantic-ui.com/assets/images/wireframe/image.png" />
+            {directTranslation ? word.get('word') : <FormatWordDefinitions word={word.toJS()} />}
+            <Image
+              size="small"
+              src="https://react.semantic-ui.com/assets/images/wireframe/image.png"
+            />
           </Grid.Column>
           <Grid.Column>
             {options.map((option, index) => {
@@ -62,7 +69,9 @@ class ChooseOptionCard extends React.PureComponent {
                     [styles.correct]: isActive && selectedOptionIndex === this.correctAnswerIndex,
                     [styles.wrong]: isActive && selectedOptionIndex !== this.correctAnswerIndex,
                   })}
-                  content={option.word}
+                  content={
+                    directTranslation ? <FormatWordDefinitions word={option} /> : option.word
+                  }
                   onClick={() => this.handleAnswerSelected(index)}
                 />
               );
