@@ -1,4 +1,22 @@
 .resultMessage {
   min-height: 134px;
   margin: 5px 0;
+  .added {
+    color: #09d266;
+  }
+  .removed {
+    color: red;
+  }
+}
+
+.correctAnswerContainer {
+  .header {
+    color: grey;
+  }
+}
+.details {
+  margin-top: 5px;
+  .header {
+    color: red;
+  }
 }
