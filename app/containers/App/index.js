@@ -76,7 +76,7 @@ export class App extends React.PureComponent {
               />
               <PrivateRoute
                 exact
-                path="/learn-words"
+                path="/learn-words/:slug"
                 layout={DashboardLayout}
                 component={LearnWordsPage}
                 authed={!!profile.id}

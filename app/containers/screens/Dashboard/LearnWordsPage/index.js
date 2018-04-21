@@ -3,29 +3,44 @@ import PropTypes from 'prop-types';
 import {Helmet} from 'react-helmet';
 // import {FormattedMessage} from 'react-intl';
 import {connect} from 'react-redux';
-// import {compose} from 'redux';
 import {createStructuredSelector} from 'reselect';
-// import injectReducer from 'utils/injectReducer';
 // actions
-// import {sendWordsForLearning} from './actions';
+import {loadRandomWords} from './actions';
+import {loadDictionaries} from 'containers/screens/Dashboard/DictionariesPage/components/DictionariesList/actions';
 // selectors
-// import {
-//   makeSelectDictionarIdBySlug,
-//   makeSelectTranslateDirection,
-// } from './components/DictionariesList/selectors';
+import {
+  makeSelectDictionarIdBySlug,
+  makeSelectDictionaries,
+} from 'containers/screens/Dashboard/DictionariesPage/components/DictionariesList/selectors';
 
-// import {Sidebar, Menu} from 'semantic-ui-react';
 import {Paper, WhiteBoard} from 'components/ui';
 import {ChooseOptionCard} from './components';
-// import {Topbar, Dictionaries, WordsList} from './components';
 // other
-// import reducer from './reducer';
 import styles from './index.css';
 
-const options = [{text: 'opt1'}, {text: 'opt2'}];
 const word = {};
 export class LearnWordsPage extends React.PureComponent {
   static propTypes = {};
+
+  componentDidMount() {
+    const {dictionaryId, dictionaries} = this.props;
+    if (dictionaryId) {
+      this.props.loadRandomWords({dictionaryId});
+    }
+
+    if (!dictionaries.count()) {
+      this.props.loadDictionaries();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const {dictionaryId, dictionaries} = this.props;
+    // if page is reloaded, dictionaryId will be available only after loading
+    // all the dictionanries
+    if (!prevProps.dictionaryId && dictionaryId) {
+      this.props.loadRandomWords({dictionaryId});
+    }
+  }
 
   render() {
     return (
@@ -34,7 +49,7 @@ export class LearnWordsPage extends React.PureComponent {
           <title>Learn words</title>
         </Helmet>
         <WhiteBoard>
-          <ChooseOptionCard word={word} options={options} />
+          <ChooseOptionCard word={word} />
         </WhiteBoard>
       </div>
     );
@@ -42,22 +57,15 @@ export class LearnWordsPage extends React.PureComponent {
 }
 
 const mapStateToProps = createStructuredSelector({
-  // dictionaryId: makeSelectDictionarIdBySlug(),
-  // translateDirection: makeSelectTranslateDirection(),
+  dictionaryId: makeSelectDictionarIdBySlug(),
+  dictionaries: makeSelectDictionaries(),
 });
-function mapDispatchToProps() {
+function mapDispatchToProps(dispatch) {
   return {
-    // sendWordsForLearning: (wordIds) => dispatch(sendWordsForLearning(wordIds)),
-    // deleteWordsBatch: (wordIds, {resolve, reject} = {}) =>
-    //   dispatch(deleteWordsBatch(wordIds, {resolve, reject})),
+    loadRandomWords: ({dictionaryId, excludeWords}) =>
+      dispatch(loadRandomWords({dictionaryId, excludeWords})),
+    loadDictionaries: () => dispatch(loadDictionaries()),
   };
 }
-// const withReducer = injectReducer({key: 'learnWords', reducer});
-// const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-// export default compose(
-//   withReducer,
-//   // withSaga,
-//   withConnect
-// )(LearnWordsPage);
 export default connect(mapStateToProps, mapDispatchToProps)(LearnWordsPage);

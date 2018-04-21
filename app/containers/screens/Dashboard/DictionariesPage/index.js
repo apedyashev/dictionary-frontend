@@ -99,8 +99,9 @@ export class DictionariesPage extends React.PureComponent {
 
   handleLearnClick = () => {
     const {selectedWordIds} = this.state;
-    console.log('send words to learning', selectedWordIds.length);
-    this.props.dispatch(push('/learn-words'));
+    console.log('send words to learning', selectedWordIds.length, this.props.match.params);
+    const {slug} = this.props.match.params;
+    this.props.dispatch(push(`/learn-words/${slug}`));
     this.props.sendWordsForLearning(selectedWordIds);
   };
 
@@ -113,7 +114,7 @@ export class DictionariesPage extends React.PureComponent {
       searchString,
       selectedWordIds,
     } = this.state;
-    console.log('selectedWordIds', selectedWordIds);
+
     return (
       <div>
         <Helmet>

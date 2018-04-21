@@ -19,7 +19,6 @@ class Dictionaries extends React.Component {
   };
   state = {
     activeTab: this.props.loaded && !this.props.dictionaries ? 'add' : 'list',
-    // loaded: false,
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -29,7 +28,6 @@ class Dictionaries extends React.Component {
         activeTab: 'add',
       };
     }
-
     return null;
   }
 
