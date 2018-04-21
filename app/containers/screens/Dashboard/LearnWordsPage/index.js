@@ -28,12 +28,12 @@ export class LearnWordsPage extends React.PureComponent {
   };
   state = {
     curWordIndex: 0,
+    trainingName: 'word-translation', // translation-word
   };
 
   componentDidMount() {
     const {dictionaryId, dictionaries} = this.props;
     if (dictionaryId) {
-      // this.props.loadRandomWords({dictionaryId});
       this.loadWords();
     }
 
@@ -47,7 +47,6 @@ export class LearnWordsPage extends React.PureComponent {
     // if page is reloaded, dictionaryId will be available only after loading
     // all the dictionanries
     if (!prevProps.dictionaryId && dictionaryId) {
-      // this.props.loadRandomWords({dictionaryId});
       this.loadWords();
     }
   }
@@ -84,11 +83,12 @@ export class LearnWordsPage extends React.PureComponent {
     } else {
       // all the words were learned
       console.log('all the words were learned');
+      this.setState({curWordIndex: 0, trainingName: 'translation-word'});
     }
   };
 
   render() {
-    const {curWordIndex} = this.state;
+    const {curWordIndex, trainingName} = this.state;
     const {learnedWords} = this.props;
     console.log('learnedWords', curWordIndex, learnedWords);
     const showLoader = !learnedWords.size;
@@ -105,6 +105,7 @@ export class LearnWordsPage extends React.PureComponent {
         <WhiteBoard>
           <ChooseOptionCard
             key={curWordIndex}
+            directTranslation={trainingName === 'word-translation'}
             word={learnedWords.get(curWordIndex)}
             onAnswerSelected={this.handleAnswerSelected}
             onNextClick={this.handleNextClick}
