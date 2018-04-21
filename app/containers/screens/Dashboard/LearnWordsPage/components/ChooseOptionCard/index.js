@@ -2,6 +2,7 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
+import {compose} from 'redux';
 import {createStructuredSelector} from 'reselect';
 import cn from 'classnames';
 import _random from 'lodash/random';
@@ -10,6 +11,7 @@ import {makeSelectRandomWords} from 'containers/screens/Dashboard/LearnWordsPage
 // components
 import {Button, Grid, Image} from 'semantic-ui-react';
 // other
+import withErrorBoundary from 'utils/hocs/withErrorBoundary';
 import {NUM_OF_OPTIONS_IN_CARD} from '../../constants';
 import styles from './index.css';
 
@@ -27,10 +29,11 @@ class ChooseOptionCard extends React.PureComponent {
   state = {
     selectedOptionIndex: -1,
   };
-  correctAnswerIndex = _random(NUM_OF_OPTIONS_IN_CARD);
+  correctAnswerIndex = _random(NUM_OF_OPTIONS_IN_CARD - 1);
 
   handleAnswerSelected = (selectedOptionIndex) => {
     this.setState({selectedOptionIndex});
+    console.log('correctAnswerIndex', this.correctAnswerIndex, selectedOptionIndex);
     this.props.onAnswerSelected(this.correctAnswerIndex === selectedOptionIndex);
   };
 
@@ -88,4 +91,6 @@ function mapDispatchToProps(dispatch) {
     // loadDictionaries: () => dispatch(loadDictionaries()),
   };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(ChooseOptionCard);
+export default compose(connect(mapStateToProps, mapDispatchToProps), withErrorBoundary)(
+  ChooseOptionCard
+);

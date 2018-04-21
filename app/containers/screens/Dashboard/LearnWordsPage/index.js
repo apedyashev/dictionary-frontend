@@ -13,10 +13,11 @@ import {
   makeSelectDictionaries,
 } from 'containers/screens/Dashboard/DictionariesPage/components/DictionariesList/selectors';
 import {makeSelectLearnedWords} from './selectors';
-
-import {Paper, WhiteBoard} from 'components/ui';
+// components
+import {Paper, WhiteBoard, PageLoader} from 'components/ui';
 import {ChooseOptionCard} from './components';
 // other
+import {NUM_OF_WORDS_TO_LEARN} from './constants';
 import styles from './index.css';
 
 const word = {};
@@ -56,15 +57,15 @@ export class LearnWordsPage extends React.PureComponent {
     const excludeWords = learnedWords.toJS().map((word) => word.id);
     console.log('excludeWords', excludeWords);
     this.props.loadRandomWords(dictionaryId, {excludeWords});
+
     if (!learnedWords.size) {
       new Promise((resolve, reject) => {
         this.props.loadRandomWords(
           dictionaryId,
-          {onlyForLearning: true, limit: 6},
+          {onlyForLearning: true, limit: NUM_OF_WORDS_TO_LEARN},
           {resolve, reject}
         );
       }).then(({response: {result}}) => {
-        console.log('resp', result.items);
         this.props.sendWordsForLearning(result.items);
       });
     }
@@ -90,22 +91,25 @@ export class LearnWordsPage extends React.PureComponent {
     const {curWordIndex} = this.state;
     const {learnedWords} = this.props;
     console.log('learnedWords', curWordIndex, learnedWords);
+    const showLoader = !learnedWords.size;
+    if (showLoader) {
+      return <PageLoader message="Loading words" />;
+    }
+
     return (
       <div>
         <Helmet>
           <title>Learn words</title>
         </Helmet>
 
-        {!!learnedWords.size && (
-          <WhiteBoard>
-            <ChooseOptionCard
-              key={curWordIndex}
-              word={learnedWords.get(curWordIndex) || {}}
-              onAnswerSelected={this.handleAnswerSelected}
-              onNextClick={this.handleNextClick}
-            />
-          </WhiteBoard>
-        )}
+        <WhiteBoard>
+          <ChooseOptionCard
+            key={curWordIndex}
+            word={learnedWords.get(curWordIndex)}
+            onAnswerSelected={this.handleAnswerSelected}
+            onNextClick={this.handleNextClick}
+          />
+        </WhiteBoard>
       </div>
     );
   }
