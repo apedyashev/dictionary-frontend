@@ -15,7 +15,7 @@ import {
 import {makeSelectLearnedWords} from './selectors';
 // components
 import {Paper, WhiteBoard, PageLoader} from 'components/ui';
-import {ChooseOptionCard} from './components';
+import {ChooseOptionCard, TrainWritingCard} from './components';
 // other
 import {NUM_OF_WORDS_TO_LEARN} from './constants';
 import styles from './index.css';
@@ -28,7 +28,7 @@ export class LearnWordsPage extends React.PureComponent {
   };
   state = {
     curWordIndex: 0,
-    trainingName: 'word-translation', // translation-word
+    trainingName: 'writing', // 'word-translation', // translation-word
   };
 
   componentDidMount() {
@@ -103,13 +103,17 @@ export class LearnWordsPage extends React.PureComponent {
         </Helmet>
 
         <WhiteBoard>
-          <ChooseOptionCard
-            key={curWordIndex}
-            directTranslation={trainingName === 'word-translation'}
-            word={learnedWords.get(curWordIndex)}
-            onAnswerSelected={this.handleAnswerSelected}
-            onNextClick={this.handleNextClick}
-          />
+          {['word-translation', 'translation-word'].includes(trainingName) ? (
+            <ChooseOptionCard
+              key={curWordIndex}
+              directTranslation={trainingName === 'word-translation'}
+              word={learnedWords.get(curWordIndex)}
+              onAnswerSelected={this.handleAnswerSelected}
+              onNextClick={this.handleNextClick}
+            />
+          ) : (
+            <TrainWritingCard word={learnedWords.get(curWordIndex)} onNext={this.handleNextClick} />
+          )}
         </WhiteBoard>
       </div>
     );
