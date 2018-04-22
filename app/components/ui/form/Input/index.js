@@ -15,6 +15,7 @@ class Input extends React.PureComponent {
     hintText: PropTypes.string,
     error: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    disabled: PropTypes.bool,
     autoComplete: PropTypes.bool,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
@@ -23,6 +24,7 @@ class Input extends React.PureComponent {
   static defaultProps = {
     hintText: '',
     type: 'text',
+    disabled: false,
   };
   inputRef = React.createRef();
 
@@ -42,6 +44,8 @@ class Input extends React.PureComponent {
       value,
       error,
       autoComplete,
+
+      disabled,
       onChange,
       onBlur,
       onFocus,
@@ -58,6 +62,7 @@ class Input extends React.PureComponent {
           name={name}
           value={value}
           autoComplete={autoComplete}
+          disabled={disabled}
           onChange={onChange}
           onBlur={onBlur}
           onFocus={onFocus}

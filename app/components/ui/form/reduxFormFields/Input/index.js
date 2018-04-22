@@ -8,6 +8,7 @@ export default function ReduxFormInputField({
   input,
   autoFocus,
   autoComplete,
+  disabled,
   label,
   hintText,
   type,
@@ -16,6 +17,7 @@ export default function ReduxFormInputField({
   return (
     <Input
       {...input}
+      disabled={disabled}
       autoFocus={autoFocus}
       autoComplete={autoComplete}
       type={type}

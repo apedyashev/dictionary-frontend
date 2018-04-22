@@ -4,8 +4,9 @@ import {PropTypes} from 'prop-types';
 import _isEqual from 'lodash/isEqual';
 import * as jsDiff from 'diff';
 // components
-import {Button, Grid, Image, Label} from 'semantic-ui-react';
+import {Grid, Image, Label} from 'semantic-ui-react';
 import {FormatWordDefinitions} from 'components';
+import {Button} from 'components/ui';
 import TrainWritingForm from '../TrainWritingForm';
 // other
 import styles from './index.css';
@@ -23,9 +24,9 @@ class TrainWritingCard extends React.PureComponent {
 
   componentDidUpdate(prevProps, prevState) {
     const {answered} = this.state;
-    if (!prevState.answered && answered === ANSWERED_CORRECTLY) {
+    if (!prevState.answered && answered === ANSWERED_CORRECTLY && this.nextButtonRef.current) {
       this.nextButtonRef.current.focus();
-    } else if (!prevState.answered && answered === ANSWERED_WRONG) {
+    } else if (!prevState.answered && answered === ANSWERED_WRONG && this.errorButtonRef.current) {
       this.errorButtonRef.current.focus();
     }
   }
@@ -110,6 +111,7 @@ class TrainWritingCard extends React.PureComponent {
               <div className={styles.buttonsContainer}>
                 {answered === ANSWERED_CORRECTLY && (
                   <Button
+                    animateFocus
                     ref={this.nextButtonRef}
                     content="Next"
                     onClick={this.handleAnsweredCorrectly}
@@ -119,11 +121,16 @@ class TrainWritingCard extends React.PureComponent {
                   <React.Fragment>
                     <Button
                       negative
+                      animateFocus
                       ref={this.errorButtonRef}
                       content="It's an error"
                       onClick={this.handleErrorBtnClick}
                     />
-                    <Button content="It's a typo" onClick={this.handleAnsweredCorrectly} />
+                    <Button
+                      animateFocus
+                      content="It's a typo"
+                      onClick={this.handleAnsweredCorrectly}
+                    />
                   </React.Fragment>
                 )}
               </div>

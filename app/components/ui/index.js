@@ -11,6 +11,7 @@ export {default as Word} from './Word';
 export {default as Dropdown} from './Dropdown';
 export {default as ConfirmableButton} from './ConfirmableButton';
 export {default as WhiteBoard} from './WhiteBoard';
+export {default as Button} from './Button';
 
 // form
 export {default as Input} from './form/Input';
