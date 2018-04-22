@@ -6,6 +6,8 @@ import Input from 'components/ui/form/Input';
 
 export default function ReduxFormInputField({
   input,
+  autoFocus,
+  autoComplete,
   label,
   hintText,
   type,
@@ -14,6 +16,8 @@ export default function ReduxFormInputField({
   return (
     <Input
       {...input}
+      autoFocus={autoFocus}
+      autoComplete={autoComplete}
       type={type}
       floatingLabel={label}
       hintText={hintText}

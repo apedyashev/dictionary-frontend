@@ -70,14 +70,13 @@ export class LearnWordsPage extends React.PureComponent {
     }
   };
 
-  handleAnswerSelected = (isAnswerCorrect) => {
-    console.log('isAnswerCorrect', isAnswerCorrect);
-  };
+  // handleAnswerSelected = (isAnswerCorrect) => {
+  //   console.log('isAnswerCorrect', isAnswerCorrect);
+  // };
 
-  handleNextClick = () => {
+  handleNextClick = (isAnswerCorrect) => {
     const {curWordIndex} = this.state;
     const {learnedWords} = this.props;
-    console.log('learnedWords', learnedWords);
     if (curWordIndex + 1 < learnedWords.size - 1) {
       this.setState({curWordIndex: curWordIndex + 1});
     } else {
@@ -85,6 +84,7 @@ export class LearnWordsPage extends React.PureComponent {
       console.log('all the words were learned');
       this.setState({curWordIndex: 0, trainingName: 'translation-word'});
     }
+    console.log('isAnswerCorrect', isAnswerCorrect);
   };
 
   render() {
@@ -108,11 +108,15 @@ export class LearnWordsPage extends React.PureComponent {
               key={curWordIndex}
               directTranslation={trainingName === 'word-translation'}
               word={learnedWords.get(curWordIndex)}
-              onAnswerSelected={this.handleAnswerSelected}
+              // onAnswerSelected={this.handleAnswerSelected}
               onNextClick={this.handleNextClick}
             />
           ) : (
-            <TrainWritingCard word={learnedWords.get(curWordIndex)} onNext={this.handleNextClick} />
+            <TrainWritingCard
+              key={curWordIndex}
+              word={learnedWords.get(curWordIndex)}
+              onNext={this.handleNextClick}
+            />
           )}
         </WhiteBoard>
       </div>

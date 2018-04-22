@@ -6,56 +6,70 @@ import _uniqueId from 'lodash/uniqueId';
 // other
 import '../material-design.css';
 
-export default function Input({
-  id,
-  name,
-  type,
-  floatingLabel,
-  hintText,
-  value,
-  error,
-  autoComplete,
-  onChange,
-  onBlur,
-  onFocus,
-}) {
-  const inputId = id || `input-${_uniqueId()}`;
-  return (
-    <div className={cn('form-element form-input', {'has-error': !!error})}>
-      <input
-        id={inputId}
-        className={cn('form-element-field', {'form-element-has-value': !!value})}
-        placeholder={hintText}
-        type={type}
-        name={name}
-        value={value}
-        autoComplete={autoComplete}
-        onChange={onChange}
-        onBlur={onBlur}
-        onFocus={onFocus}
-      />
-      <div className="form-element-bar" />
-      <label className="form-element-label" htmlFor={inputId}>
-        {floatingLabel}
-      </label>
-      <small className="form-element-hint">{error}</small>
-    </div>
-  );
+class Input extends React.PureComponent {
+  static propTypes = {
+    id: PropTypes.any,
+    type: PropTypes.string,
+    name: PropTypes.string,
+    floatingLabel: PropTypes.string,
+    hintText: PropTypes.string,
+    error: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    autoComplete: PropTypes.bool,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+  };
+  static defaultProps = {
+    hintText: '',
+    type: 'text',
+  };
+  inputRef = React.createRef();
+
+  componentDidMount() {
+    if (this.props.autoFocus) {
+      this.inputRef.current.focus();
+    }
+  }
+
+  render() {
+    const {
+      id,
+      name,
+      type,
+      floatingLabel,
+      hintText,
+      value,
+      error,
+      autoComplete,
+      onChange,
+      onBlur,
+      onFocus,
+    } = this.props;
+    const inputId = id || `input-${_uniqueId()}`;
+    return (
+      <div className={cn('form-element form-input', {'has-error': !!error})}>
+        <input
+          id={inputId}
+          ref={this.inputRef}
+          className={cn('form-element-field', {'form-element-has-value': !!value})}
+          placeholder={hintText}
+          type={type}
+          name={name}
+          value={value}
+          autoComplete={autoComplete}
+          onChange={onChange}
+          onBlur={onBlur}
+          onFocus={onFocus}
+        />
+        <div className="form-element-bar" />
+        <label className="form-element-label" htmlFor={inputId}>
+          {floatingLabel}
+        </label>
+        <small className="form-element-hint">{error}</small>
+      </div>
+    );
+  }
 }
-Input.propTypes = {
-  id: PropTypes.any,
-  type: PropTypes.string,
-  name: PropTypes.string,
-  floatingLabel: PropTypes.string,
-  hintText: PropTypes.string,
-  error: PropTypes.string,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  autoComplete: PropTypes.bool,
-  onBlur: PropTypes.func,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
-};
-Input.defaultProps = {
-  hintText: ' ',
-  type: 'text',
-};
+
+export default Input;

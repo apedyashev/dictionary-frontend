@@ -38,7 +38,11 @@ class ChooseOptionCard extends React.PureComponent {
   handleAnswerSelected = (selectedOptionIndex) => {
     this.setState({selectedOptionIndex});
     console.log('correctAnswerIndex', this.correctAnswerIndex, selectedOptionIndex);
-    this.props.onAnswerSelected(this.correctAnswerIndex === selectedOptionIndex);
+    // this.props.onAnswerSelected(this.correctAnswerIndex === selectedOptionIndex);
+  };
+
+  handleNextClick = () => {
+    this.props.onNextClick(this.state.selectedOptionIndex);
   };
 
   render() {
@@ -82,7 +86,7 @@ class ChooseOptionCard extends React.PureComponent {
               disabled={selectedOptionIndex < 0}
               className={styles.nextButton}
               content="next"
-              onClick={this.props.onNextClick}
+              onClick={this.handleNextClick}
             />
           </Grid.Column>
         </Grid.Row>

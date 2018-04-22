@@ -10,9 +10,25 @@ import TrainWritingForm from '../TrainWritingForm';
 // other
 import styles from './index.css';
 
+const ANSWERED_CORRECTLY = 'corerctly';
+const ANSWERED_WRONG = 'wrong';
 class TrainWritingCard extends React.PureComponent {
   static propTypes = {};
-  state = {typedPhraseWithDiff: null};
+  state = {
+    typedPhraseWithDiff: null,
+    answered: null, // (correctly|wrong)
+  };
+  nextButtonRef = React.createRef();
+  errorButtonRef = React.createRef();
+
+  componentDidUpdate(prevProps, prevState) {
+    const {answered} = this.state;
+    if (!prevState.answered && answered === ANSWERED_CORRECTLY) {
+      this.nextButtonRef.current.focus();
+    } else if (!prevState.answered && answered === ANSWERED_WRONG) {
+      this.errorButtonRef.current.focus();
+    }
+  }
 
   parsePhrase = (phrase) => {
     const punctuationMarksPattern = ',|\\?|\\.|\\-|\\:|\\;|\\!|\\(|\\)|\\[|\\]';
@@ -31,26 +47,30 @@ class TrainWritingCard extends React.PureComponent {
     console.log('originalPhraseParsed', originalPhraseParsed);
 
     if (_isEqual(originalPhraseParsed, typedPhraseParsed)) {
-      this.props.onNext();
+      // this.props.onNext();
+      this.setState({answered: ANSWERED_CORRECTLY});
     } else {
       const diff = jsDiff.diffChars(word.get('word'), phrase);
       const typedPhraseWithDiff = [];
       diff.forEach((part) => {
-        // green for additions, red for deletions
-        // grey for common parts
         const className = part.added ? styles.added : part.removed ? styles.removed : '';
         typedPhraseWithDiff.push(<span className={className}>{part.value}</span>);
-        // span = document.createElement('span');
-        // span.style.color = color;
-        // span.appendChild(document.createTextNode(part.value));
-        // fragment.appendChild(span);
       });
-      this.setState({typedPhraseWithDiff});
+      this.setState({typedPhraseWithDiff, answered: ANSWERED_WRONG});
     }
   };
 
+  handleAnsweredCorrectly = () => {
+    this.props.onNext(true);
+  };
+
+  handleErrorBtnClick = () => {
+    console.log('it is an error');
+    this.props.onNext(false);
+  };
+
   render() {
-    const {typedPhraseWithDiff} = this.state;
+    const {answered, typedPhraseWithDiff} = this.state;
     const {word} = this.props;
     return (
       <React.Fragment>
@@ -65,6 +85,9 @@ class TrainWritingCard extends React.PureComponent {
             <Grid.Column width={10}>
               <TrainWritingForm onCheck={this.handleCheck} />
               <div className={styles.resultMessage}>
+                {answered === ANSWERED_CORRECTLY && (
+                  <div className={styles.correctAnswerNotification}>Excelent!</div>
+                )}
                 {typedPhraseWithDiff && (
                   <div>
                     <div className={styles.correctAnswerContainer}>
@@ -84,7 +107,26 @@ class TrainWritingCard extends React.PureComponent {
                   </div>
                 )}
               </div>
-              <Button content="Next" />
+              <div className={styles.buttonsContainer}>
+                {answered === ANSWERED_CORRECTLY && (
+                  <Button
+                    ref={this.nextButtonRef}
+                    content="Next"
+                    onClick={this.handleAnsweredCorrectly}
+                  />
+                )}
+                {answered === ANSWERED_WRONG && (
+                  <React.Fragment>
+                    <Button
+                      negative
+                      ref={this.errorButtonRef}
+                      content="It's an error"
+                      onClick={this.handleErrorBtnClick}
+                    />
+                    <Button content="It's a typo" onClick={this.handleAnsweredCorrectly} />
+                  </React.Fragment>
+                )}
+              </div>
             </Grid.Column>
           </Grid.Row>
         </Grid>
