@@ -10,6 +10,10 @@ $height: 30px;
   height: $height;
   line-height: $height;
   border-bottom: 1px solid #ccc;
+  background-color: #fff;
+  &:hover {
+    background-color: #f2f2f2;
+  }
 }
 
 .text {

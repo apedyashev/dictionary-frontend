@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Helmet} from 'react-helmet';
 import _isEqual from 'lodash/isEqual';
+import _values from 'lodash/values';
+import _each from 'lodash/each';
+import _every from 'lodash/every';
 // import {FormattedMessage} from 'react-intl';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
@@ -9,6 +12,7 @@ import {push} from 'react-router-redux';
 // actions
 import {loadRandomWords, sendWordsForLearning} from './actions';
 import {loadDictionaries} from 'containers/screens/Dashboard/DictionariesPage/components/DictionariesList/actions';
+import {updateWord} from 'containers/screens/Dashboard/DictionariesPage/components/WordsList/actions';
 // selectors
 import {
   makeSelectDictionarIdBySlug,
@@ -19,10 +23,18 @@ import {makeSelectLearnedWords} from './selectors';
 import {WhiteBoard, PageLoader} from 'components/ui';
 import {ChooseOptionCard, TrainWritingCard, TrainingsFinishedCard} from './components';
 // other
-import {NUM_OF_OPTIONS_IN_CARD, NUM_OF_WORDS_TO_LEARN} from './constants';
+import {
+  NUM_OF_OPTIONS_IN_CARD,
+  NUM_OF_WORDS_TO_LEARN,
+  TRAINING_WORD_TRANSLATION,
+  TRAINING_WRITING,
+  TRAINING_TRANSLATION_WORD,
+} from './constants';
 import styles from './index.css';
 
-const trainings = ['word-translation', 'writing', 'translation-word'];
+// all those training names must have correcspongin fields in the learnedStatus
+// object in backend Word model
+const trainings = [TRAINING_WORD_TRANSLATION, TRAINING_WRITING, TRAINING_TRANSLATION_WORD];
 export class LearnWordsPage extends React.PureComponent {
   static propTypes = {
     // dictionaries: Map
@@ -32,8 +44,7 @@ export class LearnWordsPage extends React.PureComponent {
     curWordIndex: 0,
     curTrainingIndex: 0,
     trainingName: trainings[0],
-    // errorCounts: {},
-    errorCounts: [],
+    learnedStatus: {},
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -44,14 +55,13 @@ export class LearnWordsPage extends React.PureComponent {
 
     if (!_isEqual(learnedWordIds, prevState.learnedWordIds)) {
       return {
-        // errorCounts: learnedWordIds.reduce((acc, id) => {
-        //   acc[id] = trainings.reduce((trAcc, trainingName) => {
-        //     trAcc[trainingName] = 0;
-        //     return trAcc;
-        //   }, {});
-        //   return acc;
-        // }, {}),
-        errorCounts: learnedWordIds.map(() => 0),
+        learnedStatus: learnedWordIds.reduce((acc, id) => {
+          acc[id] = trainings.reduce((trAcc, trainingName) => {
+            trAcc[trainingName] = false;
+            return trAcc;
+          }, {});
+          return acc;
+        }, {}),
         learnedWordIds,
       };
     }
@@ -85,8 +95,7 @@ export class LearnWordsPage extends React.PureComponent {
       curWordIndex: 0,
       curTrainingIndex: 0,
       trainingName: trainings[0],
-      // errorCounts: {},
-      errorCounts: [],
+      learnedStatus: {},
     });
     this.loadWords(true);
   };
@@ -110,36 +119,45 @@ export class LearnWordsPage extends React.PureComponent {
   };
 
   handleNextClick = (isAnswerCorrect) => {
-    const {curWordIndex, curTrainingIndex, errorCounts} = this.state;
+    const {curWordIndex, curTrainingIndex, learnedStatus} = this.state;
     const {learnedWords} = this.props;
 
-    if (!isAnswerCorrect) {
-      // const wordId = learnedWords.getIn([curWordIndex, 'id']);
-      // const curTrainingName = trainings[curTrainingIndex];
-      // errorCounts[wordId][curTrainingName]++;
-      errorCounts[curWordIndex]++;
-    }
+    // if (!isAnswerCorrect) {
+    const wordId = learnedWords.getIn([curWordIndex, 'id']);
+    const curTrainingName = trainings[curTrainingIndex];
+    learnedStatus[wordId][curTrainingName] = isAnswerCorrect;
+    // }
 
     if (curWordIndex + 1 < learnedWords.size) {
-      this.setState({curWordIndex: curWordIndex + 1, errorCounts});
+      // go to the next word
+      this.setState({curWordIndex: curWordIndex + 1, learnedStatus});
     } else {
       // all the words were learned
-      console.log('all the words were learned');
       if (curTrainingIndex + 1 < trainings.length) {
+        console.log('trainings', curTrainingIndex + 1, trainings);
+        // go to the next training
         this.setState({
           curWordIndex: 0,
           curTrainingIndex: curTrainingIndex + 1,
           trainingName: trainings[curTrainingIndex + 1],
-          errorCounts,
+          learnedStatus,
         });
       } else {
-        const wordsLearned =
-          learnedWords.size - errorCounts.reduce((acc, val) => (val ? acc + 1 : acc), 0);
-        console.log(errorCounts);
+        // all trainings have been finished
+        const wordsWithErrors = _values(learnedStatus).reduce((totalAcc, wordTrainingsStatus) => {
+          const allTrainingsSuccessfull = _every(_values(wordTrainingsStatus), (val) => val);
+          return totalAcc + (allTrainingsSuccessfull ? 0 : 1);
+        }, 0);
+        console.log('wordsWithErrors', wordsWithErrors, learnedStatus);
+        const wordsLearned = learnedWords.size - wordsWithErrors;
         this.setState({trainingName: 'done', wordsLearned});
+        _each(learnedStatus, (learnedStatus, wordId) => {
+          console.log('learnedStatus, wordId', learnedStatus, wordId);
+          this.props.updateWord(wordId, {learnedStatus});
+        });
       }
     }
-    console.log('errorCounts', errorCounts);
+    console.log('isAnswerCorrect', isAnswerCorrect);
   };
 
   render() {
@@ -152,7 +170,7 @@ export class LearnWordsPage extends React.PureComponent {
     if (showLoader) {
       return <PageLoader message="Loading words" />;
     }
-
+    console.log('trainingName', trainingName);
     return (
       <div>
         <Helmet>
@@ -160,15 +178,15 @@ export class LearnWordsPage extends React.PureComponent {
         </Helmet>
 
         <WhiteBoard>
-          {['word-translation', 'translation-word'].includes(trainingName) && (
+          {[TRAINING_WORD_TRANSLATION, TRAINING_TRANSLATION_WORD].includes(trainingName) && (
             <ChooseOptionCard
               key={curWordIndex}
-              directTranslation={trainingName === 'word-translation'}
+              directTranslation={trainingName === TRAINING_WORD_TRANSLATION}
               word={learnedWords.get(curWordIndex)}
               onNextClick={this.handleNextClick}
             />
           )}
-          {trainingName === 'writing' && (
+          {trainingName === TRAINING_WRITING && (
             <TrainWritingCard
               key={curWordIndex}
               word={learnedWords.get(curWordIndex)}
@@ -200,6 +218,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(loadRandomWords(dictionaryId, query, {resolve, reject})),
     loadDictionaries: () => dispatch(loadDictionaries()),
     sendWordsForLearning: (wordIds) => dispatch(sendWordsForLearning(wordIds)),
+    updateWord: (wordId, values, {resolve, reject} = {}) =>
+      dispatch(updateWord(wordId, values, ({resolve, reject} = {}))),
     dispatch,
   };
 }

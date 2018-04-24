@@ -62,15 +62,20 @@ class ChooseOptionCard extends React.PureComponent {
           <Grid.Column>
             {options.map((option, index) => {
               const isActive = selectedOptionIndex === index;
-
+              const isActiveSelected = selectedOptionIndex >= 0;
+              // console.log('selectedOptionIndex', selectedOptionIndex);
               return (
                 <Button
                   fluid
                   key={option.id}
                   active={isActive}
-                  disabled={selectedOptionIndex > 0 && !isActive}
+                  disabled={isActiveSelected}
                   className={cn(styles.option, {
-                    [styles.correct]: isActive && selectedOptionIndex === this.correctAnswerIndex,
+                    [styles.correct]:
+                      // if correct answer is clicked
+                      (isActive && selectedOptionIndex === this.correctAnswerIndex) ||
+                      // if wrong answer is clicked we still want to show which one is correct
+                      (isActiveSelected && this.correctAnswerIndex === index),
                     [styles.wrong]: isActive && selectedOptionIndex !== this.correctAnswerIndex,
                   })}
                   content={
