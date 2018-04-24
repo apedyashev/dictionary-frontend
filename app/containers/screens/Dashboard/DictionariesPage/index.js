@@ -38,7 +38,6 @@ export class DictionariesPage extends React.PureComponent {
     searchString: '',
     selectedWordIds: [],
   };
-  contentRootRef = React.createRef();
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const {slug} = nextProps.match.params;
@@ -145,10 +144,16 @@ export class DictionariesPage extends React.PureComponent {
               <Dictionaries />
             </Sidebar>
             <Sidebar.Pusher className={styles.pusher}>
-              <div ref={this.contentRootRef}>
+              <div
+                ref={(node) => {
+                  // new createRef API (v16.3) only works when pages is reloaded but for some reason
+                  // when route is changed it's `current` value is null
+                  this.contentRootRef = node;
+                }}
+              >
                 {isDictionarySelected ? (
                   <WordsList
-                    scrollElement={this.contentRootRef.current}
+                    scrollElement={this.contentRootRef}
                     dictionaryId={dictionaryId}
                     wordSetId={selectedWordSetId}
                     searchString={searchString}

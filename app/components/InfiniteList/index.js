@@ -34,6 +34,7 @@ class InfiniteList extends React.PureComponent {
 
   isRowLoaded = ({index}) => {
     const {items} = this.props;
+    console.log('isRowLoaded', !!items.get(index));
     return !!items.get(index);
   };
 
@@ -72,7 +73,7 @@ class InfiniteList extends React.PureComponent {
   render() {
     const {items, hasNextPage, resetProps, scrollElement} = this.props;
     const rowCount = hasNextPage ? items.size + 1 : items.size;
-
+    console.log('rowCount', rowCount, scrollElement);
     return (
       <WindowScroller scrollElement={scrollElement}>
         {({height, isScrolling, scrollTop}) => (

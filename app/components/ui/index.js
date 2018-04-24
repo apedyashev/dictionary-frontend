@@ -1,5 +1,6 @@
 import * as ReduxFormFields from './form/reduxFormFields';
 
+export {default as Topbar} from './Topbar';
 export {default as Paper} from './Paper';
 export {default as PageLoader} from './PageLoader';
 export {default as ListLoader} from './ListLoader';

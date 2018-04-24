@@ -53,10 +53,12 @@ class WordsList extends React.Component {
     return null;
   }
   componentDidMount() {
+    console.log('componentDidMount');
     this.props.resetWords();
   }
 
   componentDidUpdate() {
+    // TODO: get rig of shouldListBeReset
     if (this.state.shouldListBeReset) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({shouldListBeReset: false});
@@ -85,6 +87,7 @@ class WordsList extends React.Component {
 
   rowRenderer = ({item, key, style}) => {
     const {selectedWordIds} = this.props;
+    // console.log('rowRenderer', item.toJS());
     return (
       <Word
         key={key}

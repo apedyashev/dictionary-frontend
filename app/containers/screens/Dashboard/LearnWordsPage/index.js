@@ -20,7 +20,8 @@ import {
 } from 'containers/screens/Dashboard/DictionariesPage/components/DictionariesList/selectors';
 import {makeSelectLearnedWords} from './selectors';
 // components
-import {WhiteBoard, PageLoader} from 'components/ui';
+import {Link} from 'react-router-dom';
+import {WhiteBoard, PageLoader, Topbar} from 'components/ui';
 import {ChooseOptionCard, TrainWritingCard, TrainingsFinishedCard} from './components';
 // other
 import {
@@ -177,6 +178,9 @@ export class LearnWordsPage extends React.PureComponent {
           <title>Learn words</title>
         </Helmet>
 
+        <Topbar>
+          <Link to={`/dictionaries/${params.slug}`}>Back to the dictionary</Link>
+        </Topbar>
         <WhiteBoard>
           {[TRAINING_WORD_TRANSLATION, TRAINING_TRANSLATION_WORD].includes(trainingName) && (
             <ChooseOptionCard
