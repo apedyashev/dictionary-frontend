@@ -23,5 +23,8 @@
   "containers.RegForm.passwordHint": "Please enter password",
   "containers.RegForm.passwordLabel": "Password",
   "containers.RegForm.signinBtnLabel": "Sign in",
-  "containers.RegForm.signupBtnLabel": "Sign up"
+  "containers.RegForm.signupBtnLabel": "Sign up",
+  "containers.TrainWritingForm.checkWordBtnLabel": "Check",
+  "containers.TrainWritingForm.wordHint": "Please type the original word or phrase",
+  "containers.TrainWritingForm.wordLabel": "Word or phrase"
 }

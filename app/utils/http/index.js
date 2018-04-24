@@ -1,4 +1,5 @@
 import superagent from 'superagent';
+import qs from 'qs';
 import {normalize} from 'normalizr';
 // import {camelizeKeys} from 'humps';
 // TODO
@@ -34,7 +35,7 @@ const http = {
       console.log('[GET]', http.buildUrl(url));
       return superagent
         .get(http.buildUrl(url))
-        .query(query)
+        .query(qs.stringify(query))
         .set({
           Accept: 'application/json',
           Authorization: http.getAuthHeader(),
@@ -65,7 +66,7 @@ const http = {
       console.log('query', query);
       return superagent
         .post(http.buildUrl(url))
-        .query(query)
+        .query(qs.stringify(query))
         .send(payload)
         .set({
           Accept: 'application/json',
@@ -97,7 +98,7 @@ const http = {
       console.log('query', query);
       return superagent
         .patch(http.buildUrl(url))
-        .query(query)
+        .query(qs.stringify(query))
         .send(payload)
         .set({
           Accept: 'application/json',
@@ -128,7 +129,7 @@ const http = {
     return new Promise((resolve, reject) => {
       return superagent
         .delete(http.buildUrl(url))
-        .query(query)
+        .query(qs.stringify(query))
         .send(payload)
         .set({
           Accept: 'application/json',

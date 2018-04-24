@@ -3,6 +3,7 @@ import {getEntityActions} from 'containers/App/actions';
 import {wordsArraySchema} from 'containers/screens/Dashboard/DictionariesPage/components/WordsList/actions';
 
 export const SEND_FOR_LEARNING = '@LEARN_WORDS/SEND_FOR_LEARNING';
+
 export function sendWordsForLearning(wordIds) {
   return {
     type: SEND_FOR_LEARNING,

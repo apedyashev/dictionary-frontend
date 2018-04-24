@@ -1,4 +1,4 @@
-import {takeLatest, call, put} from 'redux-saga/effects';
+import {takeLatest, takeEvery, call, put} from 'redux-saga/effects';
 import {push} from 'react-router-redux';
 import _omit from 'lodash/omit';
 import {
@@ -125,8 +125,8 @@ export function* handleEntityCreated({entity, response}) {
 export default function* rootSaga() {
   // if necessary, start multiple sagas at once with `all`
   yield [
-    takeLatest(profileActionTypes.GET.REQUEST, loadProfile),
-    takeLatest(entityActionTypes.GET.REQUEST, getEntity),
+    takeEvery(profileActionTypes.GET.REQUEST, loadProfile),
+    takeEvery(entityActionTypes.GET.REQUEST, getEntity),
     takeLatest(entityActionTypes.POST.REQUEST, createEntity),
     takeLatest(entityActionTypes.POST.SUCCESS, handleEntityCreated),
     takeLatest(entityActionTypes.PATCH.REQUEST, updateEntity),

@@ -42,7 +42,7 @@ class ChooseOptionCard extends React.PureComponent {
   };
 
   handleNextClick = () => {
-    this.props.onNextClick(this.state.selectedOptionIndex);
+    this.props.onNextClick(this.correctAnswerIndex === this.state.selectedOptionIndex);
   };
 
   render() {

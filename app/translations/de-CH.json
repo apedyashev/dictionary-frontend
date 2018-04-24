@@ -23,5 +23,8 @@
   "containers.RegForm.passwordHint": "",
   "containers.RegForm.passwordLabel": "",
   "containers.RegForm.signinBtnLabel": "",
-  "containers.RegForm.signupBtnLabel": ""
+  "containers.RegForm.signupBtnLabel": "",
+  "containers.TrainWritingForm.checkWordBtnLabel": "",
+  "containers.TrainWritingForm.wordHint": "",
+  "containers.TrainWritingForm.wordLabel": ""
 }

@@ -6,7 +6,7 @@ import {compose} from 'redux';
 import {Route} from 'react-router-dom';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import {DAEMON} from 'utils/constants';
+import {RESTART_ON_REMOUNT} from 'utils/constants';
 import {createStructuredSelector} from 'reselect';
 import {ConnectedSwitch, PrivateRoute, GuestRoute} from 'utils/router';
 import {GuestLayout, DashboardLayout} from 'containers/Layouts';
@@ -111,6 +111,6 @@ const mapStateToProps = createStructuredSelector({
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 const withReducer = injectReducer({key: 'app', reducer});
 const withLearnWordsReducer = injectReducer({key: 'learnWords', reducer: learnWordsReducer});
-const withSaga = injectSaga({key: 'app', saga, mode: DAEMON});
+const withSaga = injectSaga({key: 'app', saga, mode: RESTART_ON_REMOUNT});
 
 export default compose(withReducer, withLearnWordsReducer, withSaga, withConnect)(App);
