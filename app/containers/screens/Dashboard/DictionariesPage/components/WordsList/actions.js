@@ -3,7 +3,7 @@ import {
   resetEntity,
   getEntityActions,
   createEntityActions,
-  updateEntityActions,
+  patchEntityActions,
   deleteEntityActions,
 } from 'containers/App/actions';
 
@@ -58,7 +58,7 @@ export const updateWordEntity = (wordId) => ({
   schema: {item: wordsSchema},
 });
 export function updateWord(wordId, values, {resolve, reject} = {}) {
-  return updateEntityActions.request(values, updateWordEntity(wordId), {
+  return patchEntityActions.request(values, updateWordEntity(wordId), {
     resolve,
     reject,
   });

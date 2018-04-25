@@ -6,7 +6,7 @@ import {
   loadProfileActions,
   entityActionTypes,
   createEntityActions,
-  updateEntityActions,
+  patchEntityActions,
   getEntityActions,
   deleteEntityActions,
 } from 'containers/App/actions';
@@ -62,13 +62,13 @@ export function* updateEntity({payload, entity, meta}) {
     if (meta && meta.resolve) {
       meta.resolve(entityResponse);
     }
-    yield put(updateEntityActions.success(entityResponse, entity));
+    yield put(patchEntityActions.success(entityResponse, entity));
   } catch (err) {
     console.log('updateEntity error', err);
     if (meta && meta.reject) {
       meta.reject(err);
     }
-    yield put(updateEntityActions.failure(err, entity));
+    yield put(patchEntityActions.failure(err, entity));
   }
 }
 

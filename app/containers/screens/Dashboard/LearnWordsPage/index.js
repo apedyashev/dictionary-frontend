@@ -10,9 +10,8 @@ import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 import Immutable from 'immutable';
 // actions
-import {loadRandomWords, sendWordsForLearning} from './actions';
+import {loadRandomWords, sendWordsForLearning, submitLearnedWords} from './actions';
 import {loadDictionaries} from 'containers/screens/Dashboard/DictionariesPage/components/DictionariesList/actions';
-import {updateWord} from 'containers/screens/Dashboard/DictionariesPage/components/WordsList/actions';
 // selectors
 import {
   makeSelectDictionarIdBySlug,
@@ -36,13 +35,13 @@ import {
 const trainings = [TRAINING_WORD_TRANSLATION, TRAINING_WRITING, TRAINING_TRANSLATION_WORD];
 export class LearnWordsPage extends React.PureComponent {
   static propTypes = {
-    dictionaryId: PropTypes.sting.isRequired,
+    dictionaryId: PropTypes.string.isRequired,
     dictionaries: PropTypes.instanceOf(Immutable.Map),
     learnedWords: PropTypes.instanceOf(Immutable.List),
     match: PropTypes.shape({
       params: PropTypes.shape({slug: PropTypes.string.isRequired}).isRequired,
     }).isRequired,
-    updateWord: PropTypes.func.isRequired,
+    submitLearnedWords: PropTypes.func.isRequired,
     loadRandomWords: PropTypes.func.isRequired,
     loadDictionaries: PropTypes.func.isRequired,
     sendWordsForLearning: PropTypes.func.isRequired,
@@ -158,9 +157,12 @@ export class LearnWordsPage extends React.PureComponent {
         }, 0);
         const wordsLearned = learnedWords.size - wordsWithErrors;
         this.setState({trainingName: 'done', wordsLearned});
+        const postData = [];
         _each(learnedStatus, (wordLearnedStatus, curWordId) => {
-          this.props.updateWord(curWordId, {learnedStatus: wordLearnedStatus});
+          postData.push({wordId: curWordId, data: wordLearnedStatus});
         });
+        this.props.submitLearnedWords(postData);
+        console.log('postData', postData);
       }
     }
     console.log('isAnswerCorrect', isAnswerCorrect);
@@ -225,8 +227,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(loadRandomWords(dictionaryId, query, {resolve, reject})),
     loadDictionaries: () => dispatch(loadDictionaries()),
     sendWordsForLearning: (wordIds) => dispatch(sendWordsForLearning(wordIds)),
-    updateWord: (wordId, values, {resolve, reject} = {}) =>
-      dispatch(updateWord(wordId, values, {resolve, reject})),
+    submitLearnedWords: (learnedStatuses = [], {resolve, reject} = {}) =>
+      dispatch(submitLearnedWords(learnedStatuses, {resolve, reject})),
     dispatch,
   };
 }

@@ -48,7 +48,7 @@ export const getEntityActions = {
   success: (response, entity) => action(entityActionTypes.GET.SUCCESS, {...response, entity}),
   failure: (error, entity) => action(entityActionTypes.GET.FAILURE, {error, entity}),
 };
-export const updateEntityActions = {
+export const patchEntityActions = {
   request: (payload, entity, meta) =>
     action(entityActionTypes.PATCH.REQUEST, {payload, entity, meta}),
   success: (response, entity) => action(entityActionTypes.PATCH.SUCCESS, {...response, entity}),
