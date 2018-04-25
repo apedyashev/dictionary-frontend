@@ -6,6 +6,7 @@ import {compose} from 'redux';
 import {createStructuredSelector} from 'reselect';
 import cn from 'classnames';
 import _random from 'lodash/random';
+import Immutable from 'immutable';
 // selectors
 import {makeSelectRandomWords} from 'containers/screens/Dashboard/LearnWordsPage/selectors';
 // components
@@ -21,11 +22,10 @@ class ChooseOptionCard extends React.PureComponent {
     word: PropTypes.shape({
       text: PropTypes.string.isRequired,
     }).isRequired,
-    options: PropTypes.arrayOf(
-      PropTypes.shape({
-        text: PropTypes.string.isRequired,
-      })
-    ).isRequired,
+    directTranslation: PropTypes.bool,
+    onNextClick: PropTypes.func.isRequired,
+    // mapStateToProps
+    randomWords: PropTypes.instanceOf(Immutable.List),
   };
   static defaultProps = {
     directTranslation: true,
@@ -104,11 +104,4 @@ const mapStateToProps = createStructuredSelector({
   randomWords: makeSelectRandomWords(),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    // loadDictionaries: () => dispatch(loadDictionaries()),
-  };
-}
-export default compose(connect(mapStateToProps, mapDispatchToProps), withErrorBoundary)(
-  ChooseOptionCard
-);
+export default compose(connect(mapStateToProps, null), withErrorBoundary)(ChooseOptionCard);

@@ -8,7 +8,7 @@ import _every from 'lodash/every';
 // import {FormattedMessage} from 'react-intl';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
-import {push} from 'react-router-redux';
+import Immutable from 'immutable';
 // actions
 import {loadRandomWords, sendWordsForLearning} from './actions';
 import {loadDictionaries} from 'containers/screens/Dashboard/DictionariesPage/components/DictionariesList/actions';
@@ -20,9 +20,8 @@ import {
 } from 'containers/screens/Dashboard/DictionariesPage/components/DictionariesList/selectors';
 import {makeSelectLearnedWords} from './selectors';
 // components
-import {Link} from 'react-router-dom';
-import {WhiteBoard, PageLoader, Topbar} from 'components/ui';
-import {ChooseOptionCard, TrainWritingCard, TrainingsFinishedCard} from './components';
+import {WhiteBoard, PageLoader} from 'components/ui';
+import {ChooseOptionCard, TrainWritingCard, TrainingsFinishedCard, Topbar} from './components';
 // other
 import {
   NUM_OF_OPTIONS_IN_CARD,
@@ -31,15 +30,22 @@ import {
   TRAINING_WRITING,
   TRAINING_TRANSLATION_WORD,
 } from './constants';
-import styles from './index.css';
 
 // all those training names must have correcspongin fields in the learnedStatus
 // object in backend Word model
 const trainings = [TRAINING_WORD_TRANSLATION, TRAINING_WRITING, TRAINING_TRANSLATION_WORD];
 export class LearnWordsPage extends React.PureComponent {
   static propTypes = {
-    // dictionaries: Map
-    // learnedWords: List
+    dictionaryId: PropTypes.sting.isRequired,
+    dictionaries: PropTypes.instanceOf(Immutable.Map),
+    learnedWords: PropTypes.instanceOf(Immutable.List),
+    match: PropTypes.shape({
+      params: PropTypes.shape({slug: PropTypes.string.isRequired}).isRequired,
+    }).isRequired,
+    updateWord: PropTypes.func.isRequired,
+    loadRandomWords: PropTypes.func.isRequired,
+    loadDictionaries: PropTypes.func.isRequired,
+    sendWordsForLearning: PropTypes.func.isRequired,
   };
   state = {
     curWordIndex: 0,
@@ -58,6 +64,7 @@ export class LearnWordsPage extends React.PureComponent {
       return {
         learnedStatus: learnedWordIds.reduce((acc, id) => {
           acc[id] = trainings.reduce((trAcc, trainingName) => {
+            // eslint-disable-next-line no-param-reassign
             trAcc[trainingName] = false;
             return trAcc;
           }, {});
@@ -82,7 +89,7 @@ export class LearnWordsPage extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const {dictionaryId, dictionaries} = this.props;
+    const {dictionaryId} = this.props;
     // if page is reloaded, dictionaryId will be available only after loading
     // all the dictionanries
     if (!prevProps.dictionaryId && dictionaryId) {
@@ -149,12 +156,10 @@ export class LearnWordsPage extends React.PureComponent {
           const allTrainingsSuccessfull = _every(_values(wordTrainingsStatus), (val) => val);
           return totalAcc + (allTrainingsSuccessfull ? 0 : 1);
         }, 0);
-        console.log('wordsWithErrors', wordsWithErrors, learnedStatus);
         const wordsLearned = learnedWords.size - wordsWithErrors;
         this.setState({trainingName: 'done', wordsLearned});
-        _each(learnedStatus, (learnedStatus, wordId) => {
-          console.log('learnedStatus, wordId', learnedStatus, wordId);
-          this.props.updateWord(wordId, {learnedStatus});
+        _each(learnedStatus, (wordLearnedStatus, curWordId) => {
+          this.props.updateWord(curWordId, {learnedStatus: wordLearnedStatus});
         });
       }
     }
@@ -178,9 +183,7 @@ export class LearnWordsPage extends React.PureComponent {
           <title>Learn words</title>
         </Helmet>
 
-        <Topbar>
-          <Link to={`/dictionaries/${params.slug}`}>Back to the dictionary</Link>
-        </Topbar>
+        <Topbar dictionarySlug={params.slug} />
         <WhiteBoard>
           {[TRAINING_WORD_TRANSLATION, TRAINING_TRANSLATION_WORD].includes(trainingName) && (
             <ChooseOptionCard
@@ -223,7 +226,7 @@ function mapDispatchToProps(dispatch) {
     loadDictionaries: () => dispatch(loadDictionaries()),
     sendWordsForLearning: (wordIds) => dispatch(sendWordsForLearning(wordIds)),
     updateWord: (wordId, values, {resolve, reject} = {}) =>
-      dispatch(updateWord(wordId, values, ({resolve, reject} = {}))),
+      dispatch(updateWord(wordId, values, {resolve, reject})),
     dispatch,
   };
 }

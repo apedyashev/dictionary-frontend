@@ -3,6 +3,7 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 import _isEqual from 'lodash/isEqual';
 import * as jsDiff from 'diff';
+import Immutable from 'immutable';
 // components
 import {Grid, Image, Label} from 'semantic-ui-react';
 import {FormatWordDefinitions} from 'components';
@@ -14,7 +15,10 @@ import styles from './index.css';
 const ANSWERED_CORRECTLY = 'corerctly';
 const ANSWERED_WRONG = 'wrong';
 class TrainWritingCard extends React.PureComponent {
-  static propTypes = {};
+  static propTypes = {
+    word: PropTypes.instanceOf(Immutable.Map),
+    onNext: PropTypes.func.isRequired,
+  };
   state = {
     typedPhraseWithDiff: null,
     answered: null, // (correctly|wrong)
@@ -54,7 +58,12 @@ class TrainWritingCard extends React.PureComponent {
       const diff = jsDiff.diffChars(word.get('word'), phrase);
       const typedPhraseWithDiff = [];
       diff.forEach((part) => {
-        const className = part.added ? styles.added : part.removed ? styles.removed : '';
+        let className = '';
+        if (part.added) {
+          className = styles.added;
+        } else if (part.removed) {
+          className = styles.removed;
+        }
         typedPhraseWithDiff.push(<span className={className}>{part.value}</span>);
       });
       this.setState({typedPhraseWithDiff, answered: ANSWERED_WRONG});

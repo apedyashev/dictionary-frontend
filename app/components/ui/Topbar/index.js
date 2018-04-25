@@ -9,4 +9,6 @@ import styles from './index.css';
 export default function Topbar({children}) {
   return <Menu className={styles.root}>{children}</Menu>;
 }
-Topbar.propTypes = {};
+Topbar.propTypes = {
+  children: PropTypes.any,
+};

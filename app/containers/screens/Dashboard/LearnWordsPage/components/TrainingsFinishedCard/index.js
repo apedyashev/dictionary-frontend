@@ -3,7 +3,7 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
 import {Link} from 'react-router-dom';
-import {Button, WhiteBoard, PageLoader, H2} from 'components/ui';
+import {Button, WhiteBoard, H2} from 'components/ui';
 // other
 import styles from './index.css';
 
@@ -28,4 +28,9 @@ export default function TrainingsFinishedCard({
     </WhiteBoard>
   );
 }
-TrainingsFinishedCard.propTypes = {};
+TrainingsFinishedCard.propTypes = {
+  wordsLearned: PropTypes.number.isRequired,
+  totalWords: PropTypes.number.isRequired,
+  slug: PropTypes.string.isRequired,
+  onReinitilizeClick: PropTypes.func.isRequired,
+};

@@ -1,16 +1,23 @@
 // libs
 import React from 'react';
 import {PropTypes} from 'prop-types';
-// import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
 // components
-import {Form, Field, SubmissionError, reduxForm} from 'redux-form/immutable';
+import {Form, Field, reduxForm} from 'redux-form/immutable';
 import {Button, ReduxFormFields} from 'components/ui';
 // other
 import messages from './messages';
 
 class TrainWritingForm extends React.PureComponent {
-  static propTypes = {};
+  static propTypes = {
+    // ownProps
+    onCheck: PropTypes.func.isRequired,
+    // injected by react-intl
+    intl: intlShape.isRequired,
+    // injected by reduxForm
+    submitting: PropTypes.bool.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
+  };
   state = {
     formSubmitted: false,
   };
@@ -55,16 +62,6 @@ const validate = (values) => {
   }
   return errors;
 };
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    // loginUser: (values, {resolve, reject}) => {
-    //   dispatch(loginUser(values, {resolve, reject}));
-    // },
-  };
-};
-
-// TrainWritingForm = connect(null, mapDispatchToProps)(injectIntl(TrainWritingForm));
 
 export default reduxForm({
   form: 'trainWritingForm',

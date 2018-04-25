@@ -1,6 +1,5 @@
 import {createSelector} from 'reselect';
 import {fromJS} from 'immutable';
-import _random from 'lodash/random';
 import _range from 'lodash/range';
 import _shuffle from 'lodash/shuffle';
 import {makeSelectWords} from 'containers/screens/Dashboard/DictionariesPage/components/WordsList/selectors';

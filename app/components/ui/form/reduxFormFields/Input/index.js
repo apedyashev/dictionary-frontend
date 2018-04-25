@@ -33,4 +33,12 @@ ReduxFormInputField.propTypes = {
   hintText: PropTypes.string,
   type: PropTypes.string,
   meta: PropTypes.shape({touched: PropTypes.bool, error: PropTypes.string}),
+  disabled: PropTypes.bool,
+  autoComplete: PropTypes.bool,
+  autoFocus: PropTypes.bool,
+};
+ReduxFormInputField.defaultProps = {
+  disabled: false,
+  autoComplete: false,
+  autoFocus: false,
 };

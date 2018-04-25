@@ -1,4 +1,5 @@
 // libs
+// eslint-disable-next-line
 import React from 'react';
 import {PropTypes} from 'prop-types';
 // components

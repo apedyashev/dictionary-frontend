@@ -16,6 +16,7 @@ class Input extends React.PureComponent {
     error: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     disabled: PropTypes.bool,
+    autoFocus: PropTypes.bool,
     autoComplete: PropTypes.bool,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,

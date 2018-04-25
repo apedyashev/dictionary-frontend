@@ -8,4 +8,6 @@ import styles from './index.css';
 export default function WhiteBoard({children}) {
   return <div className={styles.root}>{children}</div>;
 }
-WhiteBoard.propTypes = {};
+WhiteBoard.propTypes = {
+  children: PropTypes.any,
+};

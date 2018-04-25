@@ -1,4 +1,3 @@
-import {schema} from 'normalizr';
 import {getEntityActions} from 'containers/App/actions';
 import {wordsArraySchema} from 'containers/screens/Dashboard/DictionariesPage/components/WordsList/actions';
 
