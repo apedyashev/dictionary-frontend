@@ -14,6 +14,7 @@ export {default as ConfirmableButton} from './ConfirmableButton';
 export {default as DateFormatRelative} from './DateFormatRelative';
 export {default as WhiteBoard} from './WhiteBoard';
 export {default as Button} from './Button';
+export {default as UserMenuButton} from './UserMenuButton';
 export {default as H2} from './typography/H2';
 
 // form

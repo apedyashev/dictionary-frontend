@@ -1,0 +1,3 @@
+.root:global(.ui.sidebar) {
+  overflow-y: visible !important;
+}

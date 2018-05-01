@@ -1,7 +1,9 @@
 // libs
 import React from 'react';
 // components
-import {Sidebar} from 'components/ui';
+import {UserMenuButton, Sidebar} from 'components/ui';
+// other
+import styles from './index.css';
 
 const items = [
   {
@@ -14,6 +16,7 @@ const items = [
     iconName: 'calendar',
     linkTo: '/schedule',
   },
+  <UserMenuButton className={styles.profile} />,
 ];
 export default function DashboardSidebar() {
   return <Sidebar items={items} />;
