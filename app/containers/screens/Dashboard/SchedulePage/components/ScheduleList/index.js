@@ -10,6 +10,7 @@ import {loadSchedule} from './actions';
 import {makeSelectSchedule, makeSelectScheduleHasNextPage} from './selectors';
 // components
 import {InfiniteList, ScheduleItem} from 'components';
+import {CellMeasurer, CellMeasurerCache} from 'react-virtualized';
 import {EmptyListPrompt} from 'components/ui';
 
 class ScheduleList extends React.Component {
@@ -19,6 +20,10 @@ class ScheduleList extends React.Component {
     loadSchedule: PropTypes.func.isRequired,
   };
   state = {};
+  cache = new CellMeasurerCache({
+    fixedWidth: true,
+    minHeight: 50,
+  });
 
   componentDidMount() {
     // this.props.resetScheduleInfo();
@@ -28,22 +33,25 @@ class ScheduleList extends React.Component {
     this.props.loadSchedule({page, perPage, sortBy: 'date:asc'});
   };
 
-  getRowHeight = (/* {index, rowData} */) => {
-    // must be changed along with line-height value in app/components/ui/Word/index.css
-    return 250;
+  getRowHeight = (/* {index, rowData} */ props) => {
+    return this.cache.rowHeight(props);
   };
 
   noRowsRenderer = () => {
-    return <EmptyListPrompt title="You don't have any words" />;
+    return <EmptyListPrompt title="The schedule is empty" />;
   };
 
-  rowRenderer = ({item, key, style}) => {
-    return <ScheduleItem key={key} style={style} data={item.toJS()} />;
+  rowRenderer = ({item, index, parent, key, style}) => {
+    return (
+      <CellMeasurer key={key} cache={this.cache} columnIndex={0} rowIndex={index} parent={parent}>
+        <ScheduleItem style={style} data={item.toJS()} />
+      </CellMeasurer>
+    );
   };
 
   render() {
     const {scheduleItems, hasNextPage} = this.props;
-    console.log('schedule', hasNextPage, scheduleItems.toJS());
+    // console.log('schedule', hasNextPage, scheduleItems.toJS());
     return (
       <div style={{minHeight: 1}}>
         <InfiniteList

@@ -55,7 +55,7 @@ class InfiniteList extends React.PureComponent {
     return <EmptyListPrompt title="no rows" />;
   };
 
-  rowRenderer = ({index, key, style}) => {
+  rowRenderer = ({index, key, style, parent}) => {
     const {items, rowRenderer} = this.props;
     const item = items.get(index);
     if (!this.isRowLoaded({index})) {
@@ -65,6 +65,7 @@ class InfiniteList extends React.PureComponent {
     return rowRenderer({
       item,
       index,
+      parent,
       key,
       style,
     });
