@@ -14,6 +14,7 @@ import {
   HomePage,
   DictionariesPage,
   LearnWordsPage,
+  SchedulePage,
   FacebookCallbackPage,
   NotFoundPage,
 } from 'containers/screens';
@@ -79,6 +80,13 @@ export class App extends React.PureComponent {
                 path="/learn-words/:slug"
                 layout={DashboardLayout}
                 component={LearnWordsPage}
+                authed={!!profile.id}
+              />
+              <PrivateRoute
+                exact
+                path="/schedule"
+                layout={DashboardLayout}
+                component={SchedulePage}
                 authed={!!profile.id}
               />
               <Route path="/facebook/callback" component={FacebookCallbackPage} />

@@ -73,7 +73,7 @@ class InfiniteList extends React.PureComponent {
   render() {
     const {items, hasNextPage, resetProps, scrollElement} = this.props;
     const rowCount = hasNextPage ? items.size + 1 : items.size;
-    console.log('rowCount', rowCount, scrollElement);
+    console.log('rowCount', rowCount);
     return (
       <WindowScroller scrollElement={scrollElement}>
         {({height, isScrolling, scrollTop}) => (
@@ -100,7 +100,7 @@ class InfiniteList extends React.PureComponent {
                     noRowsRenderer={this.noRowsRenderer}
                     // those resetProps are used only to re-render List
                     // more info: https://github.com/bvaughn/react-virtualized#pass-thru-props
-                    resetProps={resetProps}
+                    resetProps={{...resetProps, hasNextPage}}
                   />
                 )}
               </AutoSizer>

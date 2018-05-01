@@ -11,6 +11,7 @@ export {default as Prompt} from './Prompt';
 export {default as Word} from './Word';
 export {default as Dropdown} from './Dropdown';
 export {default as ConfirmableButton} from './ConfirmableButton';
+export {default as DateFormatRelative} from './DateFormatRelative';
 export {default as WhiteBoard} from './WhiteBoard';
 export {default as Button} from './Button';
 export {default as H2} from './typography/H2';

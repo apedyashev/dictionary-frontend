@@ -1,0 +1,22 @@
+.root {
+  font-size: 14px;
+}
+.date {
+  display: block;
+  font-size: 1.6rem;
+  &::first-letter {
+    text-transform: capitalize;
+  }
+}
+.dictionaryContainer {
+  margin-bottom: 10px;
+  .name {
+    margin-right: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    /* color: #545454; */
+  }
+  .description {
+    color: #6f6f6f;
+  }
+}

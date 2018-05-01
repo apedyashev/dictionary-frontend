@@ -32,23 +32,38 @@ class ChooseOptionCard extends React.PureComponent {
   };
   state = {
     selectedOptionIndex: -1,
+    correctAnswerIndex: _random(NUM_OF_OPTIONS_IN_CARD - 1),
   };
-  correctAnswerIndex = _random(NUM_OF_OPTIONS_IN_CARD - 1);
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const {randomWords} = nextProps;
+    if (randomWords.size !== prevState.randomWordsCount) {
+      return {
+        correctAnswerIndex:
+          // randomWords.size === 0 means that there is only one (learning) word in whole dictionary
+          randomWords.size > 0
+            ? _random(Math.min(NUM_OF_OPTIONS_IN_CARD - 1, randomWords.size - 1))
+            : 0,
+        randomWordsCount: nextProps.randomWords.size,
+      };
+    }
+
+    return null;
+  }
   handleAnswerSelected = (selectedOptionIndex) => {
     this.setState({selectedOptionIndex});
-    console.log('correctAnswerIndex', this.correctAnswerIndex, selectedOptionIndex);
-    // this.props.onAnswerSelected(this.correctAnswerIndex === selectedOptionIndex);
+    console.log('correctAnswerIndex', this.state.correctAnswerIndex, selectedOptionIndex);
+    // this.props.onAnswerSelected(this.state.correctAnswerIndex === selectedOptionIndex);
   };
 
   handleNextClick = () => {
-    this.props.onNextClick(this.correctAnswerIndex === this.state.selectedOptionIndex);
+    this.props.onNextClick(this.state.correctAnswerIndex === this.state.selectedOptionIndex);
   };
 
   render() {
-    const {selectedOptionIndex} = this.state;
+    const {selectedOptionIndex, correctAnswerIndex} = this.state;
     const {word, randomWords, directTranslation} = this.props;
-    const options = randomWords.insert(this.correctAnswerIndex, word).toJS();
+    const options = randomWords.insert(this.state.correctAnswerIndex, word).toJS();
     return (
       <Grid columns={2}>
         <Grid.Row>
@@ -73,10 +88,10 @@ class ChooseOptionCard extends React.PureComponent {
                   className={cn(styles.option, {
                     [styles.correct]:
                       // if correct answer is clicked
-                      (isActive && selectedOptionIndex === this.correctAnswerIndex) ||
+                      (isActive && selectedOptionIndex === correctAnswerIndex) ||
                       // if wrong answer is clicked we still want to show which one is correct
-                      (isActiveSelected && this.correctAnswerIndex === index),
-                    [styles.wrong]: isActive && selectedOptionIndex !== this.correctAnswerIndex,
+                      (isActiveSelected && correctAnswerIndex === index),
+                    [styles.wrong]: isActive && selectedOptionIndex !== correctAnswerIndex,
                   })}
                   content={
                     directTranslation ? <FormatWordDefinitions word={option} /> : option.word
