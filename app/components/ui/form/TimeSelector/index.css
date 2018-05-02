@@ -1,0 +1,62 @@
+.root {
+  min-width: 200px;
+  overflow: hidden;
+  &:before {
+    content: '';
+    border-top: 1px solid black;
+    width: 100%;
+    display: block;
+    top: 28px;
+    position: relative;
+  }
+  &:after {
+    content: '';
+    border-top: 1px solid black;
+    width: 100%;
+    display: block;
+    top: -28px;
+    position: relative;
+    float: right;
+  }
+  &.error {
+    &:before,
+    &:after {
+      border-top: 1px solid $errorColor;
+    }
+    .label,
+    .errorMessage,
+    i {
+      color: $errorColor;
+    }
+  }
+}
+
+.container {
+  /* margin: 0 auto; */
+  float: right;
+  width: 80px;
+}
+
+.control:first-child,
+.colon,
+.labels {
+  float: left;
+}
+
+.colon {
+  line-height: 88px;
+}
+
+.label,
+.errorMessage {
+  position: relative;
+}
+.label {
+  line-height: 33px;
+  top: 27px;
+}
+
+.errorMessage {
+  top: 27px;
+  font-size: 0.6875rem;
+}

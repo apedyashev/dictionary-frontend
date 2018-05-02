@@ -1,8 +1,7 @@
 /**
  * COMMON WEBPACK CONFIGURATION
  */
-const baseVars = require('../../app/vars.js');
-
+const themeVars = require('../../app/theme.js');
 const path = require('path');
 const webpack = require('webpack');
 
@@ -59,7 +58,11 @@ module.exports = (options) => ({
               sourceMap: true,
               plugins: [
                 /* eslint-disable global-require */
-                require('postcss-simple-vars')({vars: baseVars}),
+                require('postcss-simple-vars')({
+                  variables: () => {
+                    return require('../../app/theme.js');
+                  },
+                }),
                 require('postcss-nested'),
                 require('postcss-cssnext'),
                 // autoprefixer()

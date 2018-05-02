@@ -21,5 +21,6 @@ export {default as H2} from './typography/H2';
 export {default as Input} from './form/Input';
 export {default as Select} from './form/Select';
 export {default as Checkbox} from './form/Checkbox';
+export {default as TimeSelector} from './form/TimeSelector';
 // redux form fields
 export {ReduxFormFields};
