@@ -85,3 +85,13 @@ export const loginFbUserEntity = {
 export function loginFbUser(code, {resolve, reject}) {
   return createEntityActions.request({}, loginFbUserEntity, {query: {code}, resolve, reject});
 }
+
+export const updateProfileEntity = {
+  key: 'user',
+  url: 'users/me',
+  schema: {user: userSchema},
+};
+export function updateProfile(values, {resolve, reject} = {}) {
+  console.log('updateProfile', updateProfile);
+  return patchEntityActions.request(values, updateProfileEntity, {resolve, reject});
+}

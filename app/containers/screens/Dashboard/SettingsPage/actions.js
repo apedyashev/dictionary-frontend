@@ -1,5 +1,5 @@
 import {schema} from 'normalizr';
-import {getEntityActions, resetEntity} from 'containers/App/actions';
+import {patchEntityActions} from 'containers/App/actions';
 //
 // export const countrySchema = new schema.Entity('countries');
 // export const countriesArraySchema = new schema.Array(countrySchema);
@@ -17,4 +17,6 @@ import {getEntityActions, resetEntity} from 'containers/App/actions';
 //   return resetEntity(countriesEntity.key);
 // }
 
-export function saveSettings() {}
+export function saveSettings(values, {resolve, reject} = {}) {
+  return patchEntityActions.request(values, countriesEntity, {resolve, reject});
+}

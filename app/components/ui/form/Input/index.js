@@ -45,7 +45,6 @@ class Input extends React.PureComponent {
       value,
       error,
       autoComplete,
-
       disabled,
       onChange,
       onBlur,

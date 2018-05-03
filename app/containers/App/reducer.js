@@ -107,6 +107,9 @@ function appReducer(state = initialState, action) {
 
     case entityActionTypes.PATCH.SUCCESS: {
       const entityKey = action.entity && action.entity.key;
+      if (entityKey === 'user') {
+        return state.setIn(['profile', 'data'], action.response.entities.users[userId]);
+      }
       return state.mergeDeepIn(
         ['entities', entityKey, 'items'],
         action.response.entities[entityKey]

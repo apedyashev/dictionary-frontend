@@ -22,8 +22,8 @@ export default defineMessages({
     id: 'containers.SettingsForm.lastNameHint',
     defaultMessage: 'Please enter your last name',
   },
-  reviewTimeLabel: {
-    id: 'containers.SettingsForm.reviewTimeLabel',
+  exerciseTimeLabel: {
+    id: 'containers.SettingsForm.exerciseTimeLabel',
     defaultMessage: 'Exercise time',
   },
 

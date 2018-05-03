@@ -34,7 +34,7 @@ const makeSelectProfileLoading = () =>
 const makeSelectProfileLoaded = () =>
   createSelector(selectGlobal, (globalState) => globalState.getIn(['profile', 'loaded']));
 const makeSelectProfileData = () =>
-  createSelector(selectGlobal, (globalState) => fromJS(globalState.getIn(['profile', 'data'])));
+  createSelector(selectGlobal, (globalState) => globalState.getIn(['profile', 'data']));
 
 const makeSelectEntities = () =>
   createSelector(selectGlobal, (globalState) => globalState.get('entities'));
