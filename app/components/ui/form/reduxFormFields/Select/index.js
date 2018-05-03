@@ -9,16 +9,28 @@ export default function ReduxFormSelectField({
   label,
   hintText,
   options,
+  loading,
+  onChange,
+  onSearchChange,
   meta: {touched, error},
 }) {
   console.log('touched, error', touched, error);
   return (
     <Select
       {...input}
+      loading={loading}
       options={options}
       floatingLabel={label}
       hintText={hintText}
       error={(touched || '') && error}
+      onSearchChange={onSearchChange}
+      onChange={(value) => {
+        console.log('event, data', value);
+        if (onChange) {
+          onChange(value);
+        }
+        input.onChange(value);
+      }}
     />
   );
 }

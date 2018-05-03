@@ -33,6 +33,9 @@ class Select extends React.Component {
   handleSearchChange = (e) => {
     console.log(e.target.value);
     this.setState({searchQuery: e.target.value});
+    if (this.props.onSearchChange) {
+      this.props.onSearchChange(e.target.value);
+    }
   };
 
   handleValueSelected = (event, {value}) => {

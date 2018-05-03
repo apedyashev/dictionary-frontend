@@ -54,48 +54,48 @@ export class App extends React.PureComponent {
                 layout={GuestLayout}
                 component={HomePage}
                 exact
-                authed={!!profile.id}
+                authed={!!profile.get('id')}
               />
               <GuestRoute
                 path="/login"
                 layout={GuestLayout}
                 component={HomePage}
                 exact
-                authed={!!profile.id}
+                authed={!!profile.get('id')}
               />
               <PrivateRoute
                 exact
                 path="/dictionaries"
                 layout={DashboardLayout}
                 component={DictionariesPage}
-                authed={!!profile.id}
+                authed={!!profile.get('id')}
               />
               <PrivateRoute
                 path="/dictionaries/:slug"
                 layout={DashboardLayout}
                 component={DictionariesPage}
-                authed={!!profile.id}
+                authed={!!profile.get('id')}
               />
               <PrivateRoute
                 exact
                 path="/learn-words/:slug"
                 layout={DashboardLayout}
                 component={LearnWordsPage}
-                authed={!!profile.id}
+                authed={!!profile.get('id')}
               />
               <PrivateRoute
                 exact
                 path="/schedule"
                 layout={DashboardLayout}
                 component={SchedulePage}
-                authed={!!profile.id}
+                authed={!!profile.get('id')}
               />
               <PrivateRoute
                 exact
                 path="/settings"
                 layout={DashboardLayout}
                 component={SettingsPage}
-                authed={!!profile.id}
+                authed={!!profile.get('id')}
               />
               <Route path="/facebook/callback" component={FacebookCallbackPage} />
               <Route path="" component={NotFoundPage} />

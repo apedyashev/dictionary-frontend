@@ -1,5 +1,6 @@
 import _each from 'lodash/each';
 import _without from 'lodash/without';
+import _uniq from 'lodash/uniq';
 import {fromJS} from 'immutable';
 import {profileActionTypes, entityActionTypes, SET_TOKEN, RESET_ENTITY} from './actions';
 
@@ -38,13 +39,14 @@ const initialState = fromJS({
     translateDirections: defaultEntityState,
     translations: defaultEntityState,
     schedule: defaultEntityState,
+    countries: defaultEntityState,
   },
 
-  error: false,
-  currentUser: false,
-  userData: {
-    repositories: false,
-  },
+  // error: false,
+  // currentUser: false,
+  // userData: {
+  //   repositories: false,
+  // },
 });
 
 function appReducer(state = initialState, action) {
@@ -95,9 +97,10 @@ function appReducer(state = initialState, action) {
         const displayOrder = state
           .getIn(['entities', entityKey, 'displayOrder'])
           .concat(fromJS(ids));
+
         return state
           .mergeDeepIn(['entities', entityKey, 'items'], action.response.entities[entityKey])
-          .setIn(['entities', entityKey, 'displayOrder'], displayOrder);
+          .setIn(['entities', entityKey, 'displayOrder'], fromJS(_uniq(displayOrder.toJS())));
       }
       return state;
     }
@@ -148,7 +151,7 @@ function appReducer(state = initialState, action) {
       return newState
         .setIn(['entities', entityKey, 'loading'], false)
         .setIn(['entities', entityKey, 'loaded'], true)
-        .setIn(['entities', entityKey, 'displayOrder'], displayOrder);
+        .setIn(['entities', entityKey, 'displayOrder'], fromJS(_uniq(displayOrder.toJS())));
     }
 
     case entityActionTypes.GET.FAILURE: {

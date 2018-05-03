@@ -2,17 +2,22 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
+import {createStructuredSelector} from 'reselect';
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
+import {fromJS} from 'immutable';
 // actions
-import {loginUser} from 'containers/App/actions';
+import {saveSettings} from '../../actions';
+// selectors
+import {makeSelectProfileData} from 'containers/App/selectors';
 // components
 import {Form, Field, SubmissionError, reduxForm} from 'redux-form/immutable';
-import {Paper, ReduxFormFields, TimeSelector} from 'components/ui';
+import {Input, Paper, ReduxFormFields, TimeSelector} from 'components/ui';
 import {Button, Grid} from 'semantic-ui-react';
 // other
 import messages from './messages';
+const timezones = [];
 
-class SettingsForm extends React.Component {
+class SettingsForm extends React.PureComponent {
   static propTypes = {
     // injected by redux form
     submitting: PropTypes.bool.isRequired,
@@ -24,13 +29,14 @@ class SettingsForm extends React.Component {
   };
 
   submitForm = (values) => {
-    return new Promise((resolve, reject) => {
-      this.props.loginUser(values, {resolve, reject});
-    }).catch(({validationErrors}) => {
-      if (validationErrors) {
-        throw new SubmissionError(validationErrors);
-      }
-    });
+    console.log('values', values);
+    // return new Promise((resolve, reject) => {
+    //   this.props.loginUser(values, {resolve, reject});
+    // }).catch(({validationErrors}) => {
+    //   if (validationErrors) {
+    //     throw new SubmissionError(validationErrors);
+    //   }
+    // });
   };
 
   render() {
@@ -38,7 +44,9 @@ class SettingsForm extends React.Component {
       handleSubmit,
       submitting,
       intl: {formatMessage},
+      initialValues,
     } = this.props;
+    console.log('initialValues', initialValues);
     return (
       <Form onSubmit={handleSubmit(this.submitForm)}>
         <Grid columns={2}>
@@ -59,6 +67,7 @@ class SettingsForm extends React.Component {
                   label={formatMessage(messages.lastNameLabel)}
                   hintText={formatMessage(messages.lastNameHint)}
                 />
+                <Input disabled value="" />
               </Paper>
             </Grid.Column>
             <Grid.Column>
@@ -68,6 +77,7 @@ class SettingsForm extends React.Component {
                   component={ReduxFormFields.TimeSelector}
                   label={formatMessage(messages.reviewTimeLabel)}
                 />
+                <br />
                 <br />
                 Reminders
                 <br />
@@ -106,17 +116,27 @@ const validate = (values) => {
   return errors;
 };
 
+const mapStateToProps = () => {
+  return {initialValues: {firstName: 'asa'}};
+};
+// createStructuredSelector({
+//   initialValues: () => ({firstName: 'asa'}), // makeSelectProfileData(),
+//   // countries: makeSelectCountries(),
+//   // countriesLoading: makeSelectCountriesLoading(),
+// });
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    loginUser: (values, {resolve, reject}) => {
-      dispatch(loginUser(values, {resolve, reject}));
+    saveSettings: (values, {resolve, reject} = {}) => {
+      dispatch(saveSettings(values, {resolve, reject}));
     },
   };
 };
 
-SettingsForm = connect(null, mapDispatchToProps)(injectIntl(SettingsForm));
+SettingsForm = connect(mapStateToProps, mapDispatchToProps)(injectIntl(SettingsForm));
 
 export default reduxForm({
+  enableReinitialize: true,
   form: 'settingsForm',
   validate,
 })(SettingsForm);

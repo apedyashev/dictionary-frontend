@@ -28,7 +28,7 @@ class DictionariesList extends React.Component {
 
   render() {
     const {dictionaries, loading} = this.props;
-    if (!loading && !dictionaries) {
+    if (!loading && !dictionaries.size) {
       return (
         <EmptyListPrompt
           title="You don't have any dictionaries"

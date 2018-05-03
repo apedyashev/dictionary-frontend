@@ -22,7 +22,7 @@ class Dictionaries extends React.Component {
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.loaded && !nextProps.dictionaries && nextProps.loaded !== prevState.loaded) {
+    if (nextProps.loaded && !nextProps.dictionaries.size && nextProps.loaded !== prevState.loaded) {
       return {
         loaded: nextProps.loaded,
         activeTab: 'add',
