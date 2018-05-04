@@ -28,7 +28,7 @@ export default function ScheduleItem({data, style}) {
 }
 ScheduleItem.propTypes = {
   data: PropTypes.shape({
-    date: PropTypes.oneOf([PropTypes.string, PropTypes.number, PropTypes.instanceOf(Date)])
+    date: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.instanceOf(Date)])
       .isRequired,
     dictionaries: PropTypes.arrayOf(
       PropTypes.shape({

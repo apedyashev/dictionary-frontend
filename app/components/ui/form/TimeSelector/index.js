@@ -9,7 +9,12 @@ import NumberSelector from '../NumberSelector';
 import styles from './index.css';
 
 class TimeSelector extends React.PureComponent {
-  static propTypes = {};
+  static propTypes = {
+    error: PropTypes.string,
+    label: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+    onChange: PropTypes.func,
+  };
   static defaultProps = {
     value: new Date(),
   };

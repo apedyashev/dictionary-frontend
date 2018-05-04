@@ -28,6 +28,7 @@ class Select extends React.Component {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
+    onSearchChange: PropTypes.func,
   };
   state = {searchQuery: '', inputVal: '', inputHint: this.props.hintText};
 
@@ -39,6 +40,7 @@ class Select extends React.Component {
     this.setState({
       inputVal: selectedOption.text,
       inputHint: selectedOption.text,
+      // eslint-disable-next-line
       lastValue: value,
     });
   }

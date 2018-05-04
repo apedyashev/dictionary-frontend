@@ -3,11 +3,10 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 // import format from 'date-fns/format';
 import formatRelative from 'date-fns/formatRelative';
-// import differenceInDays from 'date-fns/differenceInDays';
-import {en, ru, de, sr} from 'date-fns/esm/locale';
-// components
+import {enUS, ru, de} from 'date-fns/esm/locale';
 
-export default function DateFormatRelative({date, time, baseDate, className}) {
+const localesMap = {en: enUS, ru, de};
+export default function DateFormatRelative({date, time, baseDate, className, locale}) {
   // const diff = differenceInDays(date, baseDate);
   // let result;
   // if (Math.abs(diff) < 6) {
@@ -17,7 +16,7 @@ export default function DateFormatRelative({date, time, baseDate, className}) {
   dateObject.setHours(timeParts[0]);
   dateObject.setMinutes(timeParts[1]);
   const result = formatRelative(dateObject, baseDate, {
-    locale: de,
+    locale: localesMap[locale.toLowerCase()],
     addSuffix: true,
   });
   // } else {
@@ -26,12 +25,15 @@ export default function DateFormatRelative({date, time, baseDate, className}) {
   return <span className={className}>{result}</span>;
 }
 DateFormatRelative.propTypes = {
-  date: PropTypes.oneOf([PropTypes.string, PropTypes.number, PropTypes.instanceOf(Date)])
+  date: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.instanceOf(Date)])
     .isRequired,
-  baseDate: PropTypes.oneOf([PropTypes.string, PropTypes.number, PropTypes.instanceOf(Date)]),
+  baseDate: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.instanceOf(Date)]),
   className: PropTypes.string,
+  locale: PropTypes.string,
+  time: PropTypes.string.isRequired,
 };
 DateFormatRelative.defaultProps = {
   baseDate: new Date(),
   className: '',
+  locale: 'en',
 };

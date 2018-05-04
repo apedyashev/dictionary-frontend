@@ -17,4 +17,5 @@ SidebarItem.propTypes = {
   title: PropTypes.string.isRequired,
   linkTo: PropTypes.string.isRequired,
   iconName: PropTypes.string.isRequired,
+  className: PropTypes.string,
 };

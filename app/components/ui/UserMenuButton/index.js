@@ -31,4 +31,9 @@ export default function UserMenuButton({className}) {
     </div>
   );
 }
-UserMenuButton.propTypes = {};
+UserMenuButton.propTypes = {
+  className: PropTypes.string,
+};
+UserMenuButton.defaultProps = {
+  className: '',
+};

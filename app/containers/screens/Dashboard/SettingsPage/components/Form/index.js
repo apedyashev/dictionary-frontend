@@ -4,16 +4,16 @@ import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
-import {fromJS} from 'immutable';
+import Immutable from 'immutable';
 // actions
 import {updateProfile} from 'containers/App/actions';
-import {loadCountries, resetCountries} from '../../actions';
+import {loadCountries} from '../../actions';
 // selectors
 import {makeSelectProfileData} from 'containers/App/selectors';
 import {makeSelectCountries, makeSelectCountriesLoading} from '../../selectors';
 // components
 import {Form, Field, SubmissionError, reduxForm, initialize} from 'redux-form/immutable';
-import {Input, Paper, ReduxFormFields, TimeSelector} from 'components/ui';
+import {Input, Paper, ReduxFormFields} from 'components/ui';
 import {Button, Grid} from 'semantic-ui-react';
 // other
 import messages from './messages';
@@ -24,8 +24,14 @@ class SettingsForm extends React.PureComponent {
     // injected by redux form
     submitting: PropTypes.bool.isRequired,
     handleSubmit: PropTypes.func.isRequired,
+    initialValues: PropTypes.object.isRequired,
+    // mapStateToProps
+    countriesLoading: PropTypes.bool.isRequired,
+    countries: PropTypes.instanceOf(Immutable.List),
     // mapDispatchToProps
-    loginUser: PropTypes.func.isRequired,
+    updateProfile: PropTypes.func.isRequired,
+    loadCountries: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
     // react-intl
     intl: intlShape.isRequired,
   };
@@ -185,7 +191,6 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(updateProfile(values, {resolve, reject})),
     loadCountries: (query, {resolve, reject} = {}) =>
       dispatch(loadCountries(query, {resolve, reject})),
-    resetCountries: () => dispatch(resetCountries()),
   };
 };
 

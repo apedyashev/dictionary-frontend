@@ -9,7 +9,9 @@ import styles from './index.css';
 
 class NumberSelector extends React.PureComponent {
   static propTypes = {
+    values: PropTypes.arrayOf(PropTypes.number).isRequired,
     circular: PropTypes.bool,
+    className: PropTypes.string,
     onChange: PropTypes.func,
   };
   static defaultProps = {

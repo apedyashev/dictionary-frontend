@@ -9,4 +9,6 @@ import styles from './index.css';
 export default function Icon({name}) {
   return <IconSUI name={name} className={styles.hoverable} />;
 }
-Icon.propTypes = {};
+Icon.propTypes = {
+  name: PropTypes.string.isRequired,
+};

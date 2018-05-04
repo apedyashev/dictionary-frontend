@@ -13,10 +13,6 @@ export function loadCountries(query, {resolve, reject} = {}) {
   return getEntityActions.request(query, countriesEntity, {resolve, reject});
 }
 
-export function resetCountries() {
-  return resetEntity(countriesEntity.key);
-}
-
 export function saveSettings(values, {resolve, reject} = {}) {
   return patchEntityActions.request(values, countriesEntity, {resolve, reject});
 }

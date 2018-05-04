@@ -46,5 +46,8 @@ ReduxFormSelectField.propTypes = {
   label: PropTypes.string,
   hintText: PropTypes.string,
   type: PropTypes.string,
+  loading: PropTypes.bool,
   meta: PropTypes.shape({touched: PropTypes.bool, error: PropTypes.string}),
+  onSearchChange: PropTypes.func,
+  onChange: PropTypes.func,
 };
