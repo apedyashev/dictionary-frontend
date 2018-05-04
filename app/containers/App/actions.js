@@ -33,7 +33,7 @@ export function resetEntity(entityName) {
 export const entityActionTypes = {
   GET: createRequestTypes('ENTITY/GET'),
   POST: createRequestTypes('ENTITY/CREATE'),
-  PATCH: createRequestTypes('ENTITY/UPDATE'),
+  PATCH: createRequestTypes('ENTITY/PATCH'),
   DELETE_BATCH: createRequestTypes('ENTITY/DELETE_BATCH'),
 };
 export const createEntityActions = {

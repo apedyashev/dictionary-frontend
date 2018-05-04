@@ -7,11 +7,16 @@ import formatRelative from 'date-fns/formatRelative';
 import {en, ru, de, sr} from 'date-fns/esm/locale';
 // components
 
-export default function DateFormatRelative({date, baseDate, className}) {
+export default function DateFormatRelative({date, time, baseDate, className}) {
   // const diff = differenceInDays(date, baseDate);
   // let result;
   // if (Math.abs(diff) < 6) {
-  const result = formatRelative(date, baseDate, {
+  console.log('date', date);
+  const timeParts = time.split(':');
+  const dateObject = new Date(date);
+  dateObject.setHours(timeParts[0]);
+  dateObject.setMinutes(timeParts[1]);
+  const result = formatRelative(dateObject, baseDate, {
     locale: de,
     addSuffix: true,
   });

@@ -7,8 +7,10 @@ import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
 import {fromJS} from 'immutable';
 // actions
 import {updateProfile} from 'containers/App/actions';
+import {loadCountries, resetCountries} from '../../actions';
 // selectors
 import {makeSelectProfileData} from 'containers/App/selectors';
+import {makeSelectCountries, makeSelectCountriesLoading} from '../../selectors';
 // components
 import {Form, Field, SubmissionError, reduxForm, initialize} from 'redux-form/immutable';
 import {Input, Paper, ReduxFormFields, TimeSelector} from 'components/ui';
@@ -27,10 +29,12 @@ class SettingsForm extends React.PureComponent {
     // react-intl
     intl: intlShape.isRequired,
   };
+  state = {selectedCountry: null};
 
   componentDidMount() {
     // for weird some reason enableReinitialize doesn't trigger @@redux-form/INITIALIZE
     this.props.dispatch(initialize(formId, this.props.initialValues));
+    this.props.loadCountries({orderBy: 'name:asc'});
   }
 
   submitForm = (values) => {
@@ -44,14 +48,36 @@ class SettingsForm extends React.PureComponent {
     });
   };
 
+  handleCountrySearchChange = (search) => {
+    this.props.loadCountries({search, orderBy: 'name:asc'});
+  };
+
+  handleCountryChange = (countryId) => {
+    const {countries} = this.props;
+    const selectedCountry = countries.find((country) => country.get('id') === countryId);
+    this.setState({selectedCountry});
+  };
+
   render() {
+    const {selectedCountry} = this.state;
     const {
       handleSubmit,
       submitting,
       intl: {formatMessage},
       initialValues,
+      countries,
+      countriesLoading,
     } = this.props;
-    console.log('initialValues', initialValues);
+    console.log('countries', countries.toJS());
+
+    const timezones = selectedCountry
+      ? selectedCountry
+          .get('timezones')
+          .toJS()
+          .map((timezone) => {
+            return {key: timezone.id, text: timezone.name, value: timezone.name};
+          })
+      : [];
     return (
       <Form onSubmit={handleSubmit(this.submitForm)}>
         <Grid columns={2}>
@@ -73,6 +99,30 @@ class SettingsForm extends React.PureComponent {
                   hintText={formatMessage(messages.lastNameHint)}
                 />
                 <Input disabled value={initialValues.email} />
+                <Field
+                  name="country"
+                  type="text"
+                  component={ReduxFormFields.Select}
+                  label={formatMessage(messages.lastNameLabel)}
+                  hintText={formatMessage(messages.lastNameHint)}
+                  options={countries.toJS()}
+                  loading={countriesLoading}
+                  onSearchChange={this.handleCountrySearchChange}
+                  props={{
+                    onChange: this.handleCountryChange,
+                  }}
+                />
+
+                <Field
+                  name="timezone"
+                  type="text"
+                  component={ReduxFormFields.Select}
+                  label={formatMessage(messages.lastNameLabel)}
+                  hintText={formatMessage(messages.lastNameHint)}
+                  options={timezones}
+                  loading={countriesLoading}
+                  onSearchChange={this.handleCountrySearchChange}
+                />
               </Paper>
             </Grid.Column>
             <Grid.Column>
@@ -124,6 +174,8 @@ const validate = (values) => {
 const mapStateToProps = () =>
   createStructuredSelector({
     initialValues: makeSelectProfileData(),
+    countries: makeSelectCountries(),
+    countriesLoading: makeSelectCountriesLoading(),
   });
 
 const mapDispatchToProps = (dispatch) => {
@@ -131,6 +183,9 @@ const mapDispatchToProps = (dispatch) => {
     dispatch,
     updateProfile: (values, {resolve, reject} = {}) =>
       dispatch(updateProfile(values, {resolve, reject})),
+    loadCountries: (query, {resolve, reject} = {}) =>
+      dispatch(loadCountries(query, {resolve, reject})),
+    resetCountries: () => dispatch(resetCountries()),
   };
 };
 

@@ -10,7 +10,7 @@ import styles from './index.css';
 export default function ScheduleItem({data, style}) {
   return (
     <div className={styles.root} style={style}>
-      <DateFormatRelative className={styles.date} date={data.date} />
+      <DateFormatRelative className={styles.date} date={data.date} time="18:05" />
       {data.dictionaries.map((dictionary) => (
         <div key={dictionary.id} className={styles.dictionaryContainer}>
           <Link to={`/dictionaries/${dictionary.slug}`} className={styles.name}>

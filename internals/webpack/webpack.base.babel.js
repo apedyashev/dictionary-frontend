@@ -1,7 +1,6 @@
 /**
  * COMMON WEBPACK CONFIGURATION
  */
-const themeVars = require('../../app/theme.js');
 const path = require('path');
 const webpack = require('webpack');
 

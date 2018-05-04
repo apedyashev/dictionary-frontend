@@ -2,6 +2,7 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 import _find from 'lodash/find';
+import _isEqual from 'lodash/isEqual';
 // components
 import {Dropdown} from 'semantic-ui-react';
 import Input from '../Input';
@@ -30,6 +31,33 @@ class Select extends React.Component {
   };
   state = {searchQuery: '', inputVal: '', inputHint: this.props.hintText};
 
+  constructor(props) {
+    super(props);
+
+    const {value} = props;
+    const selectedOption = _find(props.options, {value}) || {};
+    this.setState({
+      inputVal: selectedOption.text,
+      inputHint: selectedOption.text,
+      lastValue: value,
+    });
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const {value, options} = nextProps;
+    if (value !== prevState.lastValue || !_isEqual(options, prevState.lastOptions)) {
+      const selectedOption = _find(options, {value}) || {};
+      return {
+        inputVal: selectedOption.text,
+        inputHint: selectedOption.text,
+        lastValue: value,
+        lastOptions: options,
+      };
+    }
+
+    return null;
+  }
+
   handleSearchChange = (e) => {
     console.log(e.target.value);
     this.setState({searchQuery: e.target.value});
@@ -56,6 +84,7 @@ class Select extends React.Component {
   render() {
     const {id, name, floatingLabel, options, value, error, loading, noResultsMessage} = this.props;
     const {inputVal, inputHint} = this.state;
+
     return (
       <Dropdown
         searchInput={
