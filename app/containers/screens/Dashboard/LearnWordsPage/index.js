@@ -10,17 +10,29 @@ import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 import Immutable from 'immutable';
 // actions
-import {loadRandomWords, sendWordsForLearning, submitLearnedWords} from './actions';
+import {
+  loadRandomWords,
+  loadScheduledWords,
+  sendWordsForLearning,
+  submitLearnedWords,
+} from './actions';
 import {loadDictionaries} from 'containers/screens/Dashboard/DictionariesPage/components/DictionariesList/actions';
 // selectors
 import {
   makeSelectDictionarIdBySlug,
   makeSelectDictionaries,
 } from 'containers/screens/Dashboard/DictionariesPage/components/DictionariesList/selectors';
-import {makeSelectLearnedWords} from './selectors';
+import {
+  makeSelectLearnedWords,
+  makeSelectScheduledDate,
+  makeSelectWordsLoading,
+  makeSelectWordsLoadingDone,
+} from './selectors';
 // components
-import {WhiteBoard, PageLoader} from 'components/ui';
+import {Link} from 'react-router-dom';
+import {WhiteBoard, PageLoader, Prompt} from 'components/ui';
 import {ChooseOptionCard, TrainWritingCard, TrainingsFinishedCard, Topbar} from './components';
+import NotFound from 'containers/screens/NotFoundPage';
 // other
 import {
   NUM_OF_OPTIONS_IN_CARD,
@@ -38,11 +50,15 @@ export class LearnWordsPage extends React.PureComponent {
     dictionaryId: PropTypes.string.isRequired,
     dictionaries: PropTypes.instanceOf(Immutable.Map),
     learnedWords: PropTypes.instanceOf(Immutable.List),
+    scheduledDate: PropTypes.string,
+    wordsLoading: PropTypes.bool.isRequired,
+    wordsLoadingDone: PropTypes.bool.isRequired,
     match: PropTypes.shape({
       params: PropTypes.shape({slug: PropTypes.string.isRequired}).isRequired,
     }).isRequired,
     submitLearnedWords: PropTypes.func.isRequired,
     loadRandomWords: PropTypes.func.isRequired,
+    loadScheduledWords: PropTypes.func.isRequired,
     loadDictionaries: PropTypes.func.isRequired,
     sendWordsForLearning: PropTypes.func.isRequired,
   };
@@ -78,6 +94,7 @@ export class LearnWordsPage extends React.PureComponent {
 
   componentDidMount() {
     const {dictionaryId, dictionaries} = this.props;
+
     if (dictionaryId) {
       this.loadWords();
     }
@@ -108,17 +125,28 @@ export class LearnWordsPage extends React.PureComponent {
   };
 
   loadWords = (forceLoad = false) => {
-    const {dictionaryId, learnedWords} = this.props;
+    const {dictionaryId, learnedWords, scheduledDate} = this.props;
     const excludeWords = learnedWords.toJS().map((word) => word.id);
+    // for options
     this.props.loadRandomWords(dictionaryId, {excludeWords, limit: NUM_OF_OPTIONS_IN_CARD});
 
     if (!learnedWords.size || forceLoad) {
       new Promise((resolve, reject) => {
-        this.props.loadRandomWords(
-          dictionaryId,
-          {onlyForLearning: true, limit: NUM_OF_WORDS_TO_LEARN},
-          {resolve, reject}
-        );
+        // words to be learned
+        if (scheduledDate) {
+          this.props.loadScheduledWords(
+            dictionaryId,
+            scheduledDate,
+            {limit: NUM_OF_WORDS_TO_LEARN},
+            {resolve, reject}
+          );
+        } else {
+          this.props.loadRandomWords(
+            dictionaryId,
+            {onlyForLearning: true, limit: NUM_OF_WORDS_TO_LEARN},
+            {resolve, reject}
+          );
+        }
       }).then(({response: {result}}) => {
         this.props.sendWordsForLearning(result.items);
       });
@@ -172,13 +200,35 @@ export class LearnWordsPage extends React.PureComponent {
     const {curWordIndex, trainingName, wordsLearned} = this.state;
     const {
       learnedWords,
+      scheduledDate,
+      wordsLoading,
+      wordsLoadingDone,
       match: {params},
     } = this.props;
-    const showLoader = !learnedWords.size;
-    if (showLoader) {
+
+    // null means invalid date format
+    if (scheduledDate === null) {
+      return <NotFound />;
+    }
+    // const showLoader = !learnedWords.size;
+    if (wordsLoading) {
       return <PageLoader message="Loading words" />;
     }
-    console.log('trainingName', trainingName);
+    if (wordsLoadingDone && !learnedWords.size) {
+      return (
+        <Prompt
+          title="No words to be learned"
+          subtitle={
+            <div>
+              You don't have any words for selected date. You can{' '}
+              <Link to={`/dictionaries/${params.slug}`}>add more words</Link> or{' '}
+              <Link to="/schedule">view schedule</Link>
+            </div>
+          }
+        />
+      );
+    }
+
     return (
       <div>
         <Helmet>
@@ -220,11 +270,16 @@ const mapStateToProps = createStructuredSelector({
   dictionaryId: makeSelectDictionarIdBySlug(),
   dictionaries: makeSelectDictionaries(),
   learnedWords: makeSelectLearnedWords(),
+  scheduledDate: makeSelectScheduledDate(),
+  wordsLoading: makeSelectWordsLoading(),
+  wordsLoadingDone: makeSelectWordsLoadingDone(),
 });
 function mapDispatchToProps(dispatch) {
   return {
     loadRandomWords: (dictionaryId, query, {resolve, reject} = {}) =>
       dispatch(loadRandomWords(dictionaryId, query, {resolve, reject})),
+    loadScheduledWords: (dictionaryId, scheduledDate, query, {resolve, reject} = {}) =>
+      dispatch(loadScheduledWords(dictionaryId, scheduledDate, query, {resolve, reject})),
     loadDictionaries: () => dispatch(loadDictionaries()),
     sendWordsForLearning: (wordIds) => dispatch(sendWordsForLearning(wordIds)),
     submitLearnedWords: (learnedStatuses = [], {resolve, reject} = {}) =>

@@ -30,6 +30,18 @@ export function loadRandomWords(
   );
 }
 
+export const loadScheduledWordsEntity = (dictionaryId, date) => ({
+  key: 'words',
+  url: `dictionaries/${dictionaryId}/words/scheduled/${date}/random`,
+  schema: {items: wordsArraySchema},
+});
+export function loadScheduledWords(dictionaryId, date, query, {resolve, reject} = {}) {
+  return getEntityActions.request(query, loadScheduledWordsEntity(dictionaryId, date), {
+    resolve,
+    reject,
+  });
+}
+
 export const submitLearnedWordsEntity = {
   key: 'words',
   url: 'dictionaries/words/learned',

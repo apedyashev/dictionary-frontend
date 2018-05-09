@@ -23,7 +23,7 @@ class TrainWritingForm extends React.PureComponent {
   };
 
   submitForm = (values) => {
-    this.props.onCheck(values.word);
+    this.props.onCheck(values.get('word'));
     this.setState({formSubmitted: true});
   };
 
@@ -57,7 +57,7 @@ class TrainWritingForm extends React.PureComponent {
 
 const validate = (values) => {
   const errors = {};
-  if (!values.word) {
+  if (!values.get('word')) {
     errors.word = 'required';
   }
   return errors;

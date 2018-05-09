@@ -1,6 +1,6 @@
 $error-color: #d9534f;
 body {
-  background-color: #ccc;
+  background-color: #efefef;
 }
 :global div:focus {
   outline: none;
