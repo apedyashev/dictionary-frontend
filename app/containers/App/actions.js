@@ -3,10 +3,20 @@ import {action, createRequestTypes} from 'utils/actions';
 
 export const SET_TOKEN = '@APP/SET_TOKEN';
 export const RESET_ENTITY = '@APP/RESET_ENTITY';
+export const RESET_AUTH = '@APP/RESET_AUTH';
+export const SET_LOGGING_OUT = '@APP/SET_LOGGING_OUT';
+
 export function setToken(token) {
   return {
     type: SET_TOKEN,
     token,
+  };
+}
+
+export function setLoggingOut(value) {
+  return {
+    type: SET_LOGGING_OUT,
+    value,
   };
 }
 
@@ -54,7 +64,7 @@ export const patchEntityActions = {
   success: (response, entity) => action(entityActionTypes.PATCH.SUCCESS, {...response, entity}),
   failure: (error, entity) => action(entityActionTypes.PATCH.FAILURE, {error, entity}),
 };
-export const deleteEntityActions = {
+export const deleteBatchEntityActions = {
   request: (payload, entity, meta) =>
     action(entityActionTypes.DELETE_BATCH.REQUEST, {payload, entity, meta}),
   success: (response, entity) =>
@@ -84,6 +94,21 @@ export const loginFbUserEntity = {
 };
 export function loginFbUser(code, {resolve, reject}) {
   return createEntityActions.request({}, loginFbUserEntity, {query: {code}, resolve, reject});
+}
+
+export const logoutUserEntity = {
+  // key: '',
+  url: 'auth/logout',
+  // schema: {user: userSchema},
+};
+export function logout({resolve, reject}) {
+  return deleteBatchEntityActions.request({}, logoutUserEntity, {resolve, reject});
+}
+
+export function resetAuth() {
+  return {
+    type: RESET_AUTH,
+  };
 }
 
 export const updateProfileEntity = {

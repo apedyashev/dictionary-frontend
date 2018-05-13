@@ -4,7 +4,7 @@ import {
   getEntityActions,
   createEntityActions,
   patchEntityActions,
-  deleteEntityActions,
+  deleteBatchEntityActions,
 } from 'containers/App/actions';
 
 export const wordsSchema = new schema.Entity('words');
@@ -82,7 +82,7 @@ export const deleteWordsBatchEntity = {
   // schema: {items: idsArraySchema},
 };
 export function deleteWordsBatch(wordIds, {resolve, reject} = {}) {
-  return deleteEntityActions.request({wordIds}, deleteWordsBatchEntity, {
+  return deleteBatchEntityActions.request({wordIds}, deleteWordsBatchEntity, {
     resolve,
     reject,
   });

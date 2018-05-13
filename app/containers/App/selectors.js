@@ -18,12 +18,14 @@ const makeSelectIsLoginRoute = () =>
     (routeState) => routeState.getIn(['location', 'pathname']) === '/login'
   );
 
-const makeSelectProfileLoading = () =>
+export const makeSelectProfileLoading = () =>
   createSelector(selectGlobal, (globalState) => globalState.getIn(['profile', 'loading']));
-const makeSelectProfileLoaded = () =>
+export const makeSelectProfileLoaded = () =>
   createSelector(selectGlobal, (globalState) => globalState.getIn(['profile', 'loaded']));
-const makeSelectProfileData = () =>
+export const makeSelectProfileData = () =>
   createSelector(selectGlobal, (globalState) => globalState.getIn(['profile', 'data']));
+export const makeSelectLoggingOut = () =>
+  createSelector(selectGlobal, (globalState) => globalState.getIn(['profile', 'loggingOut']));
 
 const makeSelectEntities = () =>
   createSelector(selectGlobal, (globalState) => globalState.get('entities'));
@@ -47,8 +49,5 @@ export {
   makeSelectLoading,
   makeSelectLocation,
   makeSelectIsLoginRoute,
-  makeSelectProfileLoading,
-  makeSelectProfileLoaded,
-  makeSelectProfileData,
   makeSelectEntities,
 };

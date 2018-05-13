@@ -19,18 +19,19 @@ import {
   FacebookCallbackPage,
   NotFoundPage,
 } from 'containers/screens';
-import {PageLoader} from 'components/ui';
+import {PageLoader, Dimmable} from 'components/ui';
 
 import {loadProfileActions, setToken} from './actions';
 import reducer from './reducer';
 import learnWordsReducer from 'containers/screens/Dashboard/LearnWordsPage/reducer';
 import saga from './saga';
-import {makeSelectProfileLoaded, makeSelectProfileData} from './selectors';
+import {makeSelectProfileLoaded, makeSelectProfileData, makeSelectLoggingOut} from './selectors';
 
 export class App extends React.PureComponent {
   static propTypes = {
     profile: PropTypes.object,
     isProfileLoaded: PropTypes.bool.isRequired,
+    loggingOut: PropTypes.bool.isRequired,
     onLoadProfile: PropTypes.func.isRequired,
   };
   componentDidMount() {
@@ -39,7 +40,7 @@ export class App extends React.PureComponent {
 
   // important: https://github.com/ReactTraining/react-router/issues/5072#issuecomment-310184271
   render() {
-    const {isProfileLoaded, profile} = this.props;
+    const {isProfileLoaded, profile, loggingOut} = this.props;
     return (
       <div>
         <Helmet titleTemplate="%s - React.js Boilerplate" defaultTitle="React.js Boilerplate">
@@ -47,67 +48,69 @@ export class App extends React.PureComponent {
         </Helmet>
 
         {isProfileLoaded ? (
-          <React.StrictMode>
-            <ConnectedSwitch>
-              <GuestRoute
-                path="/"
-                layout={GuestLayout}
-                component={HomePage}
-                exact
-                authed={!!profile.id}
-              />
-              <GuestRoute
-                path="/login"
-                layout={GuestLayout}
-                component={HomePage}
-                exact
-                authed={!!profile.id}
-              />
-              <PrivateRoute
-                exact
-                path="/dictionaries"
-                layout={DashboardLayout}
-                component={DictionariesPage}
-                authed={!!profile.id}
-              />
-              <PrivateRoute
-                path="/dictionaries/:slug"
-                layout={DashboardLayout}
-                component={DictionariesPage}
-                authed={!!profile.id}
-              />
-              <PrivateRoute
-                exact
-                path="/learn-words/:slug/scheduled/:scheduledDate"
-                layout={DashboardLayout}
-                component={LearnWordsPage}
-                authed={!!profile.id}
-              />
-              <PrivateRoute
-                exact
-                path="/learn-words/:slug"
-                layout={DashboardLayout}
-                component={LearnWordsPage}
-                authed={!!profile.id}
-              />
-              <PrivateRoute
-                exact
-                path="/schedule"
-                layout={DashboardLayout}
-                component={SchedulePage}
-                authed={!!profile.id}
-              />
-              <PrivateRoute
-                exact
-                path="/settings"
-                layout={DashboardLayout}
-                component={SettingsPage}
-                authed={!!profile.id}
-              />
-              <Route path="/facebook/callback" component={FacebookCallbackPage} />
-              <Route path="" component={NotFoundPage} />
-            </ConnectedSwitch>
-          </React.StrictMode>
+          <Dimmable withLoader dimmed={loggingOut} loaderMessage="Logging out">
+            <React.StrictMode>
+              <ConnectedSwitch>
+                <GuestRoute
+                  path="/"
+                  layout={GuestLayout}
+                  component={HomePage}
+                  exact
+                  authed={!!profile.id}
+                />
+                <GuestRoute
+                  path="/login"
+                  layout={GuestLayout}
+                  component={HomePage}
+                  exact
+                  authed={!!profile.id}
+                />
+                <PrivateRoute
+                  exact
+                  path="/dictionaries"
+                  layout={DashboardLayout}
+                  component={DictionariesPage}
+                  authed={!!profile.id}
+                />
+                <PrivateRoute
+                  path="/dictionaries/:slug"
+                  layout={DashboardLayout}
+                  component={DictionariesPage}
+                  authed={!!profile.id}
+                />
+                <PrivateRoute
+                  exact
+                  path="/learn-words/:slug/scheduled/:scheduledDate"
+                  layout={DashboardLayout}
+                  component={LearnWordsPage}
+                  authed={!!profile.id}
+                />
+                <PrivateRoute
+                  exact
+                  path="/learn-words/:slug"
+                  layout={DashboardLayout}
+                  component={LearnWordsPage}
+                  authed={!!profile.id}
+                />
+                <PrivateRoute
+                  exact
+                  path="/schedule"
+                  layout={DashboardLayout}
+                  component={SchedulePage}
+                  authed={!!profile.id}
+                />
+                <PrivateRoute
+                  exact
+                  path="/settings"
+                  layout={DashboardLayout}
+                  component={SettingsPage}
+                  authed={!!profile.id}
+                />
+                <Route path="/facebook/callback" component={FacebookCallbackPage} />
+                <Route path="" component={NotFoundPage} />
+              </ConnectedSwitch>
+            </React.StrictMode>
+          </Dimmable>
         ) : (
           <PageLoader />
         )}
@@ -128,6 +131,7 @@ export function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = createStructuredSelector({
   isProfileLoaded: makeSelectProfileLoaded(),
+  loggingOut: makeSelectLoggingOut(),
   profile: makeSelectProfileData(),
 });
 

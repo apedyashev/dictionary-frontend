@@ -8,7 +8,7 @@ import {
   createEntityActions,
   patchEntityActions,
   getEntityActions,
-  deleteEntityActions,
+  deleteBatchEntityActions,
 } from 'containers/App/actions';
 import http from 'utils/http';
 
@@ -85,13 +85,13 @@ export function* deleteEntityBatch({payload, entity, meta}) {
     if (meta && meta.resolve) {
       meta.resolve(entityResponse);
     }
-    yield put(deleteEntityActions.success(entityResponse, entity));
+    yield put(deleteBatchEntityActions.success(entityResponse, entity));
   } catch (err) {
     console.log('updateEntity error', err);
     if (meta && meta.reject) {
       meta.reject(err);
     }
-    yield put(deleteEntityActions.failure(err, entity));
+    yield put(deleteBatchEntityActions.failure(err, entity));
   }
 }
 

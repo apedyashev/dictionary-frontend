@@ -2,7 +2,14 @@ import _each from 'lodash/each';
 import _without from 'lodash/without';
 import _uniq from 'lodash/uniq';
 import {fromJS} from 'immutable';
-import {profileActionTypes, entityActionTypes, SET_TOKEN, RESET_ENTITY} from './actions';
+import {
+  profileActionTypes,
+  entityActionTypes,
+  SET_TOKEN,
+  RESET_ENTITY,
+  RESET_AUTH,
+  SET_LOGGING_OUT,
+} from './actions';
 
 function getEntityIds(action) {
   let ids = [];
@@ -27,6 +34,7 @@ const defaultEntityState = fromJS({
 // The initial state of the App
 const initialState = fromJS({
   profile: {
+    loggingOut: false,
     loading: false,
     loaded: false,
     authHeader: '',
@@ -66,8 +74,16 @@ function appReducer(state = initialState, action) {
         .setIn(['profile', 'data'], action.response.entities.users[userId]);
     }
 
+    case RESET_AUTH: {
+      return state.setIn(['profile', 'data'], {}).setIn(['profile', 'authHeader'], '');
+    }
+
     case RESET_ENTITY: {
       return state.setIn(['entities', action.entityName], defaultEntityState);
+    }
+
+    case SET_LOGGING_OUT: {
+      return state.setIn(['profile', 'loggingOut'], action.value);
     }
 
     case entityActionTypes.POST.SUCCESS: {
@@ -168,10 +184,13 @@ function appReducer(state = initialState, action) {
 
     case entityActionTypes.DELETE_BATCH.SUCCESS: {
       const entityKey = action.entity && action.entity.key;
-      const oldDisplayOrder = state.getIn(['entities', entityKey, 'displayOrder']).toJS();
-      const {items} = action.response;
-      const displayOrder = fromJS(_without(oldDisplayOrder, ...items));
-      return state.setIn(['entities', entityKey, 'displayOrder'], displayOrder);
+      if (entityKey) {
+        const oldDisplayOrder = state.getIn(['entities', entityKey, 'displayOrder']).toJS();
+        const {items} = action.response;
+        const displayOrder = fromJS(_without(oldDisplayOrder, ...items));
+        return state.setIn(['entities', entityKey, 'displayOrder'], displayOrder);
+      }
+      return state;
     }
 
     default:

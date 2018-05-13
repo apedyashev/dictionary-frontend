@@ -27,9 +27,9 @@ export default function ScheduleItem({data, style}) {
             <Link
               to={`/learn-words/${dictionary.slug}/scheduled/${format(data.date, 'YYYY-MM-DD')}`}
             >
-              Learn
+              Learn again
             </Link>
-          )}
+          )}{' '}
           <div>{dictionary.words.map((word) => word.title).join(', ')}</div>
         </div>
       ))}

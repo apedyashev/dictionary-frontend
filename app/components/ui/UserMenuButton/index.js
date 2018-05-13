@@ -9,22 +9,22 @@ import Icon from '../Icon';
 // other
 import styles from './index.css';
 
-// TODO: must be passed as props from top-level component
-const options = [
-  {
-    key: 'user',
-    text: (
-      <span>
-        Signed in as <strong>Bob Smith</strong>
-      </span>
-    ),
-    disabled: true,
-  },
-  {key: 'settings', text: 'Settings', as: NavLink, to: '/settings'},
-  {key: 'logout', text: 'Logout'},
-];
+export default function UserMenuButton({className, onLogout}) {
+  // TODO: must be passed as props from top-level component
+  const options = [
+    {
+      key: 'user',
+      text: (
+        <span>
+          Signed in as <strong>Bob Smith</strong>
+        </span>
+      ),
+      disabled: true,
+    },
+    {key: 'settings', text: 'Settings', as: NavLink, to: '/settings'},
+    {key: 'logout', text: 'Logout', onClick: onLogout},
+  ];
 
-export default function UserMenuButton({className}) {
   return (
     <div className={cn(styles.root, className)}>
       <Dropdown trigger={<Icon name="user" />} options={options} upward />
@@ -33,6 +33,7 @@ export default function UserMenuButton({className}) {
 }
 UserMenuButton.propTypes = {
   className: PropTypes.string,
+  onLogout: PropTypes.func.isRequired,
 };
 UserMenuButton.defaultProps = {
   className: '',
