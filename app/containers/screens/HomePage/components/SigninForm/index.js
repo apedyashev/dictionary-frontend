@@ -35,7 +35,11 @@ class SignupForm extends React.Component {
   };
 
   render() {
-    const {handleSubmit, submitting, intl: {formatMessage}} = this.props;
+    const {
+      handleSubmit,
+      submitting,
+      intl: {formatMessage},
+    } = this.props;
     return (
       <Form onSubmit={handleSubmit(this.submitForm)}>
         <Field
@@ -61,8 +65,9 @@ class SignupForm extends React.Component {
   }
 }
 
-const validate = (values) => {
+const validate = (valuesImmutable) => {
   const errors = {};
+  const values = valuesImmutable.toJS();
   if (!values.firstName) {
     errors.firstName = 'required';
   }
