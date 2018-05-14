@@ -3,8 +3,11 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
+import {createStructuredSelector} from 'reselect';
 // actions
 import {createEntityActions, newUserEntity} from 'containers/App/actions';
+// selectors
+import {makeSelectLocale} from 'containers/LanguageProvider/selectors';
 // components
 import {Form, Field, SubmissionError, reduxForm} from 'redux-form/immutable';
 import {ReduxFormFields} from 'components/ui';
@@ -20,13 +23,16 @@ class SignupForm extends React.Component {
     handleSubmit: PropTypes.func.isRequired,
     // mapDispatchToProps
     registerUser: PropTypes.func.isRequired,
+    // mapStateToProps
+    locale: PropTypes.string.isRequired,
     // react-intl
     intl: intlShape.isRequired,
   };
 
   submitForm = (values) => {
+    const {locale} = this.props;
     return new Promise((resolve, reject) => {
-      this.props.registerUser(values, {resolve, reject});
+      this.props.registerUser({...values.toJS(), locale}, {resolve, reject});
     }).catch(({validationErrors}) => {
       if (validationErrors) {
         throw new SubmissionError(validationErrors);
@@ -124,7 +130,11 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-SignupForm = connect(null, mapDispatchToProps)(injectIntl(SignupForm));
+const mapStateToProps = createStructuredSelector({
+  locale: makeSelectLocale(),
+});
+
+SignupForm = connect(mapStateToProps, mapDispatchToProps)(injectIntl(SignupForm));
 
 export default reduxForm({
   form: 'signupForm',

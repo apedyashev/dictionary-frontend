@@ -8,23 +8,28 @@ import queryString from 'query-string';
 import {loginFbUser} from 'containers/App/actions';
 // selectors
 import {makeSelectLocation} from 'containers/App/selectors';
+import {makeSelectLocale} from 'containers/LanguageProvider/selectors';
 // components
 import {Link} from 'react-router-dom';
 import Prompt from 'components/ui/Prompt';
 
 class FacebookCallbackPage extends React.Component {
   static propTypes = {
+    // mapStateToProps
+    locale: PropTypes.string.isRequired,
     fbCode: PropTypes.string.isRequired,
+    // mapDispatchToProps
     loginFbUser: PropTypes.func.isRequired,
   };
   state = {error: false};
 
   componentDidMount() {
-    const {fbCode} = this.props;
+    const {fbCode, locale} = this.props;
     if (fbCode) {
       new Promise((resolve, reject) => {
-        this.props.loginFbUser(fbCode, {resolve, reject});
-      }).catch(() => {
+        this.props.loginFbUser({fbCode, locale}, {resolve, reject});
+      }).catch((err) => {
+        console.error('err', err);
         this.setState({error: true});
       });
     }
@@ -41,15 +46,19 @@ class FacebookCallbackPage extends React.Component {
   }
 }
 
-const mapStateToProps = createSelector(makeSelectLocation(), (location) => {
-  const qsParams = queryString.parse(location.search);
-  return {fbCode: qsParams && qsParams.code};
-});
+const mapStateToProps = createSelector(
+  makeSelectLocation(),
+  makeSelectLocale(),
+  (location, locale) => {
+    const qsParams = queryString.parse(location.search);
+    return {fbCode: qsParams && qsParams.code, locale};
+  }
+);
 
 export function mapDispatchToProps(dispatch) {
   return {
-    loginFbUser: (fbCode, {resolve, reject}) => {
-      dispatch(loginFbUser(fbCode, {resolve, reject}));
+    loginFbUser: ({fbCode, locale}, {resolve, reject}) => {
+      dispatch(loginFbUser({fbCode, locale}, {resolve, reject}));
     },
   };
 }

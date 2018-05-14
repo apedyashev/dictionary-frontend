@@ -92,8 +92,12 @@ export const loginFbUserEntity = {
   url: 'auth/facebook/callback',
   schema: {user: userSchema},
 };
-export function loginFbUser(code, {resolve, reject}) {
-  return createEntityActions.request({}, loginFbUserEntity, {query: {code}, resolve, reject});
+export function loginFbUser({fbCode, locale}, {resolve, reject}) {
+  return createEntityActions.request({locale}, loginFbUserEntity, {
+    query: {code: fbCode},
+    resolve,
+    reject,
+  });
 }
 
 export const logoutUserEntity = {

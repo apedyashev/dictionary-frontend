@@ -2,12 +2,14 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
+import {FormattedMessage} from 'react-intl';
 import {Icon, Menu, Button} from 'semantic-ui-react';
 // import {Input} from 'components/ui';
 import SelectedWordsToolbar from './SelectedWordsToolbar';
 import WordsSearchBar from '../WordsSearchBar';
 import WordSetSelector from '../WordSetSelector';
 // other
+import messages from './messages';
 import styles from './index.css';
 
 export default function DashboardTopbar({
@@ -61,7 +63,16 @@ export default function DashboardTopbar({
       <Menu.Menu position="right">
         <Menu.Item>
           <Button
-            content={selectedWordsCount ? `Learn selected (${selectedWordsCount})` : 'Learn'}
+            content={
+              selectedWordsCount ? (
+                <FormattedMessage
+                  {...messages.learnSelectedBtnLabel}
+                  values={{selectedWordsCount}}
+                />
+              ) : (
+                <FormattedMessage {...messages.learnBtnLabel} />
+              )
+            }
             onClick={onLearnClick}
           />
         </Menu.Item>

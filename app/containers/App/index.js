@@ -32,10 +32,10 @@ export class App extends React.PureComponent {
     profile: PropTypes.object,
     isProfileLoaded: PropTypes.bool.isRequired,
     loggingOut: PropTypes.bool.isRequired,
-    onLoadProfile: PropTypes.func.isRequired,
+    loadProfile: PropTypes.func.isRequired,
   };
   componentDidMount() {
-    this.props.onLoadProfile();
+    this.props.loadProfile();
   }
 
   // important: https://github.com/ReactTraining/react-router/issues/5072#issuecomment-310184271
@@ -121,7 +121,7 @@ export class App extends React.PureComponent {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onLoadProfile: () => {
+    loadProfile: () => {
       const token = localStorage.getItem('authToken') || '';
       dispatch(setToken(token));
       dispatch(loadProfileActions.request());

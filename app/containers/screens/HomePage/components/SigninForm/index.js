@@ -26,7 +26,7 @@ class SignupForm extends React.Component {
 
   submitForm = (values) => {
     return new Promise((resolve, reject) => {
-      this.props.loginUser(values, {resolve, reject});
+      this.props.loginUser(values.toJS(), {resolve, reject});
     }).catch(({validationErrors}) => {
       if (validationErrors) {
         throw new SubmissionError(validationErrors);

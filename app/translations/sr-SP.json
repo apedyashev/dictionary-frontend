@@ -1,6 +1,8 @@
 {
   "containers.Auth.signinBtnLabel": "",
   "containers.Auth.signupBtnLabel": "",
+  "containers.DictsTopbar.learnBtnLabel": "",
+  "containers.DictsTopbar.learnSelectedBtnLabel": "",
   "containers.LoginForm.emailHint": "",
   "containers.LoginForm.emailLabel": "",
   "containers.LoginForm.passwordHint": "",

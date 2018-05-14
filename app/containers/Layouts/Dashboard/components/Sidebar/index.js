@@ -33,12 +33,15 @@ function DashboardSidebar({logout, resetAuth, push, setLoggingOut}) {
     new Promise((resolve, reject) => {
       logout({resolve, reject});
     })
-      .then(() => {
+      // .then(() => {
+      //   resetAuth();
+      //   localStorage.setItem('authToken', '');
+      //   push('/login');
+      // })
+      .finally(() => {
         resetAuth();
         localStorage.setItem('authToken', '');
         push('/login');
-      })
-      .finally(() => {
         setLoggingOut(false);
       });
   }
