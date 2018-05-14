@@ -45,9 +45,6 @@ class SignupForm extends React.Component {
   };
 
   handleCountryChange = (countryId) => {
-    console.log('countryId', countryId);
-    // const {countries} = this.props;
-    // const selectedCountry = countries.find((country) => country.get('id') === countryId);
     this.setState({countryId});
   };
 

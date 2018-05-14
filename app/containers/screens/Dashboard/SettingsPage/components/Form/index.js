@@ -4,17 +4,16 @@ import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
-import Immutable from 'immutable';
 // actions
 import {updateProfile} from 'containers/App/actions';
-import {loadCountries} from '../../actions';
 // selectors
 import {makeSelectProfileData} from 'containers/App/selectors';
-import {makeSelectCountries, makeSelectCountriesLoading} from '../../selectors';
 // components
 import {Form, Field, SubmissionError, reduxForm, initialize} from 'redux-form/immutable';
 import {Input, Paper, ReduxFormFields} from 'components/ui';
 import {Button, Grid} from 'semantic-ui-react';
+import CountrySelectorField from 'containers/CountrySelectorField';
+import TimezoneSelectorField from 'containers/TimezoneSelectorField';
 // other
 import messages from './messages';
 const formId = 'settingsForm';
@@ -25,22 +24,17 @@ class SettingsForm extends React.PureComponent {
     submitting: PropTypes.bool.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     initialValues: PropTypes.object.isRequired,
-    // mapStateToProps
-    countriesLoading: PropTypes.bool.isRequired,
-    countries: PropTypes.instanceOf(Immutable.List),
     // mapDispatchToProps
     updateProfile: PropTypes.func.isRequired,
-    loadCountries: PropTypes.func.isRequired,
     dispatch: PropTypes.func.isRequired,
     // react-intl
     intl: intlShape.isRequired,
   };
-  state = {selectedCountry: null};
+  state = {countryId: null};
 
   componentDidMount() {
     // for weird some reason enableReinitialize doesn't trigger @@redux-form/INITIALIZE
     this.props.dispatch(initialize(formId, this.props.initialValues));
-    this.props.loadCountries({orderBy: 'name:asc'});
   }
 
   submitForm = (values) => {
@@ -54,36 +48,19 @@ class SettingsForm extends React.PureComponent {
     });
   };
 
-  handleCountrySearchChange = (search) => {
-    this.props.loadCountries({search, orderBy: 'name:asc'});
-  };
-
   handleCountryChange = (countryId) => {
-    const {countries} = this.props;
-    const selectedCountry = countries.find((country) => country.get('id') === countryId);
-    this.setState({selectedCountry});
+    this.setState({countryId});
   };
 
   render() {
-    const {selectedCountry} = this.state;
+    const {countryId} = this.state;
     const {
       handleSubmit,
       submitting,
       intl: {formatMessage},
       initialValues,
-      countries,
-      countriesLoading,
     } = this.props;
-    console.log('countries', countries.toJS());
 
-    const timezones = selectedCountry
-      ? selectedCountry
-          .get('timezones')
-          .toJS()
-          .map((timezone) => {
-            return {key: timezone.id, text: timezone.name, value: timezone.name};
-          })
-      : [];
     return (
       <Form onSubmit={handleSubmit(this.submitForm)}>
         <Grid columns={2}>
@@ -105,29 +82,17 @@ class SettingsForm extends React.PureComponent {
                   hintText={formatMessage(messages.lastNameHint)}
                 />
                 <Input disabled value={initialValues.email} />
-                <Field
+                <CountrySelectorField
                   name="country"
-                  type="text"
-                  component={ReduxFormFields.Select}
-                  label={formatMessage(messages.lastNameLabel)}
-                  hintText={formatMessage(messages.lastNameHint)}
-                  options={countries.toJS()}
-                  loading={countriesLoading}
-                  onSearchChange={this.handleCountrySearchChange}
-                  props={{
-                    onChange: this.handleCountryChange,
-                  }}
+                  label="Country"
+                  onCountryChange={this.handleCountryChange}
                 />
 
-                <Field
+                <TimezoneSelectorField
+                  key={countryId}
                   name="timezone"
-                  type="text"
-                  component={ReduxFormFields.Select}
-                  label={formatMessage(messages.lastNameLabel)}
-                  hintText={formatMessage(messages.lastNameHint)}
-                  options={timezones}
-                  loading={countriesLoading}
-                  onSearchChange={this.handleCountrySearchChange}
+                  label="Timezone"
+                  countryId={countryId}
                 />
               </Paper>
             </Grid.Column>
@@ -174,14 +139,20 @@ const validate = (values) => {
     errors.reviewTime = 'required';
   }
 
+  if (!values.get('country')) {
+    errors.country = 'required';
+  }
+
+  if (!values.get('timezone')) {
+    errors.timezone = 'required';
+  }
+
   return errors;
 };
 
 const mapStateToProps = () =>
   createStructuredSelector({
     initialValues: makeSelectProfileData(),
-    countries: makeSelectCountries(),
-    countriesLoading: makeSelectCountriesLoading(),
   });
 
 const mapDispatchToProps = (dispatch) => {
@@ -189,8 +160,6 @@ const mapDispatchToProps = (dispatch) => {
     dispatch,
     updateProfile: (values, {resolve, reject} = {}) =>
       dispatch(updateProfile(values, {resolve, reject})),
-    loadCountries: (query, {resolve, reject} = {}) =>
-      dispatch(loadCountries(query, {resolve, reject})),
   };
 };
 
