@@ -1,17 +1,19 @@
+// libs
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {createSelector} from 'reselect';
-
-import LanguageSelector from 'components/ui/LanguageSelector';
-// import messages from './messages';
-// import {appLocales} from '../../i18n';
+// actions
 import {changeLocale} from '../LanguageProvider/actions';
+// selectors
 import {makeSelectLocale} from '../LanguageProvider/selectors';
+// components
+import LanguageSelector from 'components/ui/LanguageSelector';
 
 // eslint-disable react/prefer-stateless-function
 export class LocaleToggle extends React.PureComponent {
   render() {
+    console.log('this.props.locale', this.props.locale);
     return <LanguageSelector value={this.props.locale} onChange={this.props.onLocaleToggle} />;
   }
 }
@@ -25,7 +27,10 @@ const mapStateToProps = createSelector(makeSelectLocale(), (locale) => ({locale}
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onLocaleToggle: (value) => dispatch(changeLocale(value)),
+    onLocaleToggle: (value) => {
+      localStorage.setItem('guestLocale', value);
+      dispatch(changeLocale(value));
+    },
     dispatch,
   };
 }

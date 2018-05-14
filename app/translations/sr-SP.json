@@ -1,4 +1,6 @@
 {
+  "containers.Auth.signinBtnLabel": "",
+  "containers.Auth.signupBtnLabel": "",
   "containers.LoginForm.emailHint": "",
   "containers.LoginForm.emailLabel": "",
   "containers.LoginForm.passwordHint": "",
@@ -22,8 +24,12 @@
   "containers.RegForm.passwordConfirmLabel": "",
   "containers.RegForm.passwordHint": "",
   "containers.RegForm.passwordLabel": "",
-  "containers.RegForm.signinBtnLabel": "",
-  "containers.RegForm.signupBtnLabel": "",
+  "containers.SettingsForm.exerciseTimeLabel": "",
+  "containers.SettingsForm.firstNameHint": "",
+  "containers.SettingsForm.firstNameLabel": "",
+  "containers.SettingsForm.lastNameHint": "",
+  "containers.SettingsForm.lastNameLabel": "",
+  "containers.SettingsForm.saveButtonLabel": "",
   "containers.TrainWritingForm.checkWordBtnLabel": "",
   "containers.TrainWritingForm.wordHint": "",
   "containers.TrainWritingForm.wordLabel": ""

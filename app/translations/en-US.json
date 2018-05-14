@@ -1,4 +1,6 @@
 {
+  "containers.Auth.signinBtnLabel": "Sign in",
+  "containers.Auth.signupBtnLabel": "Sign up",
   "containers.LoginForm.emailHint": "Please enter your email",
   "containers.LoginForm.emailLabel": "E-mail",
   "containers.LoginForm.passwordHint": "Please enter password",
@@ -22,8 +24,12 @@
   "containers.RegForm.passwordConfirmLabel": "Confirm password",
   "containers.RegForm.passwordHint": "Please enter password",
   "containers.RegForm.passwordLabel": "Password",
-  "containers.RegForm.signinBtnLabel": "Sign in",
-  "containers.RegForm.signupBtnLabel": "Sign up",
+  "containers.SettingsForm.exerciseTimeLabel": "Exercise time",
+  "containers.SettingsForm.firstNameHint": "Please enter your first name",
+  "containers.SettingsForm.firstNameLabel": "First Name",
+  "containers.SettingsForm.lastNameHint": "Please enter your last name",
+  "containers.SettingsForm.lastNameLabel": "Last Name",
+  "containers.SettingsForm.saveButtonLabel": "Save",
   "containers.TrainWritingForm.checkWordBtnLabel": "Check",
   "containers.TrainWritingForm.wordHint": "Please type the original word or phrase",
   "containers.TrainWritingForm.wordLabel": "Word or phrase"

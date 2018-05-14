@@ -75,7 +75,9 @@ function appReducer(state = initialState, action) {
     }
 
     case RESET_AUTH: {
-      return state.setIn(['profile', 'data'], {}).setIn(['profile', 'authHeader'], '');
+      return state
+        .setIn(['profile', 'data'], initialState.getIn(['profile', 'data']))
+        .setIn(['profile', 'authHeader'], '');
     }
 
     case RESET_ENTITY: {
@@ -90,6 +92,7 @@ function appReducer(state = initialState, action) {
       const userId = action.response.result.user;
       const entityKey = action.entity && action.entity.key;
       if (entityKey === 'user') {
+        // signin and signup
         return state
           .setIn(['profile', 'data'], action.response.entities.users[userId])
           .setIn(['profile', 'authHeader'], `Bearer ${action.response.result.token}`);
