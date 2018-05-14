@@ -12,6 +12,8 @@ import {makeSelectLocale} from 'containers/LanguageProvider/selectors';
 import {Form, Field, SubmissionError, reduxForm} from 'redux-form/immutable';
 import {ReduxFormFields} from 'components/ui';
 import {Button} from 'semantic-ui-react';
+import CountrySelectorField from 'containers/CountrySelectorField';
+import TimezoneSelectorField from 'containers/TimezoneSelectorField';
 // other
 import commonAuthMessages from '../AuthForms/messages';
 import messages from './messages';
@@ -29,6 +31,8 @@ class SignupForm extends React.Component {
     intl: intlShape.isRequired,
   };
 
+  state = {countryId: null};
+
   submitForm = (values) => {
     const {locale} = this.props;
     return new Promise((resolve, reject) => {
@@ -40,7 +44,15 @@ class SignupForm extends React.Component {
     });
   };
 
+  handleCountryChange = (countryId) => {
+    console.log('countryId', countryId);
+    // const {countries} = this.props;
+    // const selectedCountry = countries.find((country) => country.get('id') === countryId);
+    this.setState({countryId});
+  };
+
   render() {
+    const {countryId} = this.state;
     const {
       handleSubmit,
       submitting,
@@ -69,6 +81,20 @@ class SignupForm extends React.Component {
           label={formatMessage(messages.emailLabel)}
           hintText={formatMessage(messages.emailHint)}
         />
+
+        <CountrySelectorField
+          name="country"
+          label="Country"
+          onCountryChange={this.handleCountryChange}
+        />
+
+        <TimezoneSelectorField
+          key={countryId}
+          name="timezone"
+          label="Timezone"
+          countryId={countryId}
+        />
+
         <Field
           name="password"
           type="password"
@@ -104,9 +130,17 @@ const validate = (valuesImmutable) => {
   }
 
   if (!values.email) {
-    errors.email = 'Required';
+    errors.email = 'required';
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = 'invalid email address';
+  }
+
+  if (!values.country) {
+    errors.country = 'required';
+  }
+
+  if (!values.timezone) {
+    errors.timezone = 'required';
   }
 
   if (!values.password) {

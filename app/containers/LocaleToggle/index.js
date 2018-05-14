@@ -10,10 +10,8 @@ import {makeSelectLocale} from '../LanguageProvider/selectors';
 // components
 import LanguageSelector from 'components/ui/LanguageSelector';
 
-// eslint-disable react/prefer-stateless-function
 export class LocaleToggle extends React.PureComponent {
   render() {
-    console.log('this.props.locale', this.props.locale);
     return <LanguageSelector value={this.props.locale} onChange={this.props.onLocaleToggle} />;
   }
 }

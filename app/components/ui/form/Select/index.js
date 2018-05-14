@@ -24,6 +24,7 @@ class Select extends React.Component {
     hintText: PropTypes.string,
     noResultsMessage: PropTypes.string,
     loading: PropTypes.bool,
+    disabled: PropTypes.bool,
     error: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onBlur: PropTypes.func,
@@ -84,9 +85,18 @@ class Select extends React.Component {
   handleInputChange = () => {};
 
   render() {
-    const {id, name, floatingLabel, options, value, error, loading, noResultsMessage} = this.props;
+    const {
+      id,
+      name,
+      floatingLabel,
+      options,
+      value,
+      error,
+      loading,
+      disabled,
+      noResultsMessage,
+    } = this.props;
     const {inputVal, inputHint} = this.state;
-
     return (
       <Dropdown
         searchInput={
@@ -102,6 +112,7 @@ class Select extends React.Component {
             onFocus={this.handleInputFocus}
           />
         }
+        disabled={disabled}
         searchQuery={this.state.searchQuery}
         className={styles.root}
         loading={loading}
