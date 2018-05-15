@@ -3,16 +3,17 @@ import {HTTP_STATUS_NOT_AUTHORIZED, HTTP_STATUS_UNPROCESSABLE_ENTITY} from './ht
 
 // import _ from 'lodash';
 // import {actions as userActions} from 'modules/user';
-// import {actions as notificationActions} from 'modules/notifications';
+import {setError} from 'containers/Notification/actions';
 
-export function errorHandler(/* dispatch */) {
+export function errorHandler(dispatch) {
   return (err) => {
     console.error('errorHandler', err.status, err);
     if (err.status === HTTP_STATUS_NOT_AUTHORIZED) {
       // dispatch(userActions.reset());
       // dispatch(push('/login'));
     } else {
-      // dispatch(notificationActions.showError(err));
+      console.log('err', err.message);
+      dispatch(setError(err.message));
     }
 
     // UNPROCESSABLE_ENTITY means 'validation error'. Parse JSON reject the promise with error message

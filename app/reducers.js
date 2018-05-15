@@ -9,6 +9,7 @@ import {reducer as formReducer} from 'redux-form/immutable';
 
 import globalReducer from 'containers/App/reducer';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
+import notificationReducer from 'containers/Notification/reducer';
 
 /*
  * routeReducer
@@ -47,6 +48,7 @@ export default function createReducer(injectedReducers) {
     route: routeReducer,
     global: globalReducer,
     language: languageProviderReducer,
+    notification: notificationReducer,
     ...injectedReducers,
   });
 }

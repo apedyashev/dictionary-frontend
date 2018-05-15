@@ -20,6 +20,7 @@ import {
   NotFoundPage,
 } from 'containers/screens';
 import {PageLoader, Dimmable} from 'components/ui';
+import Notification from 'containers/Notification';
 
 import {loadProfileActions, setToken} from './actions';
 import reducer from './reducer';
@@ -114,6 +115,7 @@ export class App extends React.PureComponent {
         ) : (
           <PageLoader />
         )}
+        <Notification />
       </div>
     );
   }

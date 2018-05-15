@@ -17,6 +17,7 @@ export {default as Button} from './Button';
 export {default as UserMenuButton} from './UserMenuButton';
 export {default as H2} from './typography/H2';
 export {default as Dimmable} from './Dimmable';
+export {default as Snackbar} from './Snackbar';
 
 // form
 export {default as Input} from './form/Input';
