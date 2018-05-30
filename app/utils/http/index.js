@@ -8,7 +8,7 @@ import {errorHandler} from './errorHandler';
 const config = {
   apiBaseUrl:
     process.env.NODE_ENV === 'production'
-      ? 'http://dict-api.apedyashev.com/'
+      ? 'http://dict-api.apedyashev.com'
       : 'http://localhost:3001',
 };
 
