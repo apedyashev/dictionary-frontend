@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import {NavLink} from 'react-router-dom';
 import {Icon, Image, Menu, Sidebar} from 'semantic-ui-react';
 
 // import logo from 'resources/logo.png'
-import * as styles from './NavbarMobile.css';
+import * as styles from './index.css';
 
 const NavbarMobile = ({children, leftItems, onPusherClick, onToggle, rightItems, visible}) => (
   <Sidebar.Pushable>
@@ -12,20 +13,30 @@ const NavbarMobile = ({children, leftItems, onPusherClick, onToggle, rightItems,
       animation="overlay"
       icon="labeled"
       inverted
-      items={[...leftItems, ...rightItems]}
+      items={[
+        {
+          key: 'login',
+          content: 'login',
+          as: NavLink,
+          to: '/login',
+          onClick: onPusherClick,
+        },
+        {
+          key: 'register',
+          content: 'register',
+          as: NavLink,
+          to: '/register',
+          onClick: onPusherClick,
+        },
+      ]}
       vertical
       visible={visible}
     />
     <Sidebar.Pusher dimmed={visible} onClick={onPusherClick} className={styles.pusher}>
       <Menu fixed="top" inverted>
-        <Menu.Item>
-          <Image size="mini" src="" />
+        <Menu.Item onClick={onToggle}>
+          <Icon name="sidebar" />
         </Menu.Item>
-        <Menu.Menu position="right">
-          <Menu.Item onClick={onToggle}>
-            <Icon name="sidebar" />
-          </Menu.Item>
-        </Menu.Menu>
       </Menu>
       {children}
     </Sidebar.Pusher>

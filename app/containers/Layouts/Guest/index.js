@@ -9,8 +9,7 @@ import styles from './index.css';
 export default function GuestLayout({children}) {
   return (
     <div className={styles.root}>
-      <Navbar />
-      <div>{children}</div>
+      <Navbar>{children}</Navbar>
     </div>
   );
 }

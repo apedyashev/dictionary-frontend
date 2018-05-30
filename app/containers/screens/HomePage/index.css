@@ -1,4 +1,18 @@
 .container {
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
+}
+
+.videoContainer {
+  height: 200px;
+  border: 1px dotted black;
+  text-align: center;
+  padding-top: 90px;
+  color: #ccc;
+}
+
+.slide {
+  @media only screen and (max-width: 600px) {
+    min-height: 100vh;
+  }
 }

@@ -66,6 +66,13 @@ export class App extends React.PureComponent {
                   exact
                   authed={!!profile.id}
                 />
+                <GuestRoute
+                  path="/register"
+                  layout={GuestLayout}
+                  component={HomePage}
+                  exact
+                  authed={!!profile.id}
+                />
                 <PrivateRoute
                   exact
                   path="/dictionaries"

@@ -1,7 +1,7 @@
 app.bk
 # Don't check auto-generated stuff into git
 coverage
-build
+#build
 node_modules
 stats.json
 

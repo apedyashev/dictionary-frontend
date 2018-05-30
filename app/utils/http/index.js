@@ -6,7 +6,8 @@ import {normalize} from 'normalizr';
 // import config from 'config';
 import {errorHandler} from './errorHandler';
 const config = {
-  apiBaseUrl: 'http://localhost:3001',
+  apiBaseUrl:
+    process.env.NODE_ENV === 'production' ? 'http://dict.apedyashev.com/' : 'http://localhost:3001',
 };
 
 const http = {
