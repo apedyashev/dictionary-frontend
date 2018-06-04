@@ -27,7 +27,7 @@ export default function AuthForms({showLoginForm}) {
     <Paper>
       {showLoginForm ? <SigninForm /> : <SignupForm />}
       <Button.Group fluid className={styles.buttonGroup}>
-        <Button color="facebook" as="a" href={`${config.baseUrl}/auth/facebook`}>
+        <Button color="facebook" as="a" href={`${config.apiBaseUrl}/auth/facebook`}>
           <Icon name="facebook" /> Facebook
         </Button>
         <Button.Or />
