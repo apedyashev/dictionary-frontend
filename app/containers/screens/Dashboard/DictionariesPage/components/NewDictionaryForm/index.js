@@ -130,7 +130,8 @@ class DictionaryForm extends React.Component {
   }
 }
 
-const validate = (values) => {
+const validate = (valuesImmutable) => {
+  const values = valuesImmutable.toJS();
   const errors = {};
   if (values.isLangAbsent) {
     if (!values.title) {
