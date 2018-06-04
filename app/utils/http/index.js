@@ -3,14 +3,15 @@ import qs from 'qs';
 import {normalize} from 'normalizr';
 // import {camelizeKeys} from 'humps';
 // TODO
-// import config from 'config';
+import config from 'config';
 import {errorHandler} from './errorHandler';
-const config = {
-  apiBaseUrl:
-    process.env.NODE_ENV === 'production'
-      ? 'http://dict-api.apedyashev.com'
-      : 'http://localhost:3001',
-};
+
+// const config = {
+//   apiBaseUrl:
+//     process.env.NODE_ENV === 'production'
+//       ? 'http://dict-api.apedyashev.com'
+//       : 'http://localhost:3001',
+// };
 
 const http = {
   buildUrl: (endpoint) =>
