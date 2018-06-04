@@ -39,11 +39,12 @@ class DictionaryForm extends React.Component {
 
   submitForm = (values) => {
     let dictionaryData = {...values.toJS()};
+    const translateDirection = values.get('translateDirection');
     if (this.state.isLangAbsent) {
       dictionaryData = {title: values.get('title')};
-    } else if (!this.state.isLangAbsent && values.translateDirection) {
+    } else if (!this.state.isLangAbsent && translateDirection) {
       const {translationDirectionOptions} = this.props;
-      dictionaryData.title = translationDirectionOptions.get(values.get('translateDirection')).text;
+      dictionaryData.title = translationDirectionOptions.get(translateDirection).text;
     }
     return new Promise((resolve, reject) => {
       this.props.createDictionary(dictionaryData, {resolve, reject});
