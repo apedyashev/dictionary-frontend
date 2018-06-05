@@ -3,6 +3,7 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 // import format from 'date-fns/format';
 import formatRelative from 'date-fns/formatRelative';
+// TODO: de locale wasn't ready in in alpha-9
 import {enUS, ru, de} from 'date-fns/esm/locale';
 
 const localesMap = {en: enUS, ru, de};
