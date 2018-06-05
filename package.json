@@ -146,7 +146,8 @@
       "no-class-assign": "off",
       "no-lonely-if": "off",
       "react/no-unescaped-entities": "off",
-      "import/first": "off"
+      "import/first": "off",
+      "no-return-assign": "off"
     },
     "settings": {
       "import/resolver": {
