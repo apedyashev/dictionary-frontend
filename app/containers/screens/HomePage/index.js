@@ -11,7 +11,7 @@ import injectReducer from 'utils/injectReducer';
 import {makeSelectIsLoginRoute, makeSelectLocation} from 'containers/App/selectors';
 // components
 import {Link} from 'react-router-dom';
-import {Grid, Ref, Responsive} from 'semantic-ui-react';
+import {Grid, Responsive} from 'semantic-ui-react';
 import AuthForms from './components/AuthForms';
 import reducer from './reducer';
 // import saga from './saga';
@@ -27,8 +27,18 @@ export class HomePage extends React.PureComponent {
   state = {
     currentSlide: ['/register', '/login'].includes(this.props.location.pathname) ? 'auth' : 'video',
   };
-  authRef = React.createRef();
   isMobile = false;
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.location.pathname !== state.lastPathname) {
+      return {
+        currentSlide: ['/register', '/login'].includes(props.location.pathname) ? 'auth' : 'video',
+        lastPathname: props.location.pathname,
+      };
+    }
+
+    return null;
+  }
 
   componentDidMount() {
     window.addEventListener('wheel', this.handleScroll);
@@ -80,11 +90,6 @@ export class HomePage extends React.PureComponent {
     this.yDown = null;
   };
 
-  handleAuthRef = (node) => {
-    this.authContainerNode = node;
-    // this.forceUpdate();
-  };
-
   render() {
     const {currentSlide} = this.state;
     const {showLoginForm} = this.props;
@@ -123,18 +128,16 @@ export class HomePage extends React.PureComponent {
               <Link to="/register">Register</Link>
             </Responsive>
           </Grid.Column>
-          <Ref innerRef={this.handleAuthRef}>
-            <Grid.Column
-              className={cn(styles.slide, styles.auth, {
-                [styles.active]: currentSlide === 'auth',
-              })}
-              floated="right"
-              computer={5}
-              mobile={16}
-            >
-              <AuthForms showLoginForm={showLoginForm} />
-            </Grid.Column>
-          </Ref>
+          <Grid.Column
+            className={cn(styles.slide, styles.auth, {
+              [styles.active]: currentSlide === 'auth',
+            })}
+            floated="right"
+            computer={5}
+            mobile={16}
+          >
+            <AuthForms showLoginForm={showLoginForm} />
+          </Grid.Column>
         </Grid>
       </div>
     );
