@@ -15,10 +15,19 @@ const NavbarMobile = ({children, leftItems, onPusherClick, onToggle, rightItems,
       inverted
       items={[
         {
+          key: 'home',
+          content: 'home',
+          as: NavLink,
+          exact: true,
+          to: '/',
+          onClick: onPusherClick,
+        },
+        {
           key: 'login',
           content: 'login',
           as: NavLink,
           to: '/login',
+          exact: true,
           onClick: onPusherClick,
         },
         {
@@ -26,6 +35,7 @@ const NavbarMobile = ({children, leftItems, onPusherClick, onToggle, rightItems,
           content: 'register',
           as: NavLink,
           to: '/register',
+          exact: true,
           onClick: onPusherClick,
         },
       ]}

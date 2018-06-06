@@ -35,3 +35,7 @@ $slide-mode-height: calc(100vh - 40px);
     }
   }
 }
+
+.centered {
+  text-align: center;
+}

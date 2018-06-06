@@ -15,7 +15,7 @@ import styles from './index.css';
 
 export default function AuthForms({showLoginForm}) {
   const alterActionBtn = showLoginForm ? (
-    <Button as={Link} to="/" positive>
+    <Button as={Link} to="/register" positive>
       <FormattedMessage {...messages.signupBtnLabel} />
     </Button>
   ) : (

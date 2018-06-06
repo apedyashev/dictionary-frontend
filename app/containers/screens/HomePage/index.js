@@ -6,12 +6,13 @@ import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {createStructuredSelector} from 'reselect';
 import cn from 'classnames';
-//
+import {push} from 'react-router-redux';
 import injectReducer from 'utils/injectReducer';
 import {makeSelectIsLoginRoute, makeSelectLocation} from 'containers/App/selectors';
 // components
 import {Link} from 'react-router-dom';
 import {Grid, Responsive} from 'semantic-ui-react';
+import {Button} from 'components/ui';
 import AuthForms from './components/AuthForms';
 import reducer from './reducer';
 // import saga from './saga';
@@ -23,6 +24,7 @@ export class HomePage extends React.PureComponent {
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired,
     }).isRequired,
+    push: PropTypes.func.isRequired,
   };
   state = {
     currentSlide: ['/register', '/login'].includes(this.props.location.pathname) ? 'auth' : 'video',
@@ -60,7 +62,8 @@ export class HomePage extends React.PureComponent {
         currentSlide = 'auth';
       }
 
-      this.setState({currentSlide});
+      // this.setState({currentSlide});
+      this.changeSlide(currentSlide);
     }
   };
 
@@ -85,9 +88,19 @@ export class HomePage extends React.PureComponent {
       } else {
         currentSlide = 'video';
       }
-      this.setState({currentSlide});
+      this.changeSlide(currentSlide);
+      // this.setState({currentSlide});
     }
     this.yDown = null;
+  };
+
+  changeSlide = (currentSlide) => {
+    this.setState({currentSlide});
+    if (currentSlide === 'auth') {
+      this.props.push('/register');
+    } else if (currentSlide === 'video') {
+      this.props.push('/');
+    }
   };
 
   render() {
@@ -114,7 +127,7 @@ export class HomePage extends React.PureComponent {
             mobile={16}
           >
             <p>
-              <h3>Change the way you learn words!</h3>
+              <h3 className={styles.centered}>Change the way you learn words!</h3>
               Learn them in the most efficient way with spaced repetition technique!
             </p>
             <div className={styles.videoContainer}>video</div>
@@ -125,7 +138,11 @@ export class HomePage extends React.PureComponent {
               psychological spacing effect.
             </p>
             <Responsive {...Responsive.onlyMobile}>
-              <Link to="/register">Register</Link>
+              <div className={styles.centered}>
+                <Button as={Link} to="/register">
+                  Join Now
+                </Button>
+              </div>
             </Responsive>
           </Grid.Column>
           <Grid.Column
@@ -149,7 +166,7 @@ const mapStateToProps = createStructuredSelector({
   location: makeSelectLocation(),
 });
 
-const withConnect = connect(mapStateToProps, null);
+const withConnect = connect(mapStateToProps, {push});
 const withReducer = injectReducer({key: 'home', reducer});
 
 export default compose(
