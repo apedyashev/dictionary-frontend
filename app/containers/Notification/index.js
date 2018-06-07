@@ -10,7 +10,7 @@ import {makeSelectNotification} from './selectors';
 // components
 import {Snackbar} from 'components/ui';
 // other
-import injectReducer from 'utils/injectReducer';
+// import injectReducer from 'utils/injectReducer';
 
 class Notification extends React.PureComponent {
   static propTypes = {};
@@ -31,9 +31,8 @@ class Notification extends React.PureComponent {
   }
 }
 
-const mapStateToProps = () =>
-  createStructuredSelector({
-    notification: makeSelectNotification(),
-  });
+const mapStateToProps = createStructuredSelector({
+  notification: makeSelectNotification(),
+});
 
 export default connect(mapStateToProps, {resetNotification})(Notification);

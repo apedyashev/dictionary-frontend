@@ -25,6 +25,7 @@ import Notification from 'containers/Notification';
 import {loadProfileActions, setToken} from './actions';
 import reducer from './reducer';
 import learnWordsReducer from 'containers/screens/Dashboard/LearnWordsPage/reducer';
+import sidebarReducer from 'containers/SidebarOpenerIcon/reducer';
 import saga from './saga';
 import {makeSelectProfileLoaded, makeSelectProfileData, makeSelectLoggingOut} from './selectors';
 
@@ -147,6 +148,13 @@ const mapStateToProps = createStructuredSelector({
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 const withReducer = injectReducer({key: 'app', reducer});
 const withLearnWordsReducer = injectReducer({key: 'learnWords', reducer: learnWordsReducer});
+const withSidebarReducer = injectReducer({key: 'sidebar', reducer: sidebarReducer});
 const withSaga = injectSaga({key: 'app', saga, mode: RESTART_ON_REMOUNT});
 
-export default compose(withReducer, withLearnWordsReducer, withSaga, withConnect)(App);
+export default compose(
+  withReducer,
+  withLearnWordsReducer,
+  withSidebarReducer,
+  withSaga,
+  withConnect
+)(App);

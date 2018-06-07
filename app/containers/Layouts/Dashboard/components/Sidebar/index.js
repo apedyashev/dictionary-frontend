@@ -11,7 +11,7 @@ import {UserMenuButton, Sidebar} from 'components/ui';
 import styles from './index.css';
 
 // eslint-disable-next-line no-shadow
-function DashboardSidebar({logout, resetAuth, push, setLoggingOut}) {
+function DashboardSidebar({visible, logout, resetAuth, push, setLoggingOut, onHide}) {
   const items = [
     {
       key: 'my-dictionaries',
@@ -46,7 +46,7 @@ function DashboardSidebar({logout, resetAuth, push, setLoggingOut}) {
       });
   }
 
-  return <Sidebar items={items} />;
+  return <Sidebar items={items} visible={visible} onHide={onHide} />;
 }
 DashboardSidebar.propTypes = {
   logout: PropTypes.func.isRequired,

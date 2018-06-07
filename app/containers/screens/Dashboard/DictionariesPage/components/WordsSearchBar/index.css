@@ -1,6 +1,19 @@
+@media only screen and (max-width: 600px) {
+  .root {
+    input {
+      width: 133px !important;
+    }
+  }
+  .root:global(.input.icon) > i {
+    left: 100px !important;
+  }
+}
+@media only screen and (min-width: 600px) {
+  .root:global(.input.icon) > i {
+    left: 142px !important;
+  }
+}
+
 .root:global(.input.icon) > input {
   padding-left: 12px !important;
-}
-.root:global(.input.icon) > i {
-  left: 142px !important;
 }

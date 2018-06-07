@@ -27,7 +27,7 @@ export default function UserMenuButton({className, onLogout}) {
 
   return (
     <div className={cn(styles.root, className)}>
-      <Dropdown trigger={<Icon name="user" />} options={options} upward />
+      <Dropdown trigger={<Icon name="user" hoverable />} options={options} upward />
     </div>
   );
 }

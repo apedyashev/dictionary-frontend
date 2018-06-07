@@ -8,12 +8,7 @@ import PageLoader from '../PageLoader';
 export default function Dimmable({dimmed, withLoader, loaderMessage, children}) {
   return (
     <Dimmer.Dimmable dimmed={dimmed}>
-      {withLoader && (
-        <Dimmer active={dimmed}>
-          <PageLoader message={loaderMessage} />
-        </Dimmer>
-      )}
-
+      <Dimmer active={dimmed}>{withLoader && <PageLoader message={loaderMessage} />}</Dimmer>
       {children}
     </Dimmer.Dimmable>
   );

@@ -1,3 +1,4 @@
 .root:global(.ui.sidebar) {
   overflow-y: visible !important;
+  z-index: 1001;
 }
