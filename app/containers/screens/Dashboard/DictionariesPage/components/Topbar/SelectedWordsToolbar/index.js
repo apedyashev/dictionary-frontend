@@ -18,7 +18,7 @@ export default function SelectedWordsToolbar({
   return (
     <React.Fragment>
       <div className={styles.wordsCount}>{selectedWordsCount}</div>
-      <div>
+      <div className={styles.buttonContainer}>
         <WordSetSelector
           allowAddNew
           value={wordSetId}
@@ -28,10 +28,10 @@ export default function SelectedWordsToolbar({
           onChange={onWordSetChange}
         />
       </div>
-      <div>
+      <div style={{display: 'none'}} className={styles.buttonContainer}>
         <Popup position="bottom left" trigger={<Button icon="target" />} content="TBD" />
       </div>
-      <div>
+      <div className={styles.buttonContainer}>
         <ConfirmableButton
           icon="trash"
           position="bottom left"

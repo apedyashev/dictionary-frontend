@@ -217,7 +217,7 @@ class WordsSearchBar extends React.PureComponent {
     };
 
     return (
-      <div ref={this.wrapperRef}>
+      <div ref={this.wrapperRef} className={styles.root}>
         <Dropdown
           open={showOptions}
           icon={false}
@@ -225,7 +225,7 @@ class WordsSearchBar extends React.PureComponent {
             <Input
               icon={<Icon name="close" link onClick={this.resetDropdown} />}
               iconPosition="left"
-              className={styles.root}
+              className={styles.inputRoot}
               action={actionProps}
               placeholder={placeholder}
               value={inputValue}

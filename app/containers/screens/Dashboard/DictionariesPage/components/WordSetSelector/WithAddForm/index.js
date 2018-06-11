@@ -4,13 +4,14 @@ import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 import Immutable from 'immutable';
+import {isBrowser, isMobile} from 'react-device-detect';
 // actions
 import {createWordset} from '../../DictionariesList/actions';
 // selectors
 import {makeSelectDictionaryWordSets} from '../../DictionariesList/selectors';
 // components
 import {Dropdown as DropdownSUI, Button, Popup} from 'semantic-ui-react';
-import {Dropdown} from 'components/ui';
+import {Dropdown, Icon} from 'components/ui';
 import AddWordsetForm from '../../AddOwnTranslation';
 // other
 import styles from './index.css';
@@ -46,6 +47,11 @@ class WordSetSelectorWithAddForm extends React.PureComponent {
     this.setState({showDropdown: !this.state.showDropdown});
   };
 
+  handleMenuClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
   render() {
     const {value, wordSets} = this.props;
     const options = wordSets
@@ -56,30 +62,29 @@ class WordSetSelectorWithAddForm extends React.PureComponent {
         onClick: () => this.handleWordsetSelect(wordSet.get('id')),
       }))
       .toJS();
+    const triggerButton = (
+      <Button className={styles.triggerButton} icon="list" onClick={this.toggleDropdownOpen} />
+    );
+
     return (
       <Dropdown
         open={this.state.showDropdown}
         value={value}
         trigger={
           <span>
-            <Popup
-              position="right center"
-              trigger={
-                <Button
-                  className={styles.triggerButton}
-                  icon="list"
-                  onClick={this.toggleDropdownOpen}
-                />
-              }
-              content="Add to a wordset"
-            />
+            {isBrowser ? (
+              <Popup position="bottom left" trigger={triggerButton} content="Add to a wordset" />
+            ) : (
+              triggerButton
+            )}
           </span>
         }
         simple={false}
         item={false}
         className={styles.withIconTrigger}
+        onClick={this.toggleDropdownOpen}
       >
-        <DropdownSUI.Menu>
+        <DropdownSUI.Menu onClick={this.handleMenuClick}>
           <DropdownSUI.Menu scrolling>
             {options.map((option) => <DropdownSUI.Item {...option} />)}
           </DropdownSUI.Menu>

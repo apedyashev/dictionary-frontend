@@ -11,6 +11,7 @@ import SelectedWordsToolbar from './SelectedWordsToolbar';
 import WordsSearchBar from '../WordsSearchBar';
 import WordSetSelector from '../WordSetSelector';
 import TopbarButton from '../TopbarButton';
+import TopbarMobileDropdown from '../TopbarMobileDropdown';
 // other
 import messages from './messages';
 import styles from './index.css';
@@ -46,13 +47,13 @@ export default function DashboardTopbar({
                 <SidebarOpenerIcon />
               </TopbarButton>
             </Responsive>
-            <Responsive {...Responsive.onlyComputer}>
+            <Responsive minWidth={568}>
               <TopbarButton active={showDictionaries} onClick={onShowDictsToggle}>
                 <Icon name="book" />
-                Dictionaries
+                <Responsive minWidth={768}>Dictionaries</Responsive>
               </TopbarButton>
             </Responsive>
-            <Responsive {...Responsive.onlyComputer}>
+            <Responsive minWidth={568}>
               <TopbarButton className={styles.stipPadding}>
                 <WordSetSelector
                   dictionaryId={selectedDictionaryId}
@@ -76,9 +77,15 @@ export default function DashboardTopbar({
       </Menu.Menu>
 
       <Menu.Menu position="right">
-        <Responsive {...Responsive.onlyMobile}>
+        <Responsive maxWidth={320}>
           <TopbarButton>
-            <Icon name="ellipsis horizontal" />
+            <TopbarMobileDropdown
+              showDictionaries={showDictionaries}
+              onShowDictsToggle={onShowDictsToggle}
+              selectedWordSetId={selectedWordSetId}
+              onWordSetChange={onWordSetChange}
+              selectedDictionaryId={selectedDictionaryId}
+            />
           </TopbarButton>
         </Responsive>
         <Responsive {...Responsive.onlyComputer}>

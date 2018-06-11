@@ -1,0 +1,5 @@
+.root {
+  :global .ui.dropdown:not(.item) > .dropdown.icon {
+    display: none;
+  }
+}

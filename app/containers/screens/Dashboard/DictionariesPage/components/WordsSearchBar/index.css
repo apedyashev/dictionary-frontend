@@ -1,19 +1,26 @@
-@media only screen and (max-width: 600px) {
-  .root {
+/* mobile portrait */
+@media only screen and (max-width: 320px) {
+  .inputRoot {
     input {
       width: 133px !important;
     }
   }
-  .root:global(.input.icon) > i {
+  .inputRoot:global(.input.icon) > i {
     left: 100px !important;
   }
 }
-@media only screen and (min-width: 600px) {
-  .root:global(.input.icon) > i {
+@media only screen and (min-width: 321px) {
+  .inputRoot:global(.input.icon) > i {
     left: 142px !important;
   }
 }
 
-.root:global(.input.icon) > input {
+.inputRoot:global(.input.icon) > input {
   padding-left: 12px !important;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (orientation: landscape) {
+  .root {
+    margin: 0 auto;
+  }
 }

@@ -4,10 +4,7 @@ import {PropTypes} from 'prop-types';
 import cn from 'classnames';
 // components
 import {NavLink} from 'react-router-dom';
-import {Dropdown} from 'semantic-ui-react';
-import Icon from '../Icon';
-// other
-import styles from './index.css';
+import DropdownIcon from '../DropdownIcon';
 
 export default function UserMenuButton({className, onLogout}) {
   // TODO: must be passed as props from top-level component
@@ -21,15 +18,11 @@ export default function UserMenuButton({className, onLogout}) {
       ),
       disabled: true,
     },
-    {key: 'settings', text: 'Settings', as: NavLink, to: '/settings'},
+    {key: 'settings', text: 'Settings', as: NavLink, exact: true, to: '/settings'},
     {key: 'logout', text: 'Logout', onClick: onLogout},
   ];
 
-  return (
-    <div className={cn(styles.root, className)}>
-      <Dropdown trigger={<Icon name="user" hoverable />} options={options} upward />
-    </div>
-  );
+  return <DropdownIcon options={options} iconName="user" hoverable upward className={className} />;
 }
 UserMenuButton.propTypes = {
   className: PropTypes.string,

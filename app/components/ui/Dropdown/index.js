@@ -14,10 +14,12 @@ export default function Dropdown({
   options,
   simple,
   item,
+  icon,
   trigger,
   className,
   children,
   onChange,
+  onClick,
 }) {
   const handleChange = (e, {value: newValue}) => {
     onChange(newValue);
@@ -33,7 +35,9 @@ export default function Dropdown({
         options={options}
         simple={simple}
         item={item}
+        icon={icon}
         onChange={handleChange}
+        onClick={onClick}
       >
         {children}
       </DropdownSUI>
@@ -45,6 +49,7 @@ Dropdown.propTypes = {
   open: PropTypes.bool,
   scrolling: PropTypes.bool,
   item: PropTypes.bool,
+  icon: PropTypes.any,
   simple: PropTypes.bool,
   className: PropTypes.string,
   trigger: PropTypes.any,
@@ -56,6 +61,7 @@ Dropdown.propTypes = {
     })
   ),
   onChange: PropTypes.func,
+  onClick: PropTypes.func,
   children: PropTypes.any,
 };
 Dropdown.defaultProps = {
