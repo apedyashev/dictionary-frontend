@@ -80,31 +80,32 @@ export default function DashboardTopbar({
         <Responsive maxWidth={320}>
           <TopbarButton>
             <TopbarMobileDropdown
+              selectedWordsCount={selectedWordsCount}
               showDictionaries={showDictionaries}
               onShowDictsToggle={onShowDictsToggle}
               selectedWordSetId={selectedWordSetId}
               onWordSetChange={onWordSetChange}
               selectedDictionaryId={selectedDictionaryId}
+              onLearnClick={onLearnClick}
+              messages={messages}
             />
           </TopbarButton>
         </Responsive>
-        <Responsive {...Responsive.onlyComputer}>
-          <Menu.Item>
-            <Button
-              content={
-                selectedWordsCount ? (
-                  <FormattedMessage
-                    {...messages.learnSelectedBtnLabel}
-                    values={{selectedWordsCount}}
-                  />
-                ) : (
-                  <FormattedMessage {...messages.learnBtnLabel} />
-                )
-              }
-              onClick={onLearnClick}
-            />
-          </Menu.Item>
-        </Responsive>
+        <Menu.Item as={Responsive} minWidth={568}>
+          <Button
+            content={
+              selectedWordsCount ? (
+                <FormattedMessage
+                  {...messages.learnSelectedBtnLabel}
+                  values={{selectedWordsCount}}
+                />
+              ) : (
+                <FormattedMessage {...messages.learnBtnLabel} />
+              )
+            }
+            onClick={onLearnClick}
+          />
+        </Menu.Item>
       </Menu.Menu>
     </Menu>
   );

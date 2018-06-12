@@ -1,6 +1,7 @@
 // libs
 import React from 'react';
 import {PropTypes} from 'prop-types';
+import {FormattedMessage} from 'react-intl';
 // components
 import {Dropdown, Menu} from 'semantic-ui-react';
 import {DropdownIcon} from 'components/ui';
@@ -12,10 +13,22 @@ export default function TopbarMobileDropdown({
   showDictionaries,
   selectedDictionaryId,
   selectedWordSetId,
+  selectedWordsCount,
+  messages,
   onShowDictsToggle,
   onWordSetChange,
+  onLearnClick,
 }) {
   const options = [
+    {
+      key: 'learn-words',
+      text: selectedWordsCount ? (
+        <FormattedMessage {...messages.learnSelectedBtnLabel} values={{selectedWordsCount}} />
+      ) : (
+        <FormattedMessage {...messages.learnBtnLabel} />
+      ),
+      onClick: onLearnClick,
+    },
     {
       key: 'dictionaries',
       text: 'Dictionaries',
@@ -23,7 +36,8 @@ export default function TopbarMobileDropdown({
       onClick: onShowDictsToggle,
     },
     <WordSetSelector
-      selectedDictionaryId={selectedDictionaryId}
+      key="wordsets"
+      dictionaryId={selectedDictionaryId}
       value={selectedWordSetId}
       onChange={onWordSetChange}
     />,

@@ -88,7 +88,9 @@ class WordSetSelectorWithAddForm extends React.PureComponent {
           <DropdownSUI.Menu scrolling>
             {options.map((option) => <DropdownSUI.Item {...option} />)}
           </DropdownSUI.Menu>
-          <DropdownSUI.Header content={<AddWordsetForm onAddClick={this.handleAddClick} />} />
+          <DropdownSUI.Header
+            content={<AddWordsetForm placeholder="New wordset" onAddClick={this.handleAddClick} />}
+          />
         </DropdownSUI.Menu>
       </Dropdown>
     );

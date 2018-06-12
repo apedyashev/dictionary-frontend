@@ -34,7 +34,7 @@ export class DictionariesPage extends React.PureComponent {
   state = {
     isDictionarySelected: !!this.props.match.params.slug,
     showDictionariesList: !this.props.match.params.slug,
-    selectedWordSetId: 0,
+    selectedWordSetId: '0',
     searchString: '',
     selectedWordIds: [],
   };
@@ -46,7 +46,7 @@ export class DictionariesPage extends React.PureComponent {
         showDictionariesList: !slug,
         isDictionarySelected: !!slug,
         // reset selected wordsset when dictionary is changed
-        selectedWordSetId: 0,
+        selectedWordSetId: '0',
         prevSlug: slug,
         // reset selected words list
         selectedWordIds: [],

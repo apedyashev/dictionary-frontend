@@ -1,8 +1,12 @@
 .wordsCount {
+  display: block !important;
   width: 70px;
   text-align: center;
-  line-height: 54px;
+  line-height: 54px !important;
+  padding: 0 !important;
 }
-.buttonContainer {
-  margin-top: 9px;
+.buttonsContainer {
+  flex-grow: 1 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }

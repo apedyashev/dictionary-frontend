@@ -27,9 +27,9 @@ class WordsSearchBar extends React.PureComponent {
     buttonLabel: PropTypes.string.isRequired,
     isTranslationLoading: PropTypes.bool,
     wordToBeEdited: PropTypes.instanceOf(Immutable.Map),
-    translations: PropTypes.instanceOf(Immutable.List),
-    dictionaryId: PropTypes.string.isRequired,
-    translateDirection: PropTypes.string.isRequired,
+    translations: PropTypes.instanceOf(Immutable.Map),
+    dictionaryId: PropTypes.string,
+    translateDirection: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     //
     updateWord: PropTypes.func.isRequired,
@@ -237,7 +237,12 @@ class WordsSearchBar extends React.PureComponent {
           <Dropdown.Menu>
             <Dropdown.Menu scrolling>{this.buildDropdownOptions()}</Dropdown.Menu>
             <Dropdown.Header
-              content={<AddOwnTranslation onAddClick={this.handleOwnTranslationAdd} />}
+              content={
+                <AddOwnTranslation
+                  placeholder="Your translation"
+                  onAddClick={this.handleOwnTranslationAdd}
+                />
+              }
             />
           </Dropdown.Menu>
         </Dropdown>

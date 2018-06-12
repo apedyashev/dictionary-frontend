@@ -3,7 +3,7 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
 import {ConfirmableButton} from 'components/ui';
-import {Button, Popup} from 'semantic-ui-react';
+import {Button, Menu, Popup} from 'semantic-ui-react';
 import WordSetSelector from '../../WordSetSelector/WithAddForm';
 // other
 import styles from './index.css';
@@ -17,8 +17,8 @@ export default function SelectedWordsToolbar({
 }) {
   return (
     <React.Fragment>
-      <div className={styles.wordsCount}>{selectedWordsCount}</div>
-      <div className={styles.buttonContainer}>
+      <Menu.Item className={styles.wordsCount}>{selectedWordsCount}</Menu.Item>
+      <Menu.Item className={styles.buttonsContainer}>
         <WordSetSelector
           allowAddNew
           value={wordSetId}
@@ -27,19 +27,20 @@ export default function SelectedWordsToolbar({
           item={false}
           onChange={onWordSetChange}
         />
-      </div>
-      <div style={{display: 'none'}} className={styles.buttonContainer}>
-        <Popup position="bottom left" trigger={<Button icon="target" />} content="TBD" />
-      </div>
-      <div className={styles.buttonContainer}>
-        <ConfirmableButton
-          icon="trash"
-          position="bottom left"
-          hoverContent="Delete words"
-          clickContent="Are you sure?"
-          onConfirm={onWordsDeleteClick}
-        />
-      </div>
+
+        <div style={{display: 'none'}} className={styles.buttonContainer}>
+          <Popup position="bottom left" trigger={<Button icon="target" />} content="TBD" />
+        </div>
+        <div className={styles.buttonContainer}>
+          <ConfirmableButton
+            icon="trash"
+            position="bottom left"
+            hoverContent="Delete words"
+            clickContent="Are you sure?"
+            onConfirm={onWordsDeleteClick}
+          />
+        </div>
+      </Menu.Item>
     </React.Fragment>
   );
 }

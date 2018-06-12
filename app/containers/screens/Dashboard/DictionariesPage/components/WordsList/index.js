@@ -69,7 +69,7 @@ class WordsList extends React.Component {
 
   loadNextPage = ({page, perPage}) => {
     const {dictionaryId, wordSetId, searchString: search} = this.props;
-    if (wordSetId) {
+    if (wordSetId && wordSetId !== '0') {
       this.props.loadWords({dictionaryId, wordSetId}, {page, perPage, search});
     } else {
       this.props.loadWords({dictionaryId}, {page, perPage, search});

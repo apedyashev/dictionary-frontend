@@ -18,7 +18,7 @@ function WordSetSelector({value, onChange, wordSets}) {
     }))
     .toJS();
   // push 'all words' to the beginning
-  options.unshift({key: 0, text: 'All words', value: 0});
+  options.unshift({key: 0, text: 'All words', value: '0'});
 
   return <Dropdown scrolling value={value} options={options} onChange={onChange} />;
 }

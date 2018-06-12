@@ -36,7 +36,7 @@ class AddOwnTranslation extends React.PureComponent {
     return (
       <Input
         value={inputValue}
-        placeholder="You translation"
+        placeholder={this.props.placeholder}
         action={actionProps}
         onChange={this.handleChange}
         onKeyDown={this.handleInputKeyPress}
