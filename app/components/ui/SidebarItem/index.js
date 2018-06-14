@@ -7,7 +7,7 @@ import {Menu, Icon} from 'semantic-ui-react';
 
 export default function SidebarItem({title, linkTo, iconName, className}) {
   return (
-    <Menu.Item name={title} as={NavLink} to={linkTo} className={className}>
+    <Menu.Item name={title} as={NavLink} to={linkTo} className={className} selected={false}>
       <Icon name={iconName} />
       {title}
     </Menu.Item>

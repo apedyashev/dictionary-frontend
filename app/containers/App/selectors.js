@@ -9,8 +9,10 @@ const selectRoute = (state) => state.get('route');
 const makeSelectLoading = () =>
   createSelector(selectGlobal, (globalState) => globalState.get('loading'));
 
-const makeSelectLocation = () =>
+export const makeSelectLocation = () =>
   createSelector(selectRoute, (routeState) => routeState.get('location').toJS());
+export const makeSelectLocationPath = () =>
+  createSelector(selectRoute, (routeState) => routeState.getIn(['location', 'pathname']));
 
 const makeSelectIsLoginRoute = () =>
   createSelector(
@@ -44,10 +46,4 @@ const makeSelectEntities = () =>
 //   return createSelector(selectGlobal, (globalState) => globalState.getIn(path));
 // };
 
-export {
-  selectGlobal,
-  makeSelectLoading,
-  makeSelectLocation,
-  makeSelectIsLoginRoute,
-  makeSelectEntities,
-};
+export {selectGlobal, makeSelectLoading, makeSelectIsLoginRoute, makeSelectEntities};

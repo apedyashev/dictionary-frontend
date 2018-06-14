@@ -3,8 +3,11 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
+import {createStructuredSelector} from 'reselect';
 // actions
 import {logout, resetAuth, setLoggingOut} from 'containers/App/actions';
+// selectors
+import {makeSelectLocationPath} from 'containers/App/selectors';
 // components
 import {UserMenuButton, Sidebar} from 'components/ui';
 // other
@@ -55,7 +58,11 @@ DashboardSidebar.propTypes = {
   setLoggingOut: PropTypes.func.isRequired,
 };
 
-export default connect(null, {
+const mapStateToProps = createStructuredSelector({
+  // locationPath isn't used but required to update NavLinks state in the sidebar
+  locationPath: makeSelectLocationPath(),
+});
+export default connect(mapStateToProps, {
   setLoggingOut,
   resetAuth,
   logout,

@@ -105,7 +105,6 @@ export class DictionariesPage extends React.PureComponent {
   };
 
   render() {
-    const {dictionaryId, translateDirection} = this.props;
     const {
       showDictionariesList,
       isDictionarySelected,
@@ -113,7 +112,7 @@ export class DictionariesPage extends React.PureComponent {
       searchString,
       selectedWordIds,
     } = this.state;
-
+    const {dictionaryId, translateDirection} = this.props;
     return (
       <div>
         <Helmet>
