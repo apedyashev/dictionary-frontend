@@ -3,9 +3,7 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 import {FormattedMessage} from 'react-intl';
 // components
-import {Dropdown, Menu} from 'semantic-ui-react';
 import {DropdownIcon} from 'components/ui';
-import {Icon} from 'components/ui';
 import WordSetSelector from '../WordSetSelector';
 
 export default function TopbarMobileDropdown({
@@ -49,4 +47,14 @@ export default function TopbarMobileDropdown({
     </div>
   );
 }
-TopbarMobileDropdown.propTypes = {};
+TopbarMobileDropdown.propTypes = {
+  className: PropTypes.string,
+  showDictionaries: PropTypes.bool.isRequired,
+  selectedDictionaryId: PropTypes.string,
+  selectedWordSetId: PropTypes.string,
+  selectedWordsCount: PropTypes.number,
+  messages: PropTypes.object.isRequired,
+  onShowDictsToggle: PropTypes.func.isRequired,
+  onWordSetChange: PropTypes.func.isRequired,
+  onLearnClick: PropTypes.func.isRequired,
+};

@@ -22,5 +22,6 @@ export default function Topbar({children, title, as, ...rest}) {
 Topbar.propTypes = {
   children: PropTypes.any,
   as: PropTypes.any,
+  title: PropTypes.string,
 };
 Topbar.defaultProps = {as: 'div'};

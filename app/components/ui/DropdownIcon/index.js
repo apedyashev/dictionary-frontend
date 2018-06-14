@@ -8,7 +8,7 @@ import Icon from '../Icon';
 // other
 import styles from './index.css';
 
-export default function DropdownIcon({options, value, iconName, hoverable, upward, className}) {
+export default function DropdownIcon({options, iconName, hoverable, upward, className}) {
   return (
     <div className={cn(styles.root, className)}>
       <Dropdown

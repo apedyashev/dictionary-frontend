@@ -7,7 +7,9 @@ import cn from 'classnames';
 import styles from './index.css';
 
 class Snackbar extends React.PureComponent {
-  static propTypes = {};
+  static propTypes = {
+    onHide: PropTypes.func,
+  };
   state = {message: null};
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -24,7 +26,9 @@ class Snackbar extends React.PureComponent {
   componentDidUpdate(prevProps, prevState) {
     if (!prevState.message && !!this.state.message) {
       setTimeout(() => {
-        this.props.onHide();
+        if (this.props.onHide) {
+          this.props.onHide();
+        }
         this.setState({message: null});
       }, 3000);
     }

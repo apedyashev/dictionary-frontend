@@ -6,6 +6,7 @@ import {Input} from 'semantic-ui-react';
 
 class AddOwnTranslation extends React.PureComponent {
   static propTypes = {
+    placeholder: PropTypes.string,
     onAddClick: PropTypes.func.isRequired,
   };
   state = {inputValue: ''};

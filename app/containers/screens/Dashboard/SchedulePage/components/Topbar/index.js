@@ -1,6 +1,5 @@
 // libs
 import React from 'react';
-import {PropTypes} from 'prop-types';
 // components
 import {Responsive} from 'semantic-ui-react';
 import {Topbar, TopbarButton} from 'components/ui';

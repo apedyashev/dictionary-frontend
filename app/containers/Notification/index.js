@@ -3,6 +3,7 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
+import Immutable from 'immutable';
 // actions
 import {resetNotification} from './actions';
 // selectors
@@ -13,7 +14,10 @@ import {Snackbar} from 'components/ui';
 // import injectReducer from 'utils/injectReducer';
 
 class Notification extends React.PureComponent {
-  static propTypes = {};
+  static propTypes = {
+    notification: PropTypes.instanceOf(Immutable.Map).isRequired,
+    resetNotification: PropTypes.func.isRequired,
+  };
 
   handleSnackbarHide = () => {
     this.props.resetNotification();

@@ -31,4 +31,6 @@ export default function Sidebar({items, visible, onHide}) {
 }
 Sidebar.propTypes = {
   items: PropTypes.array.isRequired,
+  visible: PropTypes.bool,
+  onHide: PropTypes.func,
 };

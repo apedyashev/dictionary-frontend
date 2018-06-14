@@ -13,4 +13,5 @@ export default function Icon({name, hoverable, onClick}) {
 Icon.propTypes = {
   name: PropTypes.string.isRequired,
   hoverable: PropTypes.bool.isRequired,
+  onClick: PropTypes.func,
 };

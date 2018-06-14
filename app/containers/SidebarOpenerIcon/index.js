@@ -3,7 +3,6 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
-import {createStructuredSelector} from 'reselect';
 // actions
 import {showSidebar} from './actions';
 // components
@@ -12,10 +11,13 @@ import {Icon} from 'components/ui';
 import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
 
+// eslint-disable-next-line no-shadow
 function SidebarOpenerIcon({showSidebar}) {
   return <Icon name="sidebar" hoverable={false} onClick={showSidebar} />;
 }
-SidebarOpenerIcon.propTypes = {};
+SidebarOpenerIcon.propTypes = {
+  showSidebar: PropTypes.func.isRequired,
+};
 
 const withConnect = connect(null, {showSidebar});
 const withReducer = injectReducer({key: 'sidebar', reducer});

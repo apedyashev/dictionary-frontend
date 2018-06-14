@@ -55,6 +55,8 @@ Dropdown.propTypes = {
   item: PropTypes.bool,
   icon: PropTypes.any,
   simple: PropTypes.bool,
+  closeOnChange: PropTypes.bool,
+  closeOnBlur: PropTypes.bool,
   className: PropTypes.string,
   trigger: PropTypes.any,
   options: PropTypes.arrayOf(

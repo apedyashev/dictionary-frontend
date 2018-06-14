@@ -32,6 +32,11 @@ export default function TopbarButton({
 TopbarButton.propTypes = {
   className: PropTypes.string,
   as: PropTypes.any,
+  omitSeparator: PropTypes.bool,
+  onClick: PropTypes.func,
+  position: PropTypes.string,
+  active: PropTypes.bool,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
 };
 TopbarButton.defaultProps = {
   as: 'div',

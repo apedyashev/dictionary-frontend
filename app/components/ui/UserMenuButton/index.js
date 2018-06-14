@@ -1,7 +1,6 @@
 // libs
 import React from 'react';
 import {PropTypes} from 'prop-types';
-import cn from 'classnames';
 // components
 import {NavLink} from 'react-router-dom';
 import DropdownIcon from '../DropdownIcon';

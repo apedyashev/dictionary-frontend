@@ -10,7 +10,6 @@ import {TopbarButton} from 'components/ui';
 import SelectedWordsToolbar from './SelectedWordsToolbar';
 import WordsSearchBar from '../WordsSearchBar';
 import WordSetSelector from '../WordSetSelector';
-// import TopbarButton from '../TopbarButton';
 import TopbarMobileDropdown from '../TopbarMobileDropdown';
 // other
 import messages from './messages';

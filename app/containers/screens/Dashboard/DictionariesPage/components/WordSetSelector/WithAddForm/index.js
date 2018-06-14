@@ -5,14 +5,14 @@ import {connect} from 'react-redux';
 import cn from 'classnames';
 import {createStructuredSelector} from 'reselect';
 import Immutable from 'immutable';
-import {isBrowser, isMobile} from 'react-device-detect';
+import {isBrowser} from 'react-device-detect';
 // actions
 import {createWordset} from '../../DictionariesList/actions';
 // selectors
 import {makeSelectDictionaryWordSets} from '../../DictionariesList/selectors';
 // components
 import {Dropdown as DropdownSUI, Button, Popup} from 'semantic-ui-react';
-import {Dropdown, Icon} from 'components/ui';
+import {Dropdown} from 'components/ui';
 import AddWordsetForm from '../../AddOwnTranslation';
 // other
 import styles from './index.css';

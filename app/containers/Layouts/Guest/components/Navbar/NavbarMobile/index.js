@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {NavLink} from 'react-router-dom';
-import {Icon, Image, Menu, Sidebar} from 'semantic-ui-react';
+import {Icon, Menu, Sidebar} from 'semantic-ui-react';
 
 // import logo from 'resources/logo.png'
 import * as styles from './index.css';
 
-const NavbarMobile = ({children, leftItems, onPusherClick, onToggle, rightItems, visible}) => (
+const NavbarMobile = ({children, onPusherClick, onToggle, visible}) => (
   <Sidebar.Pushable>
     <Sidebar
       as={Menu}
@@ -55,10 +55,8 @@ const NavbarMobile = ({children, leftItems, onPusherClick, onToggle, rightItems,
 
 NavbarMobile.propTypes = {
   children: PropTypes.node,
-  leftItems: PropTypes.arrayOf(PropTypes.object),
   onPusherClick: PropTypes.func.isRequired,
   onToggle: PropTypes.func.isRequired,
-  rightItems: PropTypes.arrayOf(PropTypes.object),
   visible: PropTypes.bool.isRequired,
 };
 

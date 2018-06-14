@@ -13,6 +13,7 @@ import {Sidebar} from './components';
 // other
 import styles from './index.css';
 
+// eslint-disable-next-line no-shadow
 function DashboardLayout({children, isSidebarVisible, hideSidebar}) {
   return (
     <div className={styles.root}>
@@ -30,6 +31,8 @@ function DashboardLayout({children, isSidebarVisible, hideSidebar}) {
 }
 DashboardLayout.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  isSidebarVisible: PropTypes.bool.isRequired,
+  hideSidebar: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
