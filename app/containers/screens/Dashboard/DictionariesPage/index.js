@@ -141,7 +141,7 @@ export class DictionariesPage extends React.PureComponent {
               visible={showDictionariesList}
               vertical
             >
-              <Dictionaries />
+              <Dictionaries key={showDictionariesList} />
             </Sidebar>
             <Sidebar.Pusher className={styles.pusher}>
               <div

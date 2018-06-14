@@ -2,12 +2,18 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import {Menu, Label, Popup} from 'semantic-ui-react';
 
 export default function DictionariesListItem({item}) {
   return (
-    <Menu.Item as={Link} to={`/dictionaries/${item.slug}`} name={item.title}>
+    <Menu.Item
+      as={NavLink}
+      to={`/dictionaries/${item.slug}`}
+      name={item.title}
+      selected={false}
+      exact
+    >
       <Popup
         trigger={<Label>{item.stats.get('wordsCount')}</Label>}
         content={`${item.stats.get('wordsCount')} words`}

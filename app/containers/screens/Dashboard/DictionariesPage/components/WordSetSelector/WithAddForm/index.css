@@ -1,3 +1,8 @@
+.root {
+  input {
+    width: 128px !important;
+  }
+}
 .withIconTrigger {
   :global .dropdown.icon {
     float: right;

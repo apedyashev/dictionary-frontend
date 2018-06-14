@@ -10,6 +10,8 @@ import styles from './index.css';
 export default function Dropdown({
   value,
   open,
+  closeOnBlur,
+  closeOnChange,
   scrolling,
   options,
   simple,
@@ -28,6 +30,8 @@ export default function Dropdown({
     <div className={cn(styles.dropdownWrappingBtn, className)}>
       <DropdownSUI
         open={open}
+        closeOnBlur={closeOnBlur}
+        closeOnChange={closeOnChange}
         scrolling={scrolling}
         className={styles.dropdown}
         trigger={trigger}

@@ -1,4 +1,7 @@
 .root {
+  border-top: 0 !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
   border-radius: 0 !important;
   /* position: fixed !important; */
   top: 0;

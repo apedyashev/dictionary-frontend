@@ -7,9 +7,9 @@ import {Menu} from 'semantic-ui-react';
 // other
 import styles from './index.css';
 
-export default function TopbarButton({children, className, position, onClick}) {
+export default function TopbarButton({children, active, className, position, onClick}) {
   return (
-    <Menu.Item className={cn(styles.root, className)} onClick={onClick}>
+    <Menu.Item active={active} className={cn(styles.root, className)} onClick={onClick}>
       {children}
     </Menu.Item>
   );

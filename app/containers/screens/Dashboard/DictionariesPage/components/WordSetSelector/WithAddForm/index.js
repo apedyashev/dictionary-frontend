@@ -2,6 +2,7 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
+import cn from 'classnames';
 import {createStructuredSelector} from 'reselect';
 import Immutable from 'immutable';
 import {isBrowser, isMobile} from 'react-device-detect';
@@ -27,7 +28,6 @@ class WordSetSelectorWithAddForm extends React.PureComponent {
   static defaultProps = {
     value: 0,
   };
-  state = {showDropdown: false};
 
   handleAddClick = (title) => {
     const {dictionaryId} = this.props;
@@ -39,12 +39,7 @@ class WordSetSelectorWithAddForm extends React.PureComponent {
   };
 
   handleWordsetSelect = (wordSetId) => {
-    this.setState({showDropdown: false});
     this.props.onChange(wordSetId);
-  };
-
-  toggleDropdownOpen = () => {
-    this.setState({showDropdown: !this.state.showDropdown});
   };
 
   handleMenuClick = (e) => {
@@ -62,13 +57,12 @@ class WordSetSelectorWithAddForm extends React.PureComponent {
         onClick: () => this.handleWordsetSelect(wordSet.get('id')),
       }))
       .toJS();
-    const triggerButton = (
-      <Button className={styles.triggerButton} icon="list" onClick={this.toggleDropdownOpen} />
-    );
+    const triggerButton = <Button className={styles.triggerButton} icon="list" />;
 
     return (
       <Dropdown
-        open={this.state.showDropdown}
+        closeOnChange
+        closeOnBlur
         value={value}
         trigger={
           <span>
@@ -81,14 +75,14 @@ class WordSetSelectorWithAddForm extends React.PureComponent {
         }
         simple={false}
         item={false}
-        className={styles.withIconTrigger}
-        onClick={this.toggleDropdownOpen}
+        className={cn(styles.root, styles.withIconTrigger)}
       >
-        <DropdownSUI.Menu onClick={this.handleMenuClick}>
+        <DropdownSUI.Menu>
           <DropdownSUI.Menu scrolling>
             {options.map((option) => <DropdownSUI.Item {...option} />)}
           </DropdownSUI.Menu>
           <DropdownSUI.Header
+            onClick={this.handleMenuClick}
             content={<AddWordsetForm placeholder="New wordset" onAddClick={this.handleAddClick} />}
           />
         </DropdownSUI.Menu>
