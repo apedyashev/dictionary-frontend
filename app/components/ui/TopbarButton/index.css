@@ -1,0 +1,8 @@
+.root {
+  height: 54px;
+}
+.noSeparator {
+  &::before {
+    width: 0 !important;
+  }
+}
