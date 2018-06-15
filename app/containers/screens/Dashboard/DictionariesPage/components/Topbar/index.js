@@ -52,25 +52,27 @@ export default function DashboardTopbar({
                 <Responsive minWidth={768}>Dictionaries</Responsive>
               </TopbarButton>
             </Responsive>
-            <Responsive minWidth={568}>
-              <TopbarButton className={styles.stipPadding}>
-                <WordSetSelector
-                  dictionaryId={selectedDictionaryId}
-                  value={selectedWordSetId}
-                  onChange={onWordSetChange}
-                />
-              </TopbarButton>
-            </Responsive>
-
-            <TopbarButton className={cn(styles.stipTopBottomPadding, styles.searchBarMenu)}>
-              <WordsSearchBar
-                buttonLabel="Add"
-                placeholder="Type to search"
-                dictionaryId={selectedDictionaryId}
-                translateDirection={translateDirection}
-                onChange={onSearchChange}
-              />
-            </TopbarButton>
+            {selectedDictionaryId && (
+              <React.Fragment>
+                <TopbarButton as={Responsive} minWidth={568} className={styles.stipPadding}>
+                  <WordSetSelector
+                    topbarButton
+                    dictionaryId={selectedDictionaryId}
+                    value={selectedWordSetId}
+                    onChange={onWordSetChange}
+                  />
+                </TopbarButton>
+                <TopbarButton className={cn(styles.stipTopBottomPadding, styles.searchBarMenu)}>
+                  <WordsSearchBar
+                    buttonLabel="Add"
+                    placeholder="Type to search"
+                    dictionaryId={selectedDictionaryId}
+                    translateDirection={translateDirection}
+                    onChange={onSearchChange}
+                  />
+                </TopbarButton>
+              </React.Fragment>
+            )}
           </React.Fragment>
         )}
       </Menu.Menu>
@@ -90,21 +92,23 @@ export default function DashboardTopbar({
             />
           </TopbarButton>
         </Responsive>
-        <Menu.Item as={Responsive} minWidth={568}>
-          <Button
-            content={
-              selectedWordsCount ? (
-                <FormattedMessage
-                  {...messages.learnSelectedBtnLabel}
-                  values={{selectedWordsCount}}
-                />
-              ) : (
-                <FormattedMessage {...messages.learnBtnLabel} />
-              )
-            }
-            onClick={onLearnClick}
-          />
-        </Menu.Item>
+        {selectedDictionaryId && (
+          <Menu.Item as={Responsive} minWidth={568}>
+            <Button
+              content={
+                selectedWordsCount ? (
+                  <FormattedMessage
+                    {...messages.learnSelectedBtnLabel}
+                    values={{selectedWordsCount}}
+                  />
+                ) : (
+                  <FormattedMessage {...messages.learnBtnLabel} />
+                )
+              }
+              onClick={onLearnClick}
+            />
+          </Menu.Item>
+        )}
       </Menu.Menu>
     </Menu>
   );

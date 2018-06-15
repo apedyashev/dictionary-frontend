@@ -4,6 +4,7 @@ import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 import Immutable from 'immutable';
+import cn from 'classnames';
 // selectors
 import {makeSelectDictionaryWordSets} from '../DictionariesList/selectors';
 // components
@@ -11,7 +12,7 @@ import {Dropdown} from 'components/ui';
 // other
 import styles from './index.css';
 
-function WordSetSelector({value, onChange, wordSets}) {
+function WordSetSelector({value, topbarButton, onChange, wordSets}) {
   const options = wordSets
     .map((wordSet) => ({
       key: wordSet.get('id'),
@@ -27,13 +28,14 @@ function WordSetSelector({value, onChange, wordSets}) {
       scrolling
       value={value}
       options={options}
-      className={styles.topbarButton}
+      className={cn({[styles.topbarButton]: topbarButton})}
       onChange={onChange}
     />
   );
 }
 WordSetSelector.propTypes = {
   value: PropTypes.any,
+  topbarButton: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   wordSets: PropTypes.instanceOf(Immutable.List).isRequired,
 };

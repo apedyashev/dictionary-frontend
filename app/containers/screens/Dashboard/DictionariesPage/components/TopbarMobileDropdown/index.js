@@ -19,27 +19,31 @@ export default function TopbarMobileDropdown({
 }) {
   const options = [
     {
-      key: 'learn-words',
-      text: selectedWordsCount ? (
-        <FormattedMessage {...messages.learnSelectedBtnLabel} values={{selectedWordsCount}} />
-      ) : (
-        <FormattedMessage {...messages.learnBtnLabel} />
-      ),
-      onClick: onLearnClick,
-    },
-    {
       key: 'dictionaries',
       text: 'Dictionaries',
       active: showDictionaries,
       onClick: onShowDictsToggle,
     },
-    <WordSetSelector
-      key="wordsets"
-      dictionaryId={selectedDictionaryId}
-      value={selectedWordSetId}
-      onChange={onWordSetChange}
-    />,
   ];
+  if (selectedDictionaryId) {
+    options.push(
+      {
+        key: 'learn-words',
+        text: selectedWordsCount ? (
+          <FormattedMessage {...messages.learnSelectedBtnLabel} values={{selectedWordsCount}} />
+        ) : (
+          <FormattedMessage {...messages.learnBtnLabel} />
+        ),
+        onClick: onLearnClick,
+      },
+      <WordSetSelector
+        key="wordsets"
+        dictionaryId={selectedDictionaryId}
+        value={selectedWordSetId}
+        onChange={onWordSetChange}
+      />
+    );
+  }
 
   return (
     <div className={className}>
