@@ -8,6 +8,8 @@ import Immutable from 'immutable';
 import {makeSelectDictionaryWordSets} from '../DictionariesList/selectors';
 // components
 import {Dropdown} from 'components/ui';
+// other
+import styles from './index.css';
 
 function WordSetSelector({value, onChange, wordSets}) {
   const options = wordSets
@@ -20,7 +22,15 @@ function WordSetSelector({value, onChange, wordSets}) {
   // push 'all words' to the beginning
   options.unshift({key: 0, text: 'All words', value: '0'});
 
-  return <Dropdown scrolling value={value} options={options} onChange={onChange} />;
+  return (
+    <Dropdown
+      scrolling
+      value={value}
+      options={options}
+      className={styles.topbarButton}
+      onChange={onChange}
+    />
+  );
 }
 WordSetSelector.propTypes = {
   value: PropTypes.any,

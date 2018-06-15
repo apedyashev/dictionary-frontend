@@ -27,25 +27,23 @@ export default function Dropdown({
     onChange(newValue);
   };
   return (
-    <div className={cn(styles.dropdownWrappingBtn, className)}>
-      <DropdownSUI
-        open={open}
-        closeOnBlur={closeOnBlur}
-        closeOnChange={closeOnChange}
-        scrolling={scrolling}
-        className={styles.dropdown}
-        trigger={trigger}
-        value={value}
-        options={options}
-        simple={simple}
-        item={item}
-        icon={icon}
-        onChange={handleChange}
-        onClick={onClick}
-      >
-        {children}
-      </DropdownSUI>
-    </div>
+    <DropdownSUI
+      open={open}
+      closeOnBlur={closeOnBlur}
+      closeOnChange={closeOnChange}
+      scrolling={scrolling}
+      className={cn(styles.dropdown, className)}
+      trigger={trigger}
+      value={value}
+      options={options}
+      simple={simple}
+      item={item}
+      icon={icon}
+      onChange={handleChange}
+      onClick={onClick}
+    >
+      {children}
+    </DropdownSUI>
   );
 }
 Dropdown.propTypes = {
