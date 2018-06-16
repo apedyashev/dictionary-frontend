@@ -101,7 +101,6 @@ class WordsList extends React.Component {
 
   render() {
     const {dictionaryId, wordSetId, searchString, words, hasNextPage, scrollElement} = this.props;
-    console.log('words', words);
     return (
       <div style={{minHeight: 1}}>
         {dictionaryId && (
@@ -109,7 +108,7 @@ class WordsList extends React.Component {
             key={[dictionaryId, wordSetId, searchString].join('-')}
             scrollElement={scrollElement}
             hasNextPage={hasNextPage}
-            perPage={50}
+            perPage={10}
             items={words}
             rowRenderer={this.rowRenderer}
             noRowsRenderer={this.noRowsRenderer}

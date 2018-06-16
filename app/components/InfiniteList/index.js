@@ -4,7 +4,9 @@ import {PropTypes} from 'prop-types';
 import Immutable from 'immutable';
 // components
 import {WindowScroller, AutoSizer, InfiniteLoader, List} from 'react-virtualized';
-import {/* ListLoader, */ EmptyListPrompt} from '../ui';
+import {ListLoader, EmptyListPrompt} from '../ui';
+// other
+import styles from './index.css';
 
 class InfiniteList extends React.PureComponent {
   static propTypes = {
@@ -59,8 +61,8 @@ class InfiniteList extends React.PureComponent {
     const {items, rowRenderer} = this.props;
     const item = items.get(index);
     if (!this.isRowLoaded({index})) {
-      return <div style={style}>Loading....</div>;
-      // return <ListLoader style={{...style /* position: 'fixed', width: '100%' */}} key={key} />;
+      // return <div style={style}>Loading....</div>;
+      return <ListLoader style={{...style /* position: 'fixed', width: '100%' */}} key={key} />;
     }
     return rowRenderer({
       item,
@@ -74,7 +76,6 @@ class InfiniteList extends React.PureComponent {
   render() {
     const {items, hasNextPage, resetProps, scrollElement} = this.props;
     const rowCount = hasNextPage ? items.size + 1 : items.size;
-    console.log('rowCount', rowCount);
     return (
       <WindowScroller scrollElement={scrollElement}>
         {({height, isScrolling, scrollTop}) => (
@@ -90,6 +91,7 @@ class InfiniteList extends React.PureComponent {
                   <List
                     autoHeight
                     ref={registerChild}
+                    className={styles.root}
                     isScrolling={isScrolling}
                     scrollTop={scrollTop}
                     width={width}
