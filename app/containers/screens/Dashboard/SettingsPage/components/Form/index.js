@@ -10,11 +10,12 @@ import {updateProfile} from 'containers/App/actions';
 import {makeSelectProfileData} from 'containers/App/selectors';
 // components
 import {Form, Field, SubmissionError, reduxForm, initialize} from 'redux-form/immutable';
-import {Input, Paper, ReduxFormFields} from 'components/ui';
-import {Button, Grid} from 'semantic-ui-react';
+import {Button, Input, Paper, ReduxFormFields} from 'components/ui';
+import {Grid} from 'semantic-ui-react';
 import CountrySelectorField from 'containers/CountrySelectorField';
 import TimezoneSelectorField from 'containers/TimezoneSelectorField';
 // other
+import styles from './index.css';
 import messages from './messages';
 const formId = 'settingsForm';
 
@@ -31,6 +32,16 @@ class SettingsForm extends React.PureComponent {
     intl: intlShape.isRequired,
   };
   state = {countryId: null};
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.initialValues.country !== state.countryId) {
+      return {
+        countryId: props.initialValues.country,
+      };
+    }
+
+    return null;
+  }
 
   componentDidMount() {
     // for weird some reason enableReinitialize doesn't trigger @@redux-form/INITIALIZE
@@ -65,7 +76,7 @@ class SettingsForm extends React.PureComponent {
       <Form onSubmit={handleSubmit(this.submitForm)}>
         <Grid columns={2}>
           <Grid.Row>
-            <Grid.Column>
+            <Grid.Column computer={8} mobile={16}>
               <Paper>
                 <Field
                   name="firstName"
@@ -96,14 +107,14 @@ class SettingsForm extends React.PureComponent {
                 />
               </Paper>
             </Grid.Column>
-            <Grid.Column>
-              <Paper>
+            <Grid.Column className={styles.column} computer={8} mobile={16}>
+              <Paper className={styles.shrinkHeigh}>
                 <Field
                   name="exerciseTime"
                   component={ReduxFormFields.TimeSelector}
                   label={formatMessage(messages.exerciseTimeLabel)}
                 />
-                <br />
+                {/* <br />
                 <br />
                 Reminders
                 <br />
@@ -111,15 +122,17 @@ class SettingsForm extends React.PureComponent {
                 <br />
                 - push (mobile app)
                 <br />
-                - browser
+                - browser */}
               </Paper>
             </Grid.Column>
           </Grid.Row>
         </Grid>
 
-        <Button type="submit" fluid loading={submitting} disabled={submitting}>
-          <FormattedMessage {...messages.saveButtonLabel} />
-        </Button>
+        <div className={styles.actionsBar}>
+          <Button type="submit" loading={submitting} disabled={submitting}>
+            <FormattedMessage {...messages.saveButtonLabel} />
+          </Button>
+        </div>
       </Form>
     );
   }

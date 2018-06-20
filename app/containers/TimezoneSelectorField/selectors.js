@@ -5,9 +5,9 @@ export const makeSelectTimezonesByCountryId = () =>
   createSelector(
     [makeSelectEntities(), (state, ownProps) => ownProps.countryId],
     (entities, countryId) => {
-      return countryId
-        ? entities
-            .getIn(['countries', 'items', countryId, 'timezones'])
+      const timezones = entities.getIn(['countries', 'items', countryId, 'timezones']);
+      return countryId && timezones
+        ? timezones
             .map((timezone) => {
               return {
                 key: timezone.get('id'),

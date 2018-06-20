@@ -1,0 +1,14 @@
+.column {
+  display: flex !important;
+  margin-bottom: 2px;
+}
+.shrinkHeigh {
+  display: flex !important;
+  flex-grow: 1 !important;
+  flex-direction: column !important;
+}
+
+.actionsBar {
+  margin: 10px;
+  text-align: right;
+}

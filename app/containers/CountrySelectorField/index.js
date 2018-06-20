@@ -24,11 +24,12 @@ class CountrySelectorField extends React.PureComponent {
   };
 
   componentDidMount() {
-    this.props.loadCountries({orderBy: 'name:asc'});
+    // 300 is enough to load all the countries
+    this.props.loadCountries({perPage: 300, orderBy: 'name:asc'});
   }
 
   handleCountrySearchChange = (search) => {
-    this.props.loadCountries({search, orderBy: 'name:asc'});
+    this.props.loadCountries({perPage: 300, search, orderBy: 'name:asc'});
   };
 
   render() {
