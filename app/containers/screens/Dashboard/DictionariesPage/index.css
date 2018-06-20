@@ -12,6 +12,9 @@
 
   :global .pusher {
     transform: translate3d(0, 0, 0) !important;
+    /* flex is requred to make height of children 100% of parent */
+    display: flex !important;
+    flex-grow: 1 !important;
   }
 }
 .dictionariesSidebar {

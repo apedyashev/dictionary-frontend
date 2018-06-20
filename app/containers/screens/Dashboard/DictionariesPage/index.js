@@ -143,26 +143,30 @@ export class DictionariesPage extends React.PureComponent {
               <Dictionaries key={showDictionariesList} />
             </Sidebar>
             <Sidebar.Pusher className={styles.pusher}>
+              {/*
               <div
+                style={{display: 'flex', flexGrow: '1'}}
                 ref={(node) => {
                   // new createRef API (v16.3) only works when pages is reloaded but for some reason
                   // when route is changed it's `current` value is null
                   this.contentRootRef = node;
                 }}
               >
-                {isDictionarySelected ? (
-                  <WordsList
-                    scrollElement={this.contentRootRef}
-                    dictionaryId={dictionaryId}
-                    wordSetId={selectedWordSetId}
-                    searchString={searchString}
-                    onWordCheck={this.handleWordCheck}
-                    selectedWordIds={selectedWordIds}
-                  />
-                ) : (
-                  <Prompt title="please select a dictionary" />
-                )}
-              </div>
+              */}
+
+              {isDictionarySelected ? (
+                <WordsList
+                  scrollElement={this.contentRootRef}
+                  dictionaryId={dictionaryId}
+                  wordSetId={selectedWordSetId}
+                  searchString={searchString}
+                  onWordCheck={this.handleWordCheck}
+                  selectedWordIds={selectedWordIds}
+                />
+              ) : (
+                <Prompt title="please select a dictionary" />
+              )}
+              {/* </div> */}
             </Sidebar.Pusher>
           </Sidebar.Pushable>
         </div>

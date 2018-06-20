@@ -12,7 +12,7 @@ import {makeSelectWords, makeSelectWordsHasNextPage} from './selectors';
 import InfiniteList from 'components/InfiniteList';
 import {Word, EmptyListPrompt} from 'components/ui';
 
-class WordsList extends React.Component {
+class WordsList extends React.PureComponent {
   static propTypes = {
     scrollElement: PropTypes.node,
     hasNextPage: PropTypes.bool.isRequired,
@@ -102,22 +102,20 @@ class WordsList extends React.Component {
   render() {
     const {dictionaryId, wordSetId, searchString, words, hasNextPage, scrollElement} = this.props;
     return (
-      <div style={{minHeight: 1}}>
-        {dictionaryId && (
-          <InfiniteList
-            key={[dictionaryId, wordSetId, searchString].join('-')}
-            scrollElement={scrollElement}
-            hasNextPage={hasNextPage}
-            perPage={10}
-            items={words}
-            rowRenderer={this.rowRenderer}
-            noRowsRenderer={this.noRowsRenderer}
-            getRowHeight={this.getRowHeight}
-            loadNextPage={this.loadNextPage}
-            resetProps={{dictionaryId, wordSetId, searchString}}
-          />
-        )}
-      </div>
+      dictionaryId && (
+        <InfiniteList
+          key={[dictionaryId, wordSetId, searchString].join('-')}
+          scrollElement={scrollElement}
+          hasNextPage={hasNextPage}
+          perPage={10}
+          items={words}
+          rowRenderer={this.rowRenderer}
+          noRowsRenderer={this.noRowsRenderer}
+          getRowHeight={this.getRowHeight}
+          loadNextPage={this.loadNextPage}
+          resetProps={{dictionaryId, wordSetId, searchString}}
+        />
+      )
     );
   }
 }

@@ -36,7 +36,7 @@ class InfiniteList extends React.PureComponent {
 
   isRowLoaded = ({index}) => {
     const {items} = this.props;
-    console.log('isRowLoaded', !!items.get(index));
+    // console.log('isRowLoaded', !!items.get(index));
     return !!items.get(index);
   };
 
@@ -61,8 +61,8 @@ class InfiniteList extends React.PureComponent {
     const {items, rowRenderer} = this.props;
     const item = items.get(index);
     if (!this.isRowLoaded({index})) {
-      // return <div style={style}>Loading....</div>;
-      return <ListLoader style={{...style /* position: 'fixed', width: '100%' */}} key={key} />;
+      return <div style={style}>Loading....</div>;
+      // return <ListLoader style={{...style /* position: 'fixed', width: '100%' */}} key={key} />;
     }
     return rowRenderer({
       item,
@@ -77,40 +77,36 @@ class InfiniteList extends React.PureComponent {
     const {items, hasNextPage, resetProps, scrollElement} = this.props;
     const rowCount = hasNextPage ? items.size + 1 : items.size;
     return (
-      <WindowScroller scrollElement={scrollElement}>
-        {({height, isScrolling, scrollTop}) => (
-          <InfiniteLoader
-            isRowLoaded={this.isRowLoaded}
-            loadMoreRows={this.loadNextPage}
-            rowCount={rowCount}
-            threshold={10}
-          >
-            {({onRowsRendered, registerChild}) => (
-              <AutoSizer disableHeight>
-                {({width}) => (
-                  <List
-                    autoHeight
-                    ref={registerChild}
-                    className={styles.root}
-                    isScrolling={isScrolling}
-                    scrollTop={scrollTop}
-                    width={width}
-                    height={height}
-                    onRowsRendered={onRowsRendered}
-                    rowCount={rowCount}
-                    rowHeight={this.getRowHeight}
-                    rowRenderer={this.rowRenderer}
-                    noRowsRenderer={this.noRowsRenderer}
-                    // those resetProps are used only to re-render List
-                    // more info: https://github.com/bvaughn/react-virtualized#pass-thru-props
-                    resetProps={{...resetProps, hasNextPage}}
-                  />
-                )}
-              </AutoSizer>
+      <InfiniteLoader
+        isRowLoaded={this.isRowLoaded}
+        loadMoreRows={this.loadNextPage}
+        rowCount={rowCount}
+        threshold={10}
+      >
+        {({onRowsRendered, registerChild}) => (
+          <AutoSizer>
+            {({height, width}) => (
+              <List
+                // autoHeight
+                ref={registerChild}
+                className={styles.root}
+                // isScrolling={isScrolling}
+                // scrollTop={scrollTop}
+                width={width}
+                height={height}
+                onRowsRendered={onRowsRendered}
+                rowCount={rowCount}
+                rowHeight={this.getRowHeight}
+                rowRenderer={this.rowRenderer}
+                noRowsRenderer={this.noRowsRenderer}
+                // those resetProps are used only to re-render List
+                // more info: https://github.com/bvaughn/react-virtualized#pass-thru-props
+                resetProps={{...resetProps, hasNextPage}}
+              />
             )}
-          </InfiniteLoader>
+          </AutoSizer>
         )}
-      </WindowScroller>
+      </InfiniteLoader>
     );
   }
 }
