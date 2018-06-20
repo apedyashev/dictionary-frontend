@@ -6,7 +6,6 @@ import Immutable from 'immutable';
 import {WindowScroller, AutoSizer, InfiniteLoader, List} from 'react-virtualized';
 import {ListLoader, EmptyListPrompt} from '../ui';
 // other
-import styles from './index.css';
 
 class InfiniteList extends React.PureComponent {
   static propTypes = {
@@ -19,10 +18,24 @@ class InfiniteList extends React.PureComponent {
     loadNextPage: PropTypes.func.isRequired,
     scrollElement: PropTypes.any,
     resetProps: PropTypes.object,
+    dataLoadingMessage: PropTypes.string,
+    noRowsMessage: PropTypes.string,
   };
   static defaultProps = {
     perPage: 50,
+    noRowsMessage: 'no rows',
   };
+
+  componentDidUpdate(prevProps) {
+    // loader has bigger height then row so we have to recompute the height of the last
+    // row when more items have been loaded
+    if (prevProps.items.size !== this.props.items.size) {
+      if (this.listRef) {
+        // the last row was using to sho the loader - recompute it
+        this.listRef.recomputeRowHeights(prevProps.items.size - 1);
+      }
+    }
+  }
 
   loadNextPage = () => {
     const {items, loadNextPage, perPage} = this.props;
@@ -42,6 +55,9 @@ class InfiniteList extends React.PureComponent {
 
   getRowHeight = ({index}) => {
     const {items, getRowHeight} = this.props;
+    if (index === items.size) {
+      return 120;
+    }
     const rowData = items.get(index);
     if (getRowHeight) {
       return getRowHeight({index, rowData});
@@ -50,19 +66,19 @@ class InfiniteList extends React.PureComponent {
   };
 
   noRowsRenderer = () => {
-    const {noRowsRenderer} = this.props;
+    const {noRowsRenderer, noRowsMessage} = this.props;
     if (noRowsRenderer) {
       return noRowsRenderer();
     }
-    return <EmptyListPrompt title="no rows" />;
+    return <EmptyListPrompt title={noRowsMessage} />;
   };
 
   rowRenderer = ({index, key, style, parent}) => {
-    const {items, rowRenderer} = this.props;
+    const {items, rowRenderer, dataLoadingMessage} = this.props;
     const item = items.get(index);
     if (!this.isRowLoaded({index})) {
-      return <div style={style}>Loading....</div>;
-      // return <ListLoader style={{...style /* position: 'fixed', width: '100%' */}} key={key} />;
+      // return <div style={style}>Loading....</div>;
+      return <ListLoader key={key} style={{...style}} message={dataLoadingMessage} />;
     }
     return rowRenderer({
       item,
@@ -88,8 +104,10 @@ class InfiniteList extends React.PureComponent {
             {({height, width}) => (
               <List
                 // autoHeight
-                ref={registerChild}
-                className={styles.root}
+                ref={(node) => {
+                  this.listRef = node;
+                  registerChild(node);
+                }}
                 // isScrolling={isScrolling}
                 // scrollTop={scrollTop}
                 width={width}

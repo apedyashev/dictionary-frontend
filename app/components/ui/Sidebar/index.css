@@ -1,4 +1,6 @@
 .root:global(.ui.sidebar) {
+  border-top: 0 !important;
+  border-bottom: 0 !important;
   overflow-y: visible !important;
   z-index: 1001;
 }

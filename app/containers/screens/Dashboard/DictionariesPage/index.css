@@ -1,5 +1,6 @@
+$topbar-height: 55px;
 .pushable {
-  height: calc(100vh - 44px) !important;
+  height: calc(100vh - $topbar-height) !important;
 
   :global .sidebar {
     width: 0 !important;

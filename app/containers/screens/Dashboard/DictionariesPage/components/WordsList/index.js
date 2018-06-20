@@ -81,9 +81,9 @@ class WordsList extends React.PureComponent {
     return 30;
   };
 
-  noRowsRenderer = () => {
-    return <EmptyListPrompt title="You don't have any words" />;
-  };
+  // noRowsRenderer = () => {
+  //   return <EmptyListPrompt title="You don't have any words" />;
+  // };
 
   rowRenderer = ({item, key, style}) => {
     const {selectedWordIds} = this.props;
@@ -110,7 +110,9 @@ class WordsList extends React.PureComponent {
           perPage={10}
           items={words}
           rowRenderer={this.rowRenderer}
-          noRowsRenderer={this.noRowsRenderer}
+          // noRowsRenderer={this.noRowsRenderer}
+          dataLoadingMessage="Loading words"
+          noRowsMessage="You don't have any words in the dictionary"
           getRowHeight={this.getRowHeight}
           loadNextPage={this.loadNextPage}
           resetProps={{dictionaryId, wordSetId, searchString}}
