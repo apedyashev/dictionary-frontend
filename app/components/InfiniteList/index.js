@@ -16,6 +16,7 @@ class InfiniteList extends React.PureComponent {
     noRowsRenderer: PropTypes.func.isRequired,
     getRowHeight: PropTypes.func.isRequired,
     loadNextPage: PropTypes.func.isRequired,
+    resetMeasurerCache: PropTypes.func,
     scrollElement: PropTypes.any,
     resetProps: PropTypes.object,
     dataLoadingMessage: PropTypes.string,
@@ -29,10 +30,14 @@ class InfiniteList extends React.PureComponent {
   componentDidUpdate(prevProps) {
     // loader has bigger height then row so we have to recompute the height of the last
     // row when more items have been loaded
-    if (prevProps.items.size !== this.props.items.size) {
+    const rowsCountChanged = prevProps.items.size !== this.props.items.size;
+    if (rowsCountChanged || (!this.props.hasNextPage && prevProps.hasNextPage)) {
       if (this.listRef) {
         // the last row was using to sho the loader - recompute it
         this.listRef.recomputeRowHeights(prevProps.items.size - 1);
+      }
+      if (this.props.resetMeasurerCache) {
+        this.props.resetMeasurerCache();
       }
     }
   }
@@ -103,13 +108,10 @@ class InfiniteList extends React.PureComponent {
           <AutoSizer>
             {({height, width}) => (
               <List
-                // autoHeight
                 ref={(node) => {
                   this.listRef = node;
                   registerChild(node);
                 }}
-                // isScrolling={isScrolling}
-                // scrollTop={scrollTop}
                 width={width}
                 height={height}
                 onRowsRendered={onRowsRendered}

@@ -10,7 +10,6 @@ import format from 'date-fns/format';
 import styles from './index.css';
 
 export default function ScheduleItem({data, style}) {
-  console.log('data', data);
   return (
     <div className={styles.root} style={style}>
       <DateFormatRelative className={styles.date} date={data.date} time="18:05" />

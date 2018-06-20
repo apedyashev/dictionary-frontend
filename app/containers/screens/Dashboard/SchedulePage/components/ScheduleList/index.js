@@ -29,6 +29,10 @@ class ScheduleList extends React.Component {
     // this.props.resetScheduleInfo();
   }
 
+  resetMeasurerCache = () => {
+    this.cache.clearAll();
+  };
+
   loadNextPage = ({page, perPage}) => {
     this.props.loadSchedule({page, perPage, sortBy: 'date:asc'});
   };
@@ -60,6 +64,7 @@ class ScheduleList extends React.Component {
         noRowsRenderer={this.noRowsRenderer}
         getRowHeight={this.getRowHeight}
         loadNextPage={this.loadNextPage}
+        resetMeasurerCache={this.resetMeasurerCache}
       />
     );
   }
