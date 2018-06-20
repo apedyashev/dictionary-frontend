@@ -51,19 +51,16 @@ class ScheduleList extends React.Component {
 
   render() {
     const {scheduleItems, hasNextPage} = this.props;
-    // console.log('schedule', hasNextPage, scheduleItems.toJS());
     return (
-      <div style={{minHeight: 1}}>
-        <InfiniteList
-          hasNextPage={hasNextPage}
-          perPage={50}
-          items={scheduleItems}
-          rowRenderer={this.rowRenderer}
-          noRowsRenderer={this.noRowsRenderer}
-          getRowHeight={this.getRowHeight}
-          loadNextPage={this.loadNextPage}
-        />
-      </div>
+      <InfiniteList
+        hasNextPage={hasNextPage}
+        perPage={50}
+        items={scheduleItems}
+        rowRenderer={this.rowRenderer}
+        noRowsRenderer={this.noRowsRenderer}
+        getRowHeight={this.getRowHeight}
+        loadNextPage={this.loadNextPage}
+      />
     );
   }
 }

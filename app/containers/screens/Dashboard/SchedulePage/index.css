@@ -1,5 +1,11 @@
+.root,
+.content {
+  display: flex !important;
+  flex-grow: 1 !important;
+}
 .root {
   min-height: 100vh;
+  flex-direction: column !important;
 }
 .content {
   padding: 20px;

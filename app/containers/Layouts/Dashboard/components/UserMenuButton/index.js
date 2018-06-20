@@ -3,16 +3,18 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
 import {NavLink} from 'react-router-dom';
-import DropdownIcon from '../DropdownIcon';
+import {DropdownIcon} from 'components/ui';
 
-export default function UserMenuButton({className, onLogout}) {
-  // TODO: must be passed as props from top-level component
+export default function UserMenuButton({userData, className, onLogout}) {
   const options = [
     {
       key: 'user',
       text: (
         <span>
-          Signed in as <strong>Bob Smith</strong>
+          Signed in as{' '}
+          <strong>
+            {userData.firstName} {userData.lastName}
+          </strong>
         </span>
       ),
       disabled: true,

@@ -6,7 +6,7 @@ import cn from 'classnames';
 import {FormattedMessage} from 'react-intl';
 import {Icon, Menu, Button, Responsive} from 'semantic-ui-react';
 import SidebarOpenerIcon from 'containers/SidebarOpenerIcon';
-import {TopbarButton} from 'components/ui';
+import {TopbarButton, TopbarTitle} from 'components/ui';
 import SelectedWordsToolbar from './SelectedWordsToolbar';
 import WordsSearchBar from '../WordsSearchBar';
 import WordSetSelector from '../WordSetSelector';
@@ -52,7 +52,7 @@ export default function DashboardTopbar({
                 <Responsive minWidth={768}>Dictionaries</Responsive>
               </TopbarButton>
             </Responsive>
-            {selectedDictionaryId && (
+            {selectedDictionaryId ? (
               <React.Fragment>
                 <TopbarButton as={Responsive} minWidth={568} className={styles.stipPadding}>
                   <WordSetSelector
@@ -72,6 +72,8 @@ export default function DashboardTopbar({
                   />
                 </TopbarButton>
               </React.Fragment>
+            ) : (
+              <TopbarTitle title="Select a dictionary" omitSeparator={false} />
             )}
           </React.Fragment>
         )}

@@ -8,14 +8,24 @@ import {createStructuredSelector} from 'reselect';
 import {logout, resetAuth, setLoggingOut} from 'containers/App/actions';
 import {hideSidebar} from 'containers/SidebarOpenerIcon/actions';
 // selectors
-import {makeSelectLocationPath} from 'containers/App/selectors';
+import {makeSelectLocationPath, makeSelectProfileData} from 'containers/App/selectors';
 // components
-import {UserMenuButton, Sidebar} from 'components/ui';
+import {Sidebar} from 'components/ui';
+import UserMenuButton from '../UserMenuButton';
 // other
 import styles from './index.css';
 
 // eslint-disable-next-line no-shadow
-function DashboardSidebar({visible, logout, resetAuth, push, setLoggingOut, hideSidebar, onHide}) {
+function DashboardSidebar({
+  userData,
+  visible,
+  logout,
+  resetAuth,
+  push,
+  setLoggingOut,
+  hideSidebar,
+  onHide,
+}) {
   const items = [
     {
       key: 'my-dictionaries',
@@ -35,7 +45,12 @@ function DashboardSidebar({visible, logout, resetAuth, push, setLoggingOut, hide
         hideSidebar();
       },
     },
-    <UserMenuButton key="user-menu-btn" className={styles.profile} onLogout={onLogout} />,
+    <UserMenuButton
+      key="user-menu-btn"
+      userData={userData}
+      className={styles.profile}
+      onLogout={onLogout}
+    />,
   ];
 
   function onLogout() {
@@ -65,6 +80,7 @@ DashboardSidebar.propTypes = {
 const mapStateToProps = createStructuredSelector({
   // locationPath isn't used but required to update NavLinks state in the sidebar
   locationPath: makeSelectLocationPath(),
+  userData: makeSelectProfileData(),
 });
 export default connect(mapStateToProps, {
   setLoggingOut,

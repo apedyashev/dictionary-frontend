@@ -16,7 +16,7 @@ export {default as DateFormatRelative} from './DateFormatRelative';
 export {default as WhiteBoard} from './WhiteBoard';
 export {default as Button} from './Button';
 export {default as TopbarIconButton} from './TopbarIconButton';
-export {default as UserMenuButton} from './UserMenuButton';
+export {default as TopbarTitle} from './TopbarTitle';
 export {default as H2} from './typography/H2';
 export {default as Dimmable} from './Dimmable';
 export {default as Snackbar} from './Snackbar';
