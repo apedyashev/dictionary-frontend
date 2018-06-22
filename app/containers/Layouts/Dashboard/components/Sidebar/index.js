@@ -50,6 +50,7 @@ function DashboardSidebar({
       userData={userData}
       className={styles.profile}
       onLogout={onLogout}
+      onClick={hideSidebar}
     />,
   ];
 

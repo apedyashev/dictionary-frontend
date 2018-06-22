@@ -74,47 +74,46 @@ class SettingsForm extends React.PureComponent {
 
     return (
       <Form onSubmit={handleSubmit(this.submitForm)}>
-        <Grid columns={2}>
-          <Grid.Row>
-            <Grid.Column computer={8} mobile={16}>
-              <Paper>
-                <Field
-                  name="firstName"
-                  type="text"
-                  component={ReduxFormFields.Input}
-                  label={formatMessage(messages.firstNameLabel)}
-                  hintText={formatMessage(messages.firstNameHint)}
-                />
-                <Field
-                  name="lastName"
-                  type="text"
-                  component={ReduxFormFields.Input}
-                  label={formatMessage(messages.lastNameLabel)}
-                  hintText={formatMessage(messages.lastNameHint)}
-                />
-                <Input disabled value={initialValues.email} />
-                <CountrySelectorField
-                  name="country"
-                  label="Country"
-                  onCountryChange={this.handleCountryChange}
-                />
+        <Grid>
+          <Grid.Column computer={8} mobile={16}>
+            <Paper>
+              <Field
+                name="firstName"
+                type="text"
+                component={ReduxFormFields.Input}
+                label={formatMessage(messages.firstNameLabel)}
+                hintText={formatMessage(messages.firstNameHint)}
+              />
+              <Field
+                name="lastName"
+                type="text"
+                component={ReduxFormFields.Input}
+                label={formatMessage(messages.lastNameLabel)}
+                hintText={formatMessage(messages.lastNameHint)}
+              />
+              <Input disabled value={initialValues.email} />
+              <CountrySelectorField
+                name="country"
+                label="Country"
+                onCountryChange={this.handleCountryChange}
+              />
 
-                <TimezoneSelectorField
-                  key={countryId}
-                  name="timezone"
-                  label="Timezone"
-                  countryId={countryId}
-                />
-              </Paper>
-            </Grid.Column>
-            <Grid.Column className={styles.column} computer={8} mobile={16}>
-              <Paper className={styles.shrinkHeigh}>
-                <Field
-                  name="exerciseTime"
-                  component={ReduxFormFields.TimeSelector}
-                  label={formatMessage(messages.exerciseTimeLabel)}
-                />
-                {/* <br />
+              <TimezoneSelectorField
+                key={countryId}
+                name="timezone"
+                label="Timezone"
+                countryId={countryId}
+              />
+            </Paper>
+          </Grid.Column>
+          <Grid.Column className={styles.column} computer={8} mobile={16}>
+            <Paper className={styles.shrinkHeigh}>
+              <Field
+                name="exerciseTime"
+                component={ReduxFormFields.TimeSelector}
+                label={formatMessage(messages.exerciseTimeLabel)}
+              />
+              {/* <br />
                 <br />
                 Reminders
                 <br />
@@ -123,9 +122,8 @@ class SettingsForm extends React.PureComponent {
                 - push (mobile app)
                 <br />
                 - browser */}
-              </Paper>
-            </Grid.Column>
-          </Grid.Row>
+            </Paper>
+          </Grid.Column>
         </Grid>
 
         <div className={styles.actionsBar}>

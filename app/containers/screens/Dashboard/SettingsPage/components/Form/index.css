@@ -1,6 +1,9 @@
 .column {
   display: flex !important;
   margin-bottom: 2px;
+  @media only screen and (max-width: 640px) {
+    padding-top: 0 !important;
+  }
 }
 .shrinkHeigh {
   display: flex !important;
@@ -9,6 +12,6 @@
 }
 
 .actionsBar {
-  margin: 10px;
+  margin: 10px 10px 0 10px;
   text-align: right;
 }

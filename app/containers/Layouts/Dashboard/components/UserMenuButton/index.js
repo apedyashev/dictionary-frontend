@@ -5,7 +5,7 @@ import {PropTypes} from 'prop-types';
 import {NavLink} from 'react-router-dom';
 import {DropdownIcon} from 'components/ui';
 
-export default function UserMenuButton({userData, className, onLogout}) {
+export default function UserMenuButton({userData, className, onLogout, onClick}) {
   const options = [
     {
       key: 'user',
@@ -19,8 +19,15 @@ export default function UserMenuButton({userData, className, onLogout}) {
       ),
       disabled: true,
     },
-    {key: 'settings', text: 'Settings', as: NavLink, exact: true, to: '/settings'},
-    {key: 'logout', text: 'Logout', onClick: onLogout},
+    {key: 'settings', text: 'Settings', as: NavLink, exact: true, to: '/settings', onClick},
+    {
+      key: 'logout',
+      text: 'Logout',
+      onClick: () => {
+        onLogout();
+        onClick();
+      },
+    },
   ];
 
   return <DropdownIcon options={options} iconName="user" hoverable upward className={className} />;
