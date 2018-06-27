@@ -1,10 +1,13 @@
 .root {
-  /* TODO: config */
-  height: 55px;
-  border-radius: 0 !important;
-  /* position: fixed !important; */
+  position: fixed !important;
   top: 0;
   z-index: 1000;
+  width: 100%;
+}
+.menu {
+  /* TODO: config */
+  height: 55px;
+
   width: 100% !important;
   margin-bottom: 0 !important;
   border-top: 0 !important;

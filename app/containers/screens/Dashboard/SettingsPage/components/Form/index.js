@@ -73,8 +73,8 @@ class SettingsForm extends React.PureComponent {
     } = this.props;
 
     return (
-      <Form onSubmit={handleSubmit(this.submitForm)}>
-        <Grid>
+      <Form onSubmit={handleSubmit(this.submitForm)} className={styles.root}>
+        <Grid className={styles.grid}>
           <Grid.Column computer={8} mobile={16}>
             <Paper>
               <Field
