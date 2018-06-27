@@ -41,9 +41,9 @@ class ScheduleList extends React.Component {
     return this.cache.rowHeight(props);
   };
 
-  noRowsRenderer = () => {
-    return <EmptyListPrompt title="The schedule is empty" />;
-  };
+  // noRowsRenderer = () => {
+  //   return <EmptyListPrompt title="The schedule is empty" />;
+  // };
 
   rowRenderer = ({item, index, parent, key, style}) => {
     return (
@@ -61,7 +61,8 @@ class ScheduleList extends React.Component {
         perPage={50}
         items={scheduleItems}
         rowRenderer={this.rowRenderer}
-        noRowsRenderer={this.noRowsRenderer}
+        // noRowsRenderer={this.noRowsRenderer}
+        noRowsMessage="The schedule is empty"
         getRowHeight={this.getRowHeight}
         loadNextPage={this.loadNextPage}
         resetMeasurerCache={this.resetMeasurerCache}

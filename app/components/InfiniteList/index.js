@@ -32,8 +32,8 @@ class InfiniteList extends React.PureComponent {
     // row when more items have been loaded
     const rowsCountChanged = prevProps.items.size !== this.props.items.size;
     if (rowsCountChanged || (!this.props.hasNextPage && prevProps.hasNextPage)) {
-      if (this.listRef) {
-        // the last row was using to sho the loader - recompute it
+      if (this.listRef && prevProps.items.size) {
+        // the last row was using to show the loader - recompute it
         this.listRef.recomputeRowHeights(prevProps.items.size - 1);
       }
       if (this.props.resetMeasurerCache) {
