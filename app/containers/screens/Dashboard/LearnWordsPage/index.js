@@ -30,7 +30,7 @@ import {
 } from './selectors';
 // components
 import {Link} from 'react-router-dom';
-import {WhiteBoard, PageLoader, Prompt} from 'components/ui';
+import {WhiteBoard, PageLoader, Prompt, AppContainer} from 'components/ui';
 import {ChooseOptionCard, TrainWritingCard, TrainingsFinishedCard, Topbar} from './components';
 import NotFound from 'containers/screens/NotFoundPage';
 // other
@@ -41,6 +41,8 @@ import {
   TRAINING_WRITING,
   TRAINING_TRANSLATION_WORD,
 } from './constants';
+// other
+import styles from './index.css';
 
 // all those training names must have correcspongin fields in the learnedStatus
 // object in backend Word model
@@ -220,7 +222,7 @@ export class LearnWordsPage extends React.PureComponent {
           title="No words to be learned"
           subtitle={
             <div>
-              You don't have any words for selected date. You can{' '}
+              You dont have any words for selected date. You can{' '}
               <Link to={`/dictionaries/${params.slug}`}>add more words</Link> or{' '}
               <Link to="/schedule">view schedule</Link>
             </div>
@@ -235,32 +237,33 @@ export class LearnWordsPage extends React.PureComponent {
           <title>Learn words</title>
         </Helmet>
 
-        <Topbar dictionarySlug={params.slug} />
-        <WhiteBoard>
-          {[TRAINING_WORD_TRANSLATION, TRAINING_TRANSLATION_WORD].includes(trainingName) && (
-            <ChooseOptionCard
-              key={curWordIndex}
-              directTranslation={trainingName === TRAINING_WORD_TRANSLATION}
-              word={learnedWords.get(curWordIndex)}
-              onNextClick={this.handleNextClick}
-            />
-          )}
-          {trainingName === TRAINING_WRITING && (
-            <TrainWritingCard
-              key={curWordIndex}
-              word={learnedWords.get(curWordIndex)}
-              onNext={this.handleNextClick}
-            />
-          )}
-          {trainingName === 'done' && (
-            <TrainingsFinishedCard
-              wordsLearned={wordsLearned}
-              totalWords={learnedWords.size}
-              slug={params.slug}
-              onReinitilizeClick={this.reinintilizeTrainings}
-            />
-          )}
-        </WhiteBoard>
+        <AppContainer topbar={<Topbar dictionarySlug={params.slug} />}>
+          <WhiteBoard className={styles.whiteBoard}>
+            {[TRAINING_WORD_TRANSLATION, TRAINING_TRANSLATION_WORD].includes(trainingName) && (
+              <ChooseOptionCard
+                key={curWordIndex}
+                directTranslation={trainingName === TRAINING_WORD_TRANSLATION}
+                word={learnedWords.get(curWordIndex)}
+                onNextClick={this.handleNextClick}
+              />
+            )}
+            {trainingName === TRAINING_WRITING && (
+              <TrainWritingCard
+                key={curWordIndex}
+                word={learnedWords.get(curWordIndex)}
+                onNext={this.handleNextClick}
+              />
+            )}
+            {trainingName === 'done' && (
+              <TrainingsFinishedCard
+                wordsLearned={wordsLearned}
+                totalWords={learnedWords.size}
+                slug={params.slug}
+                onReinitilizeClick={this.reinintilizeTrainings}
+              />
+            )}
+          </WhiteBoard>
+        </AppContainer>
       </div>
     );
   }

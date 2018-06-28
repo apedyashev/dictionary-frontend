@@ -65,42 +65,40 @@ class ChooseOptionCard extends React.PureComponent {
     const {word, randomWords, directTranslation} = this.props;
     const options = randomWords.insert(this.state.correctAnswerIndex, word).toJS();
     return (
-      <Grid columns={2}>
-        <Grid.Row>
-          <Grid.Column>
-            {directTranslation ? word.get('word') : <FormatWordDefinitions word={word.toJS()} />}
-            <Image
-              size="small"
-              src="https://react.semantic-ui.com/assets/images/wireframe/image.png"
-            />
-          </Grid.Column>
-          <Grid.Column>
-            {options.map((option, index) => {
-              const isActive = selectedOptionIndex === index;
-              const isActiveSelected = selectedOptionIndex >= 0;
-              // console.log('selectedOptionIndex', selectedOptionIndex);
-              return (
-                <Button
-                  fluid
-                  key={option.id}
-                  active={isActive}
-                  disabled={isActiveSelected}
-                  className={cn(styles.option, {
-                    [styles.correct]:
-                      // if correct answer is clicked
-                      (isActive && selectedOptionIndex === correctAnswerIndex) ||
-                      // if wrong answer is clicked we still want to show which one is correct
-                      (isActiveSelected && correctAnswerIndex === index),
-                    [styles.wrong]: isActive && selectedOptionIndex !== correctAnswerIndex,
-                  })}
-                  content={
-                    directTranslation ? <FormatWordDefinitions word={option} /> : option.word
-                  }
-                  onClick={() => this.handleAnswerSelected(index)}
-                />
-              );
-            })}
+      <Grid className={styles.root}>
+        <Grid.Column computer={8} mobile={16}>
+          {directTranslation ? word.get('word') : <FormatWordDefinitions word={word.toJS()} />}
+          <Image
+            size="small"
+            src="https://react.semantic-ui.com/assets/images/wireframe/image.png"
+          />
+        </Grid.Column>
+        <Grid.Column computer={8} mobile={16}>
+          {options.map((option, index) => {
+            const isActive = selectedOptionIndex === index;
+            const isActiveSelected = selectedOptionIndex >= 0;
+            // console.log('selectedOptionIndex', selectedOptionIndex);
+            return (
+              <Button
+                fluid
+                key={option.id}
+                active={isActive}
+                disabled={isActiveSelected}
+                className={cn(styles.option, {
+                  [styles.correct]:
+                    // if correct answer is clicked
+                    (isActive && selectedOptionIndex === correctAnswerIndex) ||
+                    // if wrong answer is clicked we still want to show which one is correct
+                    (isActiveSelected && correctAnswerIndex === index),
+                  [styles.wrong]: isActive && selectedOptionIndex !== correctAnswerIndex,
+                })}
+                content={directTranslation ? <FormatWordDefinitions word={option} /> : option.word}
+                onClick={() => this.handleAnswerSelected(index)}
+              />
+            );
+          })}
 
+          <div className={styles.checkAnswerButtonsContainer}>
             <Button
               fluid
               disabled={selectedOptionIndex < 0}
@@ -108,8 +106,9 @@ class ChooseOptionCard extends React.PureComponent {
               content="next"
               onClick={this.handleNextClick}
             />
-          </Grid.Column>
-        </Grid.Row>
+            <Button fluid className={styles.skipButton} content="I don't know" />
+          </div>
+        </Grid.Column>
       </Grid>
     );
   }

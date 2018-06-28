@@ -1,5 +1,14 @@
+@media only screen and (max-width: 640px) {
+  .root {
+    margin-right: 0 !important;
+    :global .column {
+      padding-right: 0 !important;
+    }
+  }
+}
+
 .option {
-  margin: 5px !important;
+  margin: 5px 0 !important;
   &.correct {
     background-color: green !important;
   }
@@ -8,6 +17,11 @@
   }
 }
 
-.nextButton {
-  margin: 25px 5px 5px 5px !important;
+.nextButton,
+.skipButton {
+  margin: 5px 5px 5px 0 !important;
+}
+
+.checkAnswerButtonsContainer {
+  margin-top: 25px;
 }
