@@ -23,6 +23,11 @@ export const makeSelectWordsHasNextPage = () =>
     return curPage < totalPages;
   });
 
+export const makeSelectWordLoadingStatus = () =>
+  createSelector(makeSelectEntities(), (entities) => {
+    return entities.getIn(['words', 'pending']);
+  });
+
 export const makeSelectWordToBeEdited = () =>
   createSelector(makeSelectEntities(), (entities) => {
     const wordIds = entities.getIn(['words', 'displayOrder']).toJS();

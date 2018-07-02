@@ -7,11 +7,15 @@ import {createStructuredSelector} from 'reselect';
 import cn from 'classnames';
 import _random from 'lodash/random';
 import Immutable from 'immutable';
+// actions
+import {changeWordImage} from 'containers/screens/Dashboard/LearnWordsPage/actions';
 // selectors
 import {makeSelectRandomWords} from 'containers/screens/Dashboard/LearnWordsPage/selectors';
+import {makeSelectWordLoadingStatus} from 'containers/screens/Dashboard/DictionariesPage/components/WordsList/selectors';
 // components
-import {Button, Grid, Image} from 'semantic-ui-react';
+import {Button, Grid} from 'semantic-ui-react';
 import {FormatWordDefinitions} from 'components';
+import {PromptingImage} from 'components/ui';
 // other
 import withErrorBoundary from 'utils/hocs/withErrorBoundary';
 import {NUM_OF_OPTIONS_IN_CARD} from '../../constants';
@@ -60,18 +64,31 @@ class ChooseOptionCard extends React.PureComponent {
     this.props.onNextClick(this.state.correctAnswerIndex === this.state.selectedOptionIndex);
   };
 
+  // "I don't know" button
+  handleSkipClick = () => {
+    this.props.onNextClick(false);
+  };
+
+  handleRemoveClick = () => {
+    this.props.changeWordImage(this.props.word.get('id'));
+  };
+
   render() {
     const {selectedOptionIndex, correctAnswerIndex} = this.state;
-    const {word, randomWords, directTranslation} = this.props;
+    const {word, randomWords, directTranslation, removeInProgress} = this.props;
     const options = randomWords.insert(this.state.correctAnswerIndex, word).toJS();
+    console.log('removeInProgress', removeInProgress);
     return (
       <Grid className={styles.root}>
         <Grid.Column computer={8} mobile={16}>
-          {directTranslation ? word.get('word') : <FormatWordDefinitions word={word.toJS()} />}
-          <Image
-            size="small"
-            src="https://react.semantic-ui.com/assets/images/wireframe/image.png"
+          <PromptingImage
+            src={word.get('image')}
+            isRemoveInProgress={removeInProgress}
+            onRemoveClick={this.handleRemoveClick}
           />
+          <div className={styles.wordContainer}>
+            {directTranslation ? word.get('word') : <FormatWordDefinitions word={word.toJS()} />}
+          </div>
         </Grid.Column>
         <Grid.Column computer={8} mobile={16}>
           {options.map((option, index) => {
@@ -106,7 +123,13 @@ class ChooseOptionCard extends React.PureComponent {
               content="next"
               onClick={this.handleNextClick}
             />
-            <Button fluid className={styles.skipButton} content="I don't know" />
+            <Button
+              fluid
+              disabled={selectedOptionIndex >= 0}
+              className={styles.skipButton}
+              content="I don't know"
+              onClick={this.handleSkipClick}
+            />
           </div>
         </Grid.Column>
       </Grid>
@@ -116,6 +139,13 @@ class ChooseOptionCard extends React.PureComponent {
 
 const mapStateToProps = createStructuredSelector({
   randomWords: makeSelectRandomWords(),
+  removeInProgress: makeSelectWordLoadingStatus(),
 });
 
-export default compose(connect(mapStateToProps, null), withErrorBoundary)(ChooseOptionCard);
+export default compose(
+  connect(
+    mapStateToProps,
+    {changeWordImage}
+  ),
+  withErrorBoundary
+)(ChooseOptionCard);

@@ -18,7 +18,7 @@ function DashboardLayout({children, isSidebarVisible, hideSidebar}) {
   return (
     <div className={styles.root}>
       <div>
-        <Responsive {...Responsive.onlyComputer}>
+        <Responsive minWidth={768}>
           <Sidebar visible />
         </Responsive>
         <Responsive {...Responsive.onlyMobile}>
@@ -39,4 +39,7 @@ const mapStateToProps = createStructuredSelector({
   isSidebarVisible: makeSelectSidebarVisible(),
 });
 
-export default connect(mapStateToProps, {hideSidebar})(DashboardLayout);
+export default connect(
+  mapStateToProps,
+  {hideSidebar}
+)(DashboardLayout);

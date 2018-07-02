@@ -25,8 +25,11 @@ function getEntityIds(action) {
 }
 
 const defaultEntityState = fromJS({
+  // for GET requests
   loading: false,
   loaded: false,
+  // for post, patch, delete requests
+  pending: false,
   items: {},
   displayOrder: [],
   pagination: {},
@@ -124,17 +127,27 @@ function appReducer(state = initialState, action) {
       return state;
     }
 
+    case entityActionTypes.PATCH.REQUEST: {
+      const entityKey = action.entity && action.entity.key;
+      return state.setIn(['entities', entityKey, 'pending'], true);
+    }
     case entityActionTypes.PATCH.SUCCESS: {
       const entityKey = action.entity && action.entity.key;
       if (entityKey === 'user') {
         console.log('action', action);
         const userId = action.response.result.users;
-        return state.setIn(['profile', 'data'], action.response.entities.users[userId]);
+        return state
+          .setIn(['profile', 'data'], action.response.entities.users[userId])
+          .setIn(['entities', entityKey, 'pending'], false);
       }
-      return state.mergeDeepIn(
-        ['entities', entityKey, 'items'],
-        action.response.entities[entityKey]
-      );
+      return state
+        .mergeDeepIn(['entities', entityKey, 'items'], action.response.entities[entityKey])
+        .setIn(['entities', entityKey, 'pending'], false);
+    }
+
+    case entityActionTypes.PATCH.FAILURE: {
+      const entityKey = action.entity && action.entity.key;
+      return state.setIn(['entities', entityKey, 'pending'], false);
     }
 
     case profileActionTypes.GET.FAILURE:

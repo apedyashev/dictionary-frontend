@@ -1,5 +1,8 @@
 import {getEntityActions, patchEntityActions} from 'containers/App/actions';
-import {wordsArraySchema} from 'containers/screens/Dashboard/DictionariesPage/components/WordsList/actions';
+import {
+  wordsSchema,
+  wordsArraySchema,
+} from 'containers/screens/Dashboard/DictionariesPage/components/WordsList/actions';
 
 export const SEND_FOR_LEARNING = '@LEARN_WORDS/SEND_FOR_LEARNING';
 
@@ -49,6 +52,18 @@ export const submitLearnedWordsEntity = {
 };
 export function submitLearnedWords(learnedStatuses = [], {resolve, reject} = {}) {
   return patchEntityActions.request({learnedStatuses}, submitLearnedWordsEntity, {
+    resolve,
+    reject,
+  });
+}
+
+export const changeWordImageEntity = (wordId) => ({
+  key: 'words',
+  url: `dictionaries/words/${wordId}/image`,
+  schema: {item: wordsSchema},
+});
+export function changeWordImage(wordId, {resolve, reject} = {}) {
+  return patchEntityActions.request({}, changeWordImageEntity(wordId), {
     resolve,
     reject,
   });

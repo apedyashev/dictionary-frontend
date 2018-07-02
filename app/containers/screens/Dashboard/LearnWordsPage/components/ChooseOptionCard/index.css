@@ -7,6 +7,13 @@
   }
 }
 
+.wordContainer {
+  padding-top: 1rem;
+  margin-bottom: -1rem;
+  color: #0887c7;
+  font-size: 1.5rem;
+}
+
 .option {
   margin: 5px 0 !important;
   &.correct {
