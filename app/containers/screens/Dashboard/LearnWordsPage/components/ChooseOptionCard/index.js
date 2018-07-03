@@ -14,7 +14,7 @@ import {makeSelectRandomWords} from 'containers/screens/Dashboard/LearnWordsPage
 import {makeSelectWordLoadingStatus} from 'containers/screens/Dashboard/DictionariesPage/components/WordsList/selectors';
 // components
 import {Button, Grid} from 'semantic-ui-react';
-import {FormatWordDefinitions} from 'components';
+import {FormatWordDefinitions, FormatWordExamples} from 'components';
 import {PromptingImage} from 'components/ui';
 // other
 import withErrorBoundary from 'utils/hocs/withErrorBoundary';
@@ -77,7 +77,6 @@ class ChooseOptionCard extends React.PureComponent {
     const {selectedOptionIndex, correctAnswerIndex} = this.state;
     const {word, randomWords, directTranslation, removeInProgress} = this.props;
     const options = randomWords.insert(this.state.correctAnswerIndex, word).toJS();
-    console.log('removeInProgress', removeInProgress);
     return (
       <Grid className={styles.root}>
         <Grid.Column computer={8} mobile={16}>
@@ -88,6 +87,7 @@ class ChooseOptionCard extends React.PureComponent {
           />
           <div className={styles.wordContainer}>
             {directTranslation ? word.get('word') : <FormatWordDefinitions word={word.toJS()} />}
+            <FormatWordExamples word={word.toJS()} directTranslation={directTranslation} />
           </div>
         </Grid.Column>
         <Grid.Column computer={8} mobile={16}>
@@ -120,7 +120,7 @@ class ChooseOptionCard extends React.PureComponent {
               fluid
               disabled={selectedOptionIndex < 0}
               className={styles.nextButton}
-              content="next"
+              content="Next"
               onClick={this.handleNextClick}
             />
             <Button

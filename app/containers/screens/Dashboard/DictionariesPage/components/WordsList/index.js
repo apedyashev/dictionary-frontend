@@ -107,7 +107,7 @@ class WordsList extends React.PureComponent {
           key={[dictionaryId, wordSetId, searchString].join('-')}
           scrollElement={scrollElement}
           hasNextPage={hasNextPage}
-          perPage={10}
+          perPage={50}
           items={words}
           rowRenderer={this.rowRenderer}
           // noRowsRenderer={this.noRowsRenderer}
@@ -135,4 +135,7 @@ export function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(WordsList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WordsList);

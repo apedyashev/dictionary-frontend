@@ -291,4 +291,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LearnWordsPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LearnWordsPage);
