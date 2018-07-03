@@ -6,9 +6,11 @@ import * as jsDiff from 'diff';
 import Immutable from 'immutable';
 // components
 import {Grid, Image, Label} from 'semantic-ui-react';
-import {FormatWordDefinitions} from 'components';
+// import {FormatWordDefinitions, FormatWordExamples} from 'components';
 import {Button} from 'components/ui';
+import PromptingImage from 'containers/PromptingImage';
 import TrainWritingForm from '../TrainWritingForm';
+import WordDefinition from '../WordDefinition';
 // other
 import styles from './index.css';
 
@@ -79,72 +81,78 @@ class TrainWritingCard extends React.PureComponent {
     this.props.onNext(false);
   };
 
+  handleRemoveClick = () => {};
+
+  handleSkipBtnClick = () => {
+    this.props.onNext(false);
+  };
+
   render() {
     const {answered, typedPhraseWithDiff} = this.state;
     const {word} = this.props;
+    if (!word) {
+      return null;
+    }
     return (
       <React.Fragment>
-        <div>
-          <FormatWordDefinitions word={word.toJS()} />
-        </div>
         <Grid columns={2}>
-          <Grid.Row>
-            <Grid.Column width={6}>
-              <Image fluid src="https://react.semantic-ui.com/assets/images/wireframe/image.png" />
-            </Grid.Column>
-            <Grid.Column width={10}>
-              <TrainWritingForm onCheck={this.handleCheck} />
-              <div className={styles.resultMessage}>
-                {answered === ANSWERED_CORRECTLY && (
-                  <div className={styles.correctAnswerNotification}>Excelent!</div>
-                )}
-                {typedPhraseWithDiff && (
-                  <div>
-                    <div className={styles.correctAnswerContainer}>
-                      <div className={styles.header}>Correct answer:</div>
-                      <div>{word.get('word')}</div>
-                    </div>
-                    <div className={styles.details}>
-                      <div className={styles.header}>
-                        You've made a mistake, please check if it's a typo or an error
-                      </div>
-                      <div>
-                        <Label color="red">Missing charachters</Label>
-                        <Label color="green">Redundant charachters</Label>
-                      </div>
-                      <div>{typedPhraseWithDiff}</div>
-                    </div>
+          <Grid.Column computer={6} mobile={16}>
+            <PromptingImage src={word.get('image')} onRemoveClick={this.handleRemoveClick} />
+
+            <WordDefinition word={word} directTranslation={false} />
+          </Grid.Column>
+          <Grid.Column computer={10} mobile={16}>
+            <TrainWritingForm onCheck={this.handleCheck} onSkipBtnClick={this.handleSkipBtnClick} />
+            <div className={styles.resultMessage}>
+              {answered === ANSWERED_CORRECTLY && (
+                <div className={styles.correctAnswerNotification}>Excelent!</div>
+              )}
+              {typedPhraseWithDiff && (
+                <div>
+                  <div className={styles.correctAnswerContainer}>
+                    <div className={styles.header}>Correct answer:</div>
+                    <div>{word.get('word')}</div>
                   </div>
-                )}
-              </div>
-              <div className={styles.buttonsContainer}>
-                {answered === ANSWERED_CORRECTLY && (
+                  <div className={styles.details}>
+                    <div className={styles.header}>
+                      You've made a mistake, please check if it's a typo or an error
+                    </div>
+                    <div>
+                      <Label color="red">Missing charachters</Label>
+                      <Label color="green">Redundant charachters</Label>
+                    </div>
+                    <div>{typedPhraseWithDiff}</div>
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className={styles.buttonsContainer}>
+              {answered === ANSWERED_CORRECTLY && (
+                <Button
+                  animateFocus
+                  ref={this.nextButtonRef}
+                  content="Next"
+                  onClick={this.handleAnsweredCorrectly}
+                />
+              )}
+              {answered === ANSWERED_WRONG && (
+                <React.Fragment>
+                  <Button
+                    negative
+                    animateFocus
+                    ref={this.errorButtonRef}
+                    content="It's an error"
+                    onClick={this.handleErrorBtnClick}
+                  />
                   <Button
                     animateFocus
-                    ref={this.nextButtonRef}
-                    content="Next"
+                    content="It's a typo"
                     onClick={this.handleAnsweredCorrectly}
                   />
-                )}
-                {answered === ANSWERED_WRONG && (
-                  <React.Fragment>
-                    <Button
-                      negative
-                      animateFocus
-                      ref={this.errorButtonRef}
-                      content="It's an error"
-                      onClick={this.handleErrorBtnClick}
-                    />
-                    <Button
-                      animateFocus
-                      content="It's a typo"
-                      onClick={this.handleAnsweredCorrectly}
-                    />
-                  </React.Fragment>
-                )}
-              </div>
-            </Grid.Column>
-          </Grid.Row>
+                </React.Fragment>
+              )}
+            </div>
+          </Grid.Column>
         </Grid>
       </React.Fragment>
     );

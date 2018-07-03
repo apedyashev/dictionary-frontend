@@ -18,4 +18,8 @@ export default defineMessages({
     id: 'containers.TrainWritingForm.checkWordBtnLabel',
     defaultMessage: 'Check',
   },
+  iDontKnowBtnLabel: {
+    id: 'containers.TrainWritingForm.iDontKnowBtnLabel',
+    defaultMessage: "I don't know",
+  },
 });

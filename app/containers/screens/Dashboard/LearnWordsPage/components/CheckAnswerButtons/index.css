@@ -1,0 +1,24 @@
+@media only screen and (max-width: 640px) {
+  .checkAnswerButtonsContainer {
+    overflow: hidden;
+  }
+  .nextButton,
+  .skipButton {
+    width: 48% !important;
+  }
+  .nextButton {
+    float: right;
+  }
+  .skipButton {
+    float: left;
+  }
+}
+
+.nextButton,
+.skipButton {
+  margin: 5px 5px 5px 0 !important;
+}
+
+.checkAnswerButtonsContainer {
+  margin-top: 25px;
+}

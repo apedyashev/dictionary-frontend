@@ -3,6 +3,7 @@
 }
 .image {
   max-height: 100px;
+  min-height: 100px;
 }
 .imageWrapper {
   position: relative;

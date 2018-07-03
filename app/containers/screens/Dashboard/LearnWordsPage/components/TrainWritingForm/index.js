@@ -5,6 +5,7 @@ import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
 // components
 import {Form, Field, reduxForm} from 'redux-form/immutable';
 import {Button, ReduxFormFields} from 'components/ui';
+import CheckAnswerButtons from '../CheckAnswerButtons';
 // other
 import messages from './messages';
 
@@ -33,6 +34,7 @@ class TrainWritingForm extends React.PureComponent {
       handleSubmit,
       submitting,
       intl: {formatMessage},
+      onSkipBtnClick,
     } = this.props;
     return (
       <Form onSubmit={handleSubmit(this.submitForm)}>
@@ -47,13 +49,34 @@ class TrainWritingForm extends React.PureComponent {
           hintText={formatMessage(messages.wordHint)}
         />
 
-        <Button type="submit" fluid loading={submitting} disabled={submitting || formSubmitted}>
-          <FormattedMessage {...messages.checkWordBtnLabel} />
-        </Button>
+        <CheckAnswerButtons
+          nextBtnProps={{
+            type: 'submit',
+            fluid: true,
+            loading: submitting,
+            disabled: submitting || formSubmitted,
+            content: <FormattedMessage {...messages.checkWordBtnLabel} />,
+          }}
+          skipBtnProps={{
+            fluid: true,
+            content: <FormattedMessage {...messages.iDontKnowBtnLabel} />,
+            onClick: onSkipBtnClick,
+          }}
+        />
       </Form>
     );
   }
 }
+
+// <div>
+//   <Button type="submit" fluid loading={submitting} disabled={submitting || formSubmitted}>
+//     <FormattedMessage {...messages.checkWordBtnLabel} />
+//   </Button>
+//
+//   <Button fluid>
+//     <FormattedMessage {...messages.iDontKnowBtnLabel} />
+//   </Button>
+// </div>
 
 const validate = (values) => {
   const errors = {};

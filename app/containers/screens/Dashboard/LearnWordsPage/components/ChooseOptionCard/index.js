@@ -7,15 +7,14 @@ import {createStructuredSelector} from 'reselect';
 import cn from 'classnames';
 import _random from 'lodash/random';
 import Immutable from 'immutable';
-// actions
-import {changeWordImage} from 'containers/screens/Dashboard/LearnWordsPage/actions';
 // selectors
 import {makeSelectRandomWords} from 'containers/screens/Dashboard/LearnWordsPage/selectors';
-import {makeSelectWordLoadingStatus} from 'containers/screens/Dashboard/DictionariesPage/components/WordsList/selectors';
 // components
 import {Button, Grid} from 'semantic-ui-react';
-import {FormatWordDefinitions, FormatWordExamples} from 'components';
-import {PromptingImage} from 'components/ui';
+import {FormatWordDefinitions} from 'components';
+import PromptingImage from 'containers/PromptingImage';
+import WordDefinition from '../WordDefinition';
+import CheckAnswerButtons from '../CheckAnswerButtons';
 // other
 import withErrorBoundary from 'utils/hocs/withErrorBoundary';
 import {NUM_OF_OPTIONS_IN_CARD} from '../../constants';
@@ -69,32 +68,20 @@ class ChooseOptionCard extends React.PureComponent {
     this.props.onNextClick(false);
   };
 
-  handleRemoveClick = () => {
-    this.props.changeWordImage(this.props.word.get('id'));
-  };
-
   render() {
     const {selectedOptionIndex, correctAnswerIndex} = this.state;
-    const {word, randomWords, directTranslation, removeInProgress} = this.props;
+    const {word, randomWords, directTranslation} = this.props;
     const options = randomWords.insert(this.state.correctAnswerIndex, word).toJS();
     return (
       <Grid className={styles.root}>
         <Grid.Column computer={8} mobile={16}>
-          <PromptingImage
-            src={word.get('image')}
-            isRemoveInProgress={removeInProgress}
-            onRemoveClick={this.handleRemoveClick}
-          />
-          <div className={styles.wordContainer}>
-            {directTranslation ? word.get('word') : <FormatWordDefinitions word={word.toJS()} />}
-            <FormatWordExamples word={word.toJS()} directTranslation={directTranslation} />
-          </div>
+          <PromptingImage src={word.get('image')} wordId={word.get('id')} />
+          <WordDefinition directTranslation={directTranslation} word={word} />
         </Grid.Column>
         <Grid.Column computer={8} mobile={16}>
           {options.map((option, index) => {
             const isActive = selectedOptionIndex === index;
             const isActiveSelected = selectedOptionIndex >= 0;
-            // console.log('selectedOptionIndex', selectedOptionIndex);
             return (
               <Button
                 fluid
@@ -115,22 +102,22 @@ class ChooseOptionCard extends React.PureComponent {
             );
           })}
 
-          <div className={styles.checkAnswerButtonsContainer}>
-            <Button
-              fluid
-              disabled={selectedOptionIndex < 0}
-              className={styles.nextButton}
-              content="Next"
-              onClick={this.handleNextClick}
-            />
-            <Button
-              fluid
-              disabled={selectedOptionIndex >= 0}
-              className={styles.skipButton}
-              content="I don't know"
-              onClick={this.handleSkipClick}
-            />
-          </div>
+          <CheckAnswerButtons
+            nextBtnProps={{
+              fluid: true,
+              disabled: selectedOptionIndex < 0,
+              className: styles.nextButton,
+              content: 'Next',
+              onClick: this.handleNextClick,
+            }}
+            skipBtnProps={{
+              fluid: true,
+              disabled: selectedOptionIndex >= 0,
+              className: styles.skipButton,
+              content: "I don't know",
+              onClick: this.handleSkipClick,
+            }}
+          />
         </Grid.Column>
       </Grid>
     );
@@ -139,13 +126,9 @@ class ChooseOptionCard extends React.PureComponent {
 
 const mapStateToProps = createStructuredSelector({
   randomWords: makeSelectRandomWords(),
-  removeInProgress: makeSelectWordLoadingStatus(),
 });
 
 export default compose(
-  connect(
-    mapStateToProps,
-    {changeWordImage}
-  ),
+  connect(mapStateToProps),
   withErrorBoundary
 )(ChooseOptionCard);

@@ -5,27 +5,6 @@
       padding-right: 0 !important;
     }
   }
-  .checkAnswerButtonsContainer {
-    overflow: hidden;
-  }
-  .nextButton,
-  .skipButton {
-    width: 48% !important;
-  }
-  .nextButton {
-    float: right;
-  }
-  .skipButton {
-    float: left;
-  }
-}
-
-.wordContainer {
-  padding-top: 1rem;
-  margin-bottom: -1rem;
-  color: #0887c7;
-  font-size: 1.5rem;
-  text-align: center;
 }
 
 .option {
@@ -36,13 +15,4 @@
   &.wrong {
     background-color: red !important;
   }
-}
-
-.nextButton,
-.skipButton {
-  margin: 5px 5px 5px 0 !important;
-}
-
-.checkAnswerButtonsContainer {
-  margin-top: 25px;
 }
