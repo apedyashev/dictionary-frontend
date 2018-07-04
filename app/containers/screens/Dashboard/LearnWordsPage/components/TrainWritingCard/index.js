@@ -77,11 +77,8 @@ class TrainWritingCard extends React.PureComponent {
   };
 
   handleErrorBtnClick = () => {
-    console.log('it is an error');
     this.props.onNext(false);
   };
-
-  handleRemoveClick = () => {};
 
   handleSkipBtnClick = () => {
     this.props.onNext(false);
@@ -94,67 +91,61 @@ class TrainWritingCard extends React.PureComponent {
       return null;
     }
     return (
-      <React.Fragment>
-        <Grid columns={2}>
-          <Grid.Column computer={6} mobile={16}>
-            <PromptingImage src={word.get('image')} onRemoveClick={this.handleRemoveClick} />
+      <Grid columns={2} className={styles.root}>
+        <Grid.Column computer={6} mobile={16}>
+          <PromptingImage src={word.get('image')} wordId={word.get('id')} />
 
-            <WordDefinition word={word} directTranslation={false} />
-          </Grid.Column>
-          <Grid.Column computer={10} mobile={16}>
-            <TrainWritingForm onCheck={this.handleCheck} onSkipBtnClick={this.handleSkipBtnClick} />
-            <div className={styles.resultMessage}>
-              {answered === ANSWERED_CORRECTLY && (
-                <div className={styles.correctAnswerNotification}>Excelent!</div>
-              )}
-              {typedPhraseWithDiff && (
-                <div>
-                  <div className={styles.correctAnswerContainer}>
-                    <div className={styles.header}>Correct answer:</div>
-                    <div>{word.get('word')}</div>
-                  </div>
-                  <div className={styles.details}>
-                    <div className={styles.header}>
-                      You've made a mistake, please check if it's a typo or an error
-                    </div>
-                    <div>
-                      <Label color="red">Missing charachters</Label>
-                      <Label color="green">Redundant charachters</Label>
-                    </div>
-                    <div>{typedPhraseWithDiff}</div>
-                  </div>
+          <WordDefinition word={word} directTranslation={false} />
+        </Grid.Column>
+        <Grid.Column computer={10} mobile={16}>
+          <TrainWritingForm onCheck={this.handleCheck} onSkipBtnClick={this.handleSkipBtnClick} />
+          <div className={styles.resultMessage}>
+            {answered === ANSWERED_CORRECTLY && (
+              <div className={styles.correctAnswerNotification}>Excelent!</div>
+            )}
+            {typedPhraseWithDiff && (
+              <div>
+                <div className={styles.correctAnswerContainer}>
+                  <div className={styles.header}>Correct answer:</div>
+                  <div>{word.get('word')}</div>
                 </div>
-              )}
-            </div>
-            <div className={styles.buttonsContainer}>
-              {answered === ANSWERED_CORRECTLY && (
+                <div className={styles.details}>
+                  <div className={styles.header}>
+                    You've made a mistake, please check if it's a typo or an error
+                  </div>
+                  <div>
+                    <Label color="red">Missing charachters</Label>
+                    <Label color="green">Redundant charachters</Label>
+                  </div>
+                  <div>{typedPhraseWithDiff}</div>
+                </div>
+              </div>
+            )}
+          </div>
+          <div className={styles.buttonsContainer}>
+            {answered === ANSWERED_CORRECTLY && (
+              <Button
+                animateFocus
+                ref={this.nextButtonRef}
+                content="Next"
+                onClick={this.handleAnsweredCorrectly}
+              />
+            )}
+            {answered === ANSWERED_WRONG && (
+              <React.Fragment>
                 <Button
+                  negative
                   animateFocus
-                  ref={this.nextButtonRef}
-                  content="Next"
-                  onClick={this.handleAnsweredCorrectly}
+                  ref={this.errorButtonRef}
+                  content="It's an error"
+                  onClick={this.handleErrorBtnClick}
                 />
-              )}
-              {answered === ANSWERED_WRONG && (
-                <React.Fragment>
-                  <Button
-                    negative
-                    animateFocus
-                    ref={this.errorButtonRef}
-                    content="It's an error"
-                    onClick={this.handleErrorBtnClick}
-                  />
-                  <Button
-                    animateFocus
-                    content="It's a typo"
-                    onClick={this.handleAnsweredCorrectly}
-                  />
-                </React.Fragment>
-              )}
-            </div>
-          </Grid.Column>
-        </Grid>
-      </React.Fragment>
+                <Button animateFocus content="It's a typo" onClick={this.handleAnsweredCorrectly} />
+              </React.Fragment>
+            )}
+          </div>
+        </Grid.Column>
+      </Grid>
     );
   }
 }

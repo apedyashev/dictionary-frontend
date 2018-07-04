@@ -1,4 +1,12 @@
 $correct-color: #09d266;
+@media only screen and (max-width: 640px) {
+  .root {
+    margin-right: 0 !important;
+    :global .column {
+      padding-right: 0 !important;
+    }
+  }
+}
 .resultMessage {
   min-height: 134px;
   margin: 5px 0;
