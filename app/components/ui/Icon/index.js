@@ -20,7 +20,9 @@ export default function Icon({name, loading, hoverable, disabled, className, onC
 }
 Icon.propTypes = {
   name: PropTypes.string.isRequired,
-  hoverable: PropTypes.bool.isRequired,
+  hoverable: PropTypes.bool,
+  loading: PropTypes.bool,
+  disabled: PropTypes.bool,
   className: PropTypes.string,
   onClick: PropTypes.func,
 };

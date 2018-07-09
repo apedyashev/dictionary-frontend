@@ -1,12 +1,6 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
-import {action} from '@storybook/addon-actions';
-// import Button from '../components/Button';
+// import {action} from '@storybook/addon-actions';
+import Prompt from './index';
 
-storiesOf('Prompt', module)
-  .add('with text', () => <div onClick={action('clicked')}>Hello Button</div>)
-  .add('with some emoji', () => (
-    <span role="img" aria-label="so cool">
-      😀 😎 👍 💯
-    </span>
-  ));
+storiesOf('Base UI', module).add('Prompt', () => <Prompt title="a title" subtitle="a subtitle" />);

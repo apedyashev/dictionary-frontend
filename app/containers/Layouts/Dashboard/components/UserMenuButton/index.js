@@ -4,6 +4,8 @@ import {PropTypes} from 'prop-types';
 // components
 import {NavLink} from 'react-router-dom';
 import {DropdownIcon} from 'components/ui';
+// other
+import {sidebarUserType} from 'propTypes/user';
 
 export default function UserMenuButton({userData, className, onLogout, onClick}) {
   const options = [
@@ -35,6 +37,8 @@ export default function UserMenuButton({userData, className, onLogout, onClick})
 UserMenuButton.propTypes = {
   className: PropTypes.string,
   onLogout: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
+  userData: sidebarUserType,
 };
 UserMenuButton.defaultProps = {
   className: '',

@@ -15,17 +15,17 @@ import withErrorBoundary from 'utils/hocs/withErrorBoundary';
 import styles from './index.css';
 import '!file-loader?name=[name].[ext]!images/no-image.png';
 
-function PromptingImage({src, wordId, removeInProgress, changeWordImage}) {
+function PromptingImage({src, wordId, removeInProgress, changeImage}) {
   return (
     <div className={styles.root}>
       <span className={styles.imageWrapper}>
-        <img src={src || '/no-image.png'} className={styles.image} />
+        <img src={src || '/no-image.png'} alt="" className={styles.image} />
         <Icon
           name={removeInProgress ? 'spinner' : 'close'}
           disabled={removeInProgress}
           loading={removeInProgress}
           className={styles.icon}
-          onClick={() => changeWordImage(wordId)}
+          onClick={() => changeImage(wordId)}
         />
       </span>
     </div>
@@ -33,8 +33,9 @@ function PromptingImage({src, wordId, removeInProgress, changeWordImage}) {
 }
 PromptingImage.propTypes = {
   src: PropTypes.string,
+  wordId: PropTypes.string.isRequired,
   removeInProgress: PropTypes.bool.isRequired,
-  changeWordImage: PropTypes.func.isRequired,
+  changeImage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -44,7 +45,7 @@ const mapStateToProps = createStructuredSelector({
 export default compose(
   connect(
     mapStateToProps,
-    {changeWordImage}
+    {changeImage: changeWordImage}
   ),
   withErrorBoundary
 )(PromptingImage);

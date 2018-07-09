@@ -5,7 +5,7 @@ import _isEqual from 'lodash/isEqual';
 import * as jsDiff from 'diff';
 import Immutable from 'immutable';
 // components
-import {Grid, Image, Label} from 'semantic-ui-react';
+import {Grid, Label} from 'semantic-ui-react';
 // import {FormatWordDefinitions, FormatWordExamples} from 'components';
 import {Button} from 'components/ui';
 import PromptingImage from 'containers/PromptingImage';

@@ -1,13 +1,16 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
-import Button from './index.js';
+import {withKnobs, boolean} from '@storybook/addon-knobs/react';
+import Button from './index';
 
-storiesOf('Button', module).add('with text', () => (
-  <Button onClick={action('clicked')}>Hello Button</Button>
-));
-// .add('with some emoji', () => (
-//   <span role="img" aria-label="so cool">
-//     😀 😎 👍 💯
-//   </span>
-// ));
+storiesOf('Base UI', module)
+  .addDecorator(withKnobs)
+  .add('Button', () => (
+    <React.Fragment>
+      <Button onClick={action('clicked')}>
+        <u>Click</u> me
+      </Button>
+      <Button content="Via Content prop" animateFocus={boolean('animateFocus', false)} />
+    </React.Fragment>
+  ));

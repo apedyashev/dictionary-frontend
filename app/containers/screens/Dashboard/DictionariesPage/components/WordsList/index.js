@@ -10,7 +10,7 @@ import {loadWords, resetWords} from './actions';
 import {makeSelectWords, makeSelectWordsHasNextPage} from './selectors';
 // components
 import InfiniteList from 'components/InfiniteList';
-import {Word, EmptyListPrompt} from 'components/ui';
+import {Word} from 'components/ui';
 
 class WordsList extends React.PureComponent {
   static propTypes = {

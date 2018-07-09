@@ -1,5 +1,6 @@
 // libs
 import React from 'react';
+import {PropTypes} from 'prop-types';
 // components
 import {Responsive} from 'semantic-ui-react';
 import {Topbar, TopbarButton} from 'components/ui';
@@ -14,4 +15,6 @@ export default function StandardTopbar({title}) {
     </Topbar>
   );
 }
-StandardTopbar.propTypes = {};
+StandardTopbar.propTypes = {
+  title: PropTypes.string,
+};

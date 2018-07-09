@@ -1,8 +1,6 @@
 // libs
 import React from 'react';
 import {PropTypes} from 'prop-types';
-// components
-import StandardTopbar from 'containers/StandardTopbar';
 // other
 import styles from './index.css';
 

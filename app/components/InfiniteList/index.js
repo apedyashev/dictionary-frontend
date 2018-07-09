@@ -3,7 +3,7 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 import Immutable from 'immutable';
 // components
-import {WindowScroller, AutoSizer, InfiniteLoader, List} from 'react-virtualized';
+import {AutoSizer, InfiniteLoader, List} from 'react-virtualized';
 import {ListLoader, EmptyListPrompt} from '../ui';
 // other
 
@@ -17,7 +17,6 @@ class InfiniteList extends React.PureComponent {
     getRowHeight: PropTypes.func.isRequired,
     loadNextPage: PropTypes.func.isRequired,
     resetMeasurerCache: PropTypes.func,
-    scrollElement: PropTypes.any,
     resetProps: PropTypes.object,
     dataLoadingMessage: PropTypes.string,
     noRowsMessage: PropTypes.string,
@@ -95,7 +94,7 @@ class InfiniteList extends React.PureComponent {
   };
 
   render() {
-    const {items, hasNextPage, resetProps, scrollElement} = this.props;
+    const {items, hasNextPage, resetProps} = this.props;
     const rowCount = hasNextPage ? items.size + 1 : items.size;
     return (
       <InfiniteLoader

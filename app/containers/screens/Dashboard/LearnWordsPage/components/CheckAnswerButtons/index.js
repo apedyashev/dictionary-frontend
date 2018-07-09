@@ -14,4 +14,7 @@ export default function CheckAnswerButtons({nextBtnProps, skipBtnProps}) {
     </div>
   );
 }
-CheckAnswerButtons.propTypes = {};
+CheckAnswerButtons.propTypes = {
+  nextBtnProps: PropTypes.object.isRequired,
+  skipBtnProps: PropTypes.object.isRequired,
+};

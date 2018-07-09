@@ -1,6 +1,7 @@
 // libs
 import React from 'react';
 import {PropTypes} from 'prop-types';
+import Immutable from 'immutable';
 // components
 import {FormatWordDefinitions, FormatWordExamples} from 'components';
 // other
@@ -14,4 +15,7 @@ export default function WordDefinition({word, directTranslation}) {
     </div>
   );
 }
-WordDefinition.propTypes = {};
+WordDefinition.propTypes = {
+  word: PropTypes.instanceOf(Immutable.Map),
+  directTranslation: PropTypes.bool,
+};

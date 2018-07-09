@@ -13,6 +13,7 @@ import {makeSelectLocationPath, makeSelectProfileData} from 'containers/App/sele
 import {Sidebar} from 'components/ui';
 import UserMenuButton from '../UserMenuButton';
 // other
+import {sidebarUserType} from 'propTypes/user';
 import styles from './index.css';
 
 // eslint-disable-next-line no-shadow
@@ -69,6 +70,7 @@ function DashboardSidebar({
   return <Sidebar items={items} visible={visible} onHide={onHide} />;
 }
 DashboardSidebar.propTypes = {
+  userData: sidebarUserType,
   logout: PropTypes.func.isRequired,
   resetAuth: PropTypes.func.isRequired,
   hideSidebar: PropTypes.func.isRequired,

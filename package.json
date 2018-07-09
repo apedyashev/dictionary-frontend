@@ -165,7 +165,8 @@
       "no-class-assign": "off",
       "no-lonely-if": "off",
       "react/no-unescaped-entities": "off",
-      "no-return-assign": "off"
+      "no-return-assign": "off",
+      "no-shadow": "off"
     },
     "settings": {
       "import/resolver": {
@@ -225,7 +226,8 @@
     "testRegex": "tests/.*\\.test\\.js$"
   },
   "dependencies": {
-    "@storybook/react": "^3.4.8",
+    "@storybook/addon-knobs": "^3.4.8",
+    "@storybook/react": "3.4.8",
     "autoprefixer": "^8.6.0",
     "babel-polyfill": "6.26.0",
     "chalk": "^2.4.1",

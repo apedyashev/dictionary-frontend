@@ -11,7 +11,6 @@ import {makeSelectSchedule, makeSelectScheduleHasNextPage} from './selectors';
 // components
 import {InfiniteList, ScheduleItem} from 'components';
 import {CellMeasurer, CellMeasurerCache} from 'react-virtualized';
-import {EmptyListPrompt} from 'components/ui';
 
 class ScheduleList extends React.Component {
   static propTypes = {
@@ -41,10 +40,6 @@ class ScheduleList extends React.Component {
     return this.cache.rowHeight(props);
   };
 
-  // noRowsRenderer = () => {
-  //   return <EmptyListPrompt title="The schedule is empty" />;
-  // };
-
   rowRenderer = ({item, index, parent, key, style}) => {
     return (
       <CellMeasurer key={key} cache={this.cache} columnIndex={0} rowIndex={index} parent={parent}>
@@ -61,7 +56,6 @@ class ScheduleList extends React.Component {
         perPage={50}
         items={scheduleItems}
         rowRenderer={this.rowRenderer}
-        // noRowsRenderer={this.noRowsRenderer}
         noRowsMessage="The schedule is empty"
         getRowHeight={this.getRowHeight}
         loadNextPage={this.loadNextPage}
@@ -83,4 +77,7 @@ export function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ScheduleList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ScheduleList);

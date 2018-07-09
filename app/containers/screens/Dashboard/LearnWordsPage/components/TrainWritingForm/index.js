@@ -4,7 +4,7 @@ import {PropTypes} from 'prop-types';
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
 // components
 import {Form, Field, reduxForm} from 'redux-form/immutable';
-import {Button, ReduxFormFields} from 'components/ui';
+import {ReduxFormFields} from 'components/ui';
 import CheckAnswerButtons from '../CheckAnswerButtons';
 // other
 import messages from './messages';
@@ -13,6 +13,7 @@ class TrainWritingForm extends React.PureComponent {
   static propTypes = {
     // ownProps
     onCheck: PropTypes.func.isRequired,
+    onSkipBtnClick: PropTypes.func.isRequired,
     // injected by react-intl
     intl: intlShape.isRequired,
     // injected by reduxForm
