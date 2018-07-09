@@ -30,7 +30,8 @@ import {
 } from './selectors';
 // components
 import {Link} from 'react-router-dom';
-import {WhiteBoard, PageLoader, Prompt, AppContainer} from 'components/ui';
+import {WhiteBoard, PageLoader, Prompt} from 'components/ui';
+import {AppContainer} from 'components';
 import {ChooseOptionCard, TrainWritingCard, TrainingsFinishedCard, Topbar} from './components';
 import NotFound from 'containers/screens/NotFoundPage';
 // other

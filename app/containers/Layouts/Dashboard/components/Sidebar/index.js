@@ -74,7 +74,7 @@ DashboardSidebar.propTypes = {
   hideSidebar: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired,
   setLoggingOut: PropTypes.func.isRequired,
-  onHide: PropTypes.func.isRequired,
+  onHide: PropTypes.func,
   visible: PropTypes.bool,
 };
 
@@ -83,10 +83,13 @@ const mapStateToProps = createStructuredSelector({
   locationPath: makeSelectLocationPath(),
   userData: makeSelectProfileData(),
 });
-export default connect(mapStateToProps, {
-  setLoggingOut,
-  resetAuth,
-  logout,
-  push,
-  hideSidebar,
-})(DashboardSidebar);
+export default connect(
+  mapStateToProps,
+  {
+    setLoggingOut,
+    resetAuth,
+    logout,
+    push,
+    hideSidebar,
+  }
+)(DashboardSidebar);
