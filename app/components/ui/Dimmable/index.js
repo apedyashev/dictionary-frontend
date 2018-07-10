@@ -7,7 +7,7 @@ import PageLoader from '../PageLoader';
 
 export default function Dimmable({dimmed, withLoader, loaderMessage, children}) {
   return (
-    <Dimmer.Dimmable dimmed={dimmed}>
+    <Dimmer.Dimmable dimmed={dimmed} style={{height: '100%'}}>
       <Dimmer active={dimmed}>{withLoader && <PageLoader message={loaderMessage} />}</Dimmer>
       {children}
     </Dimmer.Dimmable>
