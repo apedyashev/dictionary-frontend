@@ -9,10 +9,10 @@ import format from 'date-fns/format';
 // other
 import styles from './index.css';
 
-export default function ScheduleItem({data, style}) {
+export default function ScheduleItem({data, time, style}) {
   return (
     <div className={styles.root} style={style}>
-      <DateFormatRelative className={styles.date} date={data.date} time="18:05" />
+      <DateFormatRelative className={styles.date} date={data.date} time={time} />
       {data.dictionaries.map((dictionary) => (
         <div key={dictionary.id} className={styles.dictionaryContainer}>
           <Link to={`/dictionaries/${dictionary.slug}`} className={styles.name}>
@@ -48,5 +48,9 @@ ScheduleItem.propTypes = {
       })
     ).isRequired,
   }),
+  time: PropTypes.string,
   style: PropTypes.object,
+};
+ScheduleItem.defaultProps = {
+  time: '18:00',
 };

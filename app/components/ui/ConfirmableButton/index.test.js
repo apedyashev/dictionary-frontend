@@ -18,7 +18,7 @@ describe('<ConfirmableButton />', () => {
     }
   });
 
-  it('should render an <a> tag if no route is specified', () => {
+  it('should render an <DateFormatRelative> ', () => {
     const renderedComponent = renderComponent();
     expect(renderedComponent.find(Popup).length).toEqual(1);
   });
