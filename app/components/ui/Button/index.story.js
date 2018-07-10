@@ -11,6 +11,10 @@ storiesOf('Base UI', module)
       <Button onClick={action('clicked')}>
         <u>Click</u> me
       </Button>
-      <Button content="Via Content prop" animateFocus={boolean('animateFocus', false)} />
+      <Button
+        content="Via Content prop"
+        animateFocus={boolean('animateFocus', false)}
+        loading={boolean('loading', false)}
+      />
     </React.Fragment>
   ));

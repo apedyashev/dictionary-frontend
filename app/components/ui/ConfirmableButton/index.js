@@ -11,6 +11,7 @@ class ConfirmableButton extends React.PureComponent {
     hoverContent: PropTypes.any,
     clickContent: PropTypes.any,
     onConfirm: PropTypes.func.isRequired,
+    onCancel: PropTypes.func,
   };
   state = {clicked: false, open: undefined};
 
@@ -19,13 +20,18 @@ class ConfirmableButton extends React.PureComponent {
     // this.setState({clicked: true});
   };
 
-  handleClose = () => {
+  handleClose = (confirmed) => {
+    const {onCancel} = this.props;
+    // confirmed is true only when 'Confirm' button is clicked. Otherwise it will be Event object
+    if (confirmed !== true && onCancel) {
+      onCancel();
+    }
     this.setState({clicked: false, open: undefined});
   };
 
   handleConfirm = () => {
     this.props.onConfirm();
-    this.handleClose();
+    this.handleClose(true);
   };
 
   render() {
@@ -35,14 +41,15 @@ class ConfirmableButton extends React.PureComponent {
       <div>
         {clickContent}
         <div>
-          <Button content="Yes" onClick={this.handleConfirm} />
-          <Button content="Cancel" onClick={this.handleClose} />
+          <Button content="Yes" positive onClick={this.handleConfirm} />
+          <Button content="Cancel" negative onClick={this.handleClose} />
         </div>
       </div>
     );
     return (
       <Popup
         open={open}
+        mouseEnterDelay={0}
         position={position}
         trigger={<Button icon={icon} onClick={this.handleClick} />}
         content={clicked ? confirmContent : hoverContent}
