@@ -7,6 +7,7 @@ import {Dropdown as DropdownSUI} from 'semantic-ui-react';
 // other
 import styles from './index.css';
 
+// TODO: style this (looks unstyled in storybook)
 export default function Dropdown({
   value,
   open,

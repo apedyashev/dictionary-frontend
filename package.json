@@ -167,7 +167,8 @@
       "no-lonely-if": "off",
       "react/no-unescaped-entities": "off",
       "no-return-assign": "off",
-      "no-shadow": "off"
+      "no-shadow": "off",
+      "no-plusplus": "off"
     },
     "settings": {
       "import/resolver": {
@@ -202,6 +203,7 @@
     "collectCoverageFrom": [
       "app/**/*.{js,jsx}",
       "!app/**/*.test.{js,jsx}",
+      "!app/**/*.story.{js,jsx}",
       "!app/*/RbGenerated*/*.{js,jsx}",
       "!app/app.js",
       "!app/global-styles.js",
