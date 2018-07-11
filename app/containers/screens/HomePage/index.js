@@ -10,6 +10,7 @@ import {push} from 'react-router-redux';
 import injectReducer from 'utils/injectReducer';
 import {makeSelectIsLoginRoute, makeSelectLocation} from 'containers/App/selectors';
 import {FormattedMessage} from 'react-intl';
+import {isMobile} from 'react-device-detect';
 // components
 import {Link} from 'react-router-dom';
 import {Grid, Responsive} from 'semantic-ui-react';
@@ -31,7 +32,7 @@ export class HomePage extends React.PureComponent {
   state = {
     currentSlide: ['/register', '/login'].includes(this.props.location.pathname) ? 'auth' : 'video',
   };
-  isMobile = false;
+  // isMobile = false;
 
   static getDerivedStateFromProps(props, state) {
     if (props.location.pathname !== state.lastPathname) {
@@ -53,7 +54,7 @@ export class HomePage extends React.PureComponent {
   }
 
   handleScroll = (e) => {
-    if (this.isMobile) {
+    if (isMobile) {
       let {currentSlide} = this.state;
       if (e.deltaY < 0) {
         // scrolling up
@@ -118,7 +119,6 @@ export class HomePage extends React.PureComponent {
           <title>Home Page</title>
           <meta name="description" content="A React.js Boilerplate application homepage" />
         </Helmet>
-        <Responsive {...Responsive.onlyMobile}>{(this.isMobile = true)}</Responsive>
         <Grid>
           <Grid.Column
             className={cn(styles.slide, styles.video, {
