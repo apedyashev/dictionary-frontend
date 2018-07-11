@@ -7,11 +7,11 @@ import {defineMessages} from 'react-intl';
 
 export default defineMessages({
   titleLabel: {
-    id: 'containers.NewDictForm.emailLabel',
+    id: 'containers.NewDictForm.titleLabel',
     defaultMessage: 'Title',
   },
   titleHint: {
-    id: 'containers.NewDictForm.emailHint',
+    id: 'containers.NewDictForm.titleHint',
     defaultMessage: 'Please enter the dictionary title',
   },
   translateDirectionLabel: {

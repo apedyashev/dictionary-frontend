@@ -4,6 +4,7 @@ import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 import Immutable from 'immutable';
+import {injectIntl, intlShape} from 'react-intl';
 // actions
 import {loadCountries} from './actions';
 // selectors
@@ -11,6 +12,8 @@ import {makeSelectCountries, makeSelectCountriesLoading} from './selectors';
 // components
 import {Field} from 'redux-form/immutable';
 import {ReduxFormFields} from 'components/ui';
+// other
+import messages from './messages';
 
 class CountrySelectorField extends React.PureComponent {
   static propTypes = {
@@ -21,6 +24,7 @@ class CountrySelectorField extends React.PureComponent {
     // mapStateToProps
     countriesLoading: PropTypes.bool.isRequired,
     countries: PropTypes.instanceOf(Immutable.List),
+    intl: intlShape.isRequired,
   };
 
   componentDidMount() {
@@ -33,12 +37,18 @@ class CountrySelectorField extends React.PureComponent {
   };
 
   render() {
-    const {name, label, countries, countriesLoading} = this.props;
+    const {
+      name,
+      label,
+      countries,
+      countriesLoading,
+      intl: {formatMessage},
+    } = this.props;
     return (
       <Field
         name={name}
         component={ReduxFormFields.Select}
-        label={label}
+        label={label || formatMessage(messages.label)}
         options={countries.toJS()}
         loading={countriesLoading}
         onSearchChange={this.handleCountrySearchChange}
@@ -56,4 +66,7 @@ const mapStateToProps = () =>
     countriesLoading: makeSelectCountriesLoading(),
   });
 
-export default connect(mapStateToProps, {loadCountries})(CountrySelectorField);
+export default connect(
+  mapStateToProps,
+  {loadCountries}
+)(injectIntl(CountrySelectorField));

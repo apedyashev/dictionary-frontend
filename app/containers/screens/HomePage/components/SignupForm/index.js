@@ -79,18 +79,9 @@ class SignupForm extends React.Component {
           hintText={formatMessage(messages.emailHint)}
         />
 
-        <CountrySelectorField
-          name="country"
-          label="Country"
-          onCountryChange={this.handleCountryChange}
-        />
+        <CountrySelectorField name="country" onCountryChange={this.handleCountryChange} />
 
-        <TimezoneSelectorField
-          key={countryId}
-          name="timezone"
-          label="Timezone"
-          countryId={countryId}
-        />
+        <TimezoneSelectorField key={countryId} name="timezone" countryId={countryId} />
 
         <Field
           name="password"
@@ -165,7 +156,10 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
 });
 
-SignupForm = connect(mapStateToProps, mapDispatchToProps)(injectIntl(SignupForm));
+SignupForm = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(injectIntl(SignupForm));
 
 export default reduxForm({
   form: 'signupForm',

@@ -9,13 +9,15 @@ import cn from 'classnames';
 import {push} from 'react-router-redux';
 import injectReducer from 'utils/injectReducer';
 import {makeSelectIsLoginRoute, makeSelectLocation} from 'containers/App/selectors';
+import {FormattedMessage} from 'react-intl';
 // components
 import {Link} from 'react-router-dom';
 import {Grid, Responsive} from 'semantic-ui-react';
 import {Button} from 'components/ui';
 import AuthForms from './components/AuthForms';
 import reducer from './reducer';
-// import saga from './saga';
+// other
+import messages from './messages';
 import styles from './index.css';
 
 export class HomePage extends React.PureComponent {
@@ -127,15 +129,15 @@ export class HomePage extends React.PureComponent {
             mobile={16}
           >
             <p>
-              <h3 className={styles.centered}>Change the way you learn words!</h3>
-              Learn them in the most efficient way with spaced repetition technique!
+              <h3 className={styles.centered}>
+                <FormattedMessage {...messages.introHeader} />
+              </h3>
+              <FormattedMessage {...messages.introDescription} />
             </p>
             <div className={styles.videoContainer}>video</div>
 
             <p>
-              Spaced repetition is a learning technique that incorporates increasing intervals of
-              time between subsequent review of previously learned material in order to exploit the
-              psychological spacing effect.
+              <FormattedMessage {...messages.techniqueDescription} />
             </p>
             <Responsive {...Responsive.onlyMobile}>
               <div className={styles.centered}>
@@ -166,7 +168,10 @@ const mapStateToProps = createStructuredSelector({
   location: makeSelectLocation(),
 });
 
-const withConnect = connect(mapStateToProps, {push});
+const withConnect = connect(
+  mapStateToProps,
+  {push}
+);
 const withReducer = injectReducer({key: 'home', reducer});
 
 export default compose(
