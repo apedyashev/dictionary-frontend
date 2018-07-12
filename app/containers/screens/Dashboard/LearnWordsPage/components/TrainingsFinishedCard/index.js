@@ -2,9 +2,11 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
+import {FormattedMessage} from 'react-intl';
 import {Link} from 'react-router-dom';
 import {Button, WhiteBoard, H2} from 'components/ui';
 // other
+import messages from './messages';
 import styles from './index.css';
 
 export default function TrainingsFinishedCard({
@@ -15,24 +17,32 @@ export default function TrainingsFinishedCard({
 }) {
   let resultTitle;
   if (wordsLearned === 0) {
-    resultTitle = "Dont't be upset!";
+    resultTitle = <FormattedMessage {...messages.resultZeroWordsLearned} />;
   } else if (wordsLearned === totalWords) {
-    resultTitle = 'It was impressive!';
+    resultTitle = <FormattedMessage {...messages.resultAllWordsLearned} />;
   } else if (wordsLearned < totalWords && Math.floor(wordsLearned >= totalWords / 2)) {
-    resultTitle = 'Well done!';
+    resultTitle = <FormattedMessage {...messages.resultMoreThanHalfWordsLearned} />;
   } else if (wordsLearned > 0 && Math.floor(wordsLearned < totalWords / 2)) {
-    resultTitle = 'Try to do your best next time!';
+    resultTitle = <FormattedMessage {...messages.resultLessThanHalfWordsLearned} />;
   }
   return (
     <WhiteBoard className={styles.root}>
       <div className={styles.results}>
         <H2>{resultTitle}</H2>
-        You learned <b>{wordsLearned}</b> words out of <b>{totalWords}</b>
+        <FormattedMessage
+          {...messages.learnedWordsInfoMsg}
+          values={{
+            wordsLearned: <b>{wordsLearned}</b>,
+            totalWords: <b>{totalWords}</b>,
+          }}
+        />
       </div>
       <div className={styles.buttons}>
-        <Button onClick={onReinitilizeClick}>Learn next words</Button>
+        <Button onClick={onReinitilizeClick}>
+          <FormattedMessage {...messages.learnNextWordsBtn} />
+        </Button>
         <Button as={Link} to={`/dictionaries/${slug}`}>
-          Back to the dictionary
+          <FormattedMessage {...messages.backToDictBtn} />
         </Button>
       </div>
     </WhiteBoard>

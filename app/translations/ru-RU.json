@@ -1,6 +1,8 @@
 {
   "containers.Auth.signinBtnLabel": "Войти",
   "containers.Auth.signupBtnLabel": "Регистрация",
+  "containers.ChooseOptionCard.iDontKnowButton": "Не знаю",
+  "containers.ChooseOptionCard.nextButton": "Далее",
   "containers.CountrySelectorField.hint": "Страна, в которой Вы находитесь",
   "containers.CountrySelectorField.label": "Страна",
   "containers.DashboardSidebar.itemTitles.dictionaries": "Мои Словари",
@@ -22,6 +24,7 @@
   "containers.HomePage.intro.header": "Учите слова по-новому!",
   "containers.HomePage.technique.description":
     "Метод интервальных повторений - это техника удержания в памяти, заключающаяся в повторении запомненного учебного материала по определённым, постоянно возрастающим интервалам",
+  "containers.LearnWordsTopbar.backToDictTitle": "Вернуться к словарю",
   "containers.LoginForm.emailHint": "Ваш e-mail",
   "containers.LoginForm.emailLabel": "E-mail",
   "containers.LoginForm.passwordHint": "Ваш пароль",
@@ -59,10 +62,28 @@
   "containers.SettingsForm.saveButtonLabel": "Сохранить",
   "containers.TimezoneSelectorField.hint": "Ваш часовой пояс",
   "containers.TimezoneSelectorField.label": "Часовой пояс",
+  "containers.TrainWritingCard.checkTheMistakeLabel":
+    "Вы допустили ошибку, проверьте, ошибка ли это или просто опечатка",
+  "containers.TrainWritingCard.correctAnswerLabel": "Правильный ответ:",
+  "containers.TrainWritingCard.itsErrorButton": "Это ошибка",
+  "containers.TrainWritingCard.itsTypoButton": "Это опечатка",
+  "containers.TrainWritingCard.missingCharactersLabel": "Недостающие символы",
+  "containers.TrainWritingCard.nextButton": "Далее",
+  "containers.TrainWritingCard.redurantCharactersLabel": "Лишние символы",
   "containers.TrainWritingForm.checkWordBtnLabel": "Проверить",
   "containers.TrainWritingForm.iDontKnowBtnLabel": "Не знаю",
   "containers.TrainWritingForm.wordHint": "Введите слово или фразу",
   "containers.TrainWritingForm.wordLabel": "Слово или фраза",
+  "containers.TrainingsFinishedCard.backToDictBtn": "Вернуться к словарю",
+  "containers.TrainingsFinishedCard.learnNextWordsBtn": "Учить дальше",
+  "containers.TrainingsFinishedCard.learnedWordsInfoMsg":
+    "Вы помните {wordsLearned} слов из {totalWords}",
+  "containers.TrainingsFinishedCard.resultAllWordsLearned": "Это было невероятно!",
+  "containers.TrainingsFinishedCard.resultLessThanHalfWordsLearned":
+    "Не страшно! Постараетесь в следующий раз!",
+  "containers.TrainingsFinishedCard.resultMoreThanHalfWordsLearned": "Отличная работа!",
+  "containers.TrainingsFinishedCard.resultZeroWordsLearned":
+    "Не расстраивайтесь, такое случается со всеми",
   "containers.UserMenuButton.currentUserItem": "Вошли как {fullName}",
   "containers.UserMenuButton.logoutItem": "Выйти",
   "containers.UserMenuButton.settingsItem": "Настройки",

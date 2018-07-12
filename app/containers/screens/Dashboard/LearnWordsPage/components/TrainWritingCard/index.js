@@ -5,13 +5,14 @@ import _isEqual from 'lodash/isEqual';
 import * as jsDiff from 'diff';
 import Immutable from 'immutable';
 // components
+import {FormattedMessage} from 'react-intl';
 import {Grid, Label} from 'semantic-ui-react';
-// import {FormatWordDefinitions, FormatWordExamples} from 'components';
 import {Button} from 'components/ui';
 import PromptingImage from 'containers/PromptingImage';
 import TrainWritingForm from '../TrainWritingForm';
 import WordDefinition from '../WordDefinition';
 // other
+import messages from './messages';
 import styles from './index.css';
 
 const ANSWERED_CORRECTLY = 'corerctly';
@@ -106,16 +107,22 @@ class TrainWritingCard extends React.PureComponent {
             {typedPhraseWithDiff && (
               <div>
                 <div className={styles.correctAnswerContainer}>
-                  <div className={styles.header}>Correct answer:</div>
+                  <div className={styles.header}>
+                    <FormattedMessage {...messages.correctAnswerLabel} />
+                  </div>
                   <div>{word.get('word')}</div>
                 </div>
                 <div className={styles.details}>
                   <div className={styles.header}>
-                    You've made a mistake, please check if it's a typo or an error
+                    <FormattedMessage {...messages.checkTheMistakeLabel} />
                   </div>
                   <div>
-                    <Label color="red">Missing charachters</Label>
-                    <Label color="green">Redundant charachters</Label>
+                    <Label color="red">
+                      <FormattedMessage {...messages.missingCharactersLabel} />
+                    </Label>
+                    <Label color="green">
+                      <FormattedMessage {...messages.redurantCharactersLabel} />
+                    </Label>
                   </div>
                   <div>{typedPhraseWithDiff}</div>
                 </div>
@@ -127,7 +134,7 @@ class TrainWritingCard extends React.PureComponent {
               <Button
                 animateFocus
                 ref={this.nextButtonRef}
-                content="Next"
+                content={<FormattedMessage {...messages.nextButton} />}
                 onClick={this.handleAnsweredCorrectly}
               />
             )}
@@ -137,10 +144,14 @@ class TrainWritingCard extends React.PureComponent {
                   negative
                   animateFocus
                   ref={this.errorButtonRef}
-                  content="It's an error"
+                  content={<FormattedMessage {...messages.itsErrorButton} />}
                   onClick={this.handleErrorBtnClick}
                 />
-                <Button animateFocus content="It's a typo" onClick={this.handleAnsweredCorrectly} />
+                <Button
+                  animateFocus
+                  content={<FormattedMessage {...messages.itsTypoButton} />}
+                  onClick={this.handleAnsweredCorrectly}
+                />
               </React.Fragment>
             )}
           </div>

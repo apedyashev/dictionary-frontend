@@ -10,6 +10,7 @@ import Immutable from 'immutable';
 // selectors
 import {makeSelectRandomWords} from 'containers/screens/Dashboard/LearnWordsPage/selectors';
 // components
+import {FormattedMessage} from 'react-intl';
 import {Button, Grid} from 'semantic-ui-react';
 import {FormatWordDefinitions} from 'components';
 import PromptingImage from 'containers/PromptingImage';
@@ -18,6 +19,7 @@ import CheckAnswerButtons from '../CheckAnswerButtons';
 // other
 import withErrorBoundary from 'utils/hocs/withErrorBoundary';
 import {NUM_OF_OPTIONS_IN_CARD} from '../../constants';
+import messages from './messages';
 import styles from './index.css';
 
 class ChooseOptionCard extends React.PureComponent {
@@ -107,14 +109,14 @@ class ChooseOptionCard extends React.PureComponent {
               fluid: true,
               disabled: selectedOptionIndex < 0,
               className: styles.nextButton,
-              content: 'Next',
+              content: <FormattedMessage {...messages.nextButton} />,
               onClick: this.handleNextClick,
             }}
             skipBtnProps={{
               fluid: true,
               disabled: selectedOptionIndex >= 0,
               className: styles.skipButton,
-              content: "I don't know",
+              content: <FormattedMessage {...messages.iDontKnowButton} />,
               onClick: this.handleSkipClick,
             }}
           />
