@@ -20,7 +20,7 @@ export default function TopbarMobileDropdown({
   const options = [
     {
       key: 'dictionaries',
-      text: 'Dictionaries',
+      text: <FormattedMessage {...messages.dictionariesToggleBtnText} />,
       active: showDictionaries,
       onClick: onShowDictsToggle,
     },
@@ -38,6 +38,7 @@ export default function TopbarMobileDropdown({
       },
       <WordSetSelector
         key="wordsets"
+        allWordsText={<FormattedMessage {...messages.wordSetSelectorAllWordsText} />}
         dictionaryId={selectedDictionaryId}
         value={selectedWordSetId}
         onChange={onWordSetChange}

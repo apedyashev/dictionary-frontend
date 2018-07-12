@@ -1,11 +1,13 @@
 // libs
 import React from 'react';
 import {PropTypes} from 'prop-types';
+import {FormattedMessage} from 'react-intl';
 // components
 import {NavLink} from 'react-router-dom';
 import {DropdownIcon} from 'components/ui';
 // other
 import {sidebarUserType} from 'propTypes/user';
+import messages from './messages';
 
 export default function UserMenuButton({userData, className, onLogout, onClick}) {
   const options = [
@@ -13,18 +15,31 @@ export default function UserMenuButton({userData, className, onLogout, onClick})
       key: 'user',
       text: (
         <span>
-          Signed in as{' '}
-          <strong>
-            {userData.firstName} {userData.lastName}
-          </strong>
+          <FormattedMessage
+            {...messages.currentUserItem}
+            values={{
+              fullName: (
+                <strong>
+                  {userData.firstName} {userData.lastName}
+                </strong>
+              ),
+            }}
+          />
         </span>
       ),
       disabled: true,
     },
-    {key: 'settings', text: 'Settings', as: NavLink, exact: true, to: '/settings', onClick},
+    {
+      key: 'settings',
+      text: <FormattedMessage {...messages.settingsItem} />,
+      as: NavLink,
+      exact: true,
+      to: '/settings',
+      onClick,
+    },
     {
       key: 'logout',
-      text: 'Logout',
+      text: <FormattedMessage {...messages.logoutItem} />,
       onClick: () => {
         onLogout();
         onClick();

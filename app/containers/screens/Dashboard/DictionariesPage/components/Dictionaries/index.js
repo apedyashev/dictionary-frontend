@@ -4,6 +4,7 @@ import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {createStructuredSelector} from 'reselect';
+import {FormattedMessage} from 'react-intl';
 // selectors
 import {makeSelectDictionaries, makeSelectDictionariesLoaded} from '../DictionariesList/selectors';
 // components
@@ -11,6 +12,8 @@ import {Menu} from 'semantic-ui-react';
 import DictionariesList from '../DictionariesList';
 import NewDictionaryForm from '../NewDictionaryForm';
 import withErrorBoundary from 'utils/hocs/withErrorBoundary';
+// other
+import messages from './messages';
 
 class Dictionaries extends React.Component {
   static propTypes = {
@@ -37,6 +40,7 @@ class Dictionaries extends React.Component {
 
   render() {
     const {activeTab} = this.state;
+    console.log('activeTab', activeTab);
     return (
       <div>
         <Menu pointing secondary>
@@ -46,13 +50,12 @@ class Dictionaries extends React.Component {
               name="list"
               active={activeTab === 'list'}
               onClick={this.handleTabClick}
-            />
-            <Menu.Item
-              as="a"
-              name="add"
-              active={activeTab === 'add'}
-              onClick={this.handleTabClick}
-            />
+            >
+              <FormattedMessage {...messages.listTabTitle} />
+            </Menu.Item>
+            <Menu.Item as="a" name="add" active={activeTab === 'add'} onClick={this.handleTabClick}>
+              <FormattedMessage {...messages.addTabTitle} />
+            </Menu.Item>
           </Menu.Menu>
         </Menu>
         {activeTab === 'list' && <DictionariesList onCreateClick={this.handleNewDictionaryClick} />}
@@ -68,5 +71,11 @@ const mapStateToProps = createStructuredSelector({
   loaded: makeSelectDictionariesLoaded(),
 });
 
-const withConnect = connect(mapStateToProps, null);
-export default compose(withConnect, withErrorBoundary)(Dictionaries);
+const withConnect = connect(
+  mapStateToProps,
+  null
+);
+export default compose(
+  withConnect,
+  withErrorBoundary
+)(Dictionaries);

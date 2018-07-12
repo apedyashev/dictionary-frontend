@@ -85,7 +85,7 @@ class DictionaryForm extends React.Component {
     } = this.props;
     const {isLangAbsent} = this.state;
     return (
-      <Form onSubmit={handleSubmit(this.submitForm)}>
+      <Form onSubmit={handleSubmit(this.submitForm)} className={styles.root}>
         {isLangAbsent ? (
           <Field
             name="title"
@@ -159,7 +159,10 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-DictionaryForm = connect(mapStateToProps, mapDispatchToProps)(injectIntl(DictionaryForm));
+DictionaryForm = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(injectIntl(DictionaryForm));
 
 export default reduxForm({
   form: 'dictionaryForm',

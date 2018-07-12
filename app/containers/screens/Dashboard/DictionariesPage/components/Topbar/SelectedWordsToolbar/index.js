@@ -2,10 +2,12 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
+import {FormattedMessage} from 'react-intl';
 import {ConfirmableButton} from 'components/ui';
 import {Button, Menu, Popup} from 'semantic-ui-react';
 import WordSetSelector from '../../WordSetSelector/WithAddForm';
 // other
+import messages from './messages';
 import styles from './index.css';
 
 export default function SelectedWordsToolbar({
@@ -35,8 +37,10 @@ export default function SelectedWordsToolbar({
           <ConfirmableButton
             icon="trash"
             position="bottom left"
-            hoverContent="Delete words"
-            clickContent="Are you sure?"
+            hoverContent={<FormattedMessage {...messages.deleteWordsBtnHoverContent} />}
+            clickContent={<FormattedMessage {...messages.deleteWordsBtnClickContent} />}
+            yesButtonContent={<FormattedMessage {...messages.yesButtonContent} />}
+            cancelButtonContent={<FormattedMessage {...messages.cancelButtonContent} />}
             onConfirm={onWordsDeleteClick}
           />
         </div>

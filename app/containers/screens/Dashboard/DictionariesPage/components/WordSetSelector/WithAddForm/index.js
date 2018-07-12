@@ -11,10 +11,12 @@ import {createWordset} from '../../DictionariesList/actions';
 // selectors
 import {makeSelectDictionaryWordSets} from '../../DictionariesList/selectors';
 // components
+import {injectIntl, intlShape} from 'react-intl';
 import {Dropdown as DropdownSUI, Button, Popup} from 'semantic-ui-react';
 import {Dropdown} from 'components/ui';
 import AddWordsetForm from '../../AddOwnTranslation';
 // other
+import messages from './messages';
 import styles from './index.css';
 
 class WordSetSelectorWithAddForm extends React.PureComponent {
@@ -24,6 +26,8 @@ class WordSetSelectorWithAddForm extends React.PureComponent {
     onChange: PropTypes.func.isRequired,
     wordSets: PropTypes.instanceOf(Immutable.List).isRequired,
     createWordset: PropTypes.func.isRequired,
+    // react-intl
+    intl: intlShape.isRequired,
   };
   static defaultProps = {
     value: 0,
@@ -48,7 +52,11 @@ class WordSetSelectorWithAddForm extends React.PureComponent {
   };
 
   render() {
-    const {value, wordSets} = this.props;
+    const {
+      value,
+      wordSets,
+      intl: {formatMessage},
+    } = this.props;
     const options = wordSets
       .map((wordSet) => ({
         key: wordSet.get('id'),
@@ -67,7 +75,11 @@ class WordSetSelectorWithAddForm extends React.PureComponent {
         trigger={
           <span>
             {isBrowser ? (
-              <Popup position="bottom left" trigger={triggerButton} content="Add to a wordset" />
+              <Popup
+                position="bottom left"
+                trigger={triggerButton}
+                content={formatMessage(messages.triggerBtnPopupContent)}
+              />
             ) : (
               triggerButton
             )}
@@ -83,7 +95,13 @@ class WordSetSelectorWithAddForm extends React.PureComponent {
           </DropdownSUI.Menu>
           <DropdownSUI.Header
             onClick={this.handleMenuClick}
-            content={<AddWordsetForm placeholder="New wordset" onAddClick={this.handleAddClick} />}
+            content={
+              <AddWordsetForm
+                placeholder={formatMessage(messages.newWordsetPlaceholder)}
+                saveButtonText={formatMessage(messages.saveButtonText)}
+                onAddClick={this.handleAddClick}
+              />
+            }
           />
         </DropdownSUI.Menu>
       </Dropdown>
@@ -101,4 +119,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(WordSetSelectorWithAddForm);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(injectIntl(WordSetSelectorWithAddForm));

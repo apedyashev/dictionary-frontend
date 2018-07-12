@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Helmet} from 'react-helmet';
-// import {FormattedMessage} from 'react-intl';
+import {FormattedMessage} from 'react-intl';
 import {connect} from 'react-redux';
 import _without from 'lodash/without';
 import {push} from 'react-router-redux';
@@ -19,6 +19,7 @@ import {Sidebar, Menu} from 'semantic-ui-react';
 import {Prompt} from 'components/ui';
 import {Topbar, Dictionaries, WordsList} from './components';
 // other
+import messages from './messages';
 import styles from './index.css';
 
 export class DictionariesPage extends React.PureComponent {
@@ -164,7 +165,7 @@ export class DictionariesPage extends React.PureComponent {
                   selectedWordIds={selectedWordIds}
                 />
               ) : (
-                <Prompt title="please select a dictionary" />
+                <Prompt title={<FormattedMessage {...messages.selectDictionaryPromptTitle} />} />
               )}
               {/* </div> */}
             </Sidebar.Pusher>
@@ -190,4 +191,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DictionariesPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DictionariesPage);

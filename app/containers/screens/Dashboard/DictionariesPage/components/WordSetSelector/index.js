@@ -12,7 +12,7 @@ import {Dropdown} from 'components/ui';
 // other
 import styles from './index.css';
 
-function WordSetSelector({value, topbarButton, onChange, wordSets}) {
+function WordSetSelector({value, topbarButton, allWordsText, onChange, wordSets}) {
   const options = wordSets
     .map((wordSet) => ({
       key: wordSet.get('id'),
@@ -21,7 +21,7 @@ function WordSetSelector({value, topbarButton, onChange, wordSets}) {
     }))
     .toJS();
   // push 'all words' to the beginning
-  options.unshift({key: 0, text: 'All words', value: '0'});
+  options.unshift({key: 0, text: allWordsText, value: '0'});
 
   return (
     <Dropdown
@@ -35,6 +35,7 @@ function WordSetSelector({value, topbarButton, onChange, wordSets}) {
 }
 WordSetSelector.propTypes = {
   value: PropTypes.any,
+  allWordsText: PropTypes.string.isRequired,
   topbarButton: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   wordSets: PropTypes.instanceOf(Immutable.List).isRequired,
@@ -47,4 +48,7 @@ const mapStateToProps = createStructuredSelector({
   wordSets: makeSelectDictionaryWordSets(),
 });
 
-export default connect(mapStateToProps, null)(WordSetSelector);
+export default connect(
+  mapStateToProps,
+  null
+)(WordSetSelector);

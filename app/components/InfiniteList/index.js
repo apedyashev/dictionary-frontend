@@ -18,8 +18,8 @@ class InfiniteList extends React.PureComponent {
     loadNextPage: PropTypes.func.isRequired,
     resetMeasurerCache: PropTypes.func,
     resetProps: PropTypes.object,
-    dataLoadingMessage: PropTypes.string,
-    noRowsMessage: PropTypes.string,
+    dataLoadingMessage: PropTypes.any,
+    noRowsMessage: PropTypes.any,
   };
   static defaultProps = {
     perPage: 50,

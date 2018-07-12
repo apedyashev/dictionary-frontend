@@ -1,4 +1,7 @@
 .title {
   font-size: 1.3rem;
   flex-grow: 1 !important;
+  &::before {
+    width: 0 !important;
+  }
 }

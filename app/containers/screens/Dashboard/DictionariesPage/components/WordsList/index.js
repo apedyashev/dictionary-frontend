@@ -9,8 +9,11 @@ import {loadWords, resetWords} from './actions';
 // selectors
 import {makeSelectWords, makeSelectWordsHasNextPage} from './selectors';
 // components
+import {FormattedMessage} from 'react-intl';
 import InfiniteList from 'components/InfiniteList';
 import {Word} from 'components/ui';
+// other
+import messages from './messages';
 
 class WordsList extends React.PureComponent {
   static propTypes = {
@@ -62,7 +65,6 @@ class WordsList extends React.PureComponent {
     if (this.state.shouldListBeReset) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({shouldListBeReset: false});
-      console.log('reset display order');
       this.props.resetWords();
     }
   }
@@ -81,13 +83,8 @@ class WordsList extends React.PureComponent {
     return 30;
   };
 
-  // noRowsRenderer = () => {
-  //   return <EmptyListPrompt title="You don't have any words" />;
-  // };
-
   rowRenderer = ({item, key, style}) => {
     const {selectedWordIds} = this.props;
-    // console.log('rowRenderer', item.toJS());
     return (
       <Word
         key={key}
@@ -110,9 +107,8 @@ class WordsList extends React.PureComponent {
           perPage={50}
           items={words}
           rowRenderer={this.rowRenderer}
-          // noRowsRenderer={this.noRowsRenderer}
-          dataLoadingMessage="Loading words"
-          noRowsMessage="You don't have any words in the dictionary"
+          dataLoadingMessage={<FormattedMessage {...messages.dataLoadingMessage} />}
+          noRowsMessage={<FormattedMessage {...messages.noRowsMessage} />}
           getRowHeight={this.getRowHeight}
           loadNextPage={this.loadNextPage}
           resetProps={{dictionaryId, wordSetId, searchString}}

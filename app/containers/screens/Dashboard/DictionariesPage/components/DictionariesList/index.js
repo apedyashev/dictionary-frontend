@@ -8,9 +8,12 @@ import Immutable from 'immutable';
 import {makeSelectDictionaries, makeSelectDictionariesLoading} from './selectors';
 import {loadDictionaries} from './actions';
 // components
+import {FormattedMessage} from 'react-intl';
 import {Button} from 'semantic-ui-react';
 import {ListLoader, EmptyListPrompt} from 'components/ui';
 import DictionariesListItem from '../DictionariesListItem';
+// other
+import messages from './messages';
 
 class DictionariesList extends React.Component {
   static propTypes = {
@@ -31,10 +34,10 @@ class DictionariesList extends React.Component {
     if (!loading && !dictionaries.size) {
       return (
         <EmptyListPrompt
-          title="You don't have any dictionaries"
+          title={<FormattedMessage {...messages.noDictionariesMsg} />}
           subtitle={
             <Button basic onClick={this.props.onCreateClick}>
-              Create
+              {<FormattedMessage {...messages.createButton} />}
             </Button>
           }
         />
@@ -65,4 +68,7 @@ export function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DictionariesList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DictionariesList);

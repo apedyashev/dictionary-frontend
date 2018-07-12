@@ -3,10 +3,10 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 import cn from 'classnames';
 // components
-import {FormattedMessage} from 'react-intl';
-import {Icon, Menu, Button, Responsive} from 'semantic-ui-react';
+import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
+import {Menu, Button, Responsive} from 'semantic-ui-react';
 import SidebarOpenerIcon from 'containers/SidebarOpenerIcon';
-import {TopbarButton, TopbarTitle} from 'components/ui';
+import {TopbarButton, TopbarTitle, Icon} from 'components/ui';
 import SelectedWordsToolbar from './SelectedWordsToolbar';
 import WordsSearchBar from '../WordsSearchBar';
 import WordSetSelector from '../WordSetSelector';
@@ -15,7 +15,7 @@ import TopbarMobileDropdown from '../TopbarMobileDropdown';
 import messages from './messages';
 import styles from './index.css';
 
-export default function DashboardTopbar({
+function DashboardTopbar({
   selectedDictionaryId,
   translateDirection,
   showDictionaries,
@@ -26,6 +26,7 @@ export default function DashboardTopbar({
   onSearchChange,
   onWordsDeleteClick,
   onLearnClick,
+  intl: {formatMessage},
 }) {
   const selectedWordsCount = (selectedWordIds && selectedWordIds.length) || 0;
   return (
@@ -49,7 +50,9 @@ export default function DashboardTopbar({
             <Responsive minWidth={568}>
               <TopbarButton active={showDictionaries} onClick={onShowDictsToggle}>
                 <Icon name="book" />
-                <Responsive minWidth={768}>Dictionaries</Responsive>
+                <Responsive minWidth={768}>
+                  <FormattedMessage {...messages.dictionariesToggleBtnText} />
+                </Responsive>
               </TopbarButton>
             </Responsive>
             {selectedDictionaryId ? (
@@ -57,6 +60,7 @@ export default function DashboardTopbar({
                 <TopbarButton as={Responsive} minWidth={568} className={styles.stipPadding}>
                   <WordSetSelector
                     topbarButton
+                    allWordsText={<FormattedMessage {...messages.wordSetSelectorAllWordsText} />}
                     dictionaryId={selectedDictionaryId}
                     value={selectedWordSetId}
                     onChange={onWordSetChange}
@@ -64,8 +68,17 @@ export default function DashboardTopbar({
                 </TopbarButton>
                 <TopbarButton className={cn(styles.stipTopBottomPadding, styles.searchBarMenu)}>
                   <WordsSearchBar
-                    buttonLabel="Add"
-                    placeholder="Type to search"
+                    buttonLabel={
+                      <React.Fragment>
+                        <Responsive minWidth={768}>
+                          <FormattedMessage {...messages.wordsSearchAddBtnLabel} />
+                        </Responsive>
+                        <Responsive maxWidth={768}>
+                          <Icon name="add" />
+                        </Responsive>
+                      </React.Fragment>
+                    }
+                    placeholder={formatMessage(messages.wordsSearchPlaceholder)}
                     dictionaryId={selectedDictionaryId}
                     translateDirection={translateDirection}
                     onChange={onSearchChange}
@@ -73,7 +86,10 @@ export default function DashboardTopbar({
                 </TopbarButton>
               </React.Fragment>
             ) : (
-              <TopbarTitle title="Select a dictionary" omitSeparator={false} />
+              <TopbarTitle
+                title={<FormattedMessage {...messages.selectDictionaryTitle} />}
+                omitSeparator={false}
+              />
             )}
           </React.Fragment>
         )}
@@ -126,4 +142,8 @@ DashboardTopbar.propTypes = {
   onSearchChange: PropTypes.func.isRequired,
   onWordsDeleteClick: PropTypes.func.isRequired,
   onLearnClick: PropTypes.func.isRequired,
+  // react-intl
+  intl: intlShape.isRequired,
 };
+
+export default injectIntl(DashboardTopbar);

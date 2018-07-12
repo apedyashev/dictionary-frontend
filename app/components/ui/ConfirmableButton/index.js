@@ -7,11 +7,17 @@ import {Button, Popup} from 'semantic-ui-react';
 class ConfirmableButton extends React.PureComponent {
   static propTypes = {
     icon: PropTypes.string,
+    yesButtonContent: PropTypes.string,
+    cancelButtonContent: PropTypes.string,
     position: PropTypes.string,
     hoverContent: PropTypes.any,
     clickContent: PropTypes.any,
     onConfirm: PropTypes.func.isRequired,
     onCancel: PropTypes.func,
+  };
+  static defaultProps = {
+    yesButtonContent: 'Yes',
+    cancelButtonContent: 'Cancel',
   };
   state = {clicked: false, open: undefined};
 
@@ -35,14 +41,21 @@ class ConfirmableButton extends React.PureComponent {
   };
 
   render() {
-    const {icon, position, hoverContent, clickContent} = this.props;
+    const {
+      icon,
+      position,
+      hoverContent,
+      clickContent,
+      yesButtonContent,
+      cancelButtonContent,
+    } = this.props;
     const {clicked, open} = this.state;
     const confirmContent = (
       <div>
         {clickContent}
         <div>
-          <Button content="Yes" positive onClick={this.handleConfirm} />
-          <Button content="Cancel" negative onClick={this.handleClose} />
+          <Button content={yesButtonContent} positive onClick={this.handleConfirm} />
+          <Button content={cancelButtonContent} negative onClick={this.handleClose} />
         </div>
       </div>
     );
