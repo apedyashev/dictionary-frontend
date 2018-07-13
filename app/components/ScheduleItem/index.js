@@ -31,7 +31,7 @@ export default function ScheduleItem({data, locale, time, style}) {
           </span>{' '}
           {isSameDay(data.date, new Date()) && (
             <Link
-              to={`/learn-words/${dictionary.slug}/scheduled/${format(data.date, 'YYYY-MM-DD')}`}
+              to={`/learn-words/${dictionary.slug}/scheduled/${format(data.date, 'YYYY-MM-dd')}`}
             >
               <FormattedMessage {...messages.learnAgainLink} />
             </Link>

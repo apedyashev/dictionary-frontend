@@ -145,7 +145,10 @@ const mapStateToProps = createStructuredSelector({
   profile: makeSelectProfileData(),
 });
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps
+);
 const withReducer = injectReducer({key: 'app', reducer});
 const withLearnWordsReducer = injectReducer({key: 'learnWords', reducer: learnWordsReducer});
 const withSidebarReducer = injectReducer({key: 'sidebar', reducer: sidebarReducer});

@@ -9,7 +9,6 @@ export default function AppContainer({topbar, withMobileTopbar, withDesktopTopba
   return (
     <div>
       {topbar}
-
       <div
         className={cn(styles.content, {
           [styles.withMobileTopbar]: !!withMobileTopbar,
