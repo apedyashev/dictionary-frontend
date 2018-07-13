@@ -52,9 +52,10 @@
   "containers.RegForm.passwordLabel": "Пароль",
   "containers.ScheduleItem.learnAgainLink": "Повторить",
   "containers.ScheduleItem.reviewWordsRemainder":
-    "{wordsCount , plural, one {{wordsCount} слово} few {{wordsCount} слова} other {{wordsCount} слов}} для повторения",
+    "{wordsCount , plural, one {{wordsCount} слово} few {{wordsCount} слова} other {{wordsCount} слов}}",
   "containers.ScheduleList.dataLoadingMessage": "Загрузка расписания",
   "containers.ScheduleList.noRowsMessage": "У Вас нет слов для повторения",
+  "containers.SchedulePage.topbarTitle": "Расписание повторений",
   "containers.SelectedWordsToolbar.cancelButtonContent": "Отмена",
   "containers.SelectedWordsToolbar.deleteWordsBtnClickContent": "Вы уверены?",
   "containers.SelectedWordsToolbar.deleteWordsBtnHoverContent": "Удалить слова",
@@ -65,6 +66,7 @@
   "containers.SettingsForm.lastNameHint": "Ваша фамилия",
   "containers.SettingsForm.lastNameLabel": "Фамилия",
   "containers.SettingsForm.saveButtonLabel": "Сохранить",
+  "containers.SettingsPage.topbarTitle": "Настройки",
   "containers.TimezoneSelectorField.hint": "Ваш часовой пояс",
   "containers.TimezoneSelectorField.label": "Часовой пояс",
   "containers.TrainWritingCard.checkTheMistakeLabel":

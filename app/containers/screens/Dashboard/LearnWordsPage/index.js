@@ -238,7 +238,9 @@ export class LearnWordsPage extends React.PureComponent {
           <title>Learn words</title>
         </Helmet>
 
-        <AppContainer topbar={<Topbar dictionarySlug={params.slug} />}>
+        <AppContainer
+          topbar={<Topbar dictionarySlug={params.slug} withMobileTopbar withDesktopTopbar />}
+        >
           <WhiteBoard className={styles.whiteBoard}>
             {[TRAINING_WORD_TRANSLATION, TRAINING_TRANSLATION_WORD].includes(trainingName) && (
               <ChooseOptionCard

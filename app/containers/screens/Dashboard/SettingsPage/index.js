@@ -1,17 +1,21 @@
 // libs
 import React from 'react';
 // components
+import {AppContainer} from 'components';
 import StandardTopbar from 'containers/StandardTopbar';
+import {FormattedMessage} from 'react-intl';
 import {SettingsForm} from './components';
 // other
-import styles from './index.css';
+import messages from './messages';
 
 export default function SettingsPage() {
   return (
-    <div className={styles.root}>
-      <StandardTopbar title="Settings" />
+    <AppContainer
+      topbar={<StandardTopbar title={<FormattedMessage {...messages.topbarTitle} />} />}
+      withMobileTopbar
+    >
       <SettingsForm />
-    </div>
+    </AppContainer>
   );
 }
 SettingsPage.propTypes = {};
