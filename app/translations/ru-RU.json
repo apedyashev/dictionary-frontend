@@ -50,6 +50,11 @@
   "containers.RegForm.passwordConfirmLabel": "Подтвердите пароль",
   "containers.RegForm.passwordHint": "Ваш пароль",
   "containers.RegForm.passwordLabel": "Пароль",
+  "containers.ScheduleItem.learnAgainLink": "Повторить",
+  "containers.ScheduleItem.reviewWordsRemainder":
+    "{wordsCount , plural, one {{wordsCount} слово} few {{wordsCount} слова} other {{wordsCount} слов}} для повторения",
+  "containers.ScheduleList.dataLoadingMessage": "Загрузка расписания",
+  "containers.ScheduleList.noRowsMessage": "У Вас нет слов для повторения",
   "containers.SelectedWordsToolbar.cancelButtonContent": "Отмена",
   "containers.SelectedWordsToolbar.deleteWordsBtnClickContent": "Вы уверены?",
   "containers.SelectedWordsToolbar.deleteWordsBtnHoverContent": "Удалить слова",

@@ -92,18 +92,9 @@ class SettingsForm extends React.PureComponent {
                 hintText={formatMessage(messages.lastNameHint)}
               />
               <Input disabled value={initialValues.email} />
-              <CountrySelectorField
-                name="country"
-                label="Country"
-                onCountryChange={this.handleCountryChange}
-              />
+              <CountrySelectorField name="country" onCountryChange={this.handleCountryChange} />
 
-              <TimezoneSelectorField
-                key={countryId}
-                name="timezone"
-                label="Timezone"
-                countryId={countryId}
-              />
+              <TimezoneSelectorField key={countryId} name="timezone" countryId={countryId} />
             </Paper>
           </Grid.Column>
           <Grid.Column className={styles.column} computer={8} mobile={16}>
@@ -174,7 +165,10 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-SettingsForm = connect(mapStateToProps, mapDispatchToProps)(injectIntl(SettingsForm));
+SettingsForm = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(injectIntl(SettingsForm));
 
 export default reduxForm({
   form: formId,

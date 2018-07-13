@@ -28,6 +28,11 @@ export const makeSelectProfileData = () =>
   createSelector(selectGlobal, (globalState) => globalState.getIn(['profile', 'data']));
 export const makeSelectLoggingOut = () =>
   createSelector(selectGlobal, (globalState) => globalState.getIn(['profile', 'loggingOut']));
+export const makeSelectLoggedUserLanguage = () =>
+  createSelector(makeSelectProfileData(), (profileData) => {
+    const [lang, country] = profileData.locale.split('-');
+    return lang;
+  });
 
 const makeSelectEntities = () =>
   createSelector(selectGlobal, (globalState) => globalState.get('entities'));

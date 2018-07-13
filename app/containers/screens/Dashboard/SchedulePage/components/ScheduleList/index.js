@@ -7,16 +7,21 @@ import {createStructuredSelector} from 'reselect';
 // actions
 import {loadSchedule} from './actions';
 // selectors
+import {makeSelectLoggedUserLanguage} from 'containers/App/selectors';
 import {makeSelectSchedule, makeSelectScheduleHasNextPage} from './selectors';
 // components
+import {FormattedMessage} from 'react-intl';
 import {InfiniteList, ScheduleItem} from 'components';
 import {CellMeasurer, CellMeasurerCache} from 'react-virtualized';
+// other
+import messages from './messages';
 
 class ScheduleList extends React.Component {
   static propTypes = {
     hasNextPage: PropTypes.bool.isRequired,
     scheduleItems: PropTypes.instanceOf(Immutable.List),
     loadSchedule: PropTypes.func.isRequired,
+    userLanguage: PropTypes.string,
   };
   state = {};
   cache = new CellMeasurerCache({
@@ -41,9 +46,10 @@ class ScheduleList extends React.Component {
   };
 
   rowRenderer = ({item, index, parent, key, style}) => {
+    const {userLanguage} = this.props;
     return (
       <CellMeasurer key={key} cache={this.cache} columnIndex={0} rowIndex={index} parent={parent}>
-        <ScheduleItem style={style} data={item.toJS()} />
+        <ScheduleItem style={style} data={item.toJS()} locale={userLanguage} />
       </CellMeasurer>
     );
   };
@@ -56,7 +62,8 @@ class ScheduleList extends React.Component {
         perPage={50}
         items={scheduleItems}
         rowRenderer={this.rowRenderer}
-        noRowsMessage="The schedule is empty"
+        dataLoadingMessage={<FormattedMessage {...messages.dataLoadingMessage} />}
+        noRowsMessage={<FormattedMessage {...messages.noRowsMessage} />}
         getRowHeight={this.getRowHeight}
         loadNextPage={this.loadNextPage}
         resetMeasurerCache={this.resetMeasurerCache}
@@ -68,6 +75,7 @@ class ScheduleList extends React.Component {
 const mapStateToProps = createStructuredSelector({
   scheduleItems: makeSelectSchedule(),
   hasNextPage: makeSelectScheduleHasNextPage(),
+  userLanguage: makeSelectLoggedUserLanguage(),
 });
 
 export function mapDispatchToProps(dispatch) {

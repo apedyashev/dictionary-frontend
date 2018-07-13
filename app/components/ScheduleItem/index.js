@@ -2,17 +2,19 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
+import {FormattedMessage} from 'react-intl';
 import {Link} from 'react-router-dom';
 import {DateFormatRelative} from '../ui';
 import isSameDay from 'date-fns/isSameDay';
 import format from 'date-fns/format';
 // other
+import messages from './messages';
 import styles from './index.css';
 
-export default function ScheduleItem({data, time, style}) {
+export default function ScheduleItem({data, locale, time, style}) {
   return (
     <div className={styles.root} style={style}>
-      <DateFormatRelative className={styles.date} date={data.date} time={time} />
+      <DateFormatRelative className={styles.date} date={data.date} time={time} locale={locale} />
       {data.dictionaries.map((dictionary) => (
         <div key={dictionary.id} className={styles.dictionaryContainer}>
           <Link to={`/dictionaries/${dictionary.slug}`} className={styles.name}>
@@ -20,13 +22,18 @@ export default function ScheduleItem({data, time, style}) {
           </Link>{' '}
           <span className={styles.description}>
             {' '}
-            {dictionary.words.length} words to be reviewed
+            <FormattedMessage
+              {...messages.reviewWordsRemainder}
+              values={{
+                wordsCount: dictionary.words.length,
+              }}
+            />
           </span>{' '}
           {isSameDay(data.date, new Date()) && (
             <Link
               to={`/learn-words/${dictionary.slug}/scheduled/${format(data.date, 'YYYY-MM-DD')}`}
             >
-              Learn again
+              <FormattedMessage {...messages.learnAgainLink} />
             </Link>
           )}{' '}
           <div>{dictionary.words.map((word) => word.title).join(', ')}</div>
