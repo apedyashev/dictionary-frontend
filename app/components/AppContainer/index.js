@@ -5,7 +5,13 @@ import cn from 'classnames';
 // other
 import styles from './index.css';
 
-export default function AppContainer({topbar, withMobileTopbar, withDesktopTopbar, children}) {
+export default function AppContainer({
+  topbar,
+  withMobileTopbar,
+  withDesktopTopbar,
+  withPadding,
+  children,
+}) {
   return (
     <div>
       {topbar}
@@ -13,6 +19,7 @@ export default function AppContainer({topbar, withMobileTopbar, withDesktopTopba
         className={cn(styles.content, {
           [styles.withMobileTopbar]: !!withMobileTopbar,
           [styles.withDesktopTopbar]: !!withDesktopTopbar,
+          [styles.withPadding]: !!withPadding,
         })}
       >
         {children}
@@ -25,4 +32,5 @@ AppContainer.propTypes = {
   children: PropTypes.any,
   withMobileTopbar: PropTypes.bool,
   withDesktopTopbar: PropTypes.bool,
+  withPadding: PropTypes.bool,
 };

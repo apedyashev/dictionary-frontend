@@ -13,6 +13,7 @@ export default function SettingsPage() {
     <AppContainer
       topbar={<StandardTopbar title={<FormattedMessage {...messages.topbarTitle} />} />}
       withMobileTopbar
+      withPadding
     >
       <SettingsForm />
     </AppContainer>
