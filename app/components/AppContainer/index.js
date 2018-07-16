@@ -23,4 +23,6 @@ export default function AppContainer({topbar, withMobileTopbar, withDesktopTopba
 AppContainer.propTypes = {
   topbar: PropTypes.any,
   children: PropTypes.any,
+  withMobileTopbar: PropTypes.bool,
+  withDesktopTopbar: PropTypes.bool,
 };

@@ -57,6 +57,7 @@ ScheduleItem.propTypes = {
   }),
   time: PropTypes.string,
   style: PropTypes.object,
+  locale: PropTypes.string,
 };
 ScheduleItem.defaultProps = {
   time: '18:00',

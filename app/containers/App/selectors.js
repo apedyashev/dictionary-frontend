@@ -30,7 +30,7 @@ export const makeSelectLoggingOut = () =>
   createSelector(selectGlobal, (globalState) => globalState.getIn(['profile', 'loggingOut']));
 export const makeSelectLoggedUserLanguage = () =>
   createSelector(makeSelectProfileData(), (profileData) => {
-    const [lang, country] = profileData.locale.split('-');
+    const [lang] = profileData.locale.split('-');
     return lang;
   });
 

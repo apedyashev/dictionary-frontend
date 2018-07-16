@@ -81,6 +81,7 @@ DashboardSidebar.propTypes = {
   setLoggingOut: PropTypes.func.isRequired,
   onHide: PropTypes.func,
   visible: PropTypes.bool,
+  intl: intlShape.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
