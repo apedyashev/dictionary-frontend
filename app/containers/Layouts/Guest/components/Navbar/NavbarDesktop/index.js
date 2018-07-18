@@ -12,7 +12,7 @@ const NavbarDesktop = ({showLogin}) => (
           <AuthButton showLogin={showLogin} />
         </Menu.Item>
         <Menu.Item>
-          <LanguageSelector />
+          <LanguageSelector asButton />
         </Menu.Item>
       </Menu.Menu>
     </Container>

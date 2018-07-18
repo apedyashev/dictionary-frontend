@@ -1,29 +1,37 @@
 // libs
 import React from 'react';
 import {PropTypes} from 'prop-types';
+import cn from 'classnames';
 // components
 import {Button, Dropdown} from 'semantic-ui-react';
 // other
 import styles from './index.css';
 
-export default function NavLanguageSelector({value, languages, onChange}) {
+export default function NavLanguageSelector({value, languages, asNestedItem, onChange}) {
   const handleChange = (e, data) => onChange(data.value);
+  const dropdown = (
+    <Dropdown
+      icon={asNestedItem ? 'angle right' : 'world'}
+      className={cn(styles.dropdown, {[styles.nestedItem]: asNestedItem})}
+      value={value}
+      options={languages}
+      simple
+      item
+      onChange={handleChange}
+    />
+  );
+  if (asNestedItem) {
+    return dropdown;
+  }
   return (
     <Button basic className={styles.dropdownWrappingBtn}>
-      <Dropdown
-        icon="world"
-        className={styles.dropdown}
-        value={value}
-        options={languages}
-        simple
-        item
-        onChange={handleChange}
-      />
+      {dropdown}
     </Button>
   );
 }
 NavLanguageSelector.propTypes = {
   value: PropTypes.string,
+  asNestedItem: PropTypes.bool,
   languages: PropTypes.arrayOf(
     PropTypes.shape({
       key: PropTypes.number,

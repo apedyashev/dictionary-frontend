@@ -74,6 +74,9 @@ class ChooseOptionCard extends React.PureComponent {
     const {selectedOptionIndex, correctAnswerIndex} = this.state;
     const {word, randomWords, directTranslation} = this.props;
     const options = randomWords.insert(this.state.correctAnswerIndex, word).toJS();
+    if (!word) {
+      return null;
+    }
     return (
       <Grid className={styles.root}>
         <Grid.Column computer={8} mobile={16}>

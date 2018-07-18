@@ -41,7 +41,7 @@
   "containers.NewDictForm.translationPossibleCheckboxLabel":
     "Ich finde meine Sprache nicht in der Liste",
   "containers.NotFoundPage.header": "",
-  "containers.RegForm.emailHint": "Ihre E-mail Adresse",
+  "containers.RegForm.emailHint": "Wie lautet Ihre E-Mail",
   "containers.RegForm.emailLabel": "E-mail",
   "containers.RegForm.firstNameHint": "Vorname",
   "containers.RegForm.firstNameLabel": "Ihr Vorname",

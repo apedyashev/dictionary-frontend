@@ -19,3 +19,9 @@
     margin-top: 0 !important;
   }
 }
+
+.nestedItem {
+  font-size: inherit !important;
+  padding: 0 !important;
+  text-align: left !important;
+}
