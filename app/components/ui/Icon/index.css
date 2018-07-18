@@ -1,6 +1,6 @@
-$inactive-background-outline: rgba(37, 113, 189, 0.1);
-$active-background-outline: #2571bd;
-$active-icon-color: #fff;
+$inactive-background-outline: rgba(255, 255, 255, 0.1);
+$active-background-outline: #fff;
+$active-icon-color: $primary-color;
 .hoverable {
   display: inline-block;
   font-size: 0px;

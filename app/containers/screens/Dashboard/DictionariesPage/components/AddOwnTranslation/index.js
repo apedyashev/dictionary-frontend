@@ -33,6 +33,7 @@ class AddOwnTranslation extends React.PureComponent {
       content: this.props.saveButtonText,
       loading: false,
       disabled: !inputValue,
+      positive: true,
       onClick: this.handleAddClick,
     };
     return (

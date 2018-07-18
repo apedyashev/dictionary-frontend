@@ -123,7 +123,7 @@ class DictionaryForm extends React.Component {
           />
         </div>
 
-        <Button type="submit" fluid loading={submitting} disabled={submitting}>
+        <Button type="submit" positive fluid loading={submitting} disabled={submitting}>
           <FormattedMessage {...messages.saveBtnLabel} />
         </Button>
       </Form>

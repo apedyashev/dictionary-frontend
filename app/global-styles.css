@@ -1,8 +1,46 @@
+/* #1979C8 */
+/* #689A56 */
+$primary-color: #4484ce;
+$secondary-color: #f19f4d;
+$background-color: #d9d9d9;
+/* $negative-color: #d9d9d9; */
+$font-color: #fff;
+/* #f9cf00 */
 $error-color: #d9534f;
 $main-content-padding: 10px;
+$hover-opacity: 0.8;
 body {
   background-color: #efefef;
 }
 :global div:focus {
   outline: none;
+}
+
+:global {
+  .ui.button.positive {
+    background-color: $secondary-color;
+    &:hover {
+      background-color: $secondary-color !important;
+      opacity: $hover-opacity;
+    }
+  }
+  .ui.button.negative {
+    background-color: $background-color;
+    &:hover {
+      background-color: $background-color !important;
+      opacity: $hover-opacity;
+    }
+  }
+  .ui.label {
+    background-color: $secondary-color !important;
+  }
+  .ui.secondary.pointing.menu .active.item {
+    border-color: $primary-color;
+    color: $primary-color;
+  }
+
+  .ui.checkbox input:checked ~ .box:after,
+  .ui.checkbox input:checked ~ label:after {
+    color: $secondary-color !important;
+  }
 }

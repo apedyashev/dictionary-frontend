@@ -1,5 +1,6 @@
 .root {
   height: 54px;
+  cursor: pointer;
 }
 .noSeparator {
   &::before {

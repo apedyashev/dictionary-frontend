@@ -113,6 +113,7 @@ function DashboardTopbar({
         {selectedDictionaryId && (
           <Menu.Item as={Responsive} minWidth={568}>
             <Button
+              positive
               content={
                 selectedWordsCount ? (
                   <FormattedMessage

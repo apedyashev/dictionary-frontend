@@ -3,4 +3,9 @@
   border-bottom: 0 !important;
   overflow-y: visible !important;
   z-index: 1001;
+  background-color: #4484ce !important;
+  color: $font-color !important;
+  :global(.item) {
+    color: $font-color !important;
+  }
 }
