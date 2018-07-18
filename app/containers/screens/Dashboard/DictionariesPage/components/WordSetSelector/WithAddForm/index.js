@@ -12,8 +12,8 @@ import {createWordset} from '../../DictionariesList/actions';
 import {makeSelectDictionaryWordSets} from '../../DictionariesList/selectors';
 // components
 import {injectIntl, intlShape} from 'react-intl';
-import {Dropdown as DropdownSUI, Button, Popup} from 'semantic-ui-react';
-import {Dropdown} from 'components/ui';
+import {Dropdown as DropdownSUI, Popup} from 'semantic-ui-react';
+import {Dropdown, IconButton} from 'components/ui';
 import AddWordsetForm from '../../AddOwnTranslation';
 // other
 import messages from './messages';
@@ -65,7 +65,7 @@ class WordSetSelectorWithAddForm extends React.PureComponent {
         onClick: () => this.handleWordsetSelect(wordSet.get('id')),
       }))
       .toJS();
-    const triggerButton = <Button className={styles.triggerButton} icon="list" />;
+    const triggerButton = <IconButton className={styles.triggerButton} icon="list" />;
 
     return (
       <Dropdown

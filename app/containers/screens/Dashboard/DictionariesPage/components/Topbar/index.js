@@ -6,7 +6,7 @@ import cn from 'classnames';
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
 import {Menu, Button, Responsive} from 'semantic-ui-react';
 import SidebarOpenerIcon from 'containers/SidebarOpenerIcon';
-import {TopbarButton, TopbarTitle, Icon} from 'components/ui';
+import {Topbar, TopbarButton, TopbarTitle, Icon} from 'components/ui';
 import SelectedWordsToolbar from './SelectedWordsToolbar';
 import WordsSearchBar from '../WordsSearchBar';
 import WordSetSelector from '../WordSetSelector';
@@ -30,7 +30,7 @@ function DashboardTopbar({
 }) {
   const selectedWordsCount = (selectedWordIds && selectedWordIds.length) || 0;
   return (
-    <Menu className={styles.root}>
+    <Topbar className={styles.root}>
       <Menu.Menu position="left">
         {selectedWordIds && selectedWordIds.length ? (
           <SelectedWordsToolbar
@@ -129,7 +129,7 @@ function DashboardTopbar({
           </Menu.Item>
         )}
       </Menu.Menu>
-    </Menu>
+    </Topbar>
   );
 }
 DashboardTopbar.propTypes = {

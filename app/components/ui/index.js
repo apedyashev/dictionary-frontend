@@ -22,6 +22,7 @@ export {default as Dimmable} from './Dimmable';
 export {default as Snackbar} from './Snackbar';
 export {default as Icon} from './Icon';
 export {default as DropdownIcon} from './DropdownIcon';
+export {default as IconButton} from './IconButton';
 
 // form
 export {default as Input} from './form/Input';

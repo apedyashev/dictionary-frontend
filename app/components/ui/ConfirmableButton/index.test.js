@@ -19,12 +19,12 @@ describe('<ConfirmableButton />', () => {
   });
 
   it('should render an <DateFormatRelative> ', () => {
-    const renderedComponent = renderComponent();
+    const renderedComponent = renderComponent({icon: 'trash'});
     expect(renderedComponent.find(Popup).length).toEqual(1);
   });
 
   it('should handle mouseenter events', (next) => {
-    const renderedComponent = renderComponent();
+    const renderedComponent = renderComponent({icon: 'trash'});
     renderedComponent.simulate('mouseenter');
     setTimeout(() => {
       assertInBody('.ui.popup.visible');
@@ -34,7 +34,7 @@ describe('<ConfirmableButton />', () => {
   });
 
   it('should handle click events', () => {
-    const renderedComponent = renderComponent();
+    const renderedComponent = renderComponent({icon: 'trash'});
     renderedComponent.simulate('click');
     assertInBody('.ui.popup.visible button.positive');
   });
@@ -43,6 +43,7 @@ describe('<ConfirmableButton />', () => {
     const onConfirmSpy = jest.fn();
     const onCancelSpy = jest.fn();
     const renderedComponent = renderComponent({
+      icon: 'trash',
       onConfirm: onConfirmSpy,
       onCancel: onCancelSpy,
     });
@@ -58,6 +59,7 @@ describe('<ConfirmableButton />', () => {
     const onConfirmSpy = jest.fn();
     const onCancelSpy = jest.fn();
     const renderedComponent = renderComponent({
+      icon: 'trash',
       onConfirm: onConfirmSpy,
       onCancel: onCancelSpy,
     });

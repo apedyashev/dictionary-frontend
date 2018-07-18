@@ -3,6 +3,7 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
 import {Button, Popup} from 'semantic-ui-react';
+import {IconButton} from 'components/ui';
 
 class ConfirmableButton extends React.PureComponent {
   static propTypes = {
@@ -64,7 +65,7 @@ class ConfirmableButton extends React.PureComponent {
         open={open}
         mouseEnterDelay={0}
         position={position}
-        trigger={<Button icon={icon} onClick={this.handleClick} />}
+        trigger={<IconButton icon={icon} onClick={this.handleClick} />}
         content={clicked ? confirmContent : hoverContent}
         on={clicked ? 'click' : 'hover'}
         onClose={this.handleClose}

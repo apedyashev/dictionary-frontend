@@ -1,16 +1,19 @@
 $topbar-height: 55px;
 .root {
-  position: fixed !important;
+  /* position: fixed !important; */
   top: 0;
   z-index: 1000;
   width: 100%;
   height: $topbar-height;
   border-radius: 0 !important;
-  border: 0 !important;
-  :global .item:last-child {
+  /* border: 0 !important; */
+  & > :global(.item:last-child) {
     &::before {
       width: 0 !important;
     }
+  }
+  i {
+    color: $primary-color !important;
   }
 }
 .menu {

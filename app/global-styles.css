@@ -4,7 +4,7 @@ $primary-color: #4484ce;
 $secondary-color: #f19f4d;
 $background-color: #d9d9d9;
 /* $negative-color: #d9d9d9; */
-$font-color: #fff;
+$font-color-on-primary: #fff;
 /* #f9cf00 */
 $error-color: #d9534f;
 $main-content-padding: 10px;
@@ -41,6 +41,6 @@ body {
 
   .ui.checkbox input:checked ~ .box:after,
   .ui.checkbox input:checked ~ label:after {
-    color: $secondary-color !important;
+    color: $primary-color !important;
   }
 }

@@ -1,3 +1,5 @@
+[ ![Codeship Status for apedyashev/dictionary-frontend](https://app.codeship.com/projects/afbb8600-6af6-0136-284c-36063666b98a/status?branch=master)](https://app.codeship.com/projects/298132)
+
 <img src="https://raw.githubusercontent.com/react-boilerplate/react-boilerplate-brand/master/assets/banner-metal-optimized.jpg" alt="react boilerplate banner" align="center" />
 
 <br />
@@ -83,13 +85,13 @@ https://tympanus.net/Development/ButtonStylesInspiration/
 
 But wait... there's more!
 
-* _The best test setup:_ Automatically guarantee code quality and non-breaking
+- _The best test setup:_ Automatically guarantee code quality and non-breaking
   changes. (Seen a react app with 99% test coverage before?)
-* _Native web app:_ Your app's new home? The home screen of your users' phones.
-* _The fastest fonts:_ Say goodbye to vacant text.
-* _Stay fast_: Profile your app's performance from the comfort of your command
+- _Native web app:_ Your app's new home? The home screen of your users' phones.
+- _The fastest fonts:_ Say goodbye to vacant text.
+- _Stay fast_: Profile your app's performance from the comfort of your command
   line!
-* _Catch problems:_ AppVeyor and TravisCI setups included by default, so your
+- _Catch problems:_ AppVeyor and TravisCI setups included by default, so your
   tests get run automatically on Windows and Unix.
 
 There’s also a <a href="https://vimeo.com/168648012">fantastic video</a> on how to structure your React.js apps with scalability in mind. It provides rationale for the majority of boilerplate's design decisions.
@@ -111,14 +113,14 @@ Now you're ready to rumble!
 
 ## Documentation
 
-* [**The Hitchhikers Guide to `react-boilerplate`**](docs/general/introduction.md): An introduction for newcomers to this boilerplate.
-* [Overview](docs/general): A short overview of the included tools
-* [**Commands**](docs/general/commands.md): Getting the most out of this boilerplate
-* [Testing](docs/testing): How to work with the built-in test harness
-* [Styling](docs/css): How to work with the CSS tooling
-* [Your app](docs/js): Supercharging your app with Routing, Redux, simple
+- [**The Hitchhikers Guide to `react-boilerplate`**](docs/general/introduction.md): An introduction for newcomers to this boilerplate.
+- [Overview](docs/general): A short overview of the included tools
+- [**Commands**](docs/general/commands.md): Getting the most out of this boilerplate
+- [Testing](docs/testing): How to work with the built-in test harness
+- [Styling](docs/css): How to work with the CSS tooling
+- [Your app](docs/js): Supercharging your app with Routing, Redux, simple
   asynchronicity helpers, etc.
-* [**Troubleshooting**](docs/general/gotchas.md): Solutions to common problems faced by developers.
+- [**Troubleshooting**](docs/general/gotchas.md): Solutions to common problems faced by developers.
 
 ## Supporters
 

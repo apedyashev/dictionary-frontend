@@ -213,6 +213,7 @@ class WordsSearchBar extends React.PureComponent {
       content: buttonLabel,
       disabled: !inputValue,
       loading: isTranslationLoading,
+      positive: true,
       onClick: this.handleAddClick,
     };
 
@@ -266,4 +267,7 @@ export function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(WordsSearchBar);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WordsSearchBar);
