@@ -1,7 +1,7 @@
 .content {
   /* min-height: calc(100vh - $topbar-height) !important; */
   min-height: 100vh !important;
-  padding-top: $topbar-height;
+  /* padding-top: $topbar-height; */
 
   /* mobile */
   /* @media only screen and (max-width: 640px) {

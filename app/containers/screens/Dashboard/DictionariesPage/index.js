@@ -121,6 +121,8 @@ export class DictionariesPage extends React.PureComponent {
           <title>My Dictionaries</title>
         </Helmet>
         <AppContainer
+          withMobileTopbar
+          withDesktopTopbar
           topbar={
             <Topbar
               selectedDictionaryId={dictionaryId}
@@ -135,7 +137,6 @@ export class DictionariesPage extends React.PureComponent {
               onLearnClick={this.handleLearnClick}
             />
           }
-          withMobileTopbar
         >
           <Sidebar.Pushable className={styles.pushable}>
             <Sidebar
