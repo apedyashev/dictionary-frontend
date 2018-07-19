@@ -14,7 +14,8 @@ import {
   makeSelectDictionarIdBySlug,
   makeSelectTranslateDirection,
 } from './components/DictionariesList/selectors';
-
+// components
+import {AppContainer} from 'components';
 import {Sidebar, Menu} from 'semantic-ui-react';
 import {Prompt} from 'components/ui';
 import {Topbar, Dictionaries, WordsList} from './components';
@@ -119,19 +120,23 @@ export class DictionariesPage extends React.PureComponent {
         <Helmet>
           <title>My Dictionaries</title>
         </Helmet>
-        <Topbar
-          selectedDictionaryId={dictionaryId}
-          translateDirection={translateDirection}
-          showDictionaries={showDictionariesList}
-          selectedWordSetId={selectedWordSetId}
-          selectedWordIds={selectedWordIds}
-          onShowDictsToggle={this.handleShowDictsToggle}
-          onWordSetChange={this.handleWordSetChange}
-          onSearchChange={this.handleSearchChange}
-          onWordsDeleteClick={this.handleWordsDeleteClick}
-          onLearnClick={this.handleLearnClick}
-        />
-        <div>
+        <AppContainer
+          topbar={
+            <Topbar
+              selectedDictionaryId={dictionaryId}
+              translateDirection={translateDirection}
+              showDictionaries={showDictionariesList}
+              selectedWordSetId={selectedWordSetId}
+              selectedWordIds={selectedWordIds}
+              onShowDictsToggle={this.handleShowDictsToggle}
+              onWordSetChange={this.handleWordSetChange}
+              onSearchChange={this.handleSearchChange}
+              onWordsDeleteClick={this.handleWordsDeleteClick}
+              onLearnClick={this.handleLearnClick}
+            />
+          }
+          withMobileTopbar
+        >
           <Sidebar.Pushable className={styles.pushable}>
             <Sidebar
               className={styles.dictionariesSidebar}
@@ -144,17 +149,6 @@ export class DictionariesPage extends React.PureComponent {
               <Dictionaries key={showDictionariesList} />
             </Sidebar>
             <Sidebar.Pusher className={styles.pusher}>
-              {/*
-              <div
-                style={{display: 'flex', flexGrow: '1'}}
-                ref={(node) => {
-                  // new createRef API (v16.3) only works when pages is reloaded but for some reason
-                  // when route is changed it's `current` value is null
-                  this.contentRootRef = node;
-                }}
-              >
-              */}
-
               {isDictionarySelected ? (
                 <WordsList
                   scrollElement={this.contentRootRef}
@@ -167,13 +161,82 @@ export class DictionariesPage extends React.PureComponent {
               ) : (
                 <Prompt title={<FormattedMessage {...messages.selectDictionaryPromptTitle} />} />
               )}
-              {/* </div> */}
             </Sidebar.Pusher>
           </Sidebar.Pushable>
-        </div>
+        </AppContainer>
       </div>
     );
   }
+  //
+  // render() {
+  //   const {
+  //     showDictionariesList,
+  //     isDictionarySelected,
+  //     selectedWordSetId,
+  //     searchString,
+  //     selectedWordIds,
+  //   } = this.state;
+  //   const {dictionaryId, translateDirection} = this.props;
+  //   return (
+  //     <div>
+  //       <Helmet>
+  //         <title>My Dictionaries</title>
+  //       </Helmet>
+  //       <Topbar
+  //         selectedDictionaryId={dictionaryId}
+  //         translateDirection={translateDirection}
+  //         showDictionaries={showDictionariesList}
+  //         selectedWordSetId={selectedWordSetId}
+  //         selectedWordIds={selectedWordIds}
+  //         onShowDictsToggle={this.handleShowDictsToggle}
+  //         onWordSetChange={this.handleWordSetChange}
+  //         onSearchChange={this.handleSearchChange}
+  //         onWordsDeleteClick={this.handleWordsDeleteClick}
+  //         onLearnClick={this.handleLearnClick}
+  //       />
+  //       <div>
+  //         <Sidebar.Pushable className={styles.pushable}>
+  //           <Sidebar
+  //             className={styles.dictionariesSidebar}
+  //             as={Menu}
+  //             animation="push"
+  //             width="wide"
+  //             visible={showDictionariesList}
+  //             vertical
+  //           >
+  //             <Dictionaries key={showDictionariesList} />
+  //           </Sidebar>
+  //           <Sidebar.Pusher className={styles.pusher}>
+  //             {/*
+  //             <div
+  //               style={{display: 'flex', flexGrow: '1'}}
+  //               ref={(node) => {
+  //                 // new createRef API (v16.3) only works when pages is reloaded but for some reason
+  //                 // when route is changed it's `current` value is null
+  //                 this.contentRootRef = node;
+  //               }}
+  //             >
+  //             */}
+  //
+  //             {isDictionarySelected ? (
+  //               <WordsList
+  //                 scrollElement={this.contentRootRef}
+  //                 dictionaryId={dictionaryId}
+  //                 wordSetId={selectedWordSetId}
+  //                 searchString={searchString}
+  //                 onWordCheck={this.handleWordCheck}
+  //                 selectedWordIds={selectedWordIds}
+  //               />
+  //             ) : (
+  //               <Prompt title={<FormattedMessage {...messages.selectDictionaryPromptTitle} />} />
+  //             )}
+  //             {/* </div> */}
+  //           </Sidebar.Pusher>
+  //         </Sidebar.Pushable>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 }
 
 const mapStateToProps = createStructuredSelector({

@@ -37,7 +37,9 @@ body {
   .ui.label {
     background-color: $secondary-color !important;
   }
-  .ui.secondary.pointing.menu .active.item {
+  /* tab titles */
+  .ui.secondary.pointing.menu .active.item,
+  .ui.secondary.pointing.menu .active.item:hover {
     border-color: $primary-color;
     color: $primary-color;
   }
