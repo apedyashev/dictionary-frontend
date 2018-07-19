@@ -118,7 +118,7 @@ class SettingsForm extends React.PureComponent {
         </Grid>
 
         <div className={styles.actionsBar}>
-          <Button type="submit" loading={submitting} disabled={submitting}>
+          <Button type="submit" positive loading={submitting} disabled={submitting}>
             <FormattedMessage {...messages.saveButtonLabel} />
           </Button>
         </div>

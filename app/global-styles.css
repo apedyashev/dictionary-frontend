@@ -3,9 +3,12 @@
 $primary-color: #4484ce;
 $secondary-color: #f19f4d;
 $background-color: #d9d9d9;
+$menu-item-hover-bg-color: #f7f7f7;
 /* $negative-color: #d9d9d9; */
 $font-color-on-primary: #fff;
 /* #f9cf00 */
+$form-element-border-color: #999;
+$form-element-label-color: #a6a6a6;
 $error-color: #d9534f;
 $main-content-padding: 10px;
 $hover-opacity: 0.8;
@@ -42,5 +45,10 @@ body {
   .ui.checkbox input:checked ~ .box:after,
   .ui.checkbox input:checked ~ label:after {
     color: $primary-color !important;
+  }
+
+  /* semantic-ui loader */
+  .ui.loading.dropdown > i.icon:after {
+    border-color: $primary-color transparent transparent !important;
   }
 }

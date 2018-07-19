@@ -1,6 +1,6 @@
 $topbar-height: 55px;
 .root {
-  /* position: fixed !important; */
+  position: relative !important;
   top: 0;
   z-index: 1000;
   width: 100%;

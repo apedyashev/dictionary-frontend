@@ -2,11 +2,10 @@
   height: 54px;
   cursor: pointer;
   color: $primary-color !important;
-  &:hover,
-  &:hover > i {
-    -webkit-filter: opacity(0.8);
-    filter: opacity(0.8);
+  &:hover {
+    background-color: $menu-item-hover-bg-color !important;
   }
+
   & > :global(.item > .text) {
     color: $primary-color !important;
   }
