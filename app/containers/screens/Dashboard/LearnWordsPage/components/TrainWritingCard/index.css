@@ -1,4 +1,3 @@
-$correct-color: #09d266;
 @media only screen and (max-width: 640px) {
   .root {
     margin-right: 0 !important;
@@ -14,7 +13,7 @@ $correct-color: #09d266;
     color: $correct-color;
   }
   .removed {
-    color: #d92b30;
+    color: $error-color;
   }
 }
 
@@ -31,12 +30,16 @@ $correct-color: #09d266;
   }
 }
 .details {
-  margin-top: 5px;
+  margin: 5px 0 7px 0;
   .header {
-    color: #d92b30;
+    /* color: $error-color; */
   }
 }
 
 .buttonsContainer {
   text-align: right;
+}
+
+.phraseWithDiff {
+  padding: 5px 0;
 }

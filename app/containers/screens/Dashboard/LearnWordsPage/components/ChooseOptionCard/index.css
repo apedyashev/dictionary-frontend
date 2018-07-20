@@ -13,6 +13,6 @@
     background-color: green !important;
   }
   &.wrong {
-    background-color: red !important;
+    background-color: $error-color !important;
   }
 }

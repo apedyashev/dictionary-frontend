@@ -10,6 +10,7 @@ $font-color-on-primary: #fff;
 $form-element-border-color: #999;
 $form-element-label-color: #a6a6a6;
 $error-color: #d9534f;
+$correct-color: #09d266;
 $main-content-padding: 10px;
 $hover-opacity: 0.8;
 body {
@@ -20,6 +21,7 @@ body {
 }
 
 :global {
+  /* buttons */
   .ui.button.positive {
     background-color: $secondary-color;
     &:hover {
@@ -34,6 +36,7 @@ body {
       opacity: $hover-opacity;
     }
   }
+
   .ui.label {
     background-color: $secondary-color !important;
   }

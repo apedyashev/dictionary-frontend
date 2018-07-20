@@ -53,6 +53,7 @@ class TrainWritingForm extends React.PureComponent {
         <CheckAnswerButtons
           nextBtnProps={{
             type: 'submit',
+            positive: true,
             fluid: true,
             loading: submitting,
             disabled: submitting || formSubmitted,

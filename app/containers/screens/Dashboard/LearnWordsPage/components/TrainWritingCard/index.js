@@ -6,12 +6,13 @@ import * as jsDiff from 'diff';
 import Immutable from 'immutable';
 // components
 import {FormattedMessage} from 'react-intl';
-import {Grid, Label} from 'semantic-ui-react';
-import {Button} from 'components/ui';
+import {Grid} from 'semantic-ui-react';
+import {Button, Divider, Label} from 'components/ui';
 import PromptingImage from 'containers/PromptingImage';
 import TrainWritingForm from '../TrainWritingForm';
 import WordDefinition from '../WordDefinition';
 // other
+import withErrorBoundary from 'utils/hocs/withErrorBoundary';
 import messages from './messages';
 import styles from './index.css';
 
@@ -112,19 +113,20 @@ class TrainWritingCard extends React.PureComponent {
                   </div>
                   <div>{word.get('word')}</div>
                 </div>
+                <Divider horizontal>Check youself</Divider>
                 <div className={styles.details}>
                   <div className={styles.header}>
                     <FormattedMessage {...messages.checkTheMistakeLabel} />
                   </div>
+                  <div className={styles.phraseWithDiff}>{typedPhraseWithDiff}</div>
                   <div>
-                    <Label color="red">
+                    <Label color="red" underlined>
                       <FormattedMessage {...messages.missingCharactersLabel} />
                     </Label>
-                    <Label color="green">
+                    <Label color="green" underlined>
                       <FormattedMessage {...messages.redurantCharactersLabel} />
                     </Label>
                   </div>
-                  <div>{typedPhraseWithDiff}</div>
                 </div>
               </div>
             )}
@@ -149,6 +151,7 @@ class TrainWritingCard extends React.PureComponent {
                 />
                 <Button
                   animateFocus
+                  positive
                   content={<FormattedMessage {...messages.itsTypoButton} />}
                   onClick={this.handleAnsweredCorrectly}
                 />
@@ -161,4 +164,4 @@ class TrainWritingCard extends React.PureComponent {
   }
 }
 
-export default TrainWritingCard;
+export default withErrorBoundary(TrainWritingCard);

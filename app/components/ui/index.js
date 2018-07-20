@@ -25,6 +25,8 @@ export {default as Snackbar} from './Snackbar';
 export {default as Icon} from './Icon';
 export {default as DropdownIcon} from './DropdownIcon';
 export {default as IconButton} from './IconButton';
+export {default as Divider} from './Divider';
+export {default as Label} from './Label';
 
 // form
 export {default as Input} from './form/Input';

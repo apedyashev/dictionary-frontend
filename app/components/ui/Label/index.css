@@ -1,0 +1,14 @@
+.underlined {
+  &:global(.ui.label) {
+    background-color: transparent !important;
+    border-radius: 0 !important;
+    &:global(.red) {
+      color: red !important;
+      border-bottom: 3px solid red !important;
+    }
+    &:global(.green) {
+      color: $correct-color !important;
+      border-bottom: 3px solid $correct-color !important;
+    }
+  }
+}

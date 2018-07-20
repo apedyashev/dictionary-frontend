@@ -110,6 +110,7 @@ class ChooseOptionCard extends React.PureComponent {
           <CheckAnswerButtons
             nextBtnProps={{
               fluid: true,
+              positive: true,
               disabled: selectedOptionIndex < 0,
               className: styles.nextButton,
               content: <FormattedMessage {...messages.nextButton} />,
