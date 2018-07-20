@@ -98,5 +98,6 @@
   "containers.WordSetSelectorWithAddForm.saveButtonText": "ОК",
   "containers.WordSetSelectorWithAddForm.triggerBtnPopupContent": "Добавить в набор слов",
   "containers.WordsList.dataLoadingMessage": "Загрузка новых слов",
+  "containers.WordsList.learnedLabelText": "Выучено",
   "containers.WordsList.noRowsMessage": "В этом словаре нет слов"
 }

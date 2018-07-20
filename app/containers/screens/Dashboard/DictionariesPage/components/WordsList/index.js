@@ -3,6 +3,7 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 import Immutable from 'immutable';
 import {connect} from 'react-redux';
+import {compose} from 'redux';
 import {createStructuredSelector} from 'reselect';
 // actions
 import {loadWords, resetWords} from './actions';
@@ -13,6 +14,7 @@ import {FormattedMessage} from 'react-intl';
 import InfiniteList from 'components/InfiniteList';
 import {Word} from 'components/ui';
 // other
+import withErrorBoundary from 'utils/hocs/withErrorBoundary';
 import messages from './messages';
 
 class WordsList extends React.PureComponent {
@@ -91,6 +93,7 @@ class WordsList extends React.PureComponent {
         checked={selectedWordIds.includes(item.get('id'))}
         style={style}
         data={item.toJS()}
+        learnedLabelText={<FormattedMessage {...messages.learnedLabelText} />}
         onCheck={this.props.onWordCheck}
       />
     );
@@ -131,7 +134,10 @@ export function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+export default compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  withErrorBoundary
 )(WordsList);

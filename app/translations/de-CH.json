@@ -94,5 +94,6 @@
   "containers.WordSetSelectorWithAddForm.saveButtonText": "",
   "containers.WordSetSelectorWithAddForm.triggerBtnPopupContent": "",
   "containers.WordsList.dataLoadingMessage": "",
+  "containers.WordsList.learnedLabelText": "gelernt",
   "containers.WordsList.noRowsMessage": ""
 }

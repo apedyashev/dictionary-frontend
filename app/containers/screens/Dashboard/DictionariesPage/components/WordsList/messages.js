@@ -14,4 +14,8 @@ export default defineMessages({
     id: 'containers.WordsList.noRowsMessage',
     defaultMessage: "You don't have any words in the dictionary",
   },
+  learnedLabelText: {
+    id: 'containers.WordsList.learnedLabelText',
+    defaultMessage: 'learned',
+  },
 });

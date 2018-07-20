@@ -89,5 +89,6 @@
   "containers.WordSetSelectorWithAddForm.saveButtonText": "",
   "containers.WordSetSelectorWithAddForm.triggerBtnPopupContent": "",
   "containers.WordsList.dataLoadingMessage": "",
+  "containers.WordsList.learnedLabelText": "",
   "containers.WordsList.noRowsMessage": ""
 }
