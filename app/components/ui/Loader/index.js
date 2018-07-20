@@ -4,9 +4,9 @@ import cn from 'classnames';
 import styles from './index.css';
 
 // https://github.com/gilbarbara/react-redux-saga-boilerplate/blob/master/app/scripts/components/Loader.jsx
-const Loader = ({message, size}) => {
+const Loader = ({message, className, size}) => {
   return (
-    <div>
+    <div className={className}>
       <div
         className={cn(styles.loader, styles['loader--pulse'])}
         style={{width: size, height: size}}
@@ -21,6 +21,7 @@ const Loader = ({message, size}) => {
 Loader.propTypes = {
   size: PropTypes.number,
   message: PropTypes.string,
+  className: PropTypes.string,
 };
 
 Loader.defaultProps = {

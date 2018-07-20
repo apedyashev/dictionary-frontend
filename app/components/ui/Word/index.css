@@ -1,5 +1,6 @@
 /* https://codepen.io/vasansr/pen/gPXJxB?editors=1100 */
 $text-width: 180px;
+$text-width-mobile: 100px;
 $height: 30px;
 .row {
   display: flex;
@@ -29,6 +30,9 @@ $height: 30px;
   white-space: nowrap;
   text-overflow: ellipsis;
   width: $text-width;
+  @media only screen and (max-width: 320px) {
+    width: $text-width-mobile;
+  }
 }
 
 .checkbox {

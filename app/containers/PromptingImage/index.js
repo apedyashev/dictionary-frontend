@@ -9,17 +9,25 @@ import {changeWordImage} from 'containers/screens/Dashboard/LearnWordsPage/actio
 // selectors
 import {makeSelectWordLoadingStatus} from 'containers/screens/Dashboard/DictionariesPage/components/WordsList/selectors';
 // components
-import {Icon} from 'components/ui';
+import {Icon, Loader} from 'components/ui';
+import ReactImage from 'react-image';
 // other
 import withErrorBoundary from 'utils/hocs/withErrorBoundary';
 import styles from './index.css';
 import '!file-loader?name=[name].[ext]!images/no-image.png';
 
 function PromptingImage({src, wordId, removeInProgress, changeImage}) {
+  // <img src={src || '/no-image.png'} alt="" className={styles.image} />
+
+  //
   return (
     <div className={styles.root}>
       <span className={styles.imageWrapper}>
-        <img src={src || '/no-image.png'} alt="" className={styles.image} />
+        <ReactImage
+          className={styles.image}
+          src={[src, '/no-image.png']}
+          loader={<Loader size={100} className={styles.loader} />}
+        />
         <Icon
           name={removeInProgress ? 'spinner' : 'close'}
           disabled={removeInProgress}

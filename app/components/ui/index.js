@@ -3,6 +3,8 @@ import * as ReduxFormFields from './form/reduxFormFields';
 export {default as Topbar} from './Topbar';
 export {default as TopbarButton} from './TopbarButton';
 export {default as Paper} from './Paper';
+
+export {default as Loader} from './Loader';
 export {default as PageLoader} from './PageLoader';
 export {default as ListLoader} from './ListLoader';
 export {default as Sidebar} from './Sidebar';
