@@ -38,7 +38,7 @@ export default function TrainingsFinishedCard({
         />
       </div>
       <div className={styles.buttons}>
-        <Button onClick={onReinitilizeClick}>
+        <Button positive onClick={onReinitilizeClick}>
           <FormattedMessage {...messages.learnNextWordsBtn} />
         </Button>
         <Button as={Link} to={`/dictionaries/${slug}`}>

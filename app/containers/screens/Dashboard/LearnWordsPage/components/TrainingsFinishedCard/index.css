@@ -11,6 +11,9 @@
 .results {
   padding-top: 50px;
   text-align: center;
+  b {
+    color: $primary-color;
+  }
 }
 
 .buttons {

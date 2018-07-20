@@ -135,6 +135,7 @@ class TrainWritingCard extends React.PureComponent {
             {answered === ANSWERED_CORRECTLY && (
               <Button
                 animateFocus
+                positive
                 ref={this.nextButtonRef}
                 content={<FormattedMessage {...messages.nextButton} />}
                 onClick={this.handleAnsweredCorrectly}
