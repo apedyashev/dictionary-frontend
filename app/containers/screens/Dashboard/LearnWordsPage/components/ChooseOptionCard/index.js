@@ -38,6 +38,7 @@ class ChooseOptionCard extends React.PureComponent {
   state = {
     selectedOptionIndex: -1,
     correctAnswerIndex: _random(NUM_OF_OPTIONS_IN_CARD - 1),
+    showCorrectAnswer: false,
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -50,6 +51,7 @@ class ChooseOptionCard extends React.PureComponent {
             ? _random(Math.min(NUM_OF_OPTIONS_IN_CARD - 1, randomWords.size - 1))
             : 0,
         randomWordsCount: nextProps.randomWords.size,
+        showCorrectAnswer: false,
       };
     }
 
@@ -57,8 +59,6 @@ class ChooseOptionCard extends React.PureComponent {
   }
   handleAnswerSelected = (selectedOptionIndex) => {
     this.setState({selectedOptionIndex});
-    console.log('correctAnswerIndex', this.state.correctAnswerIndex, selectedOptionIndex);
-    // this.props.onAnswerSelected(this.state.correctAnswerIndex === selectedOptionIndex);
   };
 
   handleNextClick = () => {
@@ -67,11 +67,11 @@ class ChooseOptionCard extends React.PureComponent {
 
   // "I don't know" button
   handleSkipClick = () => {
-    this.props.onNextClick(false);
+    this.setState({showCorrectAnswer: true});
   };
 
   render() {
-    const {selectedOptionIndex, correctAnswerIndex} = this.state;
+    const {selectedOptionIndex, correctAnswerIndex, showCorrectAnswer} = this.state;
     const {word, randomWords, directTranslation} = this.props;
     const options = randomWords.insert(this.state.correctAnswerIndex, word).toJS();
     if (!word) {
@@ -95,6 +95,7 @@ class ChooseOptionCard extends React.PureComponent {
                 disabled={isActiveSelected}
                 className={cn(styles.option, {
                   [styles.correct]:
+                    (showCorrectAnswer && correctAnswerIndex === index) ||
                     // if correct answer is clicked
                     (isActive && selectedOptionIndex === correctAnswerIndex) ||
                     // if wrong answer is clicked we still want to show which one is correct
@@ -111,14 +112,14 @@ class ChooseOptionCard extends React.PureComponent {
             nextBtnProps={{
               fluid: true,
               positive: true,
-              disabled: selectedOptionIndex < 0,
+              disabled: !showCorrectAnswer && selectedOptionIndex < 0,
               className: styles.nextButton,
               content: <FormattedMessage {...messages.nextButton} />,
               onClick: this.handleNextClick,
             }}
             skipBtnProps={{
               fluid: true,
-              disabled: selectedOptionIndex >= 0,
+              disabled: selectedOptionIndex >= 0 || showCorrectAnswer,
               className: styles.skipButton,
               content: <FormattedMessage {...messages.iDontKnowButton} />,
               onClick: this.handleSkipClick,
