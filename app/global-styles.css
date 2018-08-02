@@ -56,4 +56,9 @@ body {
   .ui.loading.dropdown > i.icon:after {
     border-color: $primary-color transparent transparent !important;
   }
+
+  /* top menu */
+  .top.fixed.menu {
+    background-color: #4484ce !important;
+  }
 }

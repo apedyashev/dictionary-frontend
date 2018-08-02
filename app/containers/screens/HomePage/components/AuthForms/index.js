@@ -30,7 +30,7 @@ export default function AuthForms({showLoginForm}) {
         <Button color="facebook" as="a" href={`${config.apiBaseUrl}/auth/facebook`}>
           <Icon name="facebook" /> Facebook
         </Button>
-        <Button.Or />
+        <Button.Or text="or" />
         {alterActionBtn}
       </Button.Group>
     </Paper>

@@ -15,13 +15,13 @@ import messages from './messages';
 function NavBarAuthButton({showLogin}) {
   if (showLogin) {
     return (
-      <Button as={Link} to="/login" primary>
+      <Button as={Link} to="/login" positive>
         <FormattedMessage {...messages.signinBtnLabel} />
       </Button>
     );
   }
   return (
-    <Button as={Link} to="/" primary>
+    <Button as={Link} to="/" positive>
       <FormattedMessage {...messages.signupBtnLabel} />
     </Button>
   );
@@ -34,4 +34,7 @@ const mapStateToProps = createSelector(makeSelectIsLoginRoute(), (isLoginRoute) 
   showLogin: !isLoginRoute,
 }));
 
-export default connect(mapStateToProps, null)(NavBarAuthButton);
+export default connect(
+  mapStateToProps,
+  null
+)(NavBarAuthButton);

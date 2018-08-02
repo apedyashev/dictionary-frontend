@@ -23,11 +23,7 @@ export default function NavLanguageSelector({value, languages, asNestedItem, onC
   if (asNestedItem) {
     return dropdown;
   }
-  return (
-    <Button basic className={styles.dropdownWrappingBtn}>
-      {dropdown}
-    </Button>
-  );
+  return <Button className={styles.dropdownWrappingBtn}>{dropdown}</Button>;
 }
 NavLanguageSelector.propTypes = {
   value: PropTypes.string,

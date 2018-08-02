@@ -1,4 +1,5 @@
 .dropdownWrappingBtn {
+  background-color: #fff !important;
   padding: 0 !important;
   width: 116px;
   &:hover {
@@ -18,6 +19,9 @@
     border-top-right-radius: 0 !important;
     margin-top: 0 !important;
   }
+}
+:global .ui.menu .ui.dropdown.item .menu .item {
+  padding-left: 13px !important;
 }
 
 .nestedItem {
