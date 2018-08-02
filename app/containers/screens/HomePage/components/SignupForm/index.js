@@ -98,7 +98,7 @@ class SignupForm extends React.Component {
           hintText={formatMessage(messages.passwordConfirmHint)}
         />
 
-        <Button type="submit" fluid loading={submitting} disabled={submitting}>
+        <Button type="submit" primary fluid loading={submitting} disabled={submitting}>
           <FormattedMessage {...commonAuthMessages.signupBtnLabel} />
         </Button>
       </Form>

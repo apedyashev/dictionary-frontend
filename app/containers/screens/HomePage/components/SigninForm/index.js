@@ -57,7 +57,7 @@ class SignupForm extends React.Component {
           hintText={formatMessage(messages.passwordHint)}
         />
 
-        <Button type="submit" fluid loading={submitting} disabled={submitting}>
+        <Button type="submit" primary fluid loading={submitting} disabled={submitting}>
           <FormattedMessage {...commonAuthMessages.signinBtnLabel} />
         </Button>
       </Form>
@@ -103,7 +103,10 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-SignupForm = connect(null, mapDispatchToProps)(injectIntl(SignupForm));
+SignupForm = connect(
+  null,
+  mapDispatchToProps
+)(injectIntl(SignupForm));
 
 export default reduxForm({
   form: 'signupForm',

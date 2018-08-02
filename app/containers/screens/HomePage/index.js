@@ -141,7 +141,7 @@ export class HomePage extends React.PureComponent {
             </p>
             <Responsive {...Responsive.onlyMobile}>
               <div className={styles.centered}>
-                <Button as={Link} to="/register">
+                <Button as={Link} to="/register" positive>
                   Join Now
                 </Button>
               </div>

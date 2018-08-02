@@ -12,7 +12,6 @@ const NavbarMobile = ({children, onPusherClick, onToggle, visible}) => (
       as={Menu}
       animation="overlay"
       icon="labeled"
-      inverted
       items={[
         {
           key: 'home',
