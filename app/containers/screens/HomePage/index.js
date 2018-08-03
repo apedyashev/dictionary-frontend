@@ -16,6 +16,7 @@ import {Link} from 'react-router-dom';
 import {Grid, Responsive} from 'semantic-ui-react';
 import {Button} from 'components/ui';
 import AuthForms from './components/AuthForms';
+import IntroSlides from './components/IntroSlides';
 import reducer from './reducer';
 // other
 import messages from './messages';
@@ -134,7 +135,9 @@ export class HomePage extends React.PureComponent {
               </h3>
               <FormattedMessage {...messages.introDescription} />
             </p>
-            <div className={styles.videoContainer}>video</div>
+
+            <IntroSlides />
+            <div className={styles.videoContainer1} />
 
             <p>
               <FormattedMessage {...messages.techniqueDescription} />

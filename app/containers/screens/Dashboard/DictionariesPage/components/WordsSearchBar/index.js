@@ -241,6 +241,7 @@ class WordsSearchBar extends React.PureComponent {
               content={
                 <AddOwnTranslation
                   placeholder="Your translation"
+                  saveButtonText="Save"
                   onAddClick={this.handleOwnTranslationAdd}
                 />
               }

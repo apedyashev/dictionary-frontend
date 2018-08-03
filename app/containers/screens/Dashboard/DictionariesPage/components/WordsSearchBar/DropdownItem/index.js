@@ -23,13 +23,13 @@ export default function SearchbarDropdownItem({
     <Dropdown.Item active={active} onClick={handleClick}>
       <div className={styles.pos}>{pos}</div>
       <div className={styles.synonyms}>
-        {translation} {synonyms && <span>({synonyms.join(', ')})</span>}
+        {translation} {synonyms && synonyms.length ? <span>({synonyms.join(', ')})</span> : null}
       </div>
-      {examples && (
+      {examples && examples.length ? (
         <div className={styles.examples}>
           <b>E.g:</b> {examples.join(', ')}
         </div>
-      )}
+      ) : null}
     </Dropdown.Item>
   );
 }
