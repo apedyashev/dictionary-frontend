@@ -17,6 +17,7 @@ $slide-mode-height: calc(100vh - 40px);
 }
 
 .slide {
+  font-family: MuseoSans, 'Droid Sans', Roboto, Helvetica, sans-serif;
   @media only screen and (max-width: 600px) {
     min-height: $slide-mode-height !important;
     z-index: 0;
@@ -38,4 +39,10 @@ $slide-mode-height: calc(100vh - 40px);
 
 .centered {
   text-align: center;
+}
+.subHeader {
+  font-size: 20px;
+  letter-spacing: 0.25px;
+  line-height: 1.6;
+  margin-bottom: 44px;
 }

@@ -20,6 +20,7 @@ export {default as Button} from './Button';
 export {default as TopbarIconButton} from './TopbarIconButton';
 export {default as TopbarTitle} from './TopbarTitle';
 export {default as H2} from './typography/H2';
+export {default as H3} from './typography/H3';
 export {default as Dimmable} from './Dimmable';
 export {default as Snackbar} from './Snackbar';
 export {default as Icon} from './Icon';

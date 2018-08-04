@@ -14,7 +14,7 @@ import {isMobile} from 'react-device-detect';
 // components
 import {Link} from 'react-router-dom';
 import {Grid, Responsive} from 'semantic-ui-react';
-import {Button} from 'components/ui';
+import {Button, H3} from 'components/ui';
 import AuthForms from './components/AuthForms';
 import IntroSlides from './components/IntroSlides';
 import reducer from './reducer';
@@ -129,17 +129,19 @@ export class HomePage extends React.PureComponent {
             computer={11}
             mobile={16}
           >
-            <p>
-              <h3 className={styles.centered}>
+            <div className={styles.centered}>
+              <H3>
                 <FormattedMessage {...messages.introHeader} />
-              </h3>
-              <FormattedMessage {...messages.introDescription} />
-            </p>
+              </H3>
+              <p className={styles.subHeader}>
+                <FormattedMessage {...messages.introDescription} />
+              </p>
+            </div>
 
             <IntroSlides />
             <div className={styles.videoContainer1} />
 
-            <p>
+            <p className={styles.subHeader}>
               <FormattedMessage {...messages.techniqueDescription} />
             </p>
             <Responsive {...Responsive.onlyMobile}>

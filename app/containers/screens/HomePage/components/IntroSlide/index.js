@@ -2,7 +2,9 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
+// other
 import styles from './index.css';
+import '!file-loader?name=[name].[ext]!./stripes-light.png';
 
 export default function IntroSlide({title, description, image}) {
   return (
@@ -10,7 +12,7 @@ export default function IntroSlide({title, description, image}) {
       <img src={image} alt="" />
       {(title || description) && (
         <div className={styles.details}>
-          <h4>{title}</h4>
+          <header>{title}</header>
           <div>{description}</div>
         </div>
       )}

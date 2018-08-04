@@ -5,13 +5,28 @@
   img {
     margin: 0 auto;
   }
+  background-image: url(./stripes-light.png);
+  background-repeat: repeat;
 }
-
+:global(button.slick-arrow) {
+  background-color: $secondary-color !important;
+  border-radius: 50%;
+}
 .details {
   position: absolute;
   width: 100%;
   bottom: 0;
   padding: 8px;
   z-index: 99999;
-  background-color: rgba(83, 117, 158, 0.4);
+  background-color: rgba(83, 117, 158, 0.73);
+  /* color: white; */
+  header {
+    &::first-letter {
+      text-transform: capitalize;
+    }
+
+    margin: 5px 0 8px;
+    font-weight: bold;
+    font-size: 20px;
+  }
 }

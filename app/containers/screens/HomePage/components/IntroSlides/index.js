@@ -27,7 +27,7 @@ class IntroSlides extends React.PureComponent {
     return (
       <Slider dots infinite className={styles.root}>
         <IntroSlide
-          title="create your dictionary"
+          title="Step 1: create your dictionary"
           description={
             <div>
               There are two options:<br />
@@ -41,7 +41,7 @@ class IntroSlides extends React.PureComponent {
           image="/slide1.png"
         />
         <IntroSlide
-          title="add words"
+          title="Step 2: add words"
           description={
             <div>
               Enter a word into the search box and press the <b>Add</b> button and either select a
