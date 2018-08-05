@@ -5,7 +5,6 @@ import {normalize} from 'normalizr';
 // TODO
 import config from 'config';
 import {errorHandler} from './errorHandler';
-console.log('config', config);
 
 const http = {
   buildUrl: (endpoint) =>

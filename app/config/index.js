@@ -1,4 +1,3 @@
-console.log('process.env.NODE_ENV', process.env.NODE_ENV, process.env.NODE_ENV === 'production');
 export default {
   baseUrl:
     process.env.NODE_ENV === 'production' ? 'https://dict.apedyashev.com' : 'http://localhost:3001',
