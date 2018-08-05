@@ -78,9 +78,8 @@ function appReducer(state = initialState, action) {
     }
 
     case RESET_AUTH: {
-      return state
-        .setIn(['profile', 'data'], initialState.getIn(['profile', 'data']))
-        .setIn(['profile', 'authHeader'], '');
+      // completely reset the global state
+      return initialState.setIn(['profile', 'loaded'], true);
     }
 
     case RESET_ENTITY: {

@@ -45,8 +45,11 @@ export class App extends React.PureComponent {
     const {isProfileLoaded, profile, loggingOut} = this.props;
     return (
       <div>
-        <Helmet titleTemplate="%s - React.js Boilerplate" defaultTitle="React.js Boilerplate">
-          <meta name="description" content="A React.js Boilerplate application" />
+        <Helmet
+          titleTemplate="%s - Spaced Repetition Dictionary"
+          defaultTitle="Spaced Repetition Dictionary"
+        >
+          <meta name="description" content="Spaced Repetition Dictionary" />
         </Helmet>
 
         {isProfileLoaded ? (
