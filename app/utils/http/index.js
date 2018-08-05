@@ -6,13 +6,6 @@ import {normalize} from 'normalizr';
 import config from 'config';
 import {errorHandler} from './errorHandler';
 
-// const config = {
-//   apiBaseUrl:
-//     process.env.NODE_ENV === 'production'
-//       ? 'http://dict-api.apedyashev.com'
-//       : 'http://localhost:3001',
-// };
-
 const http = {
   buildUrl: (endpoint) =>
     /^http(s)?:\/\//.test(endpoint) ? endpoint : `${config.apiBaseUrl}/${endpoint}`,
