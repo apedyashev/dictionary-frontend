@@ -8,14 +8,6 @@ $slide-mode-height: calc(100vh - 40px);
   }
 }
 
-.videoContainer {
-  height: 200px;
-  border: 1px dotted black;
-  text-align: center;
-  padding-top: 90px;
-  color: #ccc;
-}
-
 .slide {
   font-family: MuseoSans, 'Droid Sans', Roboto, Helvetica, sans-serif;
   @media only screen and (max-width: 600px) {
@@ -42,6 +34,13 @@ $slide-mode-height: calc(100vh - 40px);
 }
 .subHeader {
   font-size: 20px;
+  letter-spacing: 0.25px;
+  line-height: 1.6;
+  margin-bottom: 44px;
+  color: $form-element-label-color;
+}
+.infoText {
+  font-size: 18px;
   letter-spacing: 0.25px;
   line-height: 1.6;
   margin-bottom: 44px;

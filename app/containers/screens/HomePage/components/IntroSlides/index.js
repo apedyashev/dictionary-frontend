@@ -9,6 +9,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '!file-loader?name=[name].[ext]!./slide1.png';
 import '!file-loader?name=[name].[ext]!./slide2.png';
+import '!file-loader?name=[name].[ext]!./slide3.png';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class IntroSlides extends React.PureComponent {
@@ -40,6 +41,7 @@ class IntroSlides extends React.PureComponent {
           }
           image="/slide1.png"
         />
+
         <IntroSlide
           title="Step 2: add words"
           description={
@@ -50,6 +52,21 @@ class IntroSlides extends React.PureComponent {
             </div>
           }
           image="/slide2.png"
+        />
+
+        <IntroSlide
+          title="Step 3: learn the words"
+          description={
+            <div>
+              Currently we support <b>3 learning techniques</b>:
+              <ul>
+                <li>word-translation - train to translate words to you mother tongue</li>
+                <li>spelling training - train to write words correctly</li>
+                <li>translation-word - train to translate words from you mother tongue</li>
+              </ul>
+            </div>
+          }
+          image="/slide3.png"
         />
       </Slider>
     );

@@ -138,10 +138,11 @@ export class HomePage extends React.PureComponent {
               </p>
             </div>
 
-            <IntroSlides />
-            <div className={styles.videoContainer1} />
+            <Responsive {...Responsive.onlyComputer}>
+              <IntroSlides />
+            </Responsive>
 
-            <p className={styles.subHeader}>
+            <p className={styles.infoText}>
               <FormattedMessage {...messages.techniqueDescription} />
             </p>
             <Responsive {...Responsive.onlyMobile}>
