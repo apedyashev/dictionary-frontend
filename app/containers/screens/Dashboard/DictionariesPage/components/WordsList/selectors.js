@@ -16,10 +16,13 @@ export const makeSelectWordsHasNextPage = () =>
   createSelector(makeSelectEntities(), (entities) => {
     const curPage = entities.getIn(['words', 'pagination', 'page']);
     const totalPages = entities.getIn(['words', 'pagination', 'pages']);
+    // console.log('***', entities.getIn(['words']).toJS());
+    // console.log('curPage < totalPages', curPage, totalPages, curPage < totalPages);
     // total pages always is >= 1, otherwise it hasn't been loaded yet so TRUE will be returned
     if (!totalPages) {
       return true;
     }
+
     return curPage < totalPages;
   });
 

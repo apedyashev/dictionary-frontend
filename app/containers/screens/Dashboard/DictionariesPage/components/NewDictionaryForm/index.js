@@ -49,8 +49,9 @@ class DictionaryForm extends React.Component {
     return new Promise((resolve, reject) => {
       this.props.createDictionary(dictionaryData, {resolve, reject});
     })
-      .then(() => {
-        this.props.onCreated();
+      .then(({response: {result, entities}}) => {
+        const dict = entities.dictionaries[result.item];
+        this.props.onCreated(dict);
       })
       .catch(({validationErrors}) => {
         if (validationErrors) {

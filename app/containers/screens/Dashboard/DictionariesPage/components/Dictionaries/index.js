@@ -3,6 +3,7 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
+import {push} from 'react-router-redux';
 import {createStructuredSelector} from 'reselect';
 import {FormattedMessage} from 'react-intl';
 // selectors
@@ -19,6 +20,7 @@ class Dictionaries extends React.Component {
   static propTypes = {
     dictionaries: PropTypes.any,
     loaded: PropTypes.bool,
+    push: PropTypes.func.isRequired,
   };
   state = {
     activeTab: this.props.loaded && !this.props.dictionaries ? 'add' : 'list',
@@ -36,7 +38,10 @@ class Dictionaries extends React.Component {
 
   handleTabClick = (e, {name}) => this.setState({activeTab: name});
   handleNewDictionaryClick = () => this.setState({activeTab: 'add'});
-  handleDictionaryCreated = () => this.setState({activeTab: 'list'});
+  handleDictionaryCreated = (dict) => {
+    this.props.push(`dictionaries/${dict.slug}`);
+    this.setState({activeTab: 'list'});
+  };
 
   render() {
     const {activeTab} = this.state;
@@ -73,7 +78,7 @@ const mapStateToProps = createStructuredSelector({
 
 const withConnect = connect(
   mapStateToProps,
-  null
+  {push}
 );
 export default compose(
   withConnect,

@@ -30,43 +30,18 @@ class WordsList extends React.PureComponent {
     loadWords: PropTypes.func.isRequired,
     resetWords: PropTypes.func.isRequired,
   };
-  state = {
-    shouldListBeReset: false,
-    // must be initialized, otherwise list will be reset immideately after mount
-    // eslint-disable-next-line
-    prevSearchString: '',
-  };
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (
-      nextProps.dictionaryId !== prevState.prevDictionaryId ||
-      nextProps.wordSetId !== prevState.prevWordSetId
-    ) {
-      return {
-        shouldListBeReset: true,
-        prevDictionaryId: nextProps.dictionaryId,
-        prevWordSetId: nextProps.wordSetId,
-      };
-    }
-
-    if (nextProps.searchString !== prevState.prevSearchString) {
-      return {
-        shouldListBeReset: true,
-        prevSearchString: nextProps.searchString,
-      };
-    }
-    return null;
-  }
   componentDidMount() {
     console.log('componentDidMount');
     this.props.resetWords();
   }
 
-  componentDidUpdate() {
-    // TODO: get rig of shouldListBeReset
-    if (this.state.shouldListBeReset) {
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({shouldListBeReset: false});
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.dictionaryId !== prevProps.dictionaryId ||
+      this.props.wordSetId !== prevProps.wordSetId ||
+      this.props.searchString !== prevProps.searchString
+    ) {
       this.props.resetWords();
     }
   }

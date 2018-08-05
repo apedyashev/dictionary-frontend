@@ -53,7 +53,6 @@ class InfiniteList extends React.PureComponent {
 
   isRowLoaded = ({index}) => {
     const {items} = this.props;
-    // console.log('isRowLoaded', !!items.get(index));
     return !!items.get(index);
   };
 
@@ -81,7 +80,6 @@ class InfiniteList extends React.PureComponent {
     const {items, rowRenderer, dataLoadingMessage} = this.props;
     const item = items.get(index);
     if (!this.isRowLoaded({index})) {
-      // return <div style={style}>Loading....</div>;
       return <ListLoader key={key} style={{...style}} message={dataLoadingMessage} />;
     }
     return rowRenderer({
