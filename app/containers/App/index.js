@@ -4,11 +4,13 @@ import {Helmet} from 'react-helmet';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {Route} from 'react-router-dom';
+import ReactGA from 'react-ga';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {RESTART_ON_REMOUNT} from 'utils/constants';
 import {createStructuredSelector} from 'reselect';
 import {ConnectedSwitch, PrivateRoute, GuestRoute} from 'utils/router';
+// components
 import {GuestLayout, DashboardLayout} from 'containers/Layouts';
 import {
   HomePage,
@@ -38,6 +40,13 @@ export class App extends React.PureComponent {
   };
   componentDidMount() {
     this.props.loadProfile();
+  }
+
+  componentDidUpdate(prevProps) {
+    // set user id for google analytics
+    if (!prevProps.profile.id && this.props.profile.id) {
+      ReactGA.set({userId: this.props.profile.id});
+    }
   }
 
   // important: https://github.com/ReactTraining/react-router/issues/5072#issuecomment-310184271

@@ -42,6 +42,7 @@ import '!file-loader?name=[name].[ext]!./images/icon-512x512.png';
 // import '!file-loader?name=[name].[ext]!./manifest.json';
 import 'file-loader?name=[name].[ext]!./.htaccess'; // eslint-disable-line import/extensions
 /* eslint-enable import/no-webpack-loader-syntax */
+import ReactGA from 'react-ga';
 
 import configureStore from './configureStore';
 
@@ -50,6 +51,9 @@ import {translationMessages} from './i18n';
 
 // Import CSS reset and Global Styles
 import './global-styles.css';
+
+ReactGA.initialize('UA-69541223-2');
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 // Observe loading of Open Sans (to remove open sans, remove the <link> tag in
 // the index.html file and this observer)
