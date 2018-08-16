@@ -8,20 +8,23 @@ import {Button as ButtonSUI} from 'semantic-ui-react';
 import styles from './index.css';
 
 // TODO: get rid of ...rest
-const Button = React.forwardRef(({children, content, className, animateFocus, ...rest}, ref) => {
-  return (
-    <ButtonSUI
-      ref={ref}
-      content={content}
-      className={cn(className, {[styles.animateFocus]: animateFocus})}
-      {...rest}
-    >
-      {children}
-    </ButtonSUI>
-  );
-});
+const Button = React.forwardRef(
+  ({children, content, className, animateFocus, right, ...rest}, ref) => {
+    return (
+      <ButtonSUI
+        ref={ref}
+        content={content}
+        className={cn(className, {[styles.animateFocus]: animateFocus, [styles.right]: right})}
+        {...rest}
+      >
+        {children}
+      </ButtonSUI>
+    );
+  }
+);
 Button.propTypes = {
   animateFocus: PropTypes.bool,
+  right: PropTypes.bool,
   children: PropTypes.any,
   content: PropTypes.any,
 };

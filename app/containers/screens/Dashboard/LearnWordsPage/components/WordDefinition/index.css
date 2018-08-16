@@ -4,4 +4,8 @@
   color: $primary-color;
   font-size: 1.5rem;
   text-align: center;
+
+  &.withBottomMargin {
+    margin-bottom: 0 !important;
+  }
 }

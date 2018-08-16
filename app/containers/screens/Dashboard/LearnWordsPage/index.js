@@ -32,12 +32,19 @@ import {
 import {Link} from 'react-router-dom';
 import {WhiteBoard, PageLoader, Prompt} from 'components/ui';
 import {AppContainer} from 'components';
-import {ChooseOptionCard, TrainWritingCard, TrainingsFinishedCard, Topbar} from './components';
+import {
+  BeforeLearnCard,
+  ChooseOptionCard,
+  TrainWritingCard,
+  TrainingsFinishedCard,
+  Topbar,
+} from './components';
 import NotFound from 'containers/screens/NotFoundPage';
 // other
 import {
   NUM_OF_OPTIONS_IN_CARD,
   NUM_OF_WORDS_TO_LEARN,
+  BEFORE_TRAININGS,
   TRAINING_WORD_TRANSLATION,
   TRAINING_WRITING,
   TRAINING_TRANSLATION_WORD,
@@ -47,7 +54,12 @@ import styles from './index.css';
 
 // all those training names must have correcspongin fields in the learnedStatus
 // object in backend Word model
-const trainings = [TRAINING_WORD_TRANSLATION, TRAINING_WRITING, TRAINING_TRANSLATION_WORD];
+const trainings = [
+  BEFORE_TRAININGS,
+  TRAINING_WORD_TRANSLATION,
+  TRAINING_WRITING,
+  TRAINING_TRANSLATION_WORD,
+];
 export class LearnWordsPage extends React.PureComponent {
   static propTypes = {
     dictionaryId: PropTypes.string.isRequired,
@@ -240,6 +252,13 @@ export class LearnWordsPage extends React.PureComponent {
 
         <AppContainer topbar={<Topbar dictionarySlug={params.slug} />} withMobileTopbar>
           <WhiteBoard className={styles.whiteBoard}>
+            {trainingName === BEFORE_TRAININGS && (
+              <BeforeLearnCard
+                key={curWordIndex}
+                word={learnedWords.get(curWordIndex)}
+                onNext={this.handleNextClick}
+              />
+            )}
             {[TRAINING_WORD_TRANSLATION, TRAINING_TRANSLATION_WORD].includes(trainingName) && (
               <ChooseOptionCard
                 key={curWordIndex}

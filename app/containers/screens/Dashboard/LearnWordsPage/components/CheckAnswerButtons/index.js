@@ -9,8 +9,8 @@ import styles from './index.css';
 export default function CheckAnswerButtons({nextBtnProps, skipBtnProps}) {
   return (
     <div className={styles.checkAnswerButtonsContainer}>
-      <Button {...nextBtnProps} className={styles.nextButton} />
-      <Button {...skipBtnProps} className={styles.skipButton} />
+      {nextBtnProps && <Button {...nextBtnProps} className={styles.nextButton} />}
+      {skipBtnProps && <Button {...skipBtnProps} className={styles.skipButton} />}
     </div>
   );
 }

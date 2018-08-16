@@ -25,6 +25,9 @@
     display: inline;
   }
 }
+.right {
+  float: right;
+}
 
 @keyframes anim-moema-1 {
   60% {
