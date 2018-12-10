@@ -10,7 +10,10 @@ import styles from './index.css';
 export default function WordItem({data, checked, style, learnedLabelText, onCheck}) {
   const handleChange = (event, {checked: isChecked}) => onCheck(data.id, isChecked);
   return (
-    <div className={cn(styles.row, {[styles.learned]: data.isLearned})} style={style}>
+    <div
+      className={cn(styles.row, {[styles.learned]: data.isLearned, [styles.checked]: checked})}
+      style={style}
+    >
       <div className={styles.checkbox}>
         <Checkbox checked={checked} onChange={handleChange} />
       </div>

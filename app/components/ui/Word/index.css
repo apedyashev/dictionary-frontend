@@ -21,6 +21,9 @@ $height: 30px;
   &.learned {
     border-left-color: $secondary-color;
   }
+  &.checked {
+    background-color: #f2f2f2;
+  }
 }
 
 .text {
