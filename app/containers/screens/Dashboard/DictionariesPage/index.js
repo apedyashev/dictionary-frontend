@@ -106,6 +106,11 @@ export class DictionariesPage extends React.PureComponent {
     this.props.sendWordsForLearning(selectedWordIds);
   };
 
+  handleAllWordsUncheck = () => {
+    console.log('uncheck');
+    this.setState({selectedWordIds: []});
+  };
+
   render() {
     const {
       showDictionariesList,
@@ -135,6 +140,7 @@ export class DictionariesPage extends React.PureComponent {
               onSearchChange={this.handleSearchChange}
               onWordsDeleteClick={this.handleWordsDeleteClick}
               onLearnClick={this.handleLearnClick}
+              onAllWordsUncheck={this.handleAllWordsUncheck}
             />
           }
         >

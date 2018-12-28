@@ -1,9 +1,15 @@
-.wordsCount {
+$uncheck-container-height: 54px;
+.uncheckAllContainer {
   display: block !important;
   width: 70px;
-  text-align: center;
-  line-height: 54px !important;
+  /* text-align: center; */
+  line-height: $uncheck-container-height !important;
   padding: 0 !important;
+  .row {
+    line-height: calc($uncheck-container-height / 2) !important;
+    height: calc($uncheck-container-height / 2);
+    padding-left: 17px;
+  }
 }
 .buttonsContainer {
   flex-grow: 1 !important;

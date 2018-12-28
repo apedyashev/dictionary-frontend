@@ -3,7 +3,7 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 // components
 import {FormattedMessage} from 'react-intl';
-import {ConfirmableButton} from 'components/ui';
+import {Checkbox, ConfirmableButton} from 'components/ui';
 import {Button, Menu, Popup} from 'semantic-ui-react';
 import WordSetSelector from '../../WordSetSelector/WithAddForm';
 // other
@@ -16,10 +16,16 @@ export default function SelectedWordsToolbar({
   selectedWordsCount,
   onWordSetChange,
   onWordsDeleteClick,
+  onAllWordsUncheck,
 }) {
   return (
     <React.Fragment>
-      <Menu.Item className={styles.wordsCount}>{selectedWordsCount}</Menu.Item>
+      <Menu.Item className={styles.uncheckAllContainer}>
+        <div className={styles.row}>{selectedWordsCount}</div>
+        <div className={styles.row}>
+          <Checkbox checked={selectedWordsCount > 0} onChange={onAllWordsUncheck} />
+        </div>
+      </Menu.Item>
       <Menu.Item className={styles.buttonsContainer}>
         <WordSetSelector
           allowAddNew
@@ -54,4 +60,5 @@ SelectedWordsToolbar.propTypes = {
   selectedWordsCount: PropTypes.number.isRequired,
   onWordSetChange: PropTypes.func.isRequired,
   onWordsDeleteClick: PropTypes.func.isRequired,
+  onAllWordsUncheck: PropTypes.func.isRequired,
 };

@@ -21,6 +21,7 @@ function DashboardTopbar({
   showDictionaries,
   selectedWordSetId,
   selectedWordIds,
+  onAllWordsUncheck,
   onShowDictsToggle,
   onWordSetChange,
   onSearchChange,
@@ -39,6 +40,7 @@ function DashboardTopbar({
             selectedWordsCount={selectedWordsCount}
             onWordSetChange={onWordSetChange}
             onWordsDeleteClick={onWordsDeleteClick}
+            onAllWordsUncheck={onAllWordsUncheck}
           />
         ) : (
           <React.Fragment>
@@ -143,6 +145,7 @@ DashboardTopbar.propTypes = {
   onSearchChange: PropTypes.func.isRequired,
   onWordsDeleteClick: PropTypes.func.isRequired,
   onLearnClick: PropTypes.func.isRequired,
+  onAllWordsUncheck: PropTypes.func.isRequired,
   // react-intl
   intl: intlShape.isRequired,
 };
