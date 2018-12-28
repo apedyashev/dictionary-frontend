@@ -4,6 +4,7 @@ import {Helmet} from 'react-helmet';
 import {FormattedMessage} from 'react-intl';
 import {connect} from 'react-redux';
 import _without from 'lodash/without';
+import _shuffle from 'lodash/shuffle';
 import {push} from 'react-router-redux';
 import {createStructuredSelector} from 'reselect';
 // actions
@@ -103,7 +104,7 @@ export class DictionariesPage extends React.PureComponent {
     console.log('send words to learning', selectedWordIds.length, this.props.match.params);
     const {slug} = this.props.match.params;
     this.props.dispatch(push(`/learn-words/${slug}`));
-    this.props.sendWordsForLearning(selectedWordIds);
+    this.props.sendWordsForLearning(_shuffle(selectedWordIds));
   };
 
   handleAllWordsUncheck = () => {

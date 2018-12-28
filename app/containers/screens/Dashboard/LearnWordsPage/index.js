@@ -5,6 +5,7 @@ import _isEqual from 'lodash/isEqual';
 import _values from 'lodash/values';
 import _each from 'lodash/each';
 import _every from 'lodash/every';
+import _shuffle from 'lodash/shuffle';
 // import {FormattedMessage} from 'react-intl';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
@@ -163,7 +164,7 @@ export class LearnWordsPage extends React.PureComponent {
           );
         }
       }).then(({response: {result}}) => {
-        this.props.sendWordsForLearning(result.items);
+        this.props.sendWordsForLearning(_shuffle(result.items));
       });
     }
   };
@@ -184,6 +185,10 @@ export class LearnWordsPage extends React.PureComponent {
     } else {
       // all the words were learned
       if (curTrainingIndex + 1 < trainings.length) {
+        const wordIds = this.props.learnedWords.toJS().map((word) => word.id);
+        console.log('wordIds', wordIds);
+        this.props.sendWordsForLearning(_shuffle(wordIds));
+
         console.log('trainings', curTrainingIndex + 1, trainings);
         // go to the next training
         this.setState({
