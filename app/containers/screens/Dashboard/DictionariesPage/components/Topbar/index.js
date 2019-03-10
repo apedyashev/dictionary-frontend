@@ -3,10 +3,11 @@ import React from 'react';
 import {PropTypes} from 'prop-types';
 import cn from 'classnames';
 // components
+import {Link} from 'react-router-dom';
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl';
 import {Menu, Button, Responsive} from 'semantic-ui-react';
 import SidebarOpenerIcon from 'containers/SidebarOpenerIcon';
-import {Topbar, TopbarButton, TopbarTitle, Icon} from 'components/ui';
+import {Dropdown, Topbar, TopbarButton, TopbarTitle, Icon} from 'components/ui';
 import SelectedWordsToolbar from './SelectedWordsToolbar';
 import WordsSearchBar from '../WordsSearchBar';
 import WordSetSelector from '../WordSetSelector';
@@ -30,6 +31,11 @@ function DashboardTopbar({
   intl: {formatMessage},
 }) {
   const selectedWordsCount = (selectedWordIds && selectedWordIds.length) || 0;
+  // create component for that
+  const trainingOptions = [
+    {key: 0, text: 'Trainings', value: '0'},
+    {key: 1, text: <Link to="/train/writing">Writing</Link>, value: '1'},
+  ];
   return (
     <Topbar className={styles.root}>
       <Menu.Menu position="left">
@@ -113,22 +119,27 @@ function DashboardTopbar({
           </TopbarButton>
         </Responsive>
         {selectedDictionaryId && (
-          <Menu.Item as={Responsive} minWidth={568}>
-            <Button
-              positive
-              content={
-                selectedWordsCount ? (
-                  <FormattedMessage
-                    {...messages.learnSelectedBtnLabel}
-                    values={{selectedWordsCount}}
-                  />
-                ) : (
-                  <FormattedMessage {...messages.learnBtnLabel} />
-                )
-              }
-              onClick={onLearnClick}
-            />
-          </Menu.Item>
+          <React.Fragment>
+            <Menu.Item as={Responsive} minWidth={568}>
+              <Dropdown value="0" options={trainingOptions} />
+            </Menu.Item>
+            <Menu.Item as={Responsive} minWidth={568}>
+              <Button
+                positive
+                content={
+                  selectedWordsCount ? (
+                    <FormattedMessage
+                      {...messages.learnSelectedBtnLabel}
+                      values={{selectedWordsCount}}
+                    />
+                  ) : (
+                    <FormattedMessage {...messages.learnBtnLabel} />
+                  )
+                }
+                onClick={onLearnClick}
+              />
+            </Menu.Item>
+          </React.Fragment>
         )}
       </Menu.Menu>
     </Topbar>
