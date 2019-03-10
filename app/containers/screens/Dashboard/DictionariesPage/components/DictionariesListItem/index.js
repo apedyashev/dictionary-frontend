@@ -15,8 +15,14 @@ export default function DictionariesListItem({item}) {
       exact
     >
       <Popup
-        trigger={<Label>{item.stats.get('wordsCount')}</Label>}
-        content={`${item.stats.get('wordsCount')} words`}
+        trigger={
+          <Label>
+            {item.stats.get('learnedWordsCount')}/{item.stats.get('wordsCount')}
+          </Label>
+        }
+        content={`Learned ${item.stats.get('learnedWordsCount')} out of ${item.stats.get(
+          'wordsCount'
+        )} words`}
       />
       {item.title}
     </Menu.Item>
